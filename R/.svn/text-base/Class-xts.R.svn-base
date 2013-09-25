@@ -1,2 +1,0 @@
-setOldClass("xts")
-setOldClass("zoo")
