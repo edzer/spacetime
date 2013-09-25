@@ -1,0 +1,6 @@
+edc			spacetime demo script for EDC workshop, Mar 17-18 2011
+sos4R		demo that builds onto a sos4R demo
+CW			demo doing some examples from the Cressie & Wikle book (ch 3)
+CressieWikle	demo that reads the data from the Cressie & Wikle book.
+gvis		some googleVis graphs using spacetime data
+trip		trip demo, taken from spacetime vignette

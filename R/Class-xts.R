@@ -1,0 +1,2 @@
+setOldClass("xts")
+setOldClass("zoo")

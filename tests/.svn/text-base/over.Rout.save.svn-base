@@ -1,0 +1,434 @@
+
+R version 3.0.1 (2013-05-16) -- "Good Sport"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> require(sp)
+Loading required package: sp
+> require(spacetime)
+Loading required package: spacetime
+> options(xts_check_TZ=FALSE)
+> 
+> # go through time matching first:
+> x = as.POSIXct("2000-01-01", tz="GMT") + (0:9) * 3600
+> y = x + 1
+> y[1] = y[2]
+> format(x, tz="GMT")
+ [1] "2000-01-01 00:00:00" "2000-01-01 01:00:00" "2000-01-01 02:00:00"
+ [4] "2000-01-01 03:00:00" "2000-01-01 04:00:00" "2000-01-01 05:00:00"
+ [7] "2000-01-01 06:00:00" "2000-01-01 07:00:00" "2000-01-01 08:00:00"
+[10] "2000-01-01 09:00:00"
+> format(y, tz="GMT")
+ [1] "2000-01-01 01:00:01" "2000-01-01 01:00:01" "2000-01-01 02:00:01"
+ [4] "2000-01-01 03:00:01" "2000-01-01 04:00:01" "2000-01-01 05:00:01"
+ [7] "2000-01-01 06:00:01" "2000-01-01 07:00:01" "2000-01-01 08:00:01"
+[10] "2000-01-01 09:00:01"
+> end.x = delta(x)
+> end.y = delta(y)
+> timeMatch(y, y)
+ [1]  1  1  3  4  5  6  7  8  9 10
+> timeMatch(y, y, end.x = end.y, end.y = end.y)
+ [1] NA  2  3  4  5  6  7  8  9 10
+Warning messages:
+1: Some empty 'to' intervals encountered. Setting to NA... 
+2: Some empty 'from' intervals encountered. Setting to NA... 
+> 
+> timeMatch(x, y)
+ [1] NA NA NA NA NA NA NA NA NA NA
+> timeMatch(x, y, end.y = end.y)
+ [1] NA NA  2  3  4  5  6  7  8  9
+Warning message:
+Some empty 'to' intervals encountered. Setting to NA... 
+> timeMatch(x, y, end.x = end.x)
+ [1] NA  1  3  4  5  6  7  8  9 10
+> timeMatch(x, y, end.x = end.x, end.y = end.y)
+ [1] NA  2  2  3  4  5  6  7  8  9
+Warning message:
+Some empty 'to' intervals encountered. Setting to NA... 
+> 
+> timeMatch(x, y, returnList = TRUE)
+[[1]]
+integer(0)
+
+[[2]]
+integer(0)
+
+[[3]]
+integer(0)
+
+[[4]]
+integer(0)
+
+[[5]]
+integer(0)
+
+[[6]]
+integer(0)
+
+[[7]]
+integer(0)
+
+[[8]]
+integer(0)
+
+[[9]]
+integer(0)
+
+[[10]]
+integer(0)
+
+> timeMatch(x, y, returnList = TRUE, end.y = end.y)
+[[1]]
+integer(0)
+
+[[2]]
+integer(0)
+
+[[3]]
+[1] 2
+
+[[4]]
+[1] 3
+
+[[5]]
+[1] 4
+
+[[6]]
+[1] 5
+
+[[7]]
+[1] 6
+
+[[8]]
+[1] 7
+
+[[9]]
+[1] 8
+
+[[10]]
+[1] 9
+
+Warning message:
+Some empty 'to' intervals encountered. Setting to NA... 
+> timeMatch(x, y, returnList = TRUE, end.x = end.x)
+[[1]]
+integer(0)
+
+[[2]]
+[1] 1 2
+
+[[3]]
+[1] 3
+
+[[4]]
+[1] 4
+
+[[5]]
+[1] 5
+
+[[6]]
+[1] 6
+
+[[7]]
+[1] 7
+
+[[8]]
+[1] 8
+
+[[9]]
+[1] 9
+
+[[10]]
+[1] 10
+
+> timeMatch(x, y, returnList = TRUE, end.x = end.x, end.y = end.y)
+[[1]]
+integer(0)
+
+[[2]]
+[1] 2
+
+[[3]]
+[1] 2 3
+
+[[4]]
+[1] 3 4
+
+[[5]]
+[1] 4 5
+
+[[6]]
+[1] 5 6
+
+[[7]]
+[1] 6 7
+
+[[8]]
+[1] 7 8
+
+[[9]]
+[1] 8 9
+
+[[10]]
+[1]  9 10
+
+Warning message:
+Some empty 'to' intervals encountered. Setting to NA... 
+> 
+> end.x = delta(x)
+> y = x + 1 # don't replicate the first
+> end.y = delta(y)
+> 
+> a = timeMatch(x, y, end.x = end.x, end.y = end.y)
+> library(intervals)
+> b = timeMatch(x, y, end.x = end.x, end.y = end.y)
+> detach()
+> all.equal(a, b)
+[1] TRUE
+> 
+> a = timeMatch(x, y, end.y = end.y)
+> library(intervals)
+> b = timeMatch(x, y, end.y = end.y)
+> detach()
+> all.equal(a, b)
+[1] TRUE
+> 
+> a = timeMatch(x, y, end.x = end.x)
+> library(intervals)
+> b = timeMatch(x, y, end.x = end.x)
+> detach()
+> all.equal(a, b)
+[1] TRUE
+> 
+> # with end points:
+> 
+> # next, try ST?DF objects:
+> t = as.POSIXct("2010-05-01", tz="GMT")+3600*1:10
+> xy = SpatialPixels(SpatialPoints(expand.grid(1:10,1:10)))
+> y = STFDF(xy, t, data.frame(a = 1:1000))
+> stplot(y)
+> x = y
+> all(over(x, y) == 1:1000)
+[1] TRUE
+> 
+> t0 = c(t[1]-1,t[c(2,4,10)]) # c() drops TZ?
+> attr(t0, "tzone") = attr(t, "tzone")
+> x = c(4,5,6,8)
+> xy = SpatialPixels(SpatialPoints(expand.grid(x,rep(1,4))))
+Warning messages:
+1: In points2grid(points, tolerance, round) :
+  grid has empty column/rows in dimension 1
+2: In points2grid(points, tolerance, round) :
+  cell size from constant coordinate 2 possibly taken from other coordinate
+> x = STFDF(xy, t0, data.frame(a = 1:64))
+> over(x, y)
+     a
+1    4
+2    5
+3    6
+4    8
+5    4
+6    5
+7    6
+8    8
+9    4
+10   5
+11   6
+12   8
+13   4
+14   5
+15   6
+16   8
+17 104
+18 105
+19 106
+20 108
+21 104
+22 105
+23 106
+24 108
+25 104
+26 105
+27 106
+28 108
+29 104
+30 105
+31 106
+32 108
+33 304
+34 305
+35 306
+36 308
+37 304
+38 305
+39 306
+40 308
+41 304
+42 305
+43 306
+44 308
+45 304
+46 305
+47 306
+48 308
+49 904
+50 905
+51 906
+52 908
+53 904
+54 905
+55 906
+56 908
+57 904
+58 905
+59 906
+60 908
+61 904
+62 905
+63 906
+64 908
+> 
+> x = as(x, "STSDF")
+> over(x, y)
+     a
+1    4
+2    5
+3    6
+4    8
+5    4
+6    5
+7    6
+8    8
+9    4
+10   5
+11   6
+12   8
+13   4
+14   5
+15   6
+16   8
+17 104
+18 105
+19 106
+20 108
+21 104
+22 105
+23 106
+24 108
+25 104
+26 105
+27 106
+28 108
+29 104
+30 105
+31 106
+32 108
+33 304
+34 305
+35 306
+36 308
+37 304
+38 305
+39 306
+40 308
+41 304
+42 305
+43 306
+44 308
+45 304
+46 305
+47 306
+48 308
+49 904
+50 905
+51 906
+52 908
+53 904
+54 905
+55 906
+56 908
+57 904
+58 905
+59 906
+60 908
+61 904
+62 905
+63 906
+64 908
+> 
+> xy = SpatialPoints(cbind(c(1,3,5,10),c(5, 3, 8, 2)))
+> x = STIDF(xy, t0, data.frame(a = 1:4))
+> over(x,y)
+    a
+1  NA
+2 123
+3 375
+4 920
+> 
+> t1 = c(t[1]-1,t[c(2,2,10)])
+> attr(t1, "tzone") = attr(t, "tzone")
+> x1 = STIDF(xy[c(1,2,2,4)], t1, data.frame(a = 1:4))
+> 
+> over(x1, x)
+  a
+1 1
+2 2
+3 2
+4 4
+> over(x, x1)
+   a
+1  1
+2  2
+3 NA
+4  4
+> over(x1, x, returnList = TRUE)
+[[1]]
+  a
+1 1
+
+[[2]]
+  a
+2 2
+
+[[3]]
+  a
+2 2
+
+[[4]]
+  a
+4 4
+
+> over(x, x1, returnList = TRUE)
+[[1]]
+  a
+1 1
+
+[[2]]
+  a
+2 2
+4 4
+
+[[3]]
+[1] a
+<0 rows> (or 0-length row.names)
+
+[[4]]
+  a
+4 4
+
+> 
+> proc.time()
+   user  system elapsed 
+  1.604   0.068   1.670 

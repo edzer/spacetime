@@ -1,0 +1,754 @@
+@article{sos,
+	author = {Na, A. and Priest, M.},
+	year = {2007},
+	title = {Sensor {O}bservation {S}ervice},
+	journal = {OGC Document 06-009r6},
+	url = {http://portal.opengeospatial.org/files/?artifact_id=26667},
+	note = {accessed May 20, 2010}
+}
+@article{sids,
+	author = {Symons, M. J. and Grimson, R. C. and Yuan, Y. C.},
+	year = {1983},
+	title = {Clustering of Rare Events},
+	journal = { Biometrics}, 
+	volume = {39 (1)},
+	pages = {193-205}
+}
+@article{cressiechan,
+	author = { Cressie, N. and Chan, N.H. },
+	year = {1989},
+	title = { Spatial Modeling of Regional Variables },
+	journal = { Journal of the American Statistical Association},
+	volume = {84 (406) },
+	pages = { 393-401}
+}
+@article{sfs,
+	author = {Herring, J.R.},
+	year = {2011},
+	title = {OpenGIS Implementation Standard for Geographic
+	information - Simple feature access - Part 1: Common
+	architecture },
+	journal = { OGC Document 06-103r4 },
+	url = {http://www.opengeospatial.org/standards/sfa},
+	note = {accessed Mar 3, 2012}
+}
+@article{hov,
+	author = { Hovm\"{o}ller, E.},
+	year = {1949},
+	title = {The Trough-and-Ridge Diagram},
+	journal = {Tellus},
+	volume = {1 (2)},
+	pages = {62-66}
+}
+@article{om,
+	author = {Cox, S.},
+	year = {2007},
+	title = {Observations and {M}easurements -- Part 1 - Observation schema},
+	journal = { OGC Document 07-022r1 },
+	url = {http://portal.opengeospatial.org/files/?artifact_id=22466},
+	note = {accessed May 20, 2010}
+}
+@article{grid1,
+	author = { Woolf, A and Shaon, A },
+	year = {2009},
+	title = {An Approach to Encapsulation of Grid Processing within an {OGC} Web Processing Service}, 
+	journal = { GIS.SCIENCE},
+	volume = {3},
+	pages = {82-88},
+	url = {http://portal.opengeospatial.org/files/?artifact_id=35975},
+	note = {accessed May 20, 2010}
+}
+
+@article{grid2,
+	author = { B. Baranski},
+	year = {2009},
+	title = {{OGC} {O}{W}{S}-6 {W}{P}{S} Grid Processing Profile Engineering Report}, 
+	journal = {{OGC} Document 09-041r3},
+	url = {http://portal.opengeospatial.org/files/?artifact_id=34977},
+	note = {accessed May 20, 2010}
+}
+
+@article{inspire,
+	author = { EUR },
+	title = { Directive 2007/2/EC of the {E}uropean Parliament and of the Council of 14 March 2007 establishing an Infrastructure for Spatial Information in the {E}uropean Community (INSPIRE)},
+	journal = {    Official Journal Of The {E}uropean Union },
+	volume = {L 108/1 EN},
+	year = { 2007 }
+}
+
+@article{ogc,
+	author = {{OGC}},
+	year = { 2010 },
+	title = { The Open Geospatial Consortium },
+	url = {http://www.opengeospatial.org/}
+}
+
+@article{wps,
+	author = {Schut, P.},
+	year = {2007},
+	title = {OpenGIS {W}eb {P}rocessing {S}ervice},
+	journal = { OGC Document 05-007r7},
+	url = {http://portal.opengeospatial.org/files/?artifact_id=24151},
+	note = {accessed May 20, 2010}
+}
+
+@article{soap,
+	author = {W3C},
+	year = {2007},
+	title = {SOAP Version 1.2 Part 1: Messaging Framework (Second Edition)},
+	journal = {http://www.w3.org/TR/soap12-part1/}
+}
+
+@article{schuur,
+    author = {Schuurmans, J M and Bierkens, M F P and Pebesma, E J and Uijlenhoet, R},
+    citeulike-article-id = {3505272},
+    citeulike-linkout-0 = {http://dx.doi.org/10.1175/2007JHM792.1},
+    doi = {10.1175/2007JHM792.1},
+    journal = {Journal Of Hydrometeorology},
+    keywords = {a},
+    number = {6},
+    pages = {1204--1224},
+    posted-at = {2008-11-12 08:06:44},
+    priority = {0},
+    title = {Automatic Prediction of High-Resolution Daily Rainfall Fields for Multiple Extents: The Potential of Operational Radar},
+    volume = {8},
+    year = {2007}
+}
+@article{katha,
+  title = {O{GC} Web Services for Near Real-Time Air Quality Modeling at a {E}uropean Scale},
+  author = {Katharina Henneb\"{o}hl and Lydia E. Gerharz and Edzer J. Pebesma},
+  journal = {Computers \& Geosciences},
+  volume = {this issue},
+  year = {2010}
+}
+
+@article{hengl04,
+  title = {A Generic Framework for Spatial Prediction of Soil Variables based on Regression-Kriging},
+  author = {T. Hengl and G.B.M. Heuvelink and A. Stein},
+  journal = {Geoderma},
+  volume = {120},
+  number = {1-2},
+  pages = {75-93 },
+  year = {2004}
+}
+
+@article{skoien09,
+  title = { Identifying and Removing Heterogeneities between Monitoring Networks },
+  author = { J.O. Sk{\o}ien and O. Baume and E. J. Pebesma and G.B.M. Heuvelink },
+  journal = {Environmetrics },
+  volume = {21},
+  number = {1},
+  pages = {66-84},
+  year = {2010}
+}
+
+
+@article{beelen,
+    author = {Beelen, R. and Hoek, G. and Pebesma, E. and Vienneau, D. and Dehoogh, K. and Briggs, D.},
+    citeulike-article-id = {3938830},
+    citeulike-linkout-0 = {http://dx.doi.org/10.1016/j.scitotenv.2008.11.048},
+    citeulike-linkout-1 = {http://linkinghub.elsevier.com/retrieve/pii/S0048969708011856},
+    doi = {10.1016/j.scitotenv.2008.11.048},
+    issn = {00489697},
+    journal = {Science Of The Total Environment},
+    keywords = {a},
+    month = {January},
+    posted-at = {2009-01-25 19:44:04},
+    priority = {2},
+    title = {Mapping of Background Air Pollution at a Fine Spatial Scale across the European Union},
+    url = {http://dx.doi.org/10.1016/j.scitotenv.2008.11.048},
+    year = {2009}
+}
+
+@article{aguila,
+    author = {Pebesma, E J and de Jong, K and Briggs, D},
+    citeulike-article-id = {3505280},
+    citeulike-linkout-0 = {http://dx.doi.org/10.1080/13658810601064009},
+    doi = {10.1080/13658810601064009},
+    journal = {International Journal Of Geographical Information Science},
+    keywords = {a},
+    number = {5},
+    pages = {515--527},
+    posted-at = {2008-11-12 08:13:35},
+    priority = {2},
+    publisher = {Taylor \& Francis},
+    title = {Interactive Visualization of Uncertain Spatial and Spatio-Temporal Data under Different Scenarios: an Air Quality Example},
+    volume = {21},
+    year = {2007}
+}
+
+@techreport{hristopoulos09,
+  author = { Hristopulos, D T  and Chorti, E and Petrakis, M and Spiliopoulos, G},
+  year = {2008},
+  title = {Bayesian Spatial Analysis and Anisotropies},
+  institution = { INTAMAP project deliverable 2.2 },
+  url = { http://www.intamap.org/documents/D2_2_Anisotropy.pdf },
+  note = {accessed May 20, 2010}
+}
+
+@ARTICLE{dth02,
+ AUTHOR =       {Hristopulos, D T},
+ TITLE =        {New anisotropic covariance models and estimation of anisotropic
+ parameters based on the covariance tensor identity},
+ JOURNAL =      {Stochastic Environmental Research and Risk Assessment},
+ YEAR =         {2002},
+ volume =       {16},
+ number =       {1},
+ pages =        {43-62},
+}
+
+@ARTICLE{Swerling62,
+ AUTHOR =       {P. Swerling},
+ TITLE =        {Statistical properties of the contours of random surfaces},
+ JOURNAL =      {IRE Transactions on Information Theory},
+ YEAR =         {1962},
+ pages =        {315-321},
+}
+
+@article{pebesma05,
+  title = { Mapping Radioactivity from Monitoring Data, Automating the Classical Geostatistical Approach},
+  author = { Pebesma, E J }, 
+  year = {2005},
+  journal = {Applied GIS},
+  volume = {1},
+  number = {2},
+  pages = {1-10},
+  url = {http://dx.doi.org/10.2104/ag050011 },
+  note = {accessed May 20, 2010}
+}
+
+@article{hiemstra08,
+    title = {Real-time Automatic Interpolation of Ambient Gamma Dose Rates from the Dutch Radioactivity Monitoring Network},
+    author = {Hiemstra, P H  and Pebesma, E J and Twenh\"{o}fel, C J W and  Heuvelink, G B M},
+    journal = {Computers \& Geosciences},
+    year = {2009},
+	volume = {35},
+	number = {8},
+	pages = {1711-1721},
+}
+
+@article{pebesma04,
+    title = {Multivariable Geostatistics in {S}: the gstat Package},
+    author = {Pebesma, E J},
+    journal = {Computers \& Geosciences},
+    year = {2004},
+    volume = {30},
+	number = {7},
+    pages = {683-691},
+}
+
+@article{pebesma98,
+author = {Pebesma, E J and Wesseling, C G},
+title = {Gstat, a Program for Geostatistical Modelling, Prediction and Simulation},
+journal = {Computers \& Geosciences},
+year = {1998},
+volume = {24},
+number = {1},
+pages = {17--31},
+}
+
+@book{goovaerts97,
+author = {P. Goovaerts},
+title = {Geostatistics for Natural Resources Evaluation},
+publisher = {Oxford University Press},
+year = {1997}
+}
+
+@book{rhg,
+author = {G\"{u}ting, R H and Schneider, M},
+title = { Moving Objects Databases },
+publisher = { Morgan Kaufmann },
+year = {2005}
+}
+
+@article{chorti08,
+author = {A. Chorti and D.T. Hristopulos},
+year = { 2008 },
+title = { Non-Parametric Identification of
+Anisotropic (Elliptic) Correlations in Spatially Distributed Data Sets},
+journal = {IEEE Transactions On Signal Processing}, 
+volume = {56},
+number = {10},
+pages = {4738-4751}
+}
+
+@book{cressie93,
+	author = {N. Cressie},
+    title = {Statistics For Spatial Data, Revised Edition},
+    publisher = {John Wiley \& Sons},
+	address = {New York},
+    year = {1993},
+	pages = {928}
+}
+
+
+@book{dubois05,
+	author = {EUR}, 
+	title = { Automatic Mapping Algorithms for Routine and Emergency Monitoring Data; Report on the Spatial Interpolation Comparison (SIC2004) Exercise},
+	publisher = {Dubois G. (Ed), European Commission, Office for Official Publications, Luxembourg, EUR 21595, EN.},
+	pages = {150},
+	year = {2005}
+}
+
+@inproceedings{gomez93,
+	author = {J.J. G\'{o}mez-Hern\'{a}ndez and A. G. Journel},
+	title = {Joint Sequential Simulation of Multigaussian Fields},
+	booktitle = {Geostatistics Troia '92, I.},
+	editor = {A. Soares},
+	pages = {85-94},
+	year = {1993}
+}
+
+@inproceedings{ingram08,
+		author = {Ingram, B R and Cornford, D and Csat\'o, L}, 
+		year = {2008},
+	   title = {A Projected Process Kriging Algorithm for Sensor Networks with Heterogeneous Error Characteristics},
+	  booktitle = { Proceedings Geostats 2008 - 8th  International Geostatistics Congress, Santiago, Chile  },
+	editor = { J. Ortiz  and X. Emery},
+pages = {1180-1188}
+}
+
+@book{muller07,
+		author = {W.G. Müller},
+		year = { 2007},
+		title = {Collecting Spatial Data: Optimum Design of Experiments for Random Fields},
+		address = {New York},
+		publisher = { Springer-Verlag}
+}
+
+@article{pebesma06,
+		author = {Pebesma, E J},
+	   year = {	2006},
+	  title = { The Role of External Variables and {GIS} Databases in Geostatistical Analysis},
+	  journal = { Transactions In GIS},
+	 volume = {10},
+	number = { 4},
+		pages = {615-632}
+}
+
+@inproceedings{pilz08,
+		author = {J. Pilz and H. Kazianka and Spöck G.},
+		year ={2008},
+		title = {Interoperability - Spatial Interpolation and Automated Mapping},
+		booktitle = {Proc. 4th Int. Conference on Information and Communication Technologies in Bio and Earth Sciences HAICTA 2008},
+	   editor = {T. Tsiligiridis}, 
+	   publisher = {Agricultural University of Athens},
+	   pages = {110-118}
+}
+
+@article{skoien08,
+		author = {Skøien, J O and Blöschl, G and Pebesma E J},
+	   year = {2008},
+	  title = { Geostatistics for Automatic Estimation of Environmental Variables - Some Simple Solutions},
+	  journal ={ Georisk},
+	 volume={ published online}
+}
+
+@article{urbanek09,
+		author= {S. Urbanek},
+	   year = {2009},
+	   title = {Rserve: Binary {R} server, {R} Package Version 0.4-7. Program manual. },
+	   url = { http://www.rosuda.org/Rserve/ },
+	   note = {accessed May 20, 2010}
+}
+
+@article{williams09,
+		author={Williams, M and Cornford, D and Bastin, L and Pebesma, E J},
+		title ={Uncertainty {M}arkup {L}anguage ({U}ncert{ML})},
+		year={2009},
+		journal={OGC Discussion Paper, Document Number: 08-122r1},
+		url={http://portal.opengeospatial.org/files/?artifact_id=33234},
+		note = {accessed May 20, 2010}
+}
+
+@inproceedings{williams08,
+	author = {M. Williams and D. Cornford and L. Bastin and B. Ingram},
+	year = {2008},
+	title = {{U}ncert{ML}: an {XML} Schema for Exchanging Uncertainty},
+	booktitle = {Proceedings of the GISRUK 2008},
+	pages = {275-279}
+}
+
+@inproceedings{williams07,
+	author = {M. Williams and D. Cornford and, B. Ingram and L. Bastin and T. Beaumont and E. Pebesma and G. Dubois},
+	year = {2007},
+	title = {Supporting Interoperable Interpolation: the INTAMAP Approach},
+	booktitle = {International Symposium on Environmental Software Systems (ISESS 2007), Prague, Czech Republic, 22-25 May 2007.}
+}
+
+@book{diggle07,
+        author = {P. Diggle and P.J Ribeiro},
+        year = {2007},
+        title = {Model-based Geostatistics},
+		address = {New York},
+        publisher = { Springer-Verlag},
+		pages = {230}
+}
+
+@article{kp09c,
+	author =       {H. Kazianka and J. Pilz},
+	title =        {Bayesian Spatial Modeling and Interpolation Using Copulas},
+	journal =      {Computers \& Geosciences, this volume},
+	year =         {2010}
+}
+
+@inproceedings{kazianka09,
+		author = {H. Kazianka and J. Pilz},
+		year = {2010}, 
+		title = { Spatial Interpolation Using Copula-Based Geostatistical Models},
+		booktitle = {GeoENV VII - Geostatistics for Environmental Applications}, 
+		editor = {P. Atkinson},
+		pages = {401-408}
+}
+
+@article{kazianka09a,
+	author = {H. Kazianka and J. Pilz },
+	year = { in press },
+	title = { Copula-based Geostatistical Modeling of Continuous and Discrete Data including Covariates. },
+	journal = { Stochastic Environmental Research And Risk Assessment },
+	volume = {},
+	number = {},
+	pages = {doi:10.1007/s00477-009-0353-8},
+	doi = { doi: 10.1007/s00477-009-0353-8 }
+}
+
+@article{Boersma2004JGR,
+  title={{Error analysis for Tropospheric NO2 Retrieval from Space}},
+  author={Boersma, K F and Eskes, H J and Brinksma, E J},
+  journal={Journal Of Geophysical Research},
+  volume={109},
+  pages={D04311. doi:10.1029/2003JD003962 },
+  year={2004},
+  doi={ doi:10.1029/2003JD003962 }
+}
+
+@Article{CsatoOpperNC02,
+  author =	 {Csat\'o, L. and Opper, M.},
+  title =	 {Sparse Online {G}aussian Processes},
+  journal =	 {Neural Computation},
+  year =	 {2002},
+  volume =	 {14},
+  OPTnumber =	 {3},
+  pages =	 {641--669}
+}
+
+@Book{Rasmussen2006,
+	title = "Gaussian Processes for Machine Learning",
+	author = "C. E. Rasmussen and C. K. I. Williams",
+	publisher = "The MIT Press",
+	year = "2006",
+	pages = {266}
+}
+
+@Article{Cornford:GA2005,
+  author = 	 {Cornford, D and Csat\'o, L and Opper, M},
+  title = 	 {Sequential, {B}ayesian {G}eostatistics: {A} Principled Method for Large Data Sets},
+  journal = 	 {Geographical Analysis},
+  year = 	 {2005},
+  volume = 	 {37},
+  OPTnumber = 	 {2},
+  pages = 	 {183--199}
+}
+
+@Article{Ingram:SERRA2008,
+  author = 	 {Ingram, B R and Cornford, D and Evans, D J},
+  title = 	 {Fast Algorithms for Automatic Mapping with Space-limited Covariance Functions},
+  journal = 	 {Stochastic Environmental Research And Risk Assessment},
+  year = 	 {2008},
+  volume = 	 {22},
+  OPTnumber = 	 {},
+  pages = 	 {661--670}
+}
+
+@article{cressie2008frk,
+  title={{Fixed Rank Kriging for Very Large Spatial Data Sets}},
+  author={Cressie, N. and Johannesson, G.},
+  journal={Journal Of The Royal Statistical Society: Series B (Statistical Methodology)},
+  volume={70},
+  OPTnumber={1},
+  pages={209--226},
+  year={2008}
+}
+@book{asdar,
+    address = {New York},
+    author = {Bivand, Roger S. and Pebesma, Edzer J. and G\'{o}mez-Rubio, Virgilio},
+    publisher = {Springer-Verlag},
+    series = {Use R},
+    title = {Applied Spatial Data Analysis With R},
+    year = {2008},
+	pages = {378}
+}
+@article{calenge,
+  title={ The Concept of Animals' Trajectories from a Data Analysis Perspective },
+  author={ Calenge, C. and Dray, S. and Royer-Carenzi, M. },
+  journal={Ecological informatics },
+  volume={4},
+  pages={34-41},
+  year={2008}
+}
+@book{baltagi,
+    address = {New York},
+    author = {Baltagi, B.},
+    publisher = {John Wiley \& Sons},
+    title = {Econometric Analysis of Panel Data, 3rd edition},
+    year = {2001},
+	url = { http://www.wiley.com/legacy/wileychi/baltagi/ }
+}
+@techreport{botts,
+  author = { Botts, M. and Percivall, G. and Reed, C. and Davidson, J.},
+  year = {2007},
+  title = { OGC Sensor Web Enablement: Overview And High Level Architecture },
+  institution = { Open Geospatial Consortium },
+  url = { http://portal.opengeospatial.org/files/?artifact_id=25562 }
+}
+@book{cressie,
+	author = { Cressie, N. and Wikle, C.},
+	year = {2011},
+	title = { Statistics for Spatio-temporal Data},
+	publisher = { John Wiley \& Sons},
+	address = {New York}
+}
+
+@article{croissant,
+	author = { Croissant, Y. and Millo, G.},
+	year = {2008},
+	title = { Panel Data Econometrics in R: The plm Package},
+	journal = { Journal of Statistical Software},
+	volume = {27},
+	OPTnumber = {2},
+	url = { http://www.jstatsoft.org/v27/i02/}
+}
+@article{galton,
+	author = { Galton, A.},
+	year = {2004},
+	title = { Fields and Objects in Space, Time and Space-time},
+	journal = {Spatial cognition and computation},
+	volume = {4},
+	OPTnumber = {1}
+}
+
+%\item G\"{u}ting, R.H., M. Schneider, 2005.  Moving Objects
+%Databases.  Morgan Kaufmann Publishers.
+
+@article{haslett,
+	author = {Haslett, J. and Raftery, A. E.},
+	year = {1989},
+	title = {Space-time Modelling with Long-memory Dependence: Assessing Ireland's Wind Power Resource (with Discussion)},
+	journal = { Applied Statistics },
+	volume = {38},
+	pages = {1-50}
+}
+
+@book{schabenberger,
+	author = {Schabenberger, O. and Gotway, C.A.},
+	year = {2004},
+	title = { Statistical Methods for Spatial Data Analysis},
+	address = {Boca Raton},
+	publisher = {Chapman and Hall}
+}
+
+@techreport{sumner,
+	author = {Sumner, M},
+	year = {2010},
+	title = {The Tag Location Problem},
+  	institution = { Institute of Marine and Antarctic Studies University of Tasmania},
+	note = { Unpublished PhD thesis }
+}
+
+
+@article{gleditsch,
+	author = {Gleditsch, Kristian S. and Ward, Michael D.}, 
+	year = {1999},
+	title = { Interstate System Membership: A Revised List of the Independent States
+since 1816 },
+	journal = {International Interactions},
+	volume = {25},
+	pages = {393-413},
+	url = {http://privatewww.essex.ac.uk/~ksg/statelist.html}
+}
+@article{grothendieck,
+	author = {Grothendieck, G. and Petzoldt, T.},
+	title = {R Help Desk: Date and Time Classes in R},
+	year = {2004},
+	journal = {R News},
+	volume = { 4/1 },
+	OPTnumber = 1,
+	pages = {29-32},
+	url = {http://cran.r-project.org/doc/Rnews/Rnews_2004-1.pdf}
+}
+@article{ripleyhornik,
+	author = {Ripley, B.D. and Hornik, K.},
+	title = { Date-time Classes},
+	journal = { R News },
+	volume = { 1/2 },
+	OPTnumber = 2,
+	pages = {8-11},
+	year = 2001
+}
+@Article{grolemund,
+    title = {Dates and Times Made Easy with {lubridate}},
+    author = {Garrett Grolemund and Hadley Wickham},
+    journal = {Journal of Statistical Software},
+    year = {2011},
+    volume = {40},
+    number = {3},
+    pages = {1--25},
+    url = {http://www.jstatsoft.org/v40/i03/}
+}
+@article{allen,
+ author = {Allen, James F.},
+ title = {Maintaining Knowledge about Temporal Intervals},
+ journal = {Commun. ACM},
+ issue_date = {Nov. 1983},
+ volume = {26},
+ issue = {11},
+ month = {November},
+ year = {1983},
+ issn = {0001-0782},
+ pages = {832--843},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/182.358434},
+ doi = {http://doi.acm.org/10.1145/182.358434},
+ acmid = {358434},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {interval reasoning, interval representation, temporal interval},
+} 
+@Article{zeileis,
+    title = {zoo: S3 Infrastructure for Regular and Irregular Time
+      Series},
+    author = {Achim Zeileis and Gabor Grothendieck},
+    journal = {Journal of Statistical Software},
+    year = {2005},
+    volume = {14},
+    number = {6},
+    pages = {1--27},
+    url = {http://www.jstatsoft.org/v14/i06/}
+}
+@Article{pebesma,
+    author = {Edzer J. Pebesma and Roger S. Bivand},
+    title = {Classes and Methods for Spatial Data in {R}},
+    journal = {R News},
+    year = {2005},
+    volume = {5},
+    number = {2},
+    pages = {9--13},
+    month = {November},
+    url = {http://cran.r-project.org/doc/Rnews/}
+}
+@Book{bivand,
+    author = {Roger S. Bivand and Edzer J. Pebesma and Virgilio Gomez-Rubio},
+    title = {Applied Spatial Data Analysis with {R}},
+    year = {2008},
+    publisher = {Springer-Verlag},
+	address = {New York},
+    url = {http://www.asdar-book.org/}
+}
+@Manual{RR,
+    title = {R: A Language and Environment for Statistical Computing},
+    author = {{R Development Core Team}},
+    organization = {R Foundation for Statistical Computing},
+    address = {Vienna, Austria},
+    year = {2011},
+    note = {{ISBN} 3-900051-07-0},
+    url = {http://www.R-project.org/}
+}
+@Manual{ryan,
+    title = {xts: eXtensible Time Series},
+    author = {Jeffrey A. Ryan and Josh M. Ulrich},
+    year = {2011},
+    note = {R package version 0.8-2},
+    url = {http://CRAN.R-project.org/package=xts}
+}
+@Article{weidmann,
+	author = {Nils B. Weidmann and Doreen Kuse and Kristian Skrede Gleditsch},
+	year = {2010},
+	title = { The Geography of the International System: The CShapes Dataset},
+	journal = { International Interactions },
+	volume = {36 (1)}
+}
+@Article{luque,
+    title = {Diving Behaviour Analysis in {R}},
+    author = {Sebastian P. Luque},
+    journal = {{R News}},
+    year = {2007},
+    month = {June},
+    volume = {7},
+    number = {3},
+    pages = {8--14},
+    issn = {-2022},
+    note = {Contributions from: John P.Y. Arnould, Laurent Dubroca, and Andy Liaw},
+    url = {http://cran.r-project.org/doc/Rnews/}
+}
+@Book{sarkar,
+    title = {Lattice: Multivariate Data Visualization with R},
+    author = {Deepayan Sarkar},
+    publisher = {Springer-Verlag},
+    address = {New York},
+    year = {2008},
+    note = {ISBN 978-0-387-75968-5},
+    url = {http://lmdvr.r-forge.r-project.org}
+}
+@Manual{neuwirth,
+    title = {RColorBrewer: ColorBrewer palettes},
+    author = {Erich Neuwirth},
+    year = {2011},
+    note = {R package version 1.0-5},
+    url = {http://CRAN.R-project.org/package=RColorBrewer}
+}
+@Manual{maptools,
+    title = {maptools: Tools for Reading and Handling Spatial Objects},
+    author = {Nicholas J. Lewin-Koh and Roger Bivand and Edzer J. Pebesma and Eric Archer and Adrian Baddeley and Hans-J\"{o}rg Bibiko and St\'{e}phane Dray and David Forrest and Michael Friendly and Patrick Giraudoux and Duncan Golicher and Virgilio Gomez Rubio and Patrick Hausmann and Karl Ove Hufthammer and Thomas Jagger and Sebastian P. Luque and Don MacQueen and Andrew Niccolai and Tom Short and Ben Stabler and Rolf Turner},
+    year = {2011},
+    note = {R package version 0.8-10},
+    url = {http://CRAN.R-project.org/package=maptools}
+}
+@Manual{maps,
+    title = {maps: Draw Geographical Maps},
+    author = {Ray Brownrigg and Thomas P Minka},
+    year = {2011},
+    note = {R package version 2.1-6},
+    url = {http://CRAN.R-project.org/package=maps}
+}
+@Manual{rgdal,
+    title = {rgdal: Bindings for the Geospatial Data Abstraction Library},
+    author = {Timothy H. Keitt and Roger Bivand and Edzer Pebesma and Barry Rowlingson},
+    year = {2011},
+    note = {R package version 0.7-1},
+    url = {http://CRAN.R-project.org/package=rgdal}
+}
+@BOOK{Illian2008,
+  title = {Statistical Analysis and Modelling of Spatial Point Patterns},
+  publisher = {Wiley},
+  year = {2008},
+  author = {Janine Illian and Antti Penttinen and Helga Stoyan and Dietrich Stoyan}
+}
+
+% \item G\"{u}ting, R.H., M.H. B\"{o}hlen, M. Erwig, C.S. Jensen,
+% N.A. Lorentzos, M. Schneider, and M. Vazirgiannis, A Foundation
+% for Representing and Querying Moving Objects.  ACM Transactions on
+% Database Systems 25:1 (2000), 1-42.
+
+@article{millo,
+  author =	"Giovanni Millo and Gianfranco Piras",
+  title =	"splm: Spatial Panel Data Models in R",
+  journal =	"Journal of Statistical Software",
+  volume =	"47",
+  number =	"1",
+  pages =	"1--38",
+  day =  	"17",
+  month =	"4",
+  year = 	"2012",
+  URL =  	"http://www.jstatsoft.org/v47/i01"
+}
+
+@article{jss816,
+  title        = "{spacetime}: Spatio-Temporal Data in {R}",
+  author       = "Edzer Pebesma",
+  journal      = "Journal of Statistical Software",
+  year         = "2012",
+  volume       = "51",
+  number       = "7",
+  pages        = "1--30",
+  url          = "http://www.jstatsoft.org/v51/i07/"
+}

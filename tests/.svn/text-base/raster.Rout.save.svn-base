@@ -1,0 +1,27 @@
+
+R version 3.0.0 (2013-04-03) -- "Masked Marvel"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(spacetime)
+Loading required package: sp
+> library(raster)
+> x <- brick(system.file("external/rlogo.grd", package="raster"))
+> x <- setZ(x, as.Date(1:nlayers(x), origin = "1970-01-01"))
+> stplot(x)
+> 
+> proc.time()
+   user  system elapsed 
+  3.092   0.020   3.117 
