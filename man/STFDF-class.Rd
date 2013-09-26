@@ -5,11 +5,13 @@
 \alias{STFDF}
 \alias{STF}
 \alias{as.data.frame.STF}
+\alias{[,STF-method} 
 \alias{[,STFDF-method} 
 \alias{coerce,STFDF,xts-method}
 \alias{coerce,STFDF,Spatial-method}
 \alias{plot,STF,missing-method}
 \alias{plot,STFDF,missing-method}
+\alias{geometry,STFDF-method}
 \alias{na.omit.STFDF}
 \alias{rbind.STFDF}
 \alias{as.zoo}
@@ -48,7 +50,7 @@ Objects of this class represent full space/time data with a full grid
 \usage{
   STF(sp, time, endTime = delta(time))
   STFDF(sp, time, data, endTime = delta(time))
-  \S4method{[}{STFDF}(x, i, j, ..., drop = TRUE)
+  \S4method{[}{STFDF}(x, i, j, ..., drop = is(x, "STFDF"))
   \S4method{coerce}{STFDF,xts}(from, to, strict=TRUE)
   \S4method{coerce}{STFDF,Spatial}(from, to)
 }

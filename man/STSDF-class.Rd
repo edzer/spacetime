@@ -6,9 +6,11 @@
 \alias{STS}
 \alias{as.data.frame.STSDF}
 \alias{as.data.frame.STS}
+\alias{[,STS-method} 
 \alias{[,STSDF-method} 
 \alias{coerce,STSDF,STFDF-method}
 \alias{coerce,STSDF,STIDF-method}
+\alias{geometry,STSDF-method}
 \alias{plot,STS,missing-method}
 \alias{plot,STSDF,missing-method}
 \alias{rbind.STSDF}
@@ -46,7 +48,7 @@ Objects of this class carry sparse space/time grid data }
 \usage{
   STS(sp, time, index, endTime = delta(time))
   STSDF(sp, time, data, index, endTime = delta(time))
-  \S4method{[}{STSDF}(x, i, j, ..., drop = TRUE)
+  \S4method{[}{STSDF}(x, i, j, ..., drop = is(x, "STSDF"))
   \S4method{coerce}{STSDF,STFDF}(from, to, strict=TRUE)
   \S4method{coerce}{STSDF,STIDF}(from, to, strict=TRUE)
 }

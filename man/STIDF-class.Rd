@@ -7,6 +7,9 @@
 \alias{as.data.frame.STIDF}
 \alias{as.data.frame.STI}
 \alias{[,STIDF-method} 
+\alias{[,STI-method} 
+\alias{geometry,STIDF-method}
+\alias{geometry,STI-method}
 \alias{coerce,STIDF,STSDF-method}
 \alias{plot,STI,missing-method}
 \alias{rbind.STIDF}

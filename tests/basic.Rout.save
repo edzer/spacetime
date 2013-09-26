@@ -315,6 +315,8 @@ Class: data.frame    Spatial        xts    POSIXct
 Extends: 
 Class "STI", directly
 Class "ST", by class "STI", distance 2
+
+Known Subclasses: "Track"
 > sp = expand.grid(x = 1:3, y = 1:3)
 > row.names(sp) = paste("point", 1:nrow(sp), sep="")
 > sp = SpatialPoints(sp)
@@ -1124,4 +1126,4 @@ Error in .checkAttrIsUnique(x@sp, x@time, x@data) :
 > 
 > proc.time()
    user  system elapsed 
-  1.376   0.124   1.498 
+  1.344   0.108   1.448 

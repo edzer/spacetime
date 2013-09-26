@@ -13,6 +13,7 @@ exportClasses(
 	STS, STSDF,
 	STI, STIDF,
 	STT, STTDF,
+	Track, Tracks, TracksCollection,
 	ltraj
 )
 
@@ -28,12 +29,14 @@ export(delta,
 	write.tgrass,
 	EOF,
 	nbMult,
+	Track, Tracks, TracksCollection,
 	# zoo methods:
-	index, na.locf, na.spline, na.approx, as.zoo #as.zoo.STFDF
+	index, na.locf, na.spline, na.approx, as.zoo
 )
 
 exportMethods(
 	aggregate,
+	coordnames,
 	geometry,
 	over,
 	plot,

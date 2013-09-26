@@ -232,3 +232,31 @@ trimDates = function(x) {
 		it = sub("-01$", "", it)
 	it
 }
+
+segPanel = function(x, y, ...) {
+	n = length(x) 
+	df = na.omit(data.frame(x0 = x[1:(n-1)],
+		x1 = x[2:n],
+		y0 = y[1:(n-1)],
+		y1 = y[2:n]))
+	with(df, lsegments(x0,y0,x1,y1,...))
+}
+
+stplotTracksCollection = function(obj, ..., mode = "byID", 
+		scales=list(draw=FALSE), segments = TRUE, attr = NULL) {
+	sp = obj@tracksCollection[[1]]@tracks[[1]]@sp
+	df = as(obj, "data.frame")
+	cn = coordnames(obj)
+	args = list(..., type = 'l', asp = mapasp(sp), scales = scales, data = df)
+	if (segments)
+		args$panel = "segPanel"
+	if (mode == "colID") {
+		args$x = as.formula(paste(cn[2], cn[1], sep = " ~ "))
+		args$groups = df$IDs
+	} else if (mode == "byID") {
+		args$x = as.formula(paste(paste(cn[2], cn[1], sep = " ~ "), "|IDs"))
+	} else
+		stop("no other modes implemented")
+	do.call(xyplot, args)
+}
+setMethod("stplot", "TracksCollection", stplotTracksCollection)

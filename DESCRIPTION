@@ -1,6 +1,6 @@
 Package: spacetime
 Version: 1.0-10
-Date: 2013-09-10
+Date: 2013-09-26
 Title: classes and methods for spatio-temporal data
 Authors@R: c(person("Edzer", "Pebesma", role = c("cre", "aut"),
 		 email = "edzer.pebesma@uni-muenster.de"),
@@ -15,9 +15,9 @@ Description: Classes and methods for spatio-temporal data, including space-time 
 License: GPL (>= 2)
 URL: http://www.jstatsoft.org/v51/i07/, https://r-forge.r-project.org/projects/spacetime/, http://www.52north.org/communities/geostatistics
 Collate: Class-xts.R Class-ST.R Class-STFDF.R Class-STSDF.R
-	Class-STIDF.R Class-STTDF.R interval.R endtime.R
+	Class-STIDF.R Class-STTDF.R Class-Tracks.R interval.R endtime.R
 	ST-methods.R STFDF-methods.R STSDF-methods.R STIDF-methods.R
-	STTDF-methods.R apply.R coerce.R stconstruct.R plot.R
-	stplot.R timematch.R over.R aggregate.R eof.R bind.R
+	STTDF-methods.R Tracks-methods.R apply.R coerce.R stconstruct.R 
+	plot.R stplot.R timematch.R over.R aggregate.R eof.R bind.R
 	na.R raster.R tgrass.R stinteraction.R
 Packaged: 2011-07-10 15:11:29 UTC; edzer
