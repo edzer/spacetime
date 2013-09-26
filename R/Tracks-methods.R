@@ -17,24 +17,42 @@ setAs("TracksCollection", "data.frame",
 	}
 )
 
-setMethod("plot", "TracksCollection", 
+Track2seg = function(obj) {
+	stopifnot(is(obj, "Track"))
+	cc = coordinates(obj@sp)
+	t = index(obj@time)
+	df = obj@data
+	data.frame(x0 = head(cc[,1], -1), y0 = head(cc[,2], -1),
+		x1 = tail(cc[,1], -1), y1 = tail(cc[,2], -1),
+		time = head(t, -1), head(df, -1), obj@connections)
+}
+
+Tracks2seg = function(obj) {
+	stopifnot(is(obj, "Tracks"))
+	do.call(rbind, lapply(obj@tracks, Track2seg))
+}
+
+TracksCollection2seg = function(obj) {
+	stopifnot(is(obj, "TracksCollection"))
+	l = lapply(obj@tracksCollection, Tracks2seg)
+	ret = do.call(rbind, l)
+	ret$IDs = rep(names(obj@tracksCollection), times = sapply(l, nrow))
+	ret
+}
+
+setMethod("plot", "TracksCollection",
 	function(x, y, ..., type = 'l', colorBy = "IDs") {
-		df = as(x, "data.frame")
+		df = as(x, "data.frame") 
 		if (colorBy == "IDs" && is.null(list(...)$col))
 			col = as.numeric(as.factor(df$IDs))
-		# print(col)
-		cn = coordnames(x)
-		f = as.formula(paste(cn[2], cn[1], sep = " ~ "))
+		# print(col) cn = coordnames(x) f =
+		as.formula(paste(cn[2], cn[1], sep = " ~ ")) 
 		plot(f, df, asp = 1, type = type, col = col, ...)
 	}
 )
 
-setMethod("coordnames", "Track",
-	function(x) coordnames(x@sp)
-)
-setMethod("coordnames", "Tracks",
-	function(x) coordnames(x@tracks[[1]])
-)
+setMethod("coordnames", "Track", function(x) coordnames(x@sp))
+setMethod("coordnames", "Tracks", function(x) coordnames(x@tracks[[1]]))
 setMethod("coordnames", "TracksCollection",
 	function(x) coordnames(x@tracksCollection[[1]])
 )

@@ -29,7 +29,7 @@ export(delta,
 	write.tgrass,
 	EOF,
 	nbMult,
-	Track, Tracks, TracksCollection,
+	Track, Tracks, TracksCollection, segPanel,
 	# zoo methods:
 	index, na.locf, na.spline, na.approx, as.zoo
 )

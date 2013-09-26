@@ -233,30 +233,59 @@ trimDates = function(x) {
 	it
 }
 
-segPanel = function(x, y, ...) {
-	n = length(x) 
-	df = na.omit(data.frame(x0 = x[1:(n-1)],
-		x1 = x[2:n],
-		y0 = y[1:(n-1)],
-		y1 = y[2:n]))
-	with(df, lsegments(x0,y0,x1,y1,...))
+segPanel = function(x, y, subscripts, ..., x0, y0, x1, y1, arrows, length) {
+	if (arrows)
+		panel.arrows(x0[subscripts], y0[subscripts], 
+			x1[subscripts], y1[subscripts], length = length, ...)
+	else
+		panel.segments(x0[subscripts], y0[subscripts], 
+			x1[subscripts], y1[subscripts], ...)
 }
 
-stplotTracksCollection = function(obj, ..., mode = "byID", 
-		scales=list(draw=FALSE), segments = TRUE, attr = NULL) {
+stplotTracksCollection = function(obj, ..., by, groups,
+		scales = list(draw=FALSE), segments = TRUE, attr = NULL,
+		ncuts = length(col.regions), col.regions = bpy.colors(), cuts,
+		xlab = NULL, ylab = NULL, arrows = FALSE, length = 0.1) {
 	sp = obj@tracksCollection[[1]]@tracks[[1]]@sp
-	df = as(obj, "data.frame")
-	cn = coordnames(obj)
-	args = list(..., type = 'l', asp = mapasp(sp), scales = scales, data = df)
-	if (segments)
+	args = list(..., asp = mapasp(sp), scales = scales, 
+		xlab = xlab, ylab = ylab, arrows = arrows, length = length)
+	if (!is.null(attr)) {
+		df = TracksCollection2seg(obj)
+		args$x0 = df$x0
+		args$y0 = df$y0
+		args$x1 = df$x1
+		args$y1 = df$y1
+		# compute color:
+		z = df[[attr]]
+		attr = na.omit(z)
+		if (missing(cuts))
+			cuts = seq(min(attr), max(attr), length.out = ncuts)
+        if (ncuts != length(col.regions)) {
+            cols = round(1 + (length(col.regions) - 1) * (0:(ncuts -
+                1))/(ncuts - 1))
+            fill = col.regions[cols]
+        } else
+            fill = col.regions
+		grps = cut(as.matrix(z), cuts, dig.lab = 4, include.lowest = TRUE)
+		args$col = fill[grps]
+		# set colorkey:
+		args$legend = list(right = list(fun = draw.colorkey,
+                args = list(key = list(col = col.regions, at = cuts), 
+				draw = FALSE)))
 		args$panel = "segPanel"
-	if (mode == "colID") {
+		cn = c("x0", "y0")
+	} else {
+		df = as(obj, "data.frame")
+		cn = coordnames(obj)
+		args$type = "l"
+	}
+	if (!missing(by))
+		args$x = as.formula(paste(cn[2], "~", cn[1], "|", by))
+	else
 		args$x = as.formula(paste(cn[2], cn[1], sep = " ~ "))
-		args$groups = df$IDs
-	} else if (mode == "byID") {
-		args$x = as.formula(paste(paste(cn[2], cn[1], sep = " ~ "), "|IDs"))
-	} else
-		stop("no other modes implemented")
+	if (!missing(groups))
+		args$groups = df[[groups]]
+	args$data = df
 	do.call(xyplot, args)
 }
 setMethod("stplot", "TracksCollection", stplotTracksCollection)
