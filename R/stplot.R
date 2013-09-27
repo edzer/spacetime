@@ -253,7 +253,8 @@ stplotTracksCollection = function(obj, ..., by, groups,
 	sp = obj@tracksCollection[[1]]@tracks[[1]]@sp
 	scales = sp:::longlat.scales(sp, scales, xlim, ylim)
 	args = list(..., asp = mapasp(sp, xlim, ylim), scales = scales, 
-		xlab = xlab, ylab = ylab, arrows = arrows, length = length)
+		xlab = xlab, ylab = ylab, arrows = arrows, length = length,
+		xlim = xlim, ylim = ylim)
 	if (!is.null(attr)) {
 		df = TracksCollection2seg(obj)
 		args$x0 = df$x0

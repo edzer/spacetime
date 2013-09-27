@@ -94,3 +94,8 @@ setMethod("bbox", "TracksCollection",
 		ret
 	}
 )
+dim.Track = function(x) c(points=length(x@sp))
+dim.Tracks = function(x) c(tracks=length(x@tracks),
+	points=sum(sapply(x@tracks,dim)))
+dim.TracksCollection = function(x) c(IDs=length(x@tracksCollection),
+	apply(sapply(x@tracksCollection,dim),1,sum))
