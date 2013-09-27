@@ -17,13 +17,30 @@ setClass("Track",
   }
 )
 
+directions_ll = function(cc, ll) {
+	# cc a 2-column matrix with points, [x y] or [long lat]
+	# ll a boolean, indicating longlat (TRUE) or not (FALSE)
+	if (is.na(ll) || !ll) {
+		dcc = apply(cc, 2, diff)
+		atan2(dcc[,2], dcc[,1])
+	} else {
+		# http://www.movable-type.co.uk/scripts/latlong.html
+		# using initial bearing:
+		lat1 = head(cc[,2], -1)
+		lat2 = tail(cc[,2], -1)
+		lon1 = head(cc[,1], -1)
+		lon2 = tail(cc[,1], -1)
+		atan2(cos(lat1)*sin(lat2)-sin(lat1)*cos(lat2)*cos(lon2-lon1), 
+		       sin(lon2-lon1)*cos(lat2))
+	}
+}
+
 TrackStats = function(track) {
 	cc = coordinates(track@sp)
 	ll = is.projected(track@sp)
 	distance = LineLength(cc, ifelse(is.na(ll), FALSE, ll), FALSE)
 	speed = distance / diff(as.numeric(index(track@time))) # per second
-	d = apply(cc, 2, diff)
-	direction = atan(d[,2] / d[,1]) # radial
+	direction = directions_ll(cc, ll)
 	df = data.frame(distance = distance, speed = speed, direction = direction)
 }
 

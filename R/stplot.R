@@ -233,21 +233,26 @@ trimDates = function(x) {
 	it
 }
 
-segPanel = function(x, y, subscripts, ..., x0, y0, x1, y1, arrows, length) {
+segPanel = function(x, y, subscripts, ..., x0, y0, x1, y1, 
+		arrows, length, col) {
 	if (arrows)
 		panel.arrows(x0[subscripts], y0[subscripts], 
-			x1[subscripts], y1[subscripts], length = length, ...)
+			x1[subscripts], y1[subscripts], length = length, 
+			col = col[subscripts], ...)
 	else
 		panel.segments(x0[subscripts], y0[subscripts], 
-			x1[subscripts], y1[subscripts], ...)
+			x1[subscripts], y1[subscripts], 
+			col = col[subscripts], ...)
 }
 
 stplotTracksCollection = function(obj, ..., by, groups,
-		scales = list(draw=FALSE), segments = TRUE, attr = NULL,
+		scales = list(draw = FALSE), segments = TRUE, attr = NULL,
 		ncuts = length(col.regions), col.regions = bpy.colors(), cuts,
-		xlab = NULL, ylab = NULL, arrows = FALSE, length = 0.1) {
+		xlab = NULL, ylab = NULL, arrows = FALSE, length = 0.1,
+		xlim = bbox(obj)$x, ylim = bbox(obj)$y) {
 	sp = obj@tracksCollection[[1]]@tracks[[1]]@sp
-	args = list(..., asp = mapasp(sp), scales = scales, 
+	scales = sp:::longlat.scales(sp, scales, xlim, ylim)
+	args = list(..., asp = mapasp(sp, xlim, ylim), scales = scales, 
 		xlab = xlab, ylab = ylab, arrows = arrows, length = length)
 	if (!is.null(attr)) {
 		df = TracksCollection2seg(obj)

@@ -41,13 +41,16 @@ TracksCollection2seg = function(obj) {
 }
 
 setMethod("plot", "TracksCollection",
-	function(x, y, ..., type = 'l', colorBy = "IDs") {
+	function(x, y, ..., type = 'l', xlim = bbox(x)$x,
+			ylim = bbox(x)$y, col = 1, lwd = 1, lty =
+			1, axes = TRUE) {
+		sp = x@tracksCollection[[1]]@tracks[[1]]@sp
+		plot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
+		if (axes == FALSE)
+			box()
 		df = as(x, "data.frame") 
-		if (colorBy == "IDs" && is.null(list(...)$col))
-			col = as.numeric(as.factor(df$IDs))
-		# print(col) cn = coordnames(x) f =
-		as.formula(paste(cn[2], cn[1], sep = " ~ ")) 
-		plot(f, df, asp = 1, type = type, col = col, ...)
+		cn = coordnames(x)
+		lines(df[[cn[1]]], df[[cn[2]]], col = col, lwd = lwd, lty = lty, ...)
 	}
 )
 
