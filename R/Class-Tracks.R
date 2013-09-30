@@ -123,7 +123,6 @@ TracksSummary = function(tracksCollection) {
 
 TracksCollection = function(tracksCollection, tracksCollectionData = NULL,
 	fn = TracksSummary) {
-	# TBD
 	if (is.null(tracksCollectionData))
 		tracksCollectionData = TracksSummary(tracksCollection)
 	new("TracksCollection", tracksCollection = tracksCollection, 

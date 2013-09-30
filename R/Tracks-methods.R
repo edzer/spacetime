@@ -17,28 +17,34 @@ setAs("TracksCollection", "data.frame",
 	}
 )
 
-Track2seg = function(obj) {
-	stopifnot(is(obj, "Track"))
-	cc = coordinates(obj@sp)
-	t = index(obj@time)
-	df = obj@data
-	data.frame(x0 = head(cc[,1], -1), y0 = head(cc[,2], -1),
-		x1 = tail(cc[,1], -1), y1 = tail(cc[,2], -1),
-		time = head(t, -1), head(df, -1), obj@connections)
-}
+# segments are data.frames with a segment on each row, with
+# x0 y0 x1 y1 the first four values, followed by attributes.
 
-Tracks2seg = function(obj) {
-	stopifnot(is(obj, "Tracks"))
-	do.call(rbind, lapply(obj@tracks, Track2seg))
-}
+setClass("segments", contains = "data.frame")
 
-TracksCollection2seg = function(obj) {
-	stopifnot(is(obj, "TracksCollection"))
-	l = lapply(obj@tracksCollection, Tracks2seg)
-	ret = do.call(rbind, l)
-	ret$IDs = rep(names(obj@tracksCollection), times = sapply(l, nrow))
-	ret
-}
+setAs("Track", "segments", 
+	function(from) {
+		cc = coordinates(from@sp)
+		t = index(from@time)
+		df = from@data
+		data.frame(x0 = head(cc[,1], -1), y0 = head(cc[,2], -1),
+			x1 = tail(cc[,1], -1), y1 = tail(cc[,2], -1),
+			time = head(t, -1), head(df, -1), from@connections)
+	}
+)
+
+setAs("Tracks", "segments", function(from) 
+	do.call(rbind, lapply(from@tracks, function(x) as(x, "segments")))
+)
+
+setAs("TracksCollection", "segments",
+	function(from) {
+		l = lapply(from@tracksCollection, function(x) as(x, "segments"))
+		ret = do.call(rbind, l)
+		ret$IDs = rep(names(from@tracksCollection), times = sapply(l, nrow))
+		ret
+	}
+)
 
 setMethod("plot", "TracksCollection",
 	function(x, y, ..., type = 'l', xlim = bbox(x)$x,
@@ -99,3 +105,36 @@ dim.Tracks = function(x) c(tracks=length(x@tracks),
 	points=sum(sapply(x@tracks,dim)))
 dim.TracksCollection = function(x) c(IDs=length(x@tracksCollection),
 	apply(sapply(x@tracksCollection,dim),1,sum))
+
+subs.Tracks <- function(x, i, j, ... , drop = TRUE) {
+	if (missing(i))
+		i = 1:length(x@tracks)
+	if (is(i, "Spatial"))
+		i = which(!is.na(over(x, geometry(i))))
+	if (is.logical(i))
+		i = which(i)
+	if (drop && length(i) == 1)
+		x@tracks[[i]]
+	else
+		Tracks(x@tracks[i], x@tracksData[i,j,drop=FALSE])
+}
+setMethod("[", "Tracks", subs.Tracks)
+
+subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
+	if (!missing(j))
+		warning("second selection argument is ignored")
+	if (missing(i))
+		s = 1:length(x@tracksCollection)
+	else if (is(i, "Spatial"))
+		s = which(!is.na(over(x, geometry(i))))
+	else if (is.logical(i))
+		s = which(i)
+	else
+		s = i
+	if (drop && length(s) == 1)
+		x@tracksCollection[[s]]
+	else
+		TracksCollection(x@tracksCollection[i], 
+			x@tracksCollectionData[i,,drop=FALSE])
+}
+setMethod("[", "TracksCollection", subs.TracksCollection)

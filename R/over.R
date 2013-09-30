@@ -133,7 +133,8 @@ overDFGenericST = function(x, y, returnList = FALSE, fn = NULL, ...) {
 		ret = y@data[r,,drop=FALSE]
 	} else {
     	r = over(x, geometry(y), returnList = TRUE)
-    	ret = sp:::.overDF(r, y@data, length(x), returnList, fn, ...)
+    	#ret = sp:::.overDF(r, y@data, length(x), returnList, fn, ...)
+    	ret = overDF_for_rgeos(r, y@data, length(x), returnList, fn, ...)
 	}
     if (!returnList)
         row.names(ret) = row.names(x)

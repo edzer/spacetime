@@ -107,7 +107,7 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 #	stplot(as(obj, "STFDF"), names.attr = names.attr, ...)
 
 panel.stpointsplot = function(x, y, col, sp.layout, ...) {
-    sp:::sp.panel.layout(sp.layout, panel.number())
+    sp.panel.layout(sp.layout, panel.number())
 	panel.xyplot(x, y, col = col, ...)
 }
 
@@ -163,7 +163,7 @@ stplot.STI = function(obj, names.attr = NULL, ...,
 }
 
 panel.sttrajplot = function(x, y, col, sp.layout, ..., GRP, lwd, lty = 1) {
-    sp:::sp.panel.layout(sp.layout, panel.number())
+    sp.panel.layout(sp.layout, panel.number())
 	if (length(GRP) == 1 && length(lwd) == 1 && length(col) == 1)
 		llines(x, y, lwd = lwd, col = col)
 	else {
@@ -249,14 +249,15 @@ stplotTracksCollection = function(obj, ..., by, groups,
 		scales = list(draw = FALSE), segments = TRUE, attr = NULL,
 		ncuts = length(col.regions), col.regions = bpy.colors(), cuts,
 		xlab = NULL, ylab = NULL, arrows = FALSE, length = 0.1,
-		xlim = bbox(obj)$x, ylim = bbox(obj)$y) {
+		xlim = sp:::bbexpand(bbox(obj)$x, 0.04), 
+		ylim = sp:::bbexpand(bbox(obj)$y, 0.04)) {
 	sp = obj@tracksCollection[[1]]@tracks[[1]]@sp
 	scales = sp:::longlat.scales(sp, scales, xlim, ylim)
 	args = list(..., asp = mapasp(sp, xlim, ylim), scales = scales, 
 		xlab = xlab, ylab = ylab, arrows = arrows, length = length,
 		xlim = xlim, ylim = ylim)
 	if (!is.null(attr)) {
-		df = TracksCollection2seg(obj)
+		df = as(obj, "segments")
 		args$x0 = df$x0
 		args$y0 = df$y0
 		args$x1 = df$x1

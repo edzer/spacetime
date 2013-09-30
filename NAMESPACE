@@ -13,7 +13,7 @@ exportClasses(
 	STS, STSDF,
 	STI, STIDF,
 	STT, STTDF,
-	Track, Tracks, TracksCollection,
+	Track, Tracks, TracksCollection, segments,
 	ltraj
 )
 
