@@ -33,8 +33,13 @@ setAs("Track", "segments",
 	}
 )
 
-setAs("Tracks", "segments", function(from) 
-	do.call(rbind, lapply(from@tracks, function(x) as(x, "segments")))
+setAs("Tracks", "segments", function(from) {
+		ret = do.call(rbind, lapply(from@tracks, 
+			function(x) as(x, "segments")))
+		ret$Track = rep(names(from@tracks), 
+			times = sapply(from@tracks, length) - 1)
+		ret
+	}
 )
 
 setAs("TracksCollection", "segments",
@@ -49,14 +54,25 @@ setAs("TracksCollection", "segments",
 setMethod("plot", "TracksCollection",
 	function(x, y, ..., type = 'l', xlim = bbox(x)$x,
 			ylim = bbox(x)$y, col = 1, lwd = 1, lty =
-			1, axes = TRUE) {
+			1, axes = TRUE, Arrows = FALSE, Segments = FALSE) {
 		sp = x@tracksCollection[[1]]@tracks[[1]]@sp
 		plot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
 		if (axes == FALSE)
 			box()
-		df = as(x, "data.frame") 
-		cn = coordnames(x)
-		lines(df[[cn[1]]], df[[cn[2]]], col = col, lwd = lwd, lty = lty, ...)
+		if (Arrows || Segments) {
+			df = as(x, "segments")
+			args = list(x0 = df$x0, y0 = df$y0, x1 = df$x1, y1 = df$y1, 
+				col = col, lwd = lwd, lty = lty, ...)
+			if (Arrows)
+				do.call(arrows, args)
+			else
+				do.call(segments, args)
+		} else {
+			df = as(x, "data.frame") 
+			cn = coordnames(x)
+			lines(df[[cn[1]]], df[[cn[2]]], col = col, 
+				lwd = lwd, lty = lty, ...)
+		}
 	}
 )
 

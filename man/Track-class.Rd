@@ -121,6 +121,7 @@ n = length(x)
 t = t0 + cumsum(runif(n) * 60)
 require(rgdal)
 crs = CRS("+proj=longlat")
+#crs = CRS(as.character(NA))
 stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n)))
 A1 = Track(stidf)
 # person A, track 2:
@@ -153,6 +154,11 @@ stplot(Tr, scales = list(draw=TRUE))
 stplot(Tr, attr = "direction", arrows=TRUE, lwd = 3, by = "direction")
 stplot(Tr, attr = "direction", arrows=TRUE, lwd = 3, by = "IDs")
 plot(Tr, col=2, axes=TRUE)
+dim(Tr)
+dim(Tr[2])
+dim(Tr[2][1])
+as(Tr, "data.frame")[1:10,] # tracks separated by NA rows
+as(Tr, "segments")[1:10,]   # track segments as records
 }
 
 \keyword{classes}

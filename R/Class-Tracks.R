@@ -20,28 +20,33 @@ setClass("Track",
 directions_ll = function(cc, ll) {
 	# cc a 2-column matrix with points, [x y] or [long lat]
 	# ll a boolean, indicating longlat (TRUE) or not (FALSE)
-	if (is.na(ll) || !ll) {
+	if (! ll) {
 		dcc = apply(cc, 2, diff)
-		atan2(dcc[,2], dcc[,1])
-	} else {
+		((atan2(dcc[,1], dcc[,2]) / pi * 180) + 360) %% 360
+	} else { # longlat:
 		# http://www.movable-type.co.uk/scripts/latlong.html
-		# using initial bearing:
+		# initial bearing:
+		cc = cc * pi / 180
 		lat1 = head(cc[,2], -1)
 		lat2 = tail(cc[,2], -1)
 		lon1 = head(cc[,1], -1)
 		lon2 = tail(cc[,1], -1)
-		atan2(cos(lat1)*sin(lat2)-sin(lat1)*cos(lat2)*cos(lon2-lon1), 
-		       sin(lon2-lon1)*cos(lat2))
+		dlon = lon2 - lon1
+		az = atan2(sin(dlon)*cos(lat2),
+			cos(lat1)*sin(lat2)-sin(lat1)*cos(lat2)*cos(dlon))
+		((az  / pi * 180) + 360) %% 360
 	}
 }
 
 TrackStats = function(track) {
 	cc = coordinates(track@sp)
-	ll = is.projected(track@sp)
-	distance = LineLength(cc, ifelse(is.na(ll), FALSE, ll), FALSE)
-	speed = distance / diff(as.numeric(index(track@time))) # per second
+	ll = identical(is.projected(track), FALSE)
+	distance = LineLength(cc, ll, FALSE)
+	duration = diff(as.numeric(index(track@time))) # seconds
+	speed = distance / duration # per second
 	direction = directions_ll(cc, ll)
-	df = data.frame(distance = distance, speed = speed, direction = direction)
+	df = data.frame(distance = distance, duration = duration, 
+		speed = speed, direction = direction)
 }
 
 Track = function(track, df = NULL, fn = TrackStats) { # computes segment lenghts
@@ -64,6 +69,7 @@ setClass("Tracks",
 		stopifnot(all(sapply(object@tracks, function(x) is(x, "Track"))))
 		stopifnot(nrow(object@tracksData) == length(object@tracks))
 		stopifnot(length(object@tracks) > 0)
+		stopifnot(!is.null(names(object@tracks)))
 		return(TRUE)
 	}
 )
@@ -88,6 +94,8 @@ TrackSummary = function(track) {
 # pre-computes elements of tracksData:
 Tracks = function(tracks, 
 		tracksData = data.frame(row.names=names(tracks)), fn = TrackSummary) {
+	if (is.null(names(tracks)))
+		names(tracks) = paste("T", 1:length(tracks), sep = "")
 	new("Tracks", tracks = tracks, 
 		tracksData = cbind(tracksData, do.call(rbind, lapply(tracks, fn))))
 }
@@ -115,8 +123,10 @@ TracksSummary = function(tracksCollection) {
 	df$ymin = sapply(tc, function(x) min(x@tracksData$ymin))
 	df$ymax = sapply(tc, function(x) max(x@tracksData$ymax))
 	df$tmin = sapply(tc, function(x) min(x@tracksData$tmin))
-	df$tmin = do.call(c, lapply(lapply(tc, function(x) x@tracksData$tmin), min))
-	df$tmax = do.call(c, lapply(lapply(tc, function(x) x@tracksData$tmax), max))
+	df$tmin = do.call(c, 
+		lapply(lapply(tc, function(x) x@tracksData$tmin), min))
+	df$tmax = do.call(c, 
+		lapply(lapply(tc, function(x) x@tracksData$tmax), max))
 	row.names(df) = names(tracksCollection)
 	df
 }
