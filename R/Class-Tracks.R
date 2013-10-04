@@ -95,7 +95,7 @@ TrackSummary = function(track) {
 Tracks = function(tracks, 
 		tracksData = data.frame(row.names=names(tracks)), fn = TrackSummary) {
 	if (is.null(names(tracks)))
-		names(tracks) = paste("T", 1:length(tracks), sep = "")
+		names(tracks) = paste("Track", 1:length(tracks), sep = "")
 	new("Tracks", tracks = tracks, 
 		tracksData = cbind(tracksData, do.call(rbind, lapply(tracks, fn))))
 }
@@ -133,6 +133,9 @@ TracksSummary = function(tracksCollection) {
 
 TracksCollection = function(tracksCollection, tracksCollectionData = NULL,
 	fn = TracksSummary) {
+	if (is.null(names(tracksCollection)))
+		names(tracksCollection) = paste("Tracks", 1:length(tracksCollection), 
+		sep = "")
 	if (is.null(tracksCollectionData))
 		tracksCollectionData = TracksSummary(tracksCollection)
 	new("TracksCollection", tracksCollection = tracksCollection, 

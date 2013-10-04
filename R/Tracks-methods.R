@@ -52,8 +52,8 @@ setAs("TracksCollection", "segments",
 )
 
 setMethod("plot", "TracksCollection",
-	function(x, y, ..., type = 'l', xlim = bbox(x)$x,
-			ylim = bbox(x)$y, col = 1, lwd = 1, lty =
+	function(x, y, ..., type = 'l', xlim = bbox(x)[,1],
+			ylim = bbox(x)[,2], col = 1, lwd = 1, lty =
 			1, axes = TRUE, Arrows = FALSE, Segments = FALSE) {
 		sp = x@tracksCollection[[1]]@tracks[[1]]@sp
 		plot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
