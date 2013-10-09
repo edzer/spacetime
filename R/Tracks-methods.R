@@ -17,6 +17,35 @@ setAs("TracksCollection", "data.frame",
 	}
 )
 
+setAs("Track", "Line", 
+	function(from) Line(as(from, "data.frame")[c("x", "y")])
+)
+
+setAs("Tracks", "Lines", 
+	function(from) {
+		tz = from@tracks
+		# The Lines ID is made up of the conjunction of the first and last Track ID
+		# using hyphen as separator. Any better idea?
+		Lines(lapply(tz, function(x) as(x, "Line")), paste(names(tz)[1], names(tz)[length(tz)], sep = "-"))
+	}
+)
+
+setAs("Tracks", "SpatialLines", 
+	function(from) {
+		# Which CRS should be taken if Tracks with different CRS exist?
+		SpatialLines(list(as(from, "Lines")), CRS(""))
+	}
+)
+
+setAs("TracksCollection", "SpatialLines", 
+	function(from) {
+		tc = from@tracksCollection
+		lz = lapply(tc, function(x) as(x, "Lines"))
+		# Which CRS should be taken if Tracks with different CRS exist?
+		SpatialLines(lz, CRS(""))
+	}
+)
+
 # segments are data.frames with a segment on each row, with
 # x0 y0 x1 y1 the first four values, followed by attributes.
 
@@ -122,12 +151,22 @@ dim.Tracks = function(x) c(tracks=length(x@tracks),
 dim.TracksCollection = function(x) c(IDs=length(x@tracksCollection),
 	apply(sapply(x@tracksCollection,dim),1,sum))
 
+# TODO Not working yet!
+setMethod("over", "Tracks", function(x, ...) {
+	over(as(x, "SpatialLines"), ...)
+})
+
+# TODO Not working yet!
+setMethod("over", "TracksCollection", function(x, ...) {
+	over(as(x, "SpatialLines"), ...)
+})
+
 subs.Tracks <- function(x, i, j, ... , drop = TRUE) {
 	if (missing(i))
 		i = 1:length(x@tracks)
-	if (is(i, "Spatial"))
+	else if (is(i, "Spatial"))
 		i = which(!is.na(over(x, geometry(i))))
-	if (is.logical(i))
+	else if (is.logical(i))
 		i = which(i)
 	if (drop && length(i) == 1)
 		x@tracks[[i]]
@@ -148,7 +187,23 @@ subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
 	else
 		s = i
 	if (drop && length(s) == 1)
-		x@tracksCollection[[s]]
+		x@tracksCollection[[s]]	
+	else if (is.list(i)) {
+		
+		stopifnot(sapply(i, function(z) is.numeric(z)))
+		s = which(sapply(i, function(z) length(z)>0))
+		tc = x@tracksCollection[s]
+		index = 1
+
+		for(tz in tc) {
+			tc[[index]]@tracks = tz@tracks[i[[index]]]
+			tc[[index]]@tracksData = tz@tracksData[i[[index]], ]
+			index = index + 1
+		}
+
+		TracksCollection(tc, x@tracksCollectionData[s,,drop=FALSE])
+
+	}
 	else
 		TracksCollection(x@tracksCollection[i], 
 			x@tracksCollectionData[i,,drop=FALSE])
