@@ -83,9 +83,10 @@ setAs("TracksCollection", "segments",
 setMethod("plot", "TracksCollection",
 	function(x, y, ..., type = 'l', xlim = bbox(x)[,1],
 			ylim = bbox(x)[,2], col = 1, lwd = 1, lty =
-			1, axes = TRUE, Arrows = FALSE, Segments = FALSE) {
+			1, axes = TRUE, Arrows = FALSE, Segments = FALSE, add = FALSE) {
 		sp = x@tracksCollection[[1]]@tracks[[1]]@sp
-		plot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
+		if (! add)
+			plot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
 		if (axes == FALSE)
 			box()
 		if (Arrows || Segments) {
@@ -152,13 +153,13 @@ dim.TracksCollection = function(x) c(IDs=length(x@tracksCollection),
 	apply(sapply(x@tracksCollection,dim),1,sum))
 
 # TODO Not working yet!
-setMethod("over", "Tracks", function(x, ...) {
-	over(as(x, "SpatialLines"), ...)
+setMethod("over", c("Tracks", "Spatial"), function(x, y, ...) {
+	over(as(x, "SpatialLines"), y, ...)
 })
 
 # TODO Not working yet!
-setMethod("over", "TracksCollection", function(x, ...) {
-	over(as(x, "SpatialLines"), ...)
+setMethod("over", c("TracksCollection", "Spatial"), function(x, y, ...) {
+	over(as(x, "SpatialLines"), y, ...)
 })
 
 subs.Tracks <- function(x, i, j, ... , drop = TRUE) {
@@ -189,20 +190,16 @@ subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
 	if (drop && length(s) == 1)
 		x@tracksCollection[[s]]	
 	else if (is.list(i)) {
-		
-		stopifnot(sapply(i, function(z) is.numeric(z)))
-		s = which(sapply(i, function(z) length(z)>0))
+		stopifnot(all(sapply(i, function(z) is.numeric(z))))
+		s = which(sapply(i, function(z) length(z) > 0))
 		tc = x@tracksCollection[s]
 		index = 1
-
 		for(tz in tc) {
 			tc[[index]]@tracks = tz@tracks[i[[index]]]
 			tc[[index]]@tracksData = tz@tracksData[i[[index]], ]
 			index = index + 1
 		}
-
 		TracksCollection(tc, x@tracksCollectionData[s,,drop=FALSE])
-
 	}
 	else
 		TracksCollection(x@tracksCollection[i], 
