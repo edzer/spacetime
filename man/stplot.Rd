@@ -11,16 +11,19 @@
 \alias{stack.STFDF} 
 \alias{stack.STSDF} 
 \alias{stack.STIDF} 
+\alias{segPanel}
+\alias{tracksPanel}
 \title{ produce trellis plot for STxDF object }
 \description{ create trellis plot for ST objects }
 \section{Methods}{
   \describe{
-    \item{stplot}{\code{signature(x = "STFDF")}: plots object of class STFDF}
-    \item{stplot}{\code{signature(x = "STSDF")}: plots object of class STSDF}
-    \item{stplot}{\code{signature(x = "STI")}: plots object of class STI}
-    \item{stplot}{\code{signature(x = "STIDF")}: plots object of class STIDF}
-    \item{stplot}{\code{signature(x = "STT")}: plots object of class STT}
-    \item{stplot}{\code{signature(x = "STTDF")}: plots object of class STTDF}
+    \item{stplot}{\code{signature(x = "STFDF")}: plots object of class \link{STFDF}}
+    \item{stplot}{\code{signature(x = "STSDF")}: plots object of class \link{STSDF}}
+    \item{stplot}{\code{signature(x = "STI")}: plots object of class \link{STI}}
+    \item{stplot}{\code{signature(x = "STIDF")}: plots object of class \link{STIDF}}
+    \item{stplot}{\code{signature(x = "STT")}: plots object of class \link{STT}}
+    \item{stplot}{\code{signature(x = "STTDF")}: plots object of class \link{STTDF}}
+    \item{stplot}{\code{signature(x = "TracksCollection")}: plots object of class \link{TracksCollection}}
   }
 }
 \usage{ 

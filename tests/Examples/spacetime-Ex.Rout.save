@@ -1,5 +1,5 @@
 
-R version 3.0.1 (2013-05-16) -- "Good Sport"
+R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
 Copyright (C) 2013 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -360,7 +360,7 @@ Loading required package: zoo
 
 Attaching package: ‘zoo’
 
-The following object is masked from ‘package:base’:
+The following objects are masked from ‘package:base’:
 
     as.Date, as.Date.numeric
 
@@ -722,6 +722,136 @@ detaching ‘package:xts’, ‘package:zoo’, ‘package:sp’
 
 detaching ‘package:sp’
 
+> nameEx("Track-class")
+> ### * Track-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Track-class
+> ### Title: Classes "Track", "Tracks", and "TracksCollection"
+> ### Aliases: Track-class Tracks-class TracksCollection-class segments-class
+> ###   Track Tracks TracksCollection TrackSummary TracksSummary
+> ###   [,Track-method [,Tracks-method [,TracksCollection-method
+> ###   coerce,Track,data.frame-method coordnames,Track-method
+> ###   coordnames,Tracks-method coordnames,TracksCollection-method
+> ###   coerce,Tracks,data.frame-method
+> ###   coerce,TracksCollection,data.frame-method
+> ###   plot,TracksCollection,ANY-method stplot,TracksCollection-method
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> library(sp)
+> t0 = as.POSIXct(as.Date("2013-09-30",tz="CET"))
+> # person A, track 1:
+> x = c(7,6,5,5,4,3,3)
+> y = c(7,7,6,5,5,6,7)
+> n = length(x)
+> t = t0 + cumsum(runif(n) * 60)
+> require(rgdal)
+Loading required package: rgdal
+rgdal: version: 0.8-11, (SVN revision 479M)
+Geospatial Data Abstraction Library extensions to R successfully loaded
+Loaded GDAL runtime: GDAL 1.10.0, released 2013/04/24
+Path to GDAL shared files: /usr/share/gdal/1.10
+Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
+Path to PROJ.4 shared files: (autodetected)
+> crs = CRS("+proj=longlat")
+> #crs = CRS(as.character(NA))
+> stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n)))
+> A1 = Track(stidf)
+> # person A, track 2:
+> x = c(7,6,6,7,7)
+> y = c(6,5,4,4,3)
+> n = length(x)
+> t = max(t) + cumsum(runif(n) * 60)
+> stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n)))
+> A2 = Track(stidf)
+> # Tracks for person A:
+> A = Tracks(list(A1=A1,A2=A2))
+> # person B, track 1:
+> x = c(2,2,1,1,2,3)
+> y = c(5,4,3,2,2,3)
+> n = length(x)
+> t = max(t) + cumsum(runif(n) * 60)
+> stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n)))
+> B1 = Track(stidf)
+> # person B, track 2:
+> x = c(3,3,4,3,3,4)
+> y = c(5,4,3,2,1,1)
+> n = length(x)
+> t = max(t) + cumsum(runif(n) * 60)
+> stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n)))
+> B2 = Track(stidf)
+> # Tracks for person A:
+> B = Tracks(list(B1=B1,B2=B2))
+> Tr = TracksCollection(list(A=A,B=B))
+> stplot(Tr, scales = list(draw=TRUE))
+> stplot(Tr, attr = "direction", arrows=TRUE, lwd = 3, by = "direction")
+> stplot(Tr, attr = "direction", arrows=TRUE, lwd = 3, by = "IDs")
+> plot(Tr, col=2, axes=TRUE)
+> dim(Tr)
+   IDs tracks points 
+     2      4     24 
+> dim(Tr[2])
+tracks points 
+     2     12 
+> dim(Tr[2][1])
+points 
+     6 
+> as(Tr, "data.frame")[1:10,] # tracks separated by NA rows
+        x  y sp.ID                time             endTime timeIndex
+A.A1.1  7  7     1 2013-09-30 02:00:15 2013-09-30 02:00:15         1
+A.A1.2  6  7     2 2013-09-30 02:00:38 2013-09-30 02:00:38         2
+A.A1.3  5  6     3 2013-09-30 02:01:12 2013-09-30 02:01:12         3
+A.A1.4  5  5     4 2013-09-30 02:02:07 2013-09-30 02:02:07         4
+A.A1.5  4  5     5 2013-09-30 02:02:19 2013-09-30 02:02:19         5
+A.A1.6  3  6     6 2013-09-30 02:03:13 2013-09-30 02:03:13         6
+A.A1.7  3  7     7 2013-09-30 02:04:09 2013-09-30 02:04:09         7
+A.A1.8 NA NA    NA                <NA>                <NA>        NA
+A.A2.1  7  6     1 2013-09-30 02:04:22 2013-09-30 02:04:22         1
+A.A2.2  6  5     2 2013-09-30 02:05:01 2013-09-30 02:05:01         2
+                co2 IDs
+A.A1.1  0.414641434   A
+A.A1.2 -1.539950042   A
+A.A1.3 -0.928567035   A
+A.A1.4 -0.294720447   A
+A.A1.5 -0.005767173   A
+A.A1.6  2.404653389   A
+A.A1.7  0.763593461   A
+A.A1.8           NA   A
+A.A2.1 -2.214699887   A
+A.A2.2  1.124930918   A
+> as(Tr, "segments")[1:10,]   # track segments as records
+       x0 y0 x1 y1                time          co2 distance  duration
+A.A1.1  7  7  6  7 2013-09-30 02:00:15  0.414641434 110.4952 22.327434
+A.A1.2  6  7  5  6 2013-09-30 02:00:38 -1.539950042 156.2766 34.371202
+A.A1.3  5  6  5  5 2013-09-30 02:01:12 -0.928567035 110.3984 54.492467
+A.A1.4  5  5  4  5 2013-09-30 02:02:07 -0.294720447 110.8987 12.100916
+A.A1.5  4  5  3  6 2013-09-30 02:02:19 -0.005767173 156.4162 53.903381
+A.A1.6  3  6  3  7 2013-09-30 02:03:13  2.404653389 110.4032 56.680516
+A.A2.1  7  6  6  5 2013-09-30 02:04:22 -2.214699887 156.4162 39.100426
+A.A2.2  6  5  6  4 2013-09-30 02:05:01  1.124930918 110.3945  7.533306
+A.A2.3  6  4  7  4 2013-09-30 02:05:09 -0.044933609 111.0501 16.033240
+A.A2.4  7  4  7  3 2013-09-30 02:05:25 -0.016190263 110.3913 23.166846
+           speed direction Track IDs
+A.A1.1  4.948854 270.06094    A1   A
+A.A1.2  4.546732 224.87295    A1   A
+A.A1.3  2.025939 180.00000    A1   A
+A.A1.4  9.164488 270.04358    A1   A
+A.A1.5  2.901788 315.17903    A1   A
+A.A1.6  1.947815   0.00000    A1   A
+A.A2.1  4.000370 224.91682    A2   A
+A.A2.2 14.654188 180.00000    A2   A
+A.A2.3  6.926244  89.96512    A2   A
+A.A2.4  4.765055 180.00000    A2   A
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:rgdal’, ‘package:sp’
+
 > nameEx("air")
 > ### * air
 > 
@@ -1057,7 +1187,7 @@ Loading required package: zoo
 
 Attaching package: ‘zoo’
 
-The following object is masked from ‘package:base’:
+The following objects are masked from ‘package:base’:
 
     as.Date, as.Date.numeric
 
@@ -1356,7 +1486,7 @@ Loading required package: zoo
 
 Attaching package: ‘zoo’
 
-The following object is masked from ‘package:base’:
+The following objects are masked from ‘package:base’:
 
     as.Date, as.Date.numeric
 
@@ -1408,7 +1538,7 @@ point3               30.40
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.972 0.292 9.287 0 0 
+Time elapsed:  9.784 0.248 10.058 0 0 
 > grDevices::dev.off()
 null device 
           1 

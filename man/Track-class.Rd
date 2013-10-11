@@ -3,6 +3,7 @@
 \alias{Track-class}
 \alias{Tracks-class}
 \alias{TracksCollection-class}
+\alias{segments-class}
 \alias{Track}
 \alias{Tracks}
 \alias{TracksCollection}
@@ -10,6 +11,7 @@
 \alias{TracksSummary}
 \alias{[,Track-method} 
 \alias{[,Tracks-method} 
+\alias{[,TracksCollection-method} 
 \alias{coerce,Track,data.frame-method} 
 \alias{coordnames,Track-method} 
 \alias{coordnames,Tracks-method} 
@@ -80,9 +82,12 @@ different IDs.
   TrackSummary(track)
   TracksSummary(tracksCollection)
   \S4method{[}{Track}(x, i, j, ..., drop = TRUE)
+  \S4method{[}{TracksCollection}(x, i, j, ..., drop = TRUE)
   \S4method{coerce}{Track,data.frame}(from, to)
   \S4method{coerce}{Tracks,data.frame}(from, to)
   \S4method{coerce}{TracksCollection,data.frame}(from, to)
+%  \S4method{over}{Tracks,Spatial}(x, y, returnList = FALSE, fn = NULL, ...)
+%  \S4method{over}{TracksCollection,Spatial}(x, y, returnList = FALSE, 
 }
 
 \arguments{
@@ -95,6 +100,7 @@ different IDs.
  \code{tracksCollection}}
 \item{fn}{function; }
 \item{x}{object of class \code{Track} etc}
+%\item{y}{object of class \code{Spatial}}
 \item{i}{selection of spatial entities}
 \item{j}{selection of temporal entities (see syntax in package xts) }
 \item{...}{selection of attribute(s)}
@@ -110,6 +116,10 @@ statistics on the track and tracks sets.}
 
 \author{ Edzer Pebesma, \email{edzer.pebesma@uni-muenster.de} }
 \references{ http://www.jstatsoft.org/v51/i07/ }
+
+\note{\code{segments} is a \code{data.frame} form in which track
+segments instead of track points form a record, with \code{x0},
+\code{y0}, \code{x1} and \code{y1} the start and end coordinates}
 
 \examples{
 library(sp)
