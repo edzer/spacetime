@@ -17,8 +17,24 @@ setAs("TracksCollection", "data.frame",
 	}
 )
 
+setMethod("proj4string", signature(obj = "Track"),
+    function(obj) proj4string(obj@sp)
+)
+setMethod("proj4string", signature(obj = "Tracks"),
+    function(obj) proj4string(obj@tracks[[1]])
+)
+setMethod("proj4string", signature(obj = "TracksCollection"),
+    function(obj) proj4string(obj@tracksCollection[[1]])
+)
+
 setAs("Track", "Line", 
-	function(from) Line(as(from, "data.frame")[c("x", "y")])
+	function(from) Line(coordinates(from@sp))
+)
+setAs("Track", "Lines",
+	function(from) Lines(list(as(from, "Line")), "ID")
+)
+setAs("Track", "SpatialLines",
+	function(from) SpatialLines(as(from, "Lines"), CRS(proj4string(from)))
 )
 
 setAs("Tracks", "Lines", 
@@ -26,24 +42,33 @@ setAs("Tracks", "Lines",
 		tz = from@tracks
 		# The Lines ID is made up of the conjunction of the first and last Track ID
 		# using hyphen as separator. Any better idea?
-		Lines(lapply(tz, function(x) as(x, "Line")), paste(names(tz)[1], names(tz)[length(tz)], sep = "-"))
+		Lines(lapply(tz, function(x) as(x, "Line")), 
+			paste(names(tz)[1], names(tz)[length(tz)], sep = "-"))
 	}
 )
 
 setAs("Tracks", "SpatialLines", 
 	function(from) {
-		# Which CRS should be taken if Tracks with different CRS exist?
-		SpatialLines(list(as(from, "Lines")), CRS(""))
+		l = lapply(from@tracks, function(x) as(x, "Lines"))
+		for (i in seq_along(l))
+			l[[i]]@ID = paste("ID", i, sep="")
+		SpatialLines(l, CRS(proj4string(from)))
 	}
 )
 
+setAs("Tracks", "SpatialLinesDataFrame", 
+	function(from) SpatialLinesDataFrame(as(from, "SpatialLines"), 
+		from@tracksData, match.ID = FALSE)
+)
+
 setAs("TracksCollection", "SpatialLines", 
-	function(from) {
-		tc = from@tracksCollection
-		lz = lapply(tc, function(x) as(x, "Lines"))
-		# Which CRS should be taken if Tracks with different CRS exist?
-		SpatialLines(lz, CRS(""))
-	}
+	function(from) SpatialLines(lapply(from@tracksCollection, function(x) as(x, "Lines")), 
+		CRS(proj4string(from)))
+)
+
+setAs("TracksCollection", "SpatialLinesDataFrame", 
+	function(from) SpatialLinesDataFrame(as(from, "SpatialLines"),
+		from@tracksCollectionData, match.ID = FALSE)
 )
 
 # segments are data.frames with a segment on each row, with
