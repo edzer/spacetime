@@ -40,8 +40,8 @@ setAs("Track", "SpatialLines",
 setAs("Tracks", "Lines", 
 	function(from) {
 		tz = from@tracks
-		# The Lines ID is made up of the conjunction of the first and last Track ID
-		# using hyphen as separator. Any better idea?
+		# The Lines ID is made up of the conjunction of the first and last 
+		# Track ID, using hyphen as separator.
 		Lines(lapply(tz, function(x) as(x, "Line")), 
 			paste(names(tz)[1], names(tz)[length(tz)], sep = "-"))
 	}
@@ -62,8 +62,8 @@ setAs("Tracks", "SpatialLinesDataFrame",
 )
 
 setAs("TracksCollection", "SpatialLines", 
-	function(from) SpatialLines(lapply(from@tracksCollection, function(x) as(x, "Lines")), 
-		CRS(proj4string(from)))
+	function(from) SpatialLines(lapply(from@tracksCollection, 
+		function(x) as(x, "Lines")), CRS(proj4string(from)))
 )
 
 setAs("TracksCollection", "SpatialLinesDataFrame", 
@@ -231,3 +231,18 @@ subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
 			x@tracksCollectionData[i,,drop=FALSE])
 }
 setMethod("[", "TracksCollection", subs.TracksCollection)
+
+stack.TracksCollection = function (x, select, ...) {
+	stopifnot(missing(select))
+	splt = function(Tr) lapply(Tr@tracks, function(x) Tracks(list(x)))
+	l = lapply(x@tracksCollection, function(x) splt(x))
+	TracksCollection(do.call(c, l))
+}
+
+c.Tracks = function(...)
+	Tracks(do.call(c, lapply(list(...), function(x) x@tracks)))
+
+unstack.TracksCollection = function(x, form, ...) {
+	TracksCollection(lapply(split(x@tracksCollection, form), 
+		function(x) do.call(c, x)))
+}
