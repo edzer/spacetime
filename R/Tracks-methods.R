@@ -210,25 +210,27 @@ subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
 		s = which(!is.na(over(x, geometry(i))))
 	else if (is.logical(i))
 		s = which(i)
+	else if (is.list(i)) {
+		stopifnot(all(sapply(i, function(element) is.numeric(element))))
+		s = which(sapply(i, function(element) length(element) > 0))
+		for(index in seq_along(s)) {
+			tz = x@tracksCollection[[s[index]]]
+			tz@tracks = tz@tracks[i[[s[index]]]]
+			tz@tracksData = tz@tracksData[i[[s[index]]], ]
+			# Write back the just processed Tracks element
+			x@tracksCollection[[s[index]]] = tz
+		}
+	}
 	else
 		s = i
 	if (drop && length(s) == 1)
-		x@tracksCollection[[s]]	
-	else if (is.list(i)) {
-		stopifnot(all(sapply(i, function(z) is.numeric(z))))
-		s = which(sapply(i, function(z) length(z) > 0))
-		tc = x@tracksCollection[s]
-		index = 1
-		for(tz in tc) {
-			tc[[index]]@tracks = tz@tracks[i[[index]]]
-			tc[[index]]@tracksData = tz@tracksData[i[[index]], ]
-			index = index + 1
-		}
-		TracksCollection(tc, x@tracksCollectionData[s,,drop=FALSE])
-	}
+		if(is.list(i) && length(i[[s[1]]]) == 1)
+			x@tracksCollection[[s]][i[[s[1]]]]
+		else
+			x@tracksCollection[[s]]
 	else
-		TracksCollection(x@tracksCollection[i], 
-			x@tracksCollectionData[i,,drop=FALSE])
+		TracksCollection(x@tracksCollection[s], 
+			x@tracksCollectionData[s,,drop=FALSE])
 }
 setMethod("[", "TracksCollection", subs.TracksCollection)
 
