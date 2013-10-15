@@ -1,19 +1,20 @@
 Package: spacetime
-Version: 1.0-10
-Date: 2013-09-26
+Version: 1.1-0
+Date: 2013-10-15
 Title: classes and methods for spatio-temporal data
 Authors@R: c(person("Edzer", "Pebesma", role = c("cre", "aut"),
 		 email = "edzer.pebesma@uni-muenster.de"),
 	person("Benedikt", "Graeler", role = "ctb"),
 	person("Tom", "Gottfried", role = "ctb"),
-	person("Robert J.", "Hijmans", role = "ctb"))
+	person("Robert J.", "Hijmans", role = "ctb"),
+	person("Benedikt", "Klus", role = "ctb"))
 Depends: R (>= 2.14.0)
 Imports: methods, sp (>= 1.0-13), zoo (>= 1.7-9), xts (>= 0.8-8), intervals, lattice, rgeos
 Suggests: rgdal, raster, maps, mapdata, maptools, gstat (>= 1.0-16), adehabitatLT, diveMove, RColorBrewer, plm, cshapes, foreign, RPostgreSQL
 LazyData: no
-Description: Classes and methods for spatio-temporal data, including space-time regular lattices, sparse lattices, irregular data, and simple trajectories; utility functions for plotting data as map sequences (lattice or animation) or multiple time series; methods for spatial and temporal selection and subsetting, as well as for spatial/temporal/spatio-temporal combining or aggregating, retrieving coordinates, print, summary, etc.
+Description: Classes and methods for spatio-temporal data, including space-time regular lattices, sparse lattices, irregular data, and trajectories; utility functions for plotting data as map sequences (lattice or animation) or multiple time series; methods for spatial and temporal selection and subsetting, as well as for spatial/temporal/spatio-temporal combining or aggregating, retrieving coordinates, print, summary, etc.
 License: GPL (>= 2)
-URL: http://www.jstatsoft.org/v51/i07/, https://r-forge.r-project.org/projects/spacetime/, http://www.52north.org/communities/geostatistics
+URL: http://www.jstatsoft.org/v51/i07/, http://github.com/edzer/spacetime
 Collate: Class-xts.R Class-ST.R Class-STFDF.R Class-STSDF.R
 	Class-STIDF.R Class-STTDF.R Class-Tracks.R interval.R endtime.R
 	ST-methods.R STFDF-methods.R STSDF-methods.R STIDF-methods.R
