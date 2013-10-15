@@ -122,11 +122,6 @@ setAs("TracksCollection", "xts",
 
 # Coerce to STIDF.
 
-setAs("Track", "STIDF", 
-	function(from)
-		STIDF(sp = from@sp, time = from@time, data = from@data)
-)
-
 setAs("Tracks", "STIDF",
 	function(from)
 		do.call(rbind, lapply(from@tracks, function(x) as(x, "STIDF")))
