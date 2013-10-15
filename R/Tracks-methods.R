@@ -107,7 +107,7 @@ setAs("TracksCollection", "SpatialLinesDataFrame",
 
 setAs("Track", "xts", 
 	function(from)
-		as(STIDF(sp = from@sp, time = from@time, data = from@data), "xts")
+		as(as(from, "STIDF"), "xts")
 )
 
 setAs("Tracks", "xts",
@@ -122,10 +122,7 @@ setAs("TracksCollection", "xts",
 
 # Coerce to STIDF.
 
-setAs("Track", "STIDF", 
-	function(from)
-		STIDF(sp = from@sp, time = from@time, data = from@data)
-)
+#setAs("Track", "STIDF",  -> Track contains STIDF
 
 setAs("Tracks", "STIDF",
 	function(from)
@@ -134,24 +131,30 @@ setAs("Tracks", "STIDF",
 
 setAs("TracksCollection", "STIDF",
 	function(from)
-		do.call(rbind, lapply(from@tracksCollection, function(x) as(x, "STIDF")))
+		do.call(rbind, lapply(from@tracksCollection, 
+			function(x) as(x, "STIDF")))
 )
 
 # Coerce to SpatialPointsDataFrame.
 
 setAs("Track", "SpatialPointsDataFrame",
 	function(from)
-		SpatialPointsDataFrame(coords = from@sp, data = from@data, match.ID = FALSE)
+		SpatialPointsDataFrame(coords = from@sp, data = from@data, 
+			match.ID = FALSE)
+		# TBD: what if from@sp is not SpatialPoints? 
+		# use coordinates(from@sp), and pass proj4string?
 )
 
 setAs("Tracks", "SpatialPointsDataFrame",
 	function(from)
-		do.call(rbind, lapply(from@tracks, function(x) as(x, "SpatialPointsDataFrame")))
+		do.call(rbind, lapply(from@tracks, 
+			function(x) as(x, "SpatialPointsDataFrame")))
 )
 
 setAs("TracksCollection", "SpatialPointsDataFrame",
 	function(from)
-		do.call(rbind, lapply(from@tracksCollection, function(x) as(x, "SpatialPointsDataFrame")))
+		do.call(rbind, lapply(from@tracksCollection, 
+			function(x) as(x, "SpatialPointsDataFrame")))
 )
 
 # Provide proj4string methods.

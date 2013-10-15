@@ -1284,9 +1284,10 @@ attr(,"package")
 > 
 > cleanEx()
 
-detaching ‘package:gstat’, ‘package:plm’, ‘package:sandwich’,
-  ‘package:zoo’, ‘package:MASS’, ‘package:Formula’, ‘package:nlme’,
-  ‘package:bdsmatrix’, ‘package:maptools’, ‘package:sp’, ‘package:maps’
+detaching ‘package:gstat’, ‘package:plm’, ‘package:zoo’,
+  ‘package:sandwich’, ‘package:MASS’, ‘package:Formula’,
+  ‘package:nlme’, ‘package:bdsmatrix’, ‘package:maptools’,
+  ‘package:sp’, ‘package:maps’
 
 > nameEx("stinteraction")
 > ### * stinteraction
@@ -1551,7 +1552,7 @@ point3               30.40
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  10.1 0.264 10.39 0 0 
+Time elapsed:  10.104 0.316 10.493 0 0 
 > grDevices::dev.off()
 null device 
           1 

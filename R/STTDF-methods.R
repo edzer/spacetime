@@ -57,8 +57,7 @@ setMethod("addAttrToGeom", signature(x = "STT", y = "data.frame"),
 # 
 # setMethod("plot", signature(x = "STTDF", y = "missing"), plot.STTDF)
 
-subs.STTDF <- function(x, i, j, ... ,
-		useGeos = ("rgeos" %in% .packages()), drop = FALSE) {
+subs.STTDF <- function(x, i, j, ... , useGeos = TRUE, drop = FALSE) {
 	missing.i = missing(i)
 	missing.j = missing(j)
 	missing.k = k = TRUE
@@ -78,10 +77,9 @@ subs.STTDF <- function(x, i, j, ... ,
 
 	if (is(i, "Spatial") || is(i, "ST")) {
 		# select full trajectories:
-		if (useGeos) {
-			require(rgeos)
+		if (useGeos)
 			i = !is.na(over(as(x, "SpatialLines"), geometry(i)))
-		} else
+		else
 			i = sapply(x@traj, function(y) any(!is.na(over(y@sp, geometry(i)))))
 	} 
 	if (is.logical(i)) {
