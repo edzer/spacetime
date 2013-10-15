@@ -137,6 +137,23 @@ setAs("TracksCollection", "STIDF",
 		do.call(rbind, lapply(from@tracksCollection, function(x) as(x, "STIDF")))
 )
 
+# Coerce to SpatialPointsDataFrame.
+
+setAs("Track", "SpatialPointsDataFrame",
+	function(from)
+		SpatialPointsDataFrame(coords = from@sp, data = from@data, match.ID = FALSE)
+)
+
+setAs("Tracks", "SpatialPointsDataFrame",
+	function(from)
+		do.call(rbind, lapply(from@tracks, function(x) as(x, "SpatialPointsDataFrame")))
+)
+
+setAs("TracksCollection", "SpatialPointsDataFrame",
+	function(from)
+		do.call(rbind, lapply(from@tracksCollection, function(x) as(x, "SpatialPointsDataFrame")))
+)
+
 # Provide proj4string methods.
 
 setMethod("proj4string", signature(obj = "Track"),
