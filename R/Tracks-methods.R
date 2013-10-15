@@ -120,6 +120,23 @@ setAs("TracksCollection", "xts",
 		do.call(rbind, lapply(from@tracksCollection, function(x) as(x, "xts")))
 )
 
+# Coerce to STIDF.
+
+setAs("Track", "STIDF", 
+	function(from)
+		STIDF(sp = from@sp, time = from@time, data = from@data)
+)
+
+setAs("Tracks", "STIDF",
+	function(from)
+		do.call(rbind, lapply(from@tracks, function(x) as(x, "STIDF")))
+)
+
+setAs("TracksCollection", "STIDF",
+	function(from)
+		do.call(rbind, lapply(from@tracksCollection, function(x) as(x, "STIDF")))
+)
+
 # Provide proj4string methods.
 
 setMethod("proj4string", signature(obj = "Track"),
