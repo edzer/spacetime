@@ -34,7 +34,7 @@ setAs("Track", "Lines",
 	function(from) Lines(list(as(from, "Line")), "ID")
 )
 setAs("Track", "SpatialLines",
-	function(from) SpatialLines(as(from, "Lines"), CRS(proj4string(from)))
+	function(from) SpatialLines(list(as(from, "Lines")), CRS(proj4string(from)))
 )
 
 setAs("Tracks", "Lines", 
@@ -177,6 +177,11 @@ dim.Tracks = function(x) c(tracks=length(x@tracks),
 dim.TracksCollection = function(x) c(IDs=length(x@tracksCollection),
 	apply(sapply(x@tracksCollection,dim),1,sum))
 
+setMethod("over", c("Track", "Spatial"),
+	function(x, y, ...) {
+		over(as(x, "SpatialLines"), y, ...)
+	}
+)
 setMethod("over", c("Tracks", "Spatial"),
 	function(x, y, ...) {
 		over(as(x, "SpatialLines"), y, ...)
