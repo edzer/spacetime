@@ -1,3 +1,41 @@
+# segments are data.frames with a segment on each row, with
+# x0 y0 x1 y1 the first four values, followed by attributes.
+
+setClass("segments", contains = "data.frame")
+
+# Coerce to segments.
+
+setAs("Track", "segments", 
+	function(from) {
+		cc = coordinates(from@sp)
+		t = index(from@time)
+		df = from@data
+		data.frame(x0 = head(cc[,1], -1), y0 = head(cc[,2], -1),
+			x1 = tail(cc[,1], -1), y1 = tail(cc[,2], -1),
+			time = head(t, -1), head(df, -1), from@connections)
+	}
+)
+
+setAs("Tracks", "segments", function(from) {
+		ret = do.call(rbind, lapply(from@tracks, 
+			function(x) as(x, "segments")))
+		ret$Track = rep(names(from@tracks), 
+			times = sapply(from@tracks, length) - 1)
+		ret
+	}
+)
+
+setAs("TracksCollection", "segments",
+	function(from) {
+		l = lapply(from@tracksCollection, function(x) as(x, "segments"))
+		ret = do.call(rbind, l)
+		ret$IDs = rep(names(from@tracksCollection), times = sapply(l, nrow))
+		ret
+	}
+)
+
+# Coerce to data frame.
+
 setAs("Track", "data.frame", 
 	function(from) as(as(from, "STIDF"), "data.frame")
 )
@@ -17,22 +55,16 @@ setAs("TracksCollection", "data.frame",
 	}
 )
 
-setMethod("proj4string", signature(obj = "Track"),
-    function(obj) proj4string(obj@sp)
-)
-setMethod("proj4string", signature(obj = "Tracks"),
-    function(obj) proj4string(obj@tracks[[1]])
-)
-setMethod("proj4string", signature(obj = "TracksCollection"),
-    function(obj) proj4string(obj@tracksCollection[[1]])
-)
+# Coerce to Line, Lines, SpatialLines and SpatialLinesDataFrame. 
 
 setAs("Track", "Line", 
 	function(from) Line(coordinates(from@sp))
 )
+
 setAs("Track", "Lines",
 	function(from) Lines(list(as(from, "Line")), "ID")
 )
+
 setAs("Track", "SpatialLines",
 	function(from) SpatialLines(list(as(from, "Lines")), CRS(proj4string(from)))
 )
@@ -71,39 +103,36 @@ setAs("TracksCollection", "SpatialLinesDataFrame",
 		from@tracksCollectionData, match.ID = FALSE)
 )
 
-# segments are data.frames with a segment on each row, with
-# x0 y0 x1 y1 the first four values, followed by attributes.
+# Coerce to xts.
 
-setClass("segments", contains = "data.frame")
-
-setAs("Track", "segments", 
-	function(from) {
-		cc = coordinates(from@sp)
-		t = index(from@time)
-		df = from@data
-		data.frame(x0 = head(cc[,1], -1), y0 = head(cc[,2], -1),
-			x1 = tail(cc[,1], -1), y1 = tail(cc[,2], -1),
-			time = head(t, -1), head(df, -1), from@connections)
-	}
+setAs("Track", "xts", 
+	function(from)
+		as(STIDF(sp = from@sp, time = from@time, data = from@data), "xts")
 )
 
-setAs("Tracks", "segments", function(from) {
-		ret = do.call(rbind, lapply(from@tracks, 
-			function(x) as(x, "segments")))
-		ret$Track = rep(names(from@tracks), 
-			times = sapply(from@tracks, length) - 1)
-		ret
-	}
+setAs("Tracks", "xts",
+	function(from)
+		do.call(rbind, lapply(from@tracks, function(x) as(x, "xts")))
 )
 
-setAs("TracksCollection", "segments",
-	function(from) {
-		l = lapply(from@tracksCollection, function(x) as(x, "segments"))
-		ret = do.call(rbind, l)
-		ret$IDs = rep(names(from@tracksCollection), times = sapply(l, nrow))
-		ret
-	}
+setAs("TracksCollection", "xts",
+	function(from)
+		do.call(rbind, lapply(from@tracksCollection, function(x) as(x, "xts")))
 )
+
+# Provide proj4string methods.
+
+setMethod("proj4string", signature(obj = "Track"),
+    function(obj) proj4string(obj@sp)
+)
+setMethod("proj4string", signature(obj = "Tracks"),
+    function(obj) proj4string(obj@tracks[[1]])
+)
+setMethod("proj4string", signature(obj = "TracksCollection"),
+    function(obj) proj4string(obj@tracksCollection[[1]])
+)
+
+# Provide plot methods.
 
 setMethod("plot", "TracksCollection",
 	function(x, y, ..., type = 'l', xlim = bbox(x)[,1],
@@ -131,11 +160,18 @@ setMethod("plot", "TracksCollection",
 	}
 )
 
+# Provide coordnames methods.
+
 setMethod("coordnames", "Track", function(x) coordnames(x@sp))
+
 setMethod("coordnames", "Tracks", function(x) coordnames(x@tracks[[1]]))
+
 setMethod("coordnames", "TracksCollection",
 	function(x) coordnames(x@tracksCollection[[1]])
 )
+
+# Provide bbox methods.
+
 setMethod("bbox", "Track",
 	function(obj) {
 		bb = data.frame(t(bbox(obj@sp)))
@@ -145,6 +181,7 @@ setMethod("bbox", "Track",
 		bb
 	}
 )
+
 setMethod("bbox", "Tracks",
 	function(obj) {
 		df = obj@tracksData
@@ -158,6 +195,7 @@ setMethod("bbox", "Tracks",
 		ret
 	}
 )
+
 setMethod("bbox", "TracksCollection",
 	function(obj) {
 		df = obj@tracksCollectionData
@@ -171,27 +209,38 @@ setMethod("bbox", "TracksCollection",
 		ret
 	}
 )
-dim.Track = function(x) c(points=length(x@sp))
-dim.Tracks = function(x) c(tracks=length(x@tracks),
-	points=sum(sapply(x@tracks,dim)))
-dim.TracksCollection = function(x) c(IDs=length(x@tracksCollection),
-	apply(sapply(x@tracksCollection,dim),1,sum))
+
+# Provide over methods.
 
 setMethod("over", c("Track", "Spatial"),
 	function(x, y, ...) {
 		over(as(x, "SpatialLines"), y, ...)
 	}
 )
+
 setMethod("over", c("Tracks", "Spatial"),
 	function(x, y, ...) {
 		over(as(x, "SpatialLines"), y, ...)
 	}
 )
+
 setMethod("over", c("TracksCollection", "Spatial"),
 	function(x, y, ...) {
 		over(as(x, "SpatialLines"), y, ...)
 	}
 )
+
+# Provide dimension methods.
+
+dim.Track = function(x) c(points=length(x@sp))
+
+dim.Tracks = function(x) c(tracks=length(x@tracks),
+	points=sum(sapply(x@tracks,dim)))
+
+dim.TracksCollection = function(x) c(IDs=length(x@tracksCollection),
+	apply(sapply(x@tracksCollection,dim),1,sum))
+
+# Provide selection methods.
 
 subs.Tracks <- function(x, i, j, ... , drop = TRUE) {
 	if (missing(i))
@@ -205,6 +254,7 @@ subs.Tracks <- function(x, i, j, ... , drop = TRUE) {
 	else
 		Tracks(x@tracks[i], x@tracksData[i,j,drop=FALSE])
 }
+
 setMethod("[", "Tracks", subs.Tracks)
 
 subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
@@ -223,7 +273,7 @@ subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
 			tz = x@tracksCollection[[s[index]]]
 			tz@tracks = tz@tracks[i[[s[index]]]]
 			tz@tracksData = tz@tracksData[i[[s[index]]], ]
-			# Write back the just processed Tracks element
+			# Write back the just processed Tracks element.
 			x@tracksCollection[[s[index]]] = tz
 		}
 	}
@@ -238,6 +288,7 @@ subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
 		TracksCollection(x@tracksCollection[s], 
 			x@tracksCollectionData[s,,drop=FALSE])
 }
+
 setMethod("[", "TracksCollection", subs.TracksCollection)
 
 stack.TracksCollection = function (x, select, ...) {
