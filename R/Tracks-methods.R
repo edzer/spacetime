@@ -177,15 +177,16 @@ dim.Tracks = function(x) c(tracks=length(x@tracks),
 dim.TracksCollection = function(x) c(IDs=length(x@tracksCollection),
 	apply(sapply(x@tracksCollection,dim),1,sum))
 
-# TODO Not working yet!
-setMethod("over", c("Tracks", "Spatial"), function(x, y, ...) {
-	over(as(x, "SpatialLines"), y, ...)
-})
-
-# TODO Not working yet!
-setMethod("over", c("TracksCollection", "Spatial"), function(x, y, ...) {
-	over(as(x, "SpatialLines"), y, ...)
-})
+setMethod("over", c("Tracks", "Spatial"),
+	function(x, y, ...) {
+		over(as(x, "SpatialLines"), y, ...)
+	}
+)
+setMethod("over", c("TracksCollection", "Spatial"),
+	function(x, y, ...) {
+		over(as(x, "SpatialLines"), y, ...)
+	}
+)
 
 subs.Tracks <- function(x, i, j, ... , drop = TRUE) {
 	if (missing(i))

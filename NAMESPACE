@@ -1,6 +1,7 @@
 import(methods)
 import(sp)
 import(lattice)
+import(rgeos)
 importFrom(stats, aggregate, na.omit, time, start, end)
 importFrom(utils, stack, unstack)
 importFrom(xts, xts, as.xts, timeBased)
