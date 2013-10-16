@@ -1,5 +1,5 @@
-# segments are data.frames with a segment on each row, with
-# x0 y0 x1 y1 the first four values, followed by attributes.
+# Segments are data.frames with a segment on each row, with x0 y0 x1 y1 the
+# first four values, followed by attributes.
 
 setClass("segments", contains = "data.frame")
 
@@ -72,8 +72,8 @@ setAs("Track", "SpatialLines",
 setAs("Tracks", "Lines", 
 	function(from) {
 		tz = from@tracks
-		# The Lines ID is made up of the conjunction of the first and last 
-		# Track ID, using hyphen as separator.
+		# The Lines ID is made up of the conjunction of the first and last Track
+		# ID, using hyphen as separator.
 		Lines(lapply(tz, function(x) as(x, "Line")), 
 			paste(names(tz)[1], names(tz)[length(tz)], sep = "-"))
 	}
@@ -104,11 +104,6 @@ setAs("TracksCollection", "SpatialLinesDataFrame",
 )
 
 # Coerce to xts.
-
-setAs("Track", "xts", 
-	function(from)
-		as(STIDF(sp = from@sp, time = from@time, data = from@data), "xts")
-)
 
 setAs("Tracks", "xts",
 	function(from)
@@ -161,7 +156,7 @@ setMethod("proj4string", signature(obj = "TracksCollection"),
     function(obj) proj4string(obj@tracksCollection[[1]])
 )
 
-# Provide plot methods.
+# Provide plot methods. TODO Make more generic.
 
 setMethod("plot", "TracksCollection",
 	function(x, y, ..., type = 'l', xlim = bbox(x)[,1],
