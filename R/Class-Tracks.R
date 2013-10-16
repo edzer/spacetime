@@ -1,16 +1,15 @@
-#' The first class is `Track`, and contains a single track, or trip,
-# followed by a person, animal or object. This means that consecutive
-# location/time stamps are not interrupted by a period of substantially
-# other activity.
-#' This object extends `STIDF`, where locations and times as well as
-# attributes measured at these locations and times, such as elevation,
-# are stored. The function `Track` can now be used to build such an
-# object from its components. The slot `connections contains data
-# about the segments between consecutive ST points.
+# The first class is "Track", and contains a single track, or trip, followed by
+# a person, animal or object. This means that consecutive location/time stamps
+# are not interrupted by a period of substantially other activity. This object
+# extends "STIDF", where locations and times as well as attributes measured at
+# these locations and times, such as elevation, are stored. The function "Track"
+# can now be used to build such an object from its components. The slot
+# "connections" contains data about the segments between consecutive ST points.
+
 setClass("Track",
-  contains = "STIDF", # locations, times and attribute data about the points
+  contains = "STIDF", # Locations, times and attribute data about the points.
   representation(connections = "data.frame"), 
-  # with attribute data BETWEEN points: speed, direction etc.
+  # With attribute data BETWEEN points: speed, direction etc.
   validity = function(object) {
 	stopifnot(nrow(object@connections) + 1 == nrow(object@data))
     return(TRUE)
@@ -23,7 +22,8 @@ directions_ll = function(cc, ll) {
 	if (! ll) {
 		dcc = apply(cc, 2, diff)
 		((atan2(dcc[,1], dcc[,2]) / pi * 180) + 360) %% 360
-	} else { # longlat:
+	} else {
+		# longlat:
 		# http://www.movable-type.co.uk/scripts/latlong.html
 		# initial bearing:
 		cc = cc * pi / 180
@@ -49,7 +49,9 @@ TrackStats = function(track) {
 		speed = speed, direction = direction)
 }
 
-Track = function(track, df = NULL, fn = TrackStats) { # computes segment lenghts
+# Computes segment lengths.
+
+Track = function(track, df = NULL, fn = TrackStats) {
 	if (!is.null(fn)) {
 		stats = TrackStats(track)
 		if (is.null(df))
@@ -62,7 +64,8 @@ Track = function(track, df = NULL, fn = TrackStats) { # computes segment lenghts
 	new("Track", track, connections = df)
 }
 
-# a collection of Track objects for single ID (car, person etc)
+# A collection of Track objects for single ID (car, person etc.).
+
 setClass("Tracks", 
 	representation(tracks = "list", tracksData = "data.frame"),
 	validity = function(object) {
@@ -89,10 +92,12 @@ TrackSummary = function(track) {
 	n = length(track@sp),
 	distance = sum(conn$distance),
 	medspeed = quantile(conn$speed, 0.5)
-	# compute some mean direction?
+	# TODO Compute some mean direction?
 	)
 }
-# pre-computes elements of tracksData:
+
+# Pre-computes elements of tracksData.
+
 Tracks = function(tracks, 
 		tracksData = data.frame(row.names=names(tracks)), fn = TrackSummary) {
 	if (is.null(names(tracks)))
@@ -101,7 +106,8 @@ Tracks = function(tracks,
 		tracksData = cbind(tracksData, do.call(rbind, lapply(tracks, fn))))
 }
 
-# collection of Tracks for several IDs 
+# Collection of Tracks for several IDs.
+ 
 setClass("TracksCollection", 
 	representation(tracksCollection = "list", 
 		tracksCollectionData = "data.frame"),
