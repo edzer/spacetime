@@ -52,7 +52,7 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 			scales = list(draw=TRUE)
 		else
 			scales$draw = TRUE
-		s = sp:::longlat.scales(obj@sp, scales = scales, xlim = bbox(obj@sp)[1,], ylim = bbox(obj@sp)[2,])
+		s = longlat.scales(obj@sp, scales = scales, xlim = bbox(obj@sp)[1,], ylim = bbox(obj@sp)[2,])
 		cn = coordnames(obj@sp)
 		if (scaleX == 1) {
 			scales["x"] = s["x"]
@@ -78,7 +78,7 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 		## OR:
 		## x = as(obj, "Spatial")
 		## x@data = data.frame(x@data) # cripples column names
-		scales = sp:::longlat.scales(obj@sp, scales = scales, 
+		scales = longlat.scales(obj@sp, scales = scales, 
 			xlim = bbox(obj@sp)[1,], ylim = bbox(obj@sp)[2,])
 		if (animate > 0) {
 			names.attr = rep(names.attr, length = ncol(df))
@@ -153,7 +153,7 @@ stplot.STI = function(obj, names.attr = NULL, ...,
 	f = paste(f, "| time")
 	if (missing(asp))
 		asp = mapasp(obj@sp)
-	scales = sp:::longlat.scales(obj@sp, scales = scales, xlim, ylim)
+	scales = longlat.scales(obj@sp, scales = scales, xlim, ylim)
 	obj = as.data.frame(obj)
 	if (is.numeric(number) && number > 1)
 		obj$time = equal.count(obj$time, number = number, overlap = overlap)
@@ -189,7 +189,7 @@ stplot.STTDF = function(obj, names.attr = NULL, ...,
 		) {
 	if (missing(asp))
 		asp = mapasp(obj@sp)
-	scales = sp:::longlat.scales(obj@sp, scales = scales, xlim, ylim)
+	scales = longlat.scales(obj@sp, scales = scales, xlim, ylim)
 	GRP = rep(1:length(obj@traj), times = sapply(obj@traj, length))
 
 	f =  paste(rev(coordnames(obj@sp)), collapse=" ~ ")
@@ -255,11 +255,11 @@ stplotTracksCollection = function(obj, ..., by, groups,
 		scales = list(draw = FALSE), segments = TRUE, attr = NULL,
 		ncuts = length(col.regions), col.regions = bpy.colors(), cuts,
 		xlab = NULL, ylab = NULL, arrows = FALSE, length = 0.1,
-		xlim = sp:::bbexpand(bbox(obj)[,1], 0.04), 
-		ylim = sp:::bbexpand(bbox(obj)[,2], 0.04),
+		xlim = bbexpand(bbox(obj)[,1], 0.04), 
+		ylim = bbexpand(bbox(obj)[,2], 0.04),
 		sp.layout = NULL) {
 	sp = obj@tracksCollection[[1]]@tracks[[1]]@sp
-	scales = sp:::longlat.scales(sp, scales, xlim, ylim)
+	scales = longlat.scales(sp, scales, xlim, ylim)
 	args = list(..., asp = mapasp(sp, xlim, ylim), scales = scales, 
 		xlab = xlab, ylab = ylab, arrows = arrows, length = length,
 		xlim = xlim, ylim = ylim, sp.layout = sp.layout)

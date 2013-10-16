@@ -73,10 +73,7 @@ setClass("Tracks",
 		stopifnot(nrow(object@tracksData) == length(object@tracks))
 		stopifnot(length(object@tracks) > 0)
 		stopifnot(!is.null(names(object@tracks)))
-		n = length(object@tracks)
-		if (n > 1)
-			for (i in 2:n)
-				stopifnot(identicalCRS(object@tracks[[1]]@sp, object@tracks[[i]]@sp))
+		stopifnot(identicalCRS(object@tracks))
 		return(TRUE)
 	}
 )
@@ -121,13 +118,7 @@ setClass("TracksCollection",
 		stopifnot(length(object@tracksCollection) > 0)
 		names = names(object@tracksCollection)
 		stopifnot(!(is.null(names) || any(is.na(names))))
-		n = length(object@tracksCollection)
-		if (n > 1)
-			for (i in 2:n)
-				# Only compare first Track, validity within IDs is checked
-				# there.
-				stopifnot(identicalCRS(object@tracksCollection[[1]]@tracks[[1]]@sp, 
-					object@tracksCollection[[i]]@tracks[[1]]@sp))
+		stopifnot(identicalCRS(object@tracksCollection))
 		return(TRUE)
 	}
 )

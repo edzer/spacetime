@@ -21,6 +21,7 @@
 \alias{over,STF,STIDF-method}
 \alias{over,STS,STIDF-method}
 \alias{over,STI,STIDF-method}
+\alias{over,Track,Spatial-method}
 \alias{over,Tracks,Spatial-method}
 \alias{over,TracksCollection,Spatial-method}
 \alias{aggregate,ST-method}

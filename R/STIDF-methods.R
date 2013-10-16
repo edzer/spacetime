@@ -140,3 +140,15 @@ length.STI = function(x) { length(x@sp) }
 length.STIDF = function(x) { length(x@sp) }
 
 setMethod("geometry", "STIDF", function(obj) as(obj, "STI"))
+
+rbind.STIDF <- function(...) {
+    dots = list(...)
+    names(dots) <- NULL
+	stopifnot(identicalCRS(dots))
+	STIDF(
+		sp =      do.call(rbind, lapply(dots, function(x) x@sp)),
+		time =    do.call(c, lapply(dots, function(x) index(x))),
+		data =    do.call(rbind, lapply(dots, function(x) x@data)),
+		endTime = do.call(c, lapply(dots, function(x) x@endTime))
+	) # will re-order according to time
+}
