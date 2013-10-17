@@ -11,6 +11,7 @@ library(rgdal)
 # associated with a regression.
 
 t0 = as.POSIXct(as.Date("2013-09-30", tz = "CET"))
+set.seed(13531) # make sure rbind generates identical sequences on reproduction
 
 # Person A, track 1.
 
