@@ -270,6 +270,102 @@ dim.Tracks = function(x) c(tracks=length(x@tracks),
 dim.TracksCollection = function(x) c(IDs=length(x@tracksCollection),
 	apply(sapply(x@tracksCollection,dim),1,sum))
 
+# Provide summary methods.
+
+summary.Track = function(object, ...) {
+	obj = list()
+	obj$class = class(object)
+	obj$dim = dim(object)
+	obj$sp = summary(object@sp)
+	obj$time = summary(object@time)
+	obj$data = summary(object@data)
+	obj$connections = summary(object@connections)
+	class(obj) = "summary.Track"
+	obj
+}
+
+setMethod("summary", "Track", summary.Track)
+
+print.summary.Track = function(x, ...) {
+	cat(paste("Object of class ", x$class, "\n", sep = ""))
+	cat(" with Dimensions (points): (")
+	cat(paste(x$dim, collapse = ", "))
+	cat(")\n")
+	cat("[[Spatial:]]\n")
+	print(x$sp)
+	cat("[[Temporal:]]\n")
+	print(x$time)
+	cat("[[Data attributes:]]\n")
+	print(x$data)
+	cat("[[Connections:]]\n")
+	print(x$connections)
+	invisible(x)
+}
+
+summary.Tracks = function(object, ...) {
+	obj = list()
+	obj$class = class(object)
+	obj$dim = dim(object)
+	obj$sp = summary(do.call(rbind, lapply(object@tracks, function(x) x@sp)))
+	obj$time = summary(do.call(rbind, lapply(object@tracks, function(x) x@time)))
+	obj$data = summary(do.call(rbind, lapply(object@tracks, function(x) x@data)))
+	obj$connections = summary(do.call(rbind, lapply(object@tracks, function(x) x@connections)))
+	class(obj) = "summary.Tracks"
+	obj
+}
+
+setMethod("summary", "Tracks", summary.Tracks)
+
+print.summary.Tracks = function(x, ...) {
+	cat(paste("Object of class ", x$class, "\n", sep = ""))
+	cat(" with Dimensions (tracks, points): (")
+	cat(paste(x$dim, collapse = ", "))
+	cat(")\n")
+	cat("[[Spatial:]]\n")
+	print(x$sp)
+	cat("[[Temporal:]]\n")
+	print(x$time)
+	cat("[[Data attributes:]]\n")
+	print(x$data)
+	cat("[[Connections:]]\n")
+	print(x$connections)
+	invisible(x)
+}
+
+summary.TracksCollection = function(object, ...) {
+	obj = list()
+	obj$class = class(object)
+	obj$dim = dim(object)
+	obj$sp = summary(do.call(rbind, lapply(object@tracksCollection,
+		function(x) do.call(rbind, lapply(x@tracks, function(y) y@sp)))))
+	obj$time = summary(do.call(rbind, lapply(object@tracksCollection,
+		function(x) do.call(rbind, lapply(x@tracks, function(y) y@time)))))
+	obj$data = summary(do.call(rbind, lapply(object@tracksCollection,
+		function(x) do.call(rbind, lapply(x@tracks, function(y) y@data)))))
+	obj$connections = summary(do.call(rbind, lapply(object@tracksCollection,
+		function(x) do.call(rbind, lapply(x@tracks, function(y) y@connections)))))
+	class(obj) = "summary.TracksCollection"
+	obj
+}
+
+setMethod("summary", "TracksCollection", summary.TracksCollection)
+
+print.summary.TracksCollection = function(x, ...) {
+	cat(paste("Object of class ", x$class, "\n", sep = ""))
+	cat(" with Dimensions (IDs, tracks, points): (")
+	cat(paste(x$dim, collapse = ", "))
+	cat(")\n")
+	cat("[[Spatial:]]\n")
+	print(x$sp)
+	cat("[[Temporal:]]\n")
+	print(x$time)
+	cat("[[Data attributes:]]\n")
+	print(x$data)
+	cat("[[Connections:]]\n")
+	print(x$connections)
+	invisible(x)
+}
+
 # Provide selection methods.
 
 subs.Tracks <- function(x, i, j, ... , drop = TRUE) {
