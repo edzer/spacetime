@@ -132,8 +132,8 @@ setAs("TracksCollection", "STIDF",
 
 setAs("Track", "SpatialPointsDataFrame",
 	function(from)
-		SpatialPointsDataFrame(coords = from@sp, data = from@data, 
-			match.ID = FALSE)
+		SpatialPointsDataFrame(coords = from@sp,
+			data = cbind(time = index(from@time), from@data), match.ID = FALSE)
 		# TBD: what if from@sp is not SpatialPoints? 
 		# use coordinates(from@sp), and pass proj4string?
 )
@@ -148,6 +148,22 @@ setAs("TracksCollection", "SpatialPointsDataFrame",
 	function(from)
 		do.call(rbind, lapply(from@tracksCollection, 
 			function(x) as(x, "SpatialPointsDataFrame")))
+)
+
+# Provide coordinates methods.
+
+setMethod("coordinates", "Track",
+	function(obj) coordinates(obj@sp)
+)
+
+setMethod("coordinates", "Tracks",
+	function(obj) do.call(rbind, lapply(obj@tracks,
+		function(x) coordinates(x)))
+)
+
+setMethod("coordinates", "TracksCollection",
+	function(obj) do.call(rbind, lapply(obj@tracksCollection,
+		function(x) coordinates(x)))
 )
 
 # Provide proj4string methods.
@@ -257,6 +273,26 @@ setMethod("over", c("Tracks", "Spatial"),
 setMethod("over", c("TracksCollection", "Spatial"),
 	function(x, y, ...) {
 		over(as(x, "SpatialLines"), y, ...)
+	}
+)
+
+# Provide aggregate methods.
+
+setMethod("aggregate", "Track", 
+	function(x, ...) {
+		aggregate(as(x, "SpatialPointsDataFrame"), ...)
+	}
+)
+
+setMethod("aggregate", "Tracks", 
+	function(x, ...) {
+		aggregate(as(x, "SpatialPointsDataFrame"), ...)
+	}
+)
+
+setMethod("aggregate", "TracksCollection",
+	function(x, ...) {
+		aggregate(as(x, "SpatialPointsDataFrame"), ...)
 	}
 )
 
@@ -424,6 +460,8 @@ subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
 }
 
 setMethod("[", "TracksCollection", subs.TracksCollection)
+
+# Provide stack, unstack and concatenate methods.
 
 stack.TracksCollection = function (x, select, ...) {
 	stopifnot(missing(select))

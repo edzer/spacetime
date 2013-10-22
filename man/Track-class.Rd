@@ -13,11 +13,14 @@
 \alias{[,Tracks-method} 
 \alias{[,TracksCollection-method} 
 \alias{coerce,Track,data.frame-method} 
+\alias{coerce,Tracks,data.frame-method} 
+\alias{coerce,TracksCollection,data.frame-method}
 \alias{coordnames,Track-method} 
 \alias{coordnames,Tracks-method} 
 \alias{coordnames,TracksCollection-method} 
-\alias{coerce,Tracks,data.frame-method} 
-\alias{coerce,TracksCollection,data.frame-method} 
+\alias{aggregate,Track-method}
+\alias{aggregate,Tracks-method}
+\alias{aggregate,TracksCollection-method}
 \alias{plot,TracksCollection,ANY-method}
 \alias{stplot,TracksCollection-method}
 
