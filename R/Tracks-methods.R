@@ -150,6 +150,22 @@ setAs("TracksCollection", "SpatialPointsDataFrame",
 			function(x) as(x, "SpatialPointsDataFrame")))
 )
 
+# Provide coordinates methods.
+
+setMethod("coordinates", "Track",
+	function(obj) coordinates(obj@sp)
+)
+
+setMethod("coordinates", "Tracks",
+	function(obj) do.call(rbind, lapply(obj@tracks,
+		function(x) coordinates(x)))
+)
+
+setMethod("coordinates", "TracksCollection",
+	function(obj) do.call(rbind, lapply(obj@tracksCollection,
+		function(x) coordinates(x)))
+)
+
 # Provide proj4string methods.
 
 setMethod("proj4string", signature(obj = "Track"),
