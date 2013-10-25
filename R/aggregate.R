@@ -34,29 +34,32 @@ setMethod("aggregateBy", signature(x = "ST", by = "function"),
 setMethod("aggregateBy", signature(x = "ST", by = "character"), 
 	aggregate_ST_temporal)
 
-setMethod("aggregateBy", signature(x = "ST", by = "Spatial"),
-	function(x, by, FUN = mean, ..., simplify = TRUE) {
+setMethod("aggregateBy", signature(x = "STFDF", by = "Spatial"),
+	function(x, by, FUN = mean, ..., simplify = TRUE, keepTime = FALSE) {
 		stopifnot("data" %in% slotNames(x))
-	# aggregate over space areas, keep time:
-		x = as(x, "STFDF")
 		if (is(by, "SpatialGrid"))
 			by = as(by, "SpatialPixels")
-		ix = over(x@sp, geometry(by))
-		sel = !is.na(ix)
-		d = vector("list", length = ncol(x@data))
-		for (i in 1:length(d)) {
-			# use aggregate.zoo, returns zoo object:
-			agg = aggregate(t(as(x[sel,,i], "xts")), list(ix[sel]), 
-				FUN = FUN, ...)
-			g = agg$Group.1 # first column
-			d[[i]] = as.vector(as.matrix(agg[,-1])) # attributes, time-wide
-		}
-		names(d) = names(x@data)
-		d = as.data.frame(d)
-		if (simplify && length(by[g,]) == 1)
-			xts(cbind(d, as.matrix(x@time)), index(x@time))
-		else
-			STFDF(by[g,], x@time, d)
+		if (keepTime) {
+			# aggregate over space areas, keeps time as is:
+			ix = over(x@sp, geometry(by))
+			sel = !is.na(ix)
+			d = vector("list", length = ncol(x@data))
+			for (i in 1:length(d)) {
+				# use aggregate.zoo, returns zoo object:
+				agg = aggregate(t(as(x[sel,,i], "xts")), list(ix[sel]), 
+					FUN = FUN, ...)
+				g = agg$Group.1 # first column
+				d[[i]] = as.vector(as.matrix(agg[,-1])) # attributes, time-wide
+			}
+			names(d) = names(x@data)
+			d = as.data.frame(d)
+			if (simplify && length(by[g,]) == 1)
+				xts(cbind(d, as.matrix(x@time)), index(x@time))
+			else
+				STFDF(by[g,], x@time, d)
+		} else 
+			aggregate(x, STF(by, range(index(x@time)))[,1],
+				FUN = FUN, simplify = simplify, ...)
 	}
 )
 
@@ -64,7 +67,7 @@ aggregateBySTST = function(x, by, FUN = mean, ..., simplify = TRUE) {
 	stopifnot("data" %in% slotNames(x))
    	by0 = by
    	if (gridded(by@sp))
-      		by@sp = as(by@sp, "SpatialPolygons")
+      	by@sp = as(by@sp, "SpatialPolygons")
    	df = over(by, x, fn = FUN, ...)
 	if (simplify && length(by@sp) == 1) # return xts:
 		xts(cbind(df, as.matrix(by@time)), index(by@time))
@@ -72,7 +75,7 @@ aggregateBySTST = function(x, by, FUN = mean, ..., simplify = TRUE) {
 		if ("data" %in% slotNames(by0@sp))
 			df = data.frame(df, by0@sp@data)
    		addAttrToGeom(geometry(by0@sp), df, match.ID = FALSE)
-	} else { #  by0 is STX:
+	} else { #  by0 is STx:
 		if ("data" %in% slotNames(by0))
 			df = data.frame(df, by0@data)
    		addAttrToGeom(by0, df, match.ID = FALSE)
@@ -86,9 +89,8 @@ setMethod("aggregateBy", signature(x = "ST", by = "ST"),
 #		# dispatches on "by" as well:
 #		aggregateBy(x, by, FUN = FUN, simplify = simplify, ...)
 #)
-aggregate.ST = function(x, by, FUN, ..., simplify = TRUE) {
+aggregate.ST = function(x, by, FUN, ..., simplify = TRUE)
 	aggregateBy(x, by, FUN, simplify = simplify, ...)
-}
 
 aggregate.STFDF = function(x, by, FUN, ..., simplify = TRUE) {
 	if (identical(by, "time"))
