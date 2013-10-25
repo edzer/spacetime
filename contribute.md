@@ -16,3 +16,11 @@ generalizes the track into 1000 (distance units, usually m)
 generalize(t, n = 20)
 ```
 generalizes the track into segments, each having 20 points
+```
+generalize(t, ..., tol = 55)
+```
+simplifies the SpatialLines object using `rgeos::gSimplify(SL, tol = 55)`
+```
+generalize(t, ..., toPoints = TRUE)
+```
+does not keep lines, but keeps the mid point of the set over which we generalized.
