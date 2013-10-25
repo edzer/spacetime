@@ -3,11 +3,11 @@
 Contributions to spacetime are welcome, and will be considered for inclusion.
 
 
-Contributions needed: a `generalize` method for `Track`
+Contributions needed: a `generalize` method for `Track` (and `Tracks`, and `TracksCollection`)
 ```
 generalize(t, timeInterval = "5 minutes")
 ```
-generalizes track `t` into 5 minute intervals;
+generalizes track `t` into 5 minute intervals; result is a `Track` (...) where the `sp` slot now is a `SpatialLines` object, and `time` and `endTime` reflect start and endtime of the segment.
 ```
 generalize(t, distance = 1000)
 ```
