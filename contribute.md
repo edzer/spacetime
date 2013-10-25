@@ -1,6 +1,8 @@
 # contribute file
 
-Contributions to spacetime are welcome, and will be considered for inclusion.
+Contributions to spacetime are welcome, and will be considered for inclusion. Below are suggestions for what is needed short term.
+
+### needed contributions
 
 
 Contributions needed: a `generalize` method for `Track` (and `Tracks`, and `TracksCollection`)
