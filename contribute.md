@@ -23,4 +23,4 @@ simplifies the SpatialLines object using `rgeos::gSimplify(SL, tol = 55)`
 ```
 generalize(t, ..., toPoints = TRUE)
 ```
-does not keep lines, but keeps the mid point of the set over which we generalized.
+does not generalize to `SpatialLines`, but keeps a point (the middle point) of the set over which we generalized.
