@@ -39,6 +39,8 @@ setMethod("aggregateBy", signature(x = "ST", by = "Spatial"),
 		stopifnot("data" %in% slotNames(x))
 	# aggregate over space areas, keep time:
 		x = as(x, "STFDF")
+		if (is(by, "SpatialGrid"))
+			by = as(by, "SpatialPixels")
 		ix = over(x@sp, geometry(by))
 		sel = !is.na(ix)
 		d = vector("list", length = ncol(x@data))
