@@ -109,6 +109,19 @@ if (!isGeneric("spTransform"))
 	setGeneric("spTransform", function(x, CRSobj, ...)
 		standardGeneric("spTransform"))
 
+if (!isGeneric("stbox"))
+	setGeneric("stbox", function(obj)
+		standardGeneric("stbox"))
+
+setMethod("stbox", "ST", 
+	function(obj) {
+		bb = bbox(obj@sp)
+		tr = range(index(obj@time))
+		data.frame(t(bb), time = tr)
+	}
+)
+setMethod("bbox", "ST", function(obj) t(stbox(obj)[1:2]))
+
 spTransform.STT = function(x, CRSobj, ...) {
 	stopifnot(require(rgdal))
 	x@traj = lapply(x@traj, spTransform, CRSobj)

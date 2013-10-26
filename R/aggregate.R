@@ -35,12 +35,13 @@ setMethod("aggregateBy", signature(x = "ST", by = "character"),
 	aggregate_ST_temporal)
 
 setMethod("aggregateBy", signature(x = "STFDF", by = "Spatial"),
-	function(x, by, FUN = mean, ..., simplify = TRUE, keepTime = FALSE) {
+	function(x, by, FUN = mean, ..., simplify = TRUE, 
+			byTime = is(x, "STF") || is(x, "STS")) {
 		stopifnot("data" %in% slotNames(x))
 		if (is(by, "SpatialGrid"))
 			by = as(by, "SpatialPixels")
-		if (keepTime) {
-			# aggregate over space areas, keeps time as is:
+		if (byTime) {
+			# aggregate over space areas, by time as of origin:
 			ix = over(x@sp, geometry(by))
 			sel = !is.na(ix)
 			d = vector("list", length = ncol(x@data))

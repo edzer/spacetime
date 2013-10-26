@@ -181,8 +181,8 @@ setMethod("proj4string", signature(obj = "TracksCollection"),
 # Provide plot methods. TODO Make more generic.
 
 setMethod("plot", "TracksCollection",
-	function(x, y, ..., type = 'l', xlim = bbox(x)[,1],
-			ylim = bbox(x)[,2], col = 1, lwd = 1, lty =
+	function(x, y, ..., type = 'l', xlim = stbox(x)[,1],
+			ylim = stbox(x)[,2], col = 1, lwd = 1, lty =
 			1, axes = TRUE, Arrows = FALSE, Segments = FALSE, add = FALSE) {
 		sp = x@tracksCollection[[1]]@tracks[[1]]@sp
 		if (! add)
@@ -216,19 +216,19 @@ setMethod("coordnames", "TracksCollection",
 	function(x) coordnames(x@tracksCollection[[1]])
 )
 
-# Provide bbox methods.
+# Provide stbox methods.
 
-setMethod("bbox", "Track",
-	function(obj) {
-		bb = data.frame(t(bbox(obj@sp)))
-		ix = index(obj@time)
-		bb$time = c(min(ix), max(ix))
-		rownames(bb) = c("min", "max")
-		bb
-	}
-)
+# AUTOMATIC: fallback to ST (see ST-methods.R)
+#setMethod("stbox", "Track",
+#	function(obj) {
+#		bb = data.frame(t(bbox(obj@sp)))
+#		bb$time = range(index(obj@time))
+#		rownames(bb) = c("min", "max")
+#		bb
+#	}
+#)
 
-setMethod("bbox", "Tracks",
+setMethod("stbox", "Tracks",
 	function(obj) {
 		df = obj@tracksData
 		xr = c(min(df$xmin), max(df$xmax))
@@ -242,7 +242,7 @@ setMethod("bbox", "Tracks",
 	}
 )
 
-setMethod("bbox", "TracksCollection",
+setMethod("stbox", "TracksCollection",
 	function(obj) {
 		df = obj@tracksCollectionData
 		xr = c(min(df$xmin), max(df$xmax))
@@ -255,6 +255,10 @@ setMethod("bbox", "TracksCollection",
 		ret
 	}
 )
+
+# Provide bbox methods.
+setMethod("bbox", "Tracks", function(obj) t(stbox(obj)[1:2]))
+setMethod("bbox", "TracksCollection", function(obj) t(stbox(obj)[1:2]))
 
 # Provide over methods.
 

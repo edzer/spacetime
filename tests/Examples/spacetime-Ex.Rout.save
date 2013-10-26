@@ -732,11 +732,12 @@ detaching ‘package:sp’
 > ### Aliases: Track-class Tracks-class TracksCollection-class segments-class
 > ###   Track Tracks TracksCollection TrackSummary TracksSummary
 > ###   [,Track-method [,Tracks-method [,TracksCollection-method
-> ###   coerce,Track,data.frame-method coordnames,Track-method
+> ###   coerce,Track,data.frame-method coerce,Tracks,data.frame-method
+> ###   coerce,TracksCollection,data.frame-method coordnames,Track-method
 > ###   coordnames,Tracks-method coordnames,TracksCollection-method
-> ###   coerce,Tracks,data.frame-method
-> ###   coerce,TracksCollection,data.frame-method
-> ###   plot,TracksCollection,ANY-method stplot,TracksCollection-method
+> ###   aggregate,Track-method aggregate,Tracks-method
+> ###   aggregate,TracksCollection-method plot,TracksCollection,ANY-method
+> ###   stplot,TracksCollection-method
 > ### Keywords: classes
 > 
 > ### ** Examples
@@ -1552,7 +1553,7 @@ point3               30.40
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  10.104 0.316 10.493 0 0 
+Time elapsed:  10 0.312 10.354 0 0 
 > grDevices::dev.off()
 null device 
           1 

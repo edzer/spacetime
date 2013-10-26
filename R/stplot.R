@@ -52,7 +52,8 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 			scales = list(draw=TRUE)
 		else
 			scales$draw = TRUE
-		s = longlat.scales(obj@sp, scales = scales, xlim = bbox(obj@sp)[1,], ylim = bbox(obj@sp)[2,])
+		s = longlat.scales(obj@sp, scales = scales, 
+			xlim = bbox(obj@sp)[1,], ylim = bbox(obj@sp)[2,])
 		cn = coordnames(obj@sp)
 		if (scaleX == 1) {
 			scales["x"] = s["x"]
@@ -114,7 +115,7 @@ panel.stpointsplot = function(x, y, col, sp.layout, ...) {
 stplot.STIDF = function(obj, ..., names.attr = NULL,
 		as.table = TRUE, scales = list(draw=FALSE), xlab = NULL, ylab = NULL, 
 		type = 'p', number = 6, tcuts, sp.layout = NULL,
-		xlim = bbox(obj@sp)[1,], ylim = bbox(obj@sp)[2,]) 
+		xlim = bbox(obj)[1,], ylim = bbox(obj)[2,]) 
 {
 	if (ncol(obj@data) > 1)
 		warning("plotting only the first mark or attribute")
@@ -146,7 +147,7 @@ stplot.STI = function(obj, names.attr = NULL, ...,
 		scales = list(draw=FALSE), xlab = NULL, ylab = NULL, 
 		type = 'p', number = 6, overlap = 0, asp,
 		col = 1, panel = panel.stpointsplot, sp.layout = NULL,
-		xlim = bbox(obj@sp)[1,], ylim = bbox(obj@sp)[2,]
+		xlim = bbox(obj)[1,], ylim = bbox(obj)[2,]
 		) {
 	f =  paste(rev(coordnames(obj@sp)), collapse=" ~ ")
 	# further control time here?:
@@ -185,7 +186,7 @@ stplot.STTDF = function(obj, names.attr = NULL, ...,
 		scales = list(draw=FALSE), xlab = NULL, ylab = NULL, 
 		type = 'l', number = 6, overlap = 0, asp,
 		col = 1, lwd = 1, lty = 1, panel = panel.sttrajplot, sp.layout = NULL,
-		xlim = bbox(obj@sp)[1,], ylim = bbox(obj@sp)[2,]
+		xlim = bbox(obj)[1,], ylim = bbox(obj)[2,]
 		) {
 	if (missing(asp))
 		asp = mapasp(obj@sp)
@@ -255,8 +256,8 @@ stplotTracksCollection = function(obj, ..., by, groups,
 		scales = list(draw = FALSE), segments = TRUE, attr = NULL,
 		ncuts = length(col.regions), col.regions = bpy.colors(), cuts,
 		xlab = NULL, ylab = NULL, arrows = FALSE, length = 0.1,
-		xlim = bbexpand(bbox(obj)[,1], 0.04), 
-		ylim = bbexpand(bbox(obj)[,2], 0.04),
+		xlim = bbexpand(bbox(obj)[1,], 0.04), 
+		ylim = bbexpand(bbox(obj)[2,], 0.04),
 		sp.layout = NULL) {
 	sp = obj@tracksCollection[[1]]@tracks[[1]]@sp
 	scales = longlat.scales(sp, scales, xlim, ylim)

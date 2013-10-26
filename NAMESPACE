@@ -37,10 +37,12 @@ export(delta,
 
 exportMethods(
 	aggregate,
+	bbox,
 	coordnames,
 	geometry,
 	over,
 	plot,
+	stbox,
 	stplot,
 	timeMatch
 )

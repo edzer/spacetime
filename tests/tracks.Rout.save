@@ -178,9 +178,9 @@ Path to PROJ.4 shared files: (autodetected)
 > 
 > stopifnot(all(sapply(all, function(x) coordnames(x) == c("x", "y"))))
 > 
-> # Check bbox methods.
+> # Check stbox methods.
 > 
-> lapply(all, function(x) bbox(x))
+> lapply(all, function(x) stbox(x))
 [[1]]
     x y                time
 min 3 5 2013-09-30 02:00:53
@@ -231,4 +231,4 @@ max 7 7 2013-09-30 02:12:59
 > 
 > proc.time()
    user  system elapsed 
-  1.584   0.080   1.660 
+  1.604   0.092   1.692 

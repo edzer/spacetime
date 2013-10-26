@@ -35,7 +35,7 @@ stplot.STFDF(obj, names.attr = trimDates(obj), ...,
 stplot.STIDF(obj, ..., names.attr = NULL, as.table = TRUE,
 	scales = list(draw = FALSE), xlab = NULL, ylab = NULL,
 	type = "p", number = 6, tcuts, sp.layout = NULL, xlim =
-	bbox(obj@sp)[1, ], ylim = bbox(obj@sp)[2, ])
+	bbox(obj)[1, ], ylim = bbox(obj)[2, ])
 
 }
 \arguments{

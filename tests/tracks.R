@@ -155,9 +155,9 @@ stopifnot(all(sapply(all, function(x) proj4string(x) == "+proj=longlat +ellps=WG
 
 stopifnot(all(sapply(all, function(x) coordnames(x) == c("x", "y"))))
 
-# Check bbox methods.
+# Check stbox methods.
 
-lapply(all, function(x) bbox(x))
+lapply(all, function(x) stbox(x))
 
 # Check selection methods.
 
