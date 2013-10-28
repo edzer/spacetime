@@ -265,13 +265,20 @@ setMethod("bbox", "TracksCollection", function(obj) t(stbox(obj)[1:2]))
 # Provide generalize methods.
 
 if(!isGeneric("generalize"))
-	setGeneric("generalize", function(t, timeInterval, FUN = mean)
+	setGeneric("generalize", function(t, ...)
 		standardGeneric("generalize"))
 
 setMethod("generalize", signature(t = "Track"),
-	function(t, timeInterval, FUN = mean) {
-		cut = cut(index(t@time), timeInterval)
-		rle = rle(as.numeric(cut))$lengths
+	function(t, timeInterval, distance, FUN = mean) {
+		if(!missing(timeInterval)) {
+			cut = cut(index(t@time), timeInterval)
+			rle = rle(as.numeric(cut))$lengths
+		} else if (!missing(distance)) {
+			cut = as.integer(cumsum(t@connections$distance)/distance)
+			rle = rle(cut)$lengths
+		} else {
+			stop("A generalization criterion (e.g., time interval or distance) has to be passed.")
+		}
 		stidfs = list()
 		endTime = numeric(0)
 		for(i in seq_along(rle)) {
@@ -293,17 +300,17 @@ setMethod("generalize", signature(t = "Track"),
 )
 
 setMethod("generalize", signature(t = "Tracks"),
-	function(t, timeInterval, FUN = mean) {
+	function(t, timeInterval, distance, FUN = mean) {
 		t@tracks = lapply(t@tracks,
-			function(x) generalize(x, timeInterval, FUN))
+			function(x) generalize(x, timeInterval, distance, FUN))
 		t
 	}
 )
 
 setMethod("generalize", signature(t = "TracksCollection"),
-	function(t, timeInterval, FUN = mean) {
+	function(t, timeInterval, distance, FUN = mean) {
 		t@tracksCollection = lapply(t@tracksCollection,
-			function(x) generalize(x, timeInterval, FUN))
+			function(x) generalize(x, timeInterval, distance, FUN))
 		t
 	}
 )
