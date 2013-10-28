@@ -290,6 +290,8 @@ setMethod("generalize", signature(t = "Track"),
 			to = tail(cumsum(rle[1:i]), n = 1) 
 			l = Lines(list(Line(t@sp[from:to])), paste("L", i, sep = ""))
 			sp = SpatialLines(list(l), proj4string = CRS(proj4string(t)))
+			if(!is.null(args$tol) && nrow(coordinates(sp)[[1]][[1]]) > 1)
+				sp = gSimplify(spgeom = sp, tol = args$tol, topologyPreserve = TRUE)
 			time = t@time[from]
 			endTime = if(length(endTime) == 0) t@endTime[to] else c(endTime, t@endTime[to])
 			data = data.frame(lapply(t@data[from:to, , drop = FALSE], FUN))
