@@ -265,20 +265,37 @@ setMethod("bbox", "TracksCollection", function(obj) t(stbox(obj)[1:2]))
 # Provide generalize methods.
 
 if(!isGeneric("generalize"))
-	setGeneric("generalize", function(t, timeInterval, FUN = mean)
+	setGeneric("generalize", function(t, FUN = mean, ...)
 		standardGeneric("generalize"))
 
 setMethod("generalize", signature(t = "Track"),
-	function(t, timeInterval, FUN = mean) {
-		cut = cut(index(t@time), timeInterval)
-		rle = rle(as.numeric(cut))$lengths
+	function(t, FUN = mean, ...) {
+		args = list(...)
+		if(!is.null(args$timeInterval)) {
+			cut = cut(index(t@time), args$timeInterval)
+			rle = rle(as.numeric(cut))$lengths
+		} else if (!is.null(args$distance)) {
+			cut = as.integer(cumsum(t@connections$distance)/args$distance)
+			rle = rle(cut)$lengths
+		} else if (!is.null(args$n)) {
+			if(dim(t) %% args$n == 0) rle = rep(args$n, dim(t)/args$n)
+			else rle = c(rep(args$n, dim(t)/args$n), 1)
+		} else {
+			stop("A generalization criterion (e.g., time interval or distance) has to be passed.")
+		}
 		stidfs = list()
 		endTime = numeric(0)
 		for(i in seq_along(rle)) {
 			from = if(i == 1) 1 else tail(cumsum(rle[1:(i-1)]), n = 1) + 1
-			to = tail(cumsum(rle[1:i]), n = 1) 
-			l = Lines(list(Line(t@sp[from:to])), paste("L", i, sep = ""))
-			sp = SpatialLines(list(l), proj4string = CRS(proj4string(t)))
+			to = tail(cumsum(rle[1:i]), n = 1)
+			if(!is.null(args$toPoints) && args$toPoints) {
+				sp = t@sp[(from+to)/2]
+			} else {
+				l = Lines(list(Line(t@sp[from:to])), paste("L", i, sep = ""))
+				sp = SpatialLines(list(l), proj4string = CRS(proj4string(t)))
+			} 
+			if(!is.null(args$tol) && nrow(coordinates(sp)[[1]][[1]]) > 1)
+				sp = gSimplify(spgeom = sp, tol = args$tol, topologyPreserve = TRUE)
 			time = t@time[from]
 			endTime = if(length(endTime) == 0) t@endTime[to] else c(endTime, t@endTime[to])
 			data = data.frame(lapply(t@data[from:to, , drop = FALSE], FUN))
@@ -293,17 +310,17 @@ setMethod("generalize", signature(t = "Track"),
 )
 
 setMethod("generalize", signature(t = "Tracks"),
-	function(t, timeInterval, FUN = mean) {
+	function(t, FUN = mean, ...) {
 		t@tracks = lapply(t@tracks,
-			function(x) generalize(x, timeInterval, FUN))
+			function(x) generalize(x, FUN, ...))
 		t
 	}
 )
 
 setMethod("generalize", signature(t = "TracksCollection"),
-	function(t, timeInterval, FUN = mean) {
+	function(t, FUN = mean, ...) {
 		t@tracksCollection = lapply(t@tracksCollection,
-			function(x) generalize(x, timeInterval, FUN))
+			function(x) generalize(x, FUN, ...))
 		t
 	}
 )
