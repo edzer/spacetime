@@ -17,7 +17,7 @@
 \alias{coerce,TracksCollection,data.frame-method}
 \alias{coordnames,Track-method} 
 \alias{coordnames,Tracks-method} 
-\alias{coordnames,TracksCollection-method} 
+\alias{coordnames,TracksCollection-method}
 \alias{aggregate,Track-method}
 \alias{aggregate,Tracks-method}
 \alias{aggregate,TracksCollection-method}
@@ -67,9 +67,9 @@ different IDs.
    \item{coerce}{Tracks,data.frame}{coerce to \code{data.frame}}
    \item{coerce}{TracksCollection,data.frame}{coerce to \code{data.frame}}
    \item{plot}{\code{signature(x = "TracksCollection", y = "missing")}: 
-   plots sets of sets of trakcs }
+   plots sets of sets of tracks}
    \item{stplot}{\code{signature(obj = "TracksCollection")}: 
-   plots sets of sets of trakcs }
+   plots sets of sets of tracks}
 	% for spatial objects; does nothing but setting up a plotting region choosing
 	% a suitable aspect if not given(see below), colouring the plot background using either a bg= argument or par("bg"), and possibly drawing axes.  }
 	% \item{summary}{\code{signature(object = "Spatial")}: summarize object}

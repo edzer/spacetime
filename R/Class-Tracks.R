@@ -39,14 +39,18 @@ directions_ll = function(cc, ll) {
 }
 
 TrackStats = function(track) {
-	cc = coordinates(track@sp)
-	ll = identical(is.projected(track), FALSE)
-	distance = LineLength(cc, ll, FALSE)
-	duration = diff(as.numeric(index(track@time))) # seconds
-	speed = distance / duration # per second
-	direction = directions_ll(cc, ll)
-	df = data.frame(distance = distance, duration = duration, 
-		speed = speed, direction = direction)
+	if(class(track@sp)[1] == "SpatialPoints") {
+		cc = coordinates(track@sp)
+		ll = identical(is.projected(track), FALSE)
+		distance = LineLength(cc, ll, FALSE)
+		duration = diff(as.numeric(index(track@time))) # seconds
+		speed = distance / duration # per second
+		direction = directions_ll(cc, ll)
+		df = data.frame(distance = distance, duration = duration, 
+			speed = speed, direction = direction)
+	} else {
+		df = data.frame(matrix(nrow = length(track@sp) - 1, ncol = 0))
+	}
 }
 
 # Computes segment lengths.

@@ -257,8 +257,56 @@ setMethod("stbox", "TracksCollection",
 )
 
 # Provide bbox methods.
+
 setMethod("bbox", "Tracks", function(obj) t(stbox(obj)[1:2]))
+
 setMethod("bbox", "TracksCollection", function(obj) t(stbox(obj)[1:2]))
+
+# Provide generalize methods.
+
+if(!isGeneric("generalize"))
+	setGeneric("generalize", function(t, timeInterval, FUN = mean)
+		standardGeneric("generalize"))
+
+setMethod("generalize", signature(t = "Track"),
+	function(t, timeInterval, FUN = mean) {
+		cut = cut(index(t@time), timeInterval)
+		rle = rle(as.numeric(cut))$lengths
+		stidfs = list()
+		endTime = numeric(0)
+		for(i in seq_along(rle)) {
+			from = if(i == 1) 1 else tail(cumsum(rle[1:(i-1)]), n = 1) + 1
+			to = tail(cumsum(rle[1:i]), n = 1) 
+			l = Lines(list(Line(t@sp[from:to])), paste("L", i, sep = ""))
+			sp = SpatialLines(list(l), proj4string = CRS(proj4string(t)))
+			time = t@time[from]
+			endTime = if(length(endTime) == 0) t@endTime[to] else c(endTime, t@endTime[to])
+			data = data.frame(lapply(t@data[from:to, , drop = FALSE], FUN))
+			stidfs = c(stidfs, STIDF(sp, time, data))
+		}
+		stidf = do.call(rbind, lapply(stidfs, function(x) x))
+		# Provide a workaround, since rbind'ing objects of class POSIXct as used
+		# in the "endTime" slot of STIDF objects does not work properly.
+		stidf@endTime = endTime
+		Track(stidf)
+	}
+)
+
+setMethod("generalize", signature(t = "Tracks"),
+	function(t, timeInterval, FUN = mean) {
+		t@tracks = lapply(t@tracks,
+			function(x) generalize(x, timeInterval, FUN))
+		t
+	}
+)
+
+setMethod("generalize", signature(t = "TracksCollection"),
+	function(t, timeInterval, FUN = mean) {
+		t@tracksCollection = lapply(t@tracksCollection,
+			function(x) generalize(x, timeInterval, FUN))
+		t
+	}
+)
 
 # Provide over methods.
 

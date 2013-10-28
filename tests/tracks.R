@@ -159,6 +159,10 @@ stopifnot(all(sapply(all, function(x) coordnames(x) == c("x", "y"))))
 
 lapply(all, function(x) stbox(x))
 
+# Check generalize methods.
+
+lapply(all, function(x) generalize(x, "2 min", max))
+
 # Check selection methods.
 
 stopifnot(class(Tr[1:2])[1] == "TracksCollection")

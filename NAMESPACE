@@ -39,6 +39,7 @@ exportMethods(
 	aggregate,
 	bbox,
 	coordnames,
+	generalize,
 	geometry,
 	over,
 	plot,
