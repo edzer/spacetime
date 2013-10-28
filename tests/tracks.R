@@ -161,7 +161,9 @@ lapply(all, function(x) stbox(x))
 
 # Check generalize methods.
 
-lapply(all, function(x) generalize(x, "2 min", max))
+lapply(all, function(x) generalize(x, max, timeInterval = "2 min"))
+lapply(all, function(x) generalize(x, distance = 200))
+lapply(all, function(x) generalize(x, min, n = 2))
 
 # Check selection methods.
 
