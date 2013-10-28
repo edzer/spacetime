@@ -39,9 +39,7 @@ directions_ll = function(cc, ll) {
 }
 
 TrackStats = function(track) {
-	if(class(track@sp)[1] == "SpatialLines") {
-		df = data.frame(random = runif(length(track@sp)-1))
-	} else {
+	if(class(track@sp)[1] == "SpatialPoints") {
 		cc = coordinates(track@sp)
 		ll = identical(is.projected(track), FALSE)
 		distance = LineLength(cc, ll, FALSE)
@@ -50,6 +48,8 @@ TrackStats = function(track) {
 		direction = directions_ll(cc, ll)
 		df = data.frame(distance = distance, duration = duration, 
 			speed = speed, direction = direction)
+	} else {
+		df = data.frame(matrix(nrow = length(track@sp) - 1, ncol = 0))
 	}
 }
 

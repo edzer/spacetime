@@ -257,7 +257,9 @@ setMethod("stbox", "TracksCollection",
 )
 
 # Provide bbox methods.
+
 setMethod("bbox", "Tracks", function(obj) t(stbox(obj)[1:2]))
+
 setMethod("bbox", "TracksCollection", function(obj) t(stbox(obj)[1:2]))
 
 # Provide generalize methods.
@@ -283,11 +285,26 @@ setMethod("generalize", signature(t = "Track"),
 			stidfs = c(stidfs, STIDF(sp, time, data))
 		}
 		stidf = do.call(rbind, lapply(stidfs, function(x) x))
-		# Provide a workaround, since rbind'ing objects of class POSIXct as
-		# required for the "endTime" slot of STIDF objects does not work
-		# properly.
+		# Provide a workaround, since rbind'ing objects of class POSIXct as used
+		# in the "endTime" slot of STIDF objects does not work properly.
 		stidf@endTime = endTime
 		Track(stidf)
+	}
+)
+
+setMethod("generalize", signature(t = "Tracks"),
+	function(t, timeInterval, FUN = mean) {
+		t@tracks = lapply(t@tracks,
+			function(x) generalize(x, timeInterval, FUN))
+		t
+	}
+)
+
+setMethod("generalize", signature(t = "TracksCollection"),
+	function(t, timeInterval, FUN = mean) {
+		t@tracksCollection = lapply(t@tracksCollection,
+			function(x) generalize(x, timeInterval, FUN))
+		t
 	}
 )
 
