@@ -20,7 +20,7 @@
 \item{...}{Additional arguments. Please see the details section for further information.}}
 
 \details{%
-A criterion has to be passed by which is generalized. To date, \code{timeInterval} to split by time intervals, \code{distance} to split by distances and \code{n} to split by segments with each segment containing n points are supported. The method evaluates one criterion only (either time interval, distance, ...). A tolerance value \code{tol} can be passed to simplify the given geometry using the Douglas-Peucker algorithm.}
+A criterion has to be passed by which is generalized. To date, \code{timeInterval} to split by time intervals, \code{distance} to split by distances and \code{n} to split by segments with each segment containing n points are supported. The method evaluates one criterion only (either time interval, distance, ...). A tolerance value \code{tol} can be passed to simplify the given geometry using the Douglas-Peucker algorithm. Passing \code{toPoints = TRUE} prevents the method from generalizing to \code{SpatialLines}. Instead, the middle point of the set over which is generalized is kept.}
 
 \value{An object of class \code{Track}, \code{Tracks} or \code{TracksCollection}.}
 

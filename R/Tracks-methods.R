@@ -287,9 +287,13 @@ setMethod("generalize", signature(t = "Track"),
 		endTime = numeric(0)
 		for(i in seq_along(rle)) {
 			from = if(i == 1) 1 else tail(cumsum(rle[1:(i-1)]), n = 1) + 1
-			to = tail(cumsum(rle[1:i]), n = 1) 
-			l = Lines(list(Line(t@sp[from:to])), paste("L", i, sep = ""))
-			sp = SpatialLines(list(l), proj4string = CRS(proj4string(t)))
+			to = tail(cumsum(rle[1:i]), n = 1)
+			if(!is.null(args$toPoints) && args$toPoints) {
+				sp = t@sp[(from+to)/2]
+			} else {
+				l = Lines(list(Line(t@sp[from:to])), paste("L", i, sep = ""))
+				sp = SpatialLines(list(l), proj4string = CRS(proj4string(t)))
+			} 
 			if(!is.null(args$tol) && nrow(coordinates(sp)[[1]][[1]]) > 1)
 				sp = gSimplify(spgeom = sp, tol = args$tol, topologyPreserve = TRUE)
 			time = t@time[from]
