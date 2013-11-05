@@ -272,22 +272,51 @@ setMethod("generalize", signature(t = "Track"),
 	function(t, FUN = mean, ...) {
 		args = list(...)
 		if(!is.null(args$timeInterval)) {
-			cut = cut(index(t@time), args$timeInterval)
-			rle = rle(as.numeric(cut))$lengths
+			origin = index(t@time)
+			cut = cut(origin, args$timeInterval)
+			segmentLengths = rle(as.numeric(cut))$lengths
 		} else if (!is.null(args$distance)) {
-			cut = as.integer(cumsum(t@connections$distance)/args$distance)
-			rle = rle(cut)$lengths
+			# Total distances from each point to the first one.
+			origin = c(0, cumsum(t@connections$distance))
+			cut = floor(origin/args$distance)
+			segmentLengths = rle(cut)$lengths
 		} else if (!is.null(args$n)) {
-			if(dim(t) %% args$n == 0) rle = rep(args$n, dim(t)/args$n)
-			else rle = c(rep(args$n, dim(t)/args$n), 1)
+			dim = dim(t)["points"]
+			if(args$n != 1 && dim/args$n > 1) {
+				rep = floor((dim-args$n)/(args$n-1) + 1)
+				mod = (dim-args$n) %% (args$n-1)
+				if(mod == 0)
+					segmentLengths = rep(args$n, rep)
+				else
+					segmentLengths = c(rep(args$n, rep), mod + 1)
+			} else {
+				segmentLengths = dim
+			}	
 		} else {
 			stop("A generalization criterion (e.g., time interval or distance) has to be passed.")
 		}
+		# Update segment lengths.
+		toIndex = cumsum(segmentLengths)
+		segmentLengths_ = integer()
+		for(i in seq_along(segmentLengths)) {
+			if (i == length(segmentLengths)
+				|| (!is.null(args$timeInterval) && origin[toIndex[i]] %in% seq(origin[1], origin[length(origin)], args$timeInterval))
+				|| (!is.null(args$distance) && origin[toIndex[i]] > 0 && origin[toIndex[i]] %% args$distance == 0)
+				|| (!is.null(args$n)))
+				segmentLengths_[i] = segmentLengths[i]
+			else { 
+				segmentLengths_[i] = segmentLengths[i] + 1
+				if(i == length(segmentLengths) - 1 && segmentLengths[i+1] == 1)
+					break()
+			}
+		}
+		segmentLengths = segmentLengths_
+		# Aggregate over each segment.
 		stidfs = list()
 		endTime = numeric(0)
-		for(i in seq_along(rle)) {
-			from = if(i == 1) 1 else tail(cumsum(rle[1:(i-1)]), n = 1) + 1
-			to = tail(cumsum(rle[1:i]), n = 1)
+		for(i in seq_along(segmentLengths)) {
+			from = if(i == 1) 1 else tail(cumsum(segmentLengths[1:(i-1)]), n = 1) - (i-2)
+			to = from + segmentLengths[i] - 1
 			if(!is.null(args$toPoints) && args$toPoints) {
 				sp = t@sp[(from+to)/2]
 			} else {
