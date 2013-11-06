@@ -128,27 +128,38 @@ setAs("TracksCollection", "STIDF",
 			function(x) as(x, "STIDF")))
 )
 
-# Coerce to SpatialPointsDataFrame.
+# Coerce to Spatial*
 
-setAs("Track", "SpatialPointsDataFrame",
-	function(from)
-		SpatialPointsDataFrame(coords = from@sp,
-			data = cbind(time = index(from@time), from@data), match.ID = FALSE)
-		# TBD: what if from@sp is not SpatialPoints? 
-		# use coordinates(from@sp), and pass proj4string?
+setAs("Track", "Spatial",
+	function(from) {
+		from@data$time = index(from@time)
+		if (!all(from@data$time == from@endTime))
+			from@data$endTime = from@endTime
+		addAttrToGeom(from@sp, from@data, match.ID = FALSE)
+	}
 )
 
-setAs("Tracks", "SpatialPointsDataFrame",
-	function(from)
-		do.call(rbind, lapply(from@tracks, 
-			function(x) as(x, "SpatialPointsDataFrame")))
+setAs("Tracks", "Spatial",
+	function(from) {
+		ret = do.call(rbind, lapply(from@tracks, 
+			function(x) as(x, "Spatial")))
+		ret$Track = rep(names(from@tracks), times = lapply(from@tracks, length))
+		ret
+	}
 )
 
-setAs("TracksCollection", "SpatialPointsDataFrame",
+setAs("TracksCollection", "Spatial",
 	function(from)
 		do.call(rbind, lapply(from@tracksCollection, 
-			function(x) as(x, "SpatialPointsDataFrame")))
+			function(x) as(x, "Spatial")))
 )
+
+# Coerce to SpatialPointsDataFrame.
+
+setAs("Track", "SpatialPointsDataFrame", function(from) as(from, "Spatial"))
+setAs("Tracks", "SpatialPointsDataFrame", function(from) as(from, "Spatial"))
+setAs("TracksCollection", 
+	"SpatialPointsDataFrame", function(from) as(from, "Spatial"))
 
 # Provide coordinates methods.
 
@@ -281,7 +292,7 @@ setMethod("generalize", signature(t = "Track"),
 			cut = floor(origin/args$distance)
 			segmentLengths = rle(cut)$lengths
 		} else if (!is.null(args$n)) {
-			dim = dim(t)["points"]
+			dim = dim(t)["geometries"]
 			if(args$n != 1 && dim/args$n > 1) {
 				rep = floor((dim-args$n)/(args$n-1) + 1)
 				mod = (dim-args$n) %% (args$n-1)
@@ -396,13 +407,13 @@ setMethod("aggregate", "TracksCollection",
 
 # Provide dimension methods.
 
-dim.Track = function(x) c(points=length(x@sp))
+dim.Track = function(x) c(geometries = length(x@sp))
 
-dim.Tracks = function(x) c(tracks=length(x@tracks),
-	points=sum(sapply(x@tracks,dim)))
+dim.Tracks = function(x) c(tracks = length(x@tracks),
+	geometries = sum(sapply(x@tracks, dim)))
 
-dim.TracksCollection = function(x) c(IDs=length(x@tracksCollection),
-	apply(sapply(x@tracksCollection,dim),1,sum))
+dim.TracksCollection = function(x) c(IDs = length(x@tracksCollection),
+	apply(sapply(x@tracksCollection,dim), 1, sum))
 
 # Provide summary methods.
 
@@ -422,7 +433,7 @@ setMethod("summary", "Track", summary.Track)
 
 print.summary.Track = function(x, ...) {
 	cat(paste("Object of class ", x$class, "\n", sep = ""))
-	cat(" with Dimensions (points): (")
+	cat(" with Dimensions: (")
 	cat(paste(x$dim, collapse = ", "))
 	cat(")\n")
 	cat("[[Spatial:]]\n")
@@ -452,7 +463,7 @@ setMethod("summary", "Tracks", summary.Tracks)
 
 print.summary.Tracks = function(x, ...) {
 	cat(paste("Object of class ", x$class, "\n", sep = ""))
-	cat(" with Dimensions (tracks, points): (")
+	cat(" with Dimensions (tracks, geometries): (")
 	cat(paste(x$dim, collapse = ", "))
 	cat(")\n")
 	cat("[[Spatial:]]\n")
@@ -486,7 +497,7 @@ setMethod("summary", "TracksCollection", summary.TracksCollection)
 
 print.summary.TracksCollection = function(x, ...) {
 	cat(paste("Object of class ", x$class, "\n", sep = ""))
-	cat(" with Dimensions (IDs, tracks, points): (")
+	cat(" with Dimensions (IDs, tracks, geometries): (")
 	cat(paste(x$dim, collapse = ", "))
 	cat(")\n")
 	cat("[[Spatial:]]\n")
