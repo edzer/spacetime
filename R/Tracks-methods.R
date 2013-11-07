@@ -280,40 +280,39 @@ if(!isGeneric("generalize"))
 		standardGeneric("generalize"))
 
 setMethod("generalize", signature(t = "Track"),
-	function(t, FUN = mean, ...) {
-		args = list(...)
-		if(!is.null(args$timeInterval)) {
+	function(t, FUN = mean, ..., timeInterval, distance, n, tol, toPoints) {
+		if(!missing(timeInterval)) {
 			origin = index(t@time)
-			cut = cut(origin, args$timeInterval)
+			cut = cut(origin, timeInterval)
 			segmentLengths = rle(as.numeric(cut))$lengths
-		} else if (!is.null(args$distance)) {
+		} else if (!missing(distance)) {
 			# Total distances from each point to the first one.
 			origin = c(0, cumsum(t@connections$distance))
-			cut = floor(origin/args$distance)
+			cut = floor(origin / distance)
 			segmentLengths = rle(cut)$lengths
-		} else if (!is.null(args$n)) {
+		} else if (!missing(n)) {
 			dim = dim(t)["geometries"]
-			if(args$n != 1 && dim/args$n > 1) {
-				rep = floor((dim-args$n)/(args$n-1) + 1)
-				mod = (dim-args$n) %% (args$n-1)
+			if(n != 1 && dim / n > 1) {
+				rep = floor((dim-n)/(n-1) + 1)
+				mod = (dim-n) %% (n-1)
 				if(mod == 0)
-					segmentLengths = rep(args$n, rep)
+					segmentLengths = rep(n, rep)
 				else
-					segmentLengths = c(rep(args$n, rep), mod + 1)
+					segmentLengths = c(rep(n, rep), mod + 1)
 			} else {
 				segmentLengths = dim
-			}	
+			}
 		} else {
 			stop("A generalization criterion (e.g., time interval or distance) has to be passed.")
 		}
-		# Update segment lengths.
+		# Update segment lengths. EP: why?
 		toIndex = cumsum(segmentLengths)
 		segmentLengths_ = integer()
 		for(i in seq_along(segmentLengths)) {
 			if (i == length(segmentLengths)
-				|| (!is.null(args$timeInterval) && origin[toIndex[i]] %in% seq(origin[1], origin[length(origin)], args$timeInterval))
-				|| (!is.null(args$distance) && origin[toIndex[i]] > 0 && origin[toIndex[i]] %% args$distance == 0)
-				|| (!is.null(args$n)))
+				|| (!missing(timeInterval) && origin[toIndex[i]] %in% seq(origin[1], origin[length(origin)], timeInterval))
+				|| (!missing(distance) && origin[toIndex[i]] > 0 && origin[toIndex[i]] %% distance == 0)
+				|| (!missing(n)))
 				segmentLengths_[i] = segmentLengths[i]
 			else { 
 				segmentLengths_[i] = segmentLengths[i] + 1
@@ -328,20 +327,22 @@ setMethod("generalize", signature(t = "Track"),
 		for(i in seq_along(segmentLengths)) {
 			from = if(i == 1) 1 else tail(cumsum(segmentLengths[1:(i-1)]), n = 1) - (i-2)
 			to = from + segmentLengths[i] - 1
-			if(!is.null(args$toPoints) && args$toPoints) {
+			if(!missing(toPoints) && toPoints) {
 				sp = t@sp[(from+to)/2]
 			} else {
 				l = Lines(list(Line(t@sp[from:to])), paste("L", i, sep = ""))
 				sp = SpatialLines(list(l), proj4string = CRS(proj4string(t)))
-			} 
-			if(!is.null(args$tol) && nrow(coordinates(sp)[[1]][[1]]) > 1)
-				sp = gSimplify(spgeom = sp, tol = args$tol, topologyPreserve = TRUE)
+				if(!missing(tol) && nrow(coordinates(sp)[[1]][[1]]) > 1)
+					sp = gSimplify(spgeom = sp, tol = tol, topologyPreserve = TRUE)
+			}
 			time = t@time[from]
 			endTime = if(length(endTime) == 0) t@endTime[to] else c(endTime, t@endTime[to])
-			data = data.frame(lapply(t@data[from:to, , drop = FALSE], FUN))
+			data = data.frame(lapply(t@data[from:to, , drop = FALSE], FUN, ...)) # EP added ...
 			stidfs = c(stidfs, STIDF(sp, time, data))
 		}
 		stidf = do.call(rbind, lapply(stidfs, function(x) x))
+		# EP: use stidf = do.call(rbind, stidfs) here?
+
 		# Provide a workaround, since rbind'ing objects of class POSIXct as used
 		# in the "endTime" slot of STIDF objects does not work properly.
 		stidf@endTime = endTime
