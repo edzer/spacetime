@@ -28,7 +28,7 @@ plot.STSDF = function(x, y, ..., col = ifelse(any.na, "red", "black")) {
 	any.na = apply(x@data, 1, function(x) any(is.na(x)))
 	plot(geometry(x), col = col, ...)
 }
-setMethod("plot", signature(x = "STSDF", y = "missing"), plot.STFDF)
+setMethod("plot", signature(x = "STSDF", y = "missing"), plot.STSDF)
 
 plot.STI = function(x, y, ...) {
 	space = 1:length(x@sp)
