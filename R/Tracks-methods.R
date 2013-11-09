@@ -281,16 +281,20 @@ if(!isGeneric("generalize"))
 
 setMethod("generalize", signature(t = "Track"),
 	function(t, FUN = mean, ..., timeInterval, distance, n, tol, toPoints) {
+		if (missing(timeInterval) + missing(distance) + missing(n) != 1)
+			stop("exactly one parameter from (timeInterval, distance, n) has to be specified")
 		if(!missing(timeInterval)) {
 			origin = index(t@time)
 			cut = cut(origin, timeInterval)
 			segmentLengths = rle(as.numeric(cut))$lengths
-		} else if (!missing(distance)) {
+		} 
+		if (!missing(distance)) {
 			# Total distances from each point to the first one.
 			origin = c(0, cumsum(t@connections$distance))
 			cut = floor(origin / distance)
 			segmentLengths = rle(cut)$lengths
-		} else if (!missing(n)) {
+		} 
+		if (!missing(n)) {
 			dim = dim(t)["geometries"]
 			if(n != 1 && dim / n > 1) {
 				rep = floor((dim-n)/(n-1) + 1)
@@ -299,12 +303,9 @@ setMethod("generalize", signature(t = "Track"),
 					segmentLengths = rep(n, rep)
 				else
 					segmentLengths = c(rep(n, rep), mod + 1)
-			} else {
+			} else
 				segmentLengths = dim
-			}
-		} else {
-			stop("A generalization criterion (e.g., time interval or distance) has to be passed.")
-		}
+		} 
 		# Update segment lengths. EP: why?
 		toIndex = cumsum(segmentLengths)
 		segmentLengths_ = integer()
