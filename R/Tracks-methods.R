@@ -344,9 +344,7 @@ setMethod("generalize", signature(t = "Track"),
 			data = data.frame(lapply(t@data[from:to, , drop = FALSE], FUN, ...)) # EP added ...
 			stidfs = c(stidfs, STIDF(sp, time, data))
 		}
-		stidf = do.call(rbind, lapply(stidfs, function(x) x))
-		# EP: use stidf = do.call(rbind, stidfs) here?
-
+		stidf = do.call(rbind, stidfs)
 		# Provide a workaround, since rbind'ing objects of class POSIXct as used
 		# in the "endTime" slot of STIDF objects does not work properly.
 		stidf@endTime = endTime
