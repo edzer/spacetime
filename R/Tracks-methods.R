@@ -180,13 +180,13 @@ setMethod("coordinates", "TracksCollection",
 # Provide proj4string methods.
 
 setMethod("proj4string", signature(obj = "Track"),
-    function(obj) proj4string(obj@sp)
+	function(obj) proj4string(obj@sp)
 )
 setMethod("proj4string", signature(obj = "Tracks"),
-    function(obj) proj4string(obj@tracks[[1]])
+	function(obj) proj4string(obj@tracks[[1]])
 )
 setMethod("proj4string", signature(obj = "TracksCollection"),
-    function(obj) proj4string(obj@tracksCollection[[1]])
+	function(obj) proj4string(obj@tracksCollection[[1]])
 )
 
 # Provide plot methods. TODO Make more generic.
@@ -281,7 +281,7 @@ if(!isGeneric("generalize"))
 
 setMethod("generalize", signature(t = "Track"),
 	function(t, FUN = mean, ..., timeInterval, distance, n, tol, toPoints) {
-		if (missing(timeInterval) + missing(distance) + missing(n) != 1)
+		if (sum(!c(missing(timeInterval), missing(distance), missing(n))) != 1)
 			stop("exactly one parameter from (timeInterval, distance, n) has to be specified")
 		if(!missing(timeInterval)) {
 			origin = index(t@time)
@@ -306,7 +306,10 @@ setMethod("generalize", signature(t = "Track"),
 			} else
 				segmentLengths = dim
 		} 
-		# Update segment lengths. EP: why?
+		# Update segment lengths to consider all segments for generalisation. In
+		# case the cut-point falls between two points of the track to be
+		# generalised, attach the next point to the current segment. If the cut-
+		# point matches a point of the track, leave everything as is.
 		toIndex = cumsum(segmentLengths)
 		segmentLengths_ = integer()
 		for(i in seq_along(segmentLengths)) {
