@@ -178,3 +178,8 @@ stopifnot(class(Tr[list(integer(0), 2)])[1] == "Track")
 stopifnot(class(Tr[list(1:2, 2:3), drop = FALSE])[1] == "TracksCollection")
 stopifnot(class(Tr[list(integer(0), 2:3), drop = FALSE])[1] == "TracksCollection")
 stopifnot(class(Tr[list(integer(0), 2), drop = FALSE])[1] == "TracksCollection")
+
+lapply(all, function(x) x[["co2"]])
+lapply(all, function(x) x[["co2"]] = x[["co2"]] / 1000)
+lapply(all, function(x) x$distance)
+lapply(all, function(x) x$distance = x$distance * 1000)

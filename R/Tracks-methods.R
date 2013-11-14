@@ -573,6 +573,121 @@ subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
 
 setMethod("[", "TracksCollection", subs.TracksCollection)
 
+setMethod("[[", c("Track", "ANY", "missing"), 
+	function(x, i, j, ...) {
+		# TODO What if the attribute name coexists in both the data and
+		# connections slot? Returning a list is inconvenient in the way that it
+		# raises new design issues when making selections on objects of class
+		# Tracks or TracksCollection: How to merge lists if tracks differ in
+		# their "attribute state" (the passed attribute coexists in both slots,
+		# exists in one slot only, does not exist)?
+		if(!is.null(x@data[[i]]))
+			x@data[[i]]
+		else
+			# Returns NULL if the attribute does not exist.
+			x@connections[[i]]
+	}
+)
+
+setMethod("[[", c("Tracks", "ANY", "missing"),
+	function(x, i, j, ...) {
+		do.call(c, lapply(x@tracks, function(t) t[[i]]))
+	}
+)
+
+setMethod("[[", c("TracksCollection", "ANY", "missing"),
+	function(x, i, j, ...) {
+		do.call(c, lapply(x@tracksCollection, function(t) t[[i]]))
+	}
+)
+
+setReplaceMethod("[[", c("Track", "ANY", "missing", "ANY"), 
+	function(x, i, j, value) {
+		if(!is.null(x@data[[i]]))
+			x@data[[i]] = value	
+		else if(!is.null(x@connections[[i]]))
+			x@connections[[i]] = value
+		x 	
+	}
+)
+
+setReplaceMethod("[[", c("Tracks", "ANY", "missing", "ANY"), 
+	function(x, i, j, value) {
+		for(index in seq_along(x@tracks)) {
+			if(!is.null(x[index]@data[[i]])) {
+				# "dim" (and with that "from" and "to") have to be reinitialized
+				# each loop, since tracks might differ in their "attribute
+				# state" (the passed attribute coexists in both slots, exists in
+				# one slot only, does not exist).
+				dim = sapply(x@tracks, function(t) dim(t)[["geometries"]])
+				from = if(index == 1) 1 else cumsum(dim)[index-1] + 1
+				to = cumsum(dim)[index]
+				x@tracks[[index]]@data[[i]] = value[from:to]
+			} else if(!is.null(x[index]@connections[[i]])) {
+				dim = sapply(x@tracks, function(t) dim(t)[["geometries"]]) - 1
+				from = if(index == 1) 1 else cumsum(dim)[index-1] + 1
+				to = cumsum(dim)[index]
+				x@tracks[[index]]@connections[[i]] = value[from:to]
+			}
+		}
+		x
+	}
+)
+
+setReplaceMethod("[[", c("TracksCollection", "ANY", "missing", "ANY"), 
+	function(x, i, j, value) {
+		index = 1
+		for(tz in seq_along(x@tracksCollection)) {
+			for(t in seq_along(x[tz]@tracks)) {
+				if(!is.null(x[tz][t]@data[[i]])) {
+					dim = do.call(c, lapply(x@tracksCollection, 
+						function(tz) sapply(tz@tracks,
+							function(t) dim(t)[["geometries"]])))
+					from = if(index == 1) 1 else cumsum(dim)[index-1] + 1
+					to = cumsum(dim)[index]
+					x@tracksCollection[[tz]]@tracks[[t]]@data[[i]] = value[from:to]
+				} else if(!is.null(x[tz][t]@connections[[i]])) {
+					dim = do.call(c, lapply(x@tracksCollection, 
+						function(tz) sapply(tz@tracks,
+							function(t) dim(t)[["geometries"]]))) - 1
+					from = if(index == 1) 1 else cumsum(dim)[index-1] + 1
+					to = cumsum(dim)[index]
+					x@tracksCollection[[tz]]@tracks[[t]]@connections[[i]] = value[from:to]
+				}
+				index = index + 1
+			}
+		}
+		x
+	}
+)
+
+setMethod("$", "Track", function(x, name) x[[name]])
+
+setMethod("$", "Tracks", function(x, name) x[[name]])
+
+setMethod("$", "TracksCollection", function(x, name) x[[name]])
+
+setReplaceMethod("$", "Track", 
+	function(x, name, value) {
+		x[[name]] = value
+		x 
+	}
+)
+
+setReplaceMethod("$", "Tracks", 
+	function(x, name, value) {
+		x[[name]] = value
+		x 
+	}
+)
+
+setReplaceMethod("$", "TracksCollection", 
+	function(x, name, value) {
+		x[[name]] = value
+		x 
+	}
+)
+
 # Provide stack, unstack and concatenate methods.
 
 stack.TracksCollection = function (x, select, ...) {
