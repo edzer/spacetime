@@ -532,8 +532,27 @@ subs.Tracks <- function(x, i, j, ... , drop = TRUE) {
 setMethod("[", "Tracks", subs.Tracks)
 
 subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
-	if (!missing(j))
-		warning("second selection argument is ignored")
+	if (!missing(j) && is.character(j)) {
+		for(tz in seq_along(x@tracksCollection)) {
+			for(t in seq_along(x[tz]@tracks)) {
+				data = x[tz][t]@data
+				connections = x[tz][t]@connections
+				if(j %in% names(data))
+					data = data[j]
+				else
+					# An empty data slot is returned if the passed attribute
+					# does not exist. The same applies to the connections slot.
+					data = data.frame(matrix(nrow = dim(x[tz][t])["geometries"], ncol = 0))
+				if(j %in% names(connections))
+					connections = connections[j]
+				else
+					connections = data.frame(matrix(nrow = dim(x[tz][t])["geometries"] - 1, ncol = 0))
+				# Write back the just processed data and connection slots.
+				x@tracksCollection[[tz]]@tracks[[t]]@data = data
+				x@tracksCollection[[tz]]@tracks[[t]]@connections = connections
+			}
+		}
+	}
 	if (missing(i))
 		s = 1:length(x@tracksCollection)
 	else if (is(i, "Spatial"))
@@ -581,7 +600,7 @@ setMethod("[[", c("Track", "ANY", "missing"),
 		# Tracks or TracksCollection: How to merge lists if tracks differ in
 		# their "attribute state" (the passed attribute coexists in both slots,
 		# exists in one slot only, does not exist)?
-		if(!is.null(x@data[[i]]))
+		if(i %in% names(x@data))
 			x@data[[i]]
 		else
 			# Returns NULL if the attribute does not exist.
@@ -603,9 +622,9 @@ setMethod("[[", c("TracksCollection", "ANY", "missing"),
 
 setReplaceMethod("[[", c("Track", "ANY", "missing", "ANY"), 
 	function(x, i, j, value) {
-		if(!is.null(x@data[[i]]))
+		if(i %in% names(x@data))
 			x@data[[i]] = value	
-		else if(!is.null(x@connections[[i]]))
+		else if(i %in% names(x@connections))
 			x@connections[[i]] = value
 		x 	
 	}
@@ -614,7 +633,7 @@ setReplaceMethod("[[", c("Track", "ANY", "missing", "ANY"),
 setReplaceMethod("[[", c("Tracks", "ANY", "missing", "ANY"), 
 	function(x, i, j, value) {
 		for(index in seq_along(x@tracks)) {
-			if(!is.null(x[index]@data[[i]])) {
+			if(i %in% names(x[index]@data)) {
 				# "dim" (and with that "from" and "to") have to be reinitialized
 				# each loop, since tracks might differ in their "attribute
 				# state" (the passed attribute coexists in both slots, exists in
@@ -623,7 +642,7 @@ setReplaceMethod("[[", c("Tracks", "ANY", "missing", "ANY"),
 				from = if(index == 1) 1 else cumsum(dim)[index-1] + 1
 				to = cumsum(dim)[index]
 				x@tracks[[index]]@data[[i]] = value[from:to]
-			} else if(!is.null(x[index]@connections[[i]])) {
+			} else if(i %in% names(x[index]@connections)) {
 				dim = sapply(x@tracks, function(t) dim(t)[["geometries"]]) - 1
 				from = if(index == 1) 1 else cumsum(dim)[index-1] + 1
 				to = cumsum(dim)[index]
@@ -639,14 +658,14 @@ setReplaceMethod("[[", c("TracksCollection", "ANY", "missing", "ANY"),
 		index = 1
 		for(tz in seq_along(x@tracksCollection)) {
 			for(t in seq_along(x[tz]@tracks)) {
-				if(!is.null(x[tz][t]@data[[i]])) {
+				if(i %in% names(x[tz][t]@data)) {
 					dim = do.call(c, lapply(x@tracksCollection, 
 						function(tz) sapply(tz@tracks,
 							function(t) dim(t)[["geometries"]])))
 					from = if(index == 1) 1 else cumsum(dim)[index-1] + 1
 					to = cumsum(dim)[index]
 					x@tracksCollection[[tz]]@tracks[[t]]@data[[i]] = value[from:to]
-				} else if(!is.null(x[tz][t]@connections[[i]])) {
+				} else if(i %in% names(x[tz][t]@connections)) {
 					dim = do.call(c, lapply(x@tracksCollection, 
 						function(tz) sapply(tz@tracks,
 							function(t) dim(t)[["geometries"]]))) - 1
