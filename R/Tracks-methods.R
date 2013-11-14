@@ -180,13 +180,13 @@ setMethod("coordinates", "TracksCollection",
 # Provide proj4string methods.
 
 setMethod("proj4string", signature(obj = "Track"),
-    function(obj) proj4string(obj@sp)
+	function(obj) proj4string(obj@sp)
 )
 setMethod("proj4string", signature(obj = "Tracks"),
-    function(obj) proj4string(obj@tracks[[1]])
+	function(obj) proj4string(obj@tracks[[1]])
 )
 setMethod("proj4string", signature(obj = "TracksCollection"),
-    function(obj) proj4string(obj@tracksCollection[[1]])
+	function(obj) proj4string(obj@tracksCollection[[1]])
 )
 
 # Provide plot methods. TODO Make more generic.
@@ -281,7 +281,7 @@ if(!isGeneric("generalize"))
 
 setMethod("generalize", signature(t = "Track"),
 	function(t, FUN = mean, ..., timeInterval, distance, n, tol, toPoints) {
-		if (missing(timeInterval) + missing(distance) + missing(n) != 1)
+		if (sum(!c(missing(timeInterval), missing(distance), missing(n))) != 1)
 			stop("exactly one parameter from (timeInterval, distance, n) has to be specified")
 		if(!missing(timeInterval)) {
 			origin = index(t@time)
@@ -306,7 +306,10 @@ setMethod("generalize", signature(t = "Track"),
 			} else
 				segmentLengths = dim
 		} 
-		# Update segment lengths. EP: why?
+		# Update segment lengths to consider all segments for generalisation. In
+		# case the cut-point falls between two points of the track to be
+		# generalised, attach the next point to the current segment. If the cut-
+		# point matches a point of the track, leave everything as is.
 		toIndex = cumsum(segmentLengths)
 		segmentLengths_ = integer()
 		for(i in seq_along(segmentLengths)) {
@@ -341,9 +344,7 @@ setMethod("generalize", signature(t = "Track"),
 			data = data.frame(lapply(t@data[from:to, , drop = FALSE], FUN, ...)) # EP added ...
 			stidfs = c(stidfs, STIDF(sp, time, data))
 		}
-		stidf = do.call(rbind, lapply(stidfs, function(x) x))
-		# EP: use stidf = do.call(rbind, stidfs) here?
-
+		stidf = do.call(rbind, stidfs)
 		# Provide a workaround, since rbind'ing objects of class POSIXct as used
 		# in the "endTime" slot of STIDF objects does not work properly.
 		stidf@endTime = endTime
@@ -531,8 +532,27 @@ subs.Tracks <- function(x, i, j, ... , drop = TRUE) {
 setMethod("[", "Tracks", subs.Tracks)
 
 subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
-	if (!missing(j))
-		warning("second selection argument is ignored")
+	if (!missing(j) && is.character(j)) {
+		for(tz in seq_along(x@tracksCollection)) {
+			for(t in seq_along(x[tz]@tracks)) {
+				data = x[tz][t]@data
+				connections = x[tz][t]@connections
+				if(j %in% names(data))
+					data = data[j]
+				else
+					# An empty data slot is returned if the passed attribute
+					# does not exist. The same applies to the connections slot.
+					data = data.frame(matrix(nrow = dim(x[tz][t])["geometries"], ncol = 0))
+				if(j %in% names(connections))
+					connections = connections[j]
+				else
+					connections = data.frame(matrix(nrow = dim(x[tz][t])["geometries"] - 1, ncol = 0))
+				# Write back the just processed data and connection slots.
+				x@tracksCollection[[tz]]@tracks[[t]]@data = data
+				x@tracksCollection[[tz]]@tracks[[t]]@connections = connections
+			}
+		}
+	}
 	if (missing(i))
 		s = 1:length(x@tracksCollection)
 	else if (is(i, "Spatial"))
@@ -571,6 +591,121 @@ subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
 }
 
 setMethod("[", "TracksCollection", subs.TracksCollection)
+
+setMethod("[[", c("Track", "ANY", "missing"), 
+	function(x, i, j, ...) {
+		# TODO What if the attribute name coexists in both the data and
+		# connections slot? Returning a list is inconvenient in the way that it
+		# raises new design issues when making selections on objects of class
+		# Tracks or TracksCollection: How to merge lists if tracks differ in
+		# their "attribute state" (the passed attribute coexists in both slots,
+		# exists in one slot only, does not exist)?
+		if(i %in% names(x@data))
+			x@data[[i]]
+		else
+			# Returns NULL if the attribute does not exist.
+			x@connections[[i]]
+	}
+)
+
+setMethod("[[", c("Tracks", "ANY", "missing"),
+	function(x, i, j, ...) {
+		do.call(c, lapply(x@tracks, function(t) t[[i]]))
+	}
+)
+
+setMethod("[[", c("TracksCollection", "ANY", "missing"),
+	function(x, i, j, ...) {
+		do.call(c, lapply(x@tracksCollection, function(t) t[[i]]))
+	}
+)
+
+setReplaceMethod("[[", c("Track", "ANY", "missing", "ANY"), 
+	function(x, i, j, value) {
+		if(i %in% names(x@data))
+			x@data[[i]] = value	
+		else if(i %in% names(x@connections))
+			x@connections[[i]] = value
+		x 	
+	}
+)
+
+setReplaceMethod("[[", c("Tracks", "ANY", "missing", "ANY"), 
+	function(x, i, j, value) {
+		for(index in seq_along(x@tracks)) {
+			if(i %in% names(x[index]@data)) {
+				# "dim" (and with that "from" and "to") have to be reinitialized
+				# each loop, since tracks might differ in their "attribute
+				# state" (the passed attribute coexists in both slots, exists in
+				# one slot only, does not exist).
+				dim = sapply(x@tracks, function(t) dim(t)[["geometries"]])
+				from = if(index == 1) 1 else cumsum(dim)[index-1] + 1
+				to = cumsum(dim)[index]
+				x@tracks[[index]]@data[[i]] = value[from:to]
+			} else if(i %in% names(x[index]@connections)) {
+				dim = sapply(x@tracks, function(t) dim(t)[["geometries"]]) - 1
+				from = if(index == 1) 1 else cumsum(dim)[index-1] + 1
+				to = cumsum(dim)[index]
+				x@tracks[[index]]@connections[[i]] = value[from:to]
+			}
+		}
+		x
+	}
+)
+
+setReplaceMethod("[[", c("TracksCollection", "ANY", "missing", "ANY"), 
+	function(x, i, j, value) {
+		index = 1
+		for(tz in seq_along(x@tracksCollection)) {
+			for(t in seq_along(x[tz]@tracks)) {
+				if(i %in% names(x[tz][t]@data)) {
+					dim = do.call(c, lapply(x@tracksCollection, 
+						function(tz) sapply(tz@tracks,
+							function(t) dim(t)[["geometries"]])))
+					from = if(index == 1) 1 else cumsum(dim)[index-1] + 1
+					to = cumsum(dim)[index]
+					x@tracksCollection[[tz]]@tracks[[t]]@data[[i]] = value[from:to]
+				} else if(i %in% names(x[tz][t]@connections)) {
+					dim = do.call(c, lapply(x@tracksCollection, 
+						function(tz) sapply(tz@tracks,
+							function(t) dim(t)[["geometries"]]))) - 1
+					from = if(index == 1) 1 else cumsum(dim)[index-1] + 1
+					to = cumsum(dim)[index]
+					x@tracksCollection[[tz]]@tracks[[t]]@connections[[i]] = value[from:to]
+				}
+				index = index + 1
+			}
+		}
+		x
+	}
+)
+
+setMethod("$", "Track", function(x, name) x[[name]])
+
+setMethod("$", "Tracks", function(x, name) x[[name]])
+
+setMethod("$", "TracksCollection", function(x, name) x[[name]])
+
+setReplaceMethod("$", "Track", 
+	function(x, name, value) {
+		x[[name]] = value
+		x 
+	}
+)
+
+setReplaceMethod("$", "Tracks", 
+	function(x, name, value) {
+		x[[name]] = value
+		x 
+	}
+)
+
+setReplaceMethod("$", "TracksCollection", 
+	function(x, name, value) {
+		x[[name]] = value
+		x 
+	}
+)
 
 # Provide stack, unstack and concatenate methods.
 
