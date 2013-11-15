@@ -201,6 +201,9 @@ dim(unstack(u, c(1,1,2,3))) # regroups to three IDs
 dim(unstack(u, c(1,2,2,1))) # regroups differently
 as(Tr, "data.frame")[1:10,] # tracks separated by NA rows
 as(Tr, "segments")[1:10,]   # track segments as records
+Tr[["distance"]] = Tr[["distance"]] * 1000
+Tr$distance = Tr$distance / 1000
+Tr$distance
 }
 
 \keyword{classes}
