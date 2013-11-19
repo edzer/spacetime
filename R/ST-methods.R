@@ -12,14 +12,14 @@ ST = function(sp, time, endTime) {
 				dimnames = list(NULL, "timeIndex")), time)
 	}
 	if (any(is.na(index(time))))
-		stop("time values cannot be negative")
-	if (any(is.na(endTime)))
-		stop("endTime values cannot be negative")
+		stop("NA time values not allowed")
 	stopifnot(is(endTime, "POSIXct"))
 	attr(endTime, "tzone") = attr(time, "tzone")
+	if (any(is.na(endTime)))
+		stop("NA endTime values not allowed")
 	if (is(sp, "SpatialGrid")) {
 		sp = as(sp, "SpatialPixels")
-		warning("converted SpatialGrid to SpatialPixels")
+		warning("on constructing ST, converted SpatialGrid to SpatialPixels")
 	}
 	new("ST", sp = sp, time = time, endTime = endTime)
 }

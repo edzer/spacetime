@@ -11,7 +11,19 @@
 \alias{TracksSummary}
 \alias{[,Track-method} 
 \alias{[,Tracks-method} 
-\alias{[,TracksCollection-method} 
+\alias{[,TracksCollection-method}
+\alias{[[,Track,ANY,missing-method}
+\alias{[[,Tracks,ANY,missing-method}
+\alias{[[,TracksCollection,ANY,missing-method}
+\alias{[[<-,Track,ANY,missing-method}
+\alias{[[<-,Tracks,ANY,missing-method}
+\alias{[[<-,TracksCollection,ANY,missing-method}
+\alias{$,Track-method}
+\alias{$,Tracks-method}
+\alias{$,TracksCollection-method}
+\alias{$<-,Track-method}
+\alias{$<-,Tracks-method}
+\alias{$<-,TracksCollection-method}
 \alias{coerce,Track,data.frame-method} 
 \alias{coerce,Tracks,data.frame-method} 
 \alias{coerce,TracksCollection,data.frame-method}
@@ -63,13 +75,25 @@ different IDs.
 }
 \section{Methods}{
   \describe{
-   \item{coerce}{Track,data.frame}{coerce to \code{data.frame}}
-   \item{coerce}{Tracks,data.frame}{coerce to \code{data.frame}}
-   \item{coerce}{TracksCollection,data.frame}{coerce to \code{data.frame}}
-   \item{plot}{\code{signature(x = "TracksCollection", y = "missing")}: 
-   plots sets of sets of tracks}
-   \item{stplot}{\code{signature(obj = "TracksCollection")}: 
-   plots sets of sets of tracks}
+    \item{[[}{\code{signature(obj = "Track")}: retrieves the attribute element}
+    \item{[[}{\code{signature(obj = "Tracks")}: retrieves the attribute element}
+    \item{[[}{\code{signature(obj = "TracksCollection")}: retrieves the attribute element}
+    \item{[[<-}{\code{signature(obj = "Track")}: sets or replaces the attribute element}
+    \item{[[<-}{\code{signature(obj = "Tracks")}: sets or replaces the attribute element}
+    \item{[[<-}{\code{signature(obj = "TracksCollection")}: sets or replaces the attribute element}
+    \item{$}{\code{signature(obj = "Track")}: retrieves the attribute element}
+    \item{$}{\code{signature(obj = "Tracks")}: retrieves the attribute element}
+    \item{$}{\code{signature(obj = "TracksCollection")}: retrieves the attribute element}
+    \item{$<-}{\code{signature(obj = "Track")}: sets or replaces the attribute element}
+    \item{$<-}{\code{signature(obj = "Tracks")}: sets or replaces the attribute element}
+    \item{$<-}{\code{signature(obj = "TracksCollection")}: sets or replaces the attribute element}
+    \item{coerce}{Track,data.frame}{coerce to \code{data.frame}}
+    \item{coerce}{Tracks,data.frame}{coerce to \code{data.frame}}
+    \item{coerce}{TracksCollection,data.frame}{coerce to \code{data.frame}}
+    \item{plot}{\code{signature(x = "TracksCollection", y = "missing")}: 
+    plots sets of sets of tracks}
+    \item{stplot}{\code{signature(obj = "TracksCollection")}: 
+    plots sets of sets of tracks}
 	% for spatial objects; does nothing but setting up a plotting region choosing
 	% a suitable aspect if not given(see below), colouring the plot background using either a bg= argument or par("bg"), and possibly drawing axes.  }
 	% \item{summary}{\code{signature(object = "Spatial")}: summarize object}
@@ -177,6 +201,9 @@ dim(unstack(u, c(1,1,2,3))) # regroups to three IDs
 dim(unstack(u, c(1,2,2,1))) # regroups differently
 as(Tr, "data.frame")[1:10,] # tracks separated by NA rows
 as(Tr, "segments")[1:10,]   # track segments as records
+Tr[["distance"]] = Tr[["distance"]] * 1000
+Tr$distance = Tr$distance / 1000
+Tr$distance
 }
 
 \keyword{classes}

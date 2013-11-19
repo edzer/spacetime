@@ -732,6 +732,12 @@ detaching ‘package:sp’
 > ### Aliases: Track-class Tracks-class TracksCollection-class segments-class
 > ###   Track Tracks TracksCollection TrackSummary TracksSummary
 > ###   [,Track-method [,Tracks-method [,TracksCollection-method
+> ###   [[,Track,ANY,missing-method [[,Tracks,ANY,missing-method
+> ###   [[,TracksCollection,ANY,missing-method [[<-,Track,ANY,missing-method
+> ###   [[<-,Tracks,ANY,missing-method
+> ###   [[<-,TracksCollection,ANY,missing-method $,Track-method
+> ###   $,Tracks-method $,TracksCollection-method $<-,Track-method
+> ###   $<-,Tracks-method $<-,TracksCollection-method
 > ###   coerce,Track,data.frame-method coerce,Tracks,data.frame-method
 > ###   coerce,TracksCollection,data.frame-method coordnames,Track-method
 > ###   coordnames,Tracks-method coordnames,TracksCollection-method
@@ -792,27 +798,27 @@ Path to PROJ.4 shared files: (autodetected)
 > stplot(Tr, attr = "direction", arrows=TRUE, lwd = 3, by = "IDs")
 > plot(Tr, col=2, axes=TRUE)
 > dim(Tr)
-   IDs tracks points 
-     2      4     24 
+       IDs     tracks geometries 
+         2          4         24 
 > dim(Tr[2])
-tracks points 
-     2     12 
+    tracks geometries 
+         2         12 
 > dim(Tr[2][1])
-points 
-     6 
+geometries 
+         6 
 > u = stack(Tr) # four IDs
 > dim(u)
-   IDs tracks points 
-     4      4     24 
+       IDs     tracks geometries 
+         4          4         24 
 > dim(unstack(u, c(1,1,2,2))) # regroups to original
-   IDs tracks points 
-     2      4     24 
+       IDs     tracks geometries 
+         2          4         24 
 > dim(unstack(u, c(1,1,2,3))) # regroups to three IDs
-   IDs tracks points 
-     3      4     24 
+       IDs     tracks geometries 
+         3          4         24 
 > dim(unstack(u, c(1,2,2,1))) # regroups differently
-   IDs tracks points 
-     2      4     24 
+       IDs     tracks geometries 
+         2          4         24 
 > as(Tr, "data.frame")[1:10,] # tracks separated by NA rows
         x  y sp.ID                time             endTime timeIndex
 A.A1.1  7  7     1 2013-09-30 02:00:15 2013-09-30 02:00:15         1
@@ -1553,7 +1559,7 @@ point3               30.40
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  10 0.312 10.354 0 0 
+Time elapsed:  10.12 0.336 11.074 0 0 
 > grDevices::dev.off()
 null device 
           1 

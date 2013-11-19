@@ -1,13 +1,13 @@
 Package: spacetime
 Version: 1.1-0
-Date: 2013-10-22
+Date: 2013-11-18
 Title: classes and methods for spatio-temporal data
 Authors@R: c(person("Edzer", "Pebesma", role = c("cre", "aut"),
 		 email = "edzer.pebesma@uni-muenster.de"),
+	person("Benedikt", "Klus", role = "aut"),
 	person("Benedikt", "Graeler", role = "ctb"),
 	person("Tom", "Gottfried", role = "ctb"),
-	person("Robert J.", "Hijmans", role = "ctb"),
-	person("Benedikt", "Klus", role = "aut"))
+	person("Robert J.", "Hijmans", role = "ctb"))
 Depends: R (>= 2.14.0)
 Imports: methods, sp (>= 1.0-14), zoo (>= 1.7-9), xts (>= 0.8-8), intervals, lattice, rgeos
 Suggests: rgdal, raster, maps, mapdata, maptools, gstat (>= 1.0-16), adehabitatLT, diveMove, RColorBrewer, plm, cshapes, foreign, RPostgreSQL
@@ -21,4 +21,3 @@ Collate: Class-xts.R Class-ST.R Class-STFDF.R Class-STSDF.R
 	STTDF-methods.R Tracks-methods.R apply.R coerce.R stconstruct.R 
 	plot.R stplot.R timematch.R over.R aggregate.R eof.R bind.R
 	na.R raster.R tgrass.R stinteraction.R
-Packaged: 2011-07-10 15:11:29 UTC; edzer
