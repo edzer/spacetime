@@ -7,6 +7,8 @@ importFrom(utils, stack, unstack)
 importFrom(xts, xts, as.xts, timeBased)
 importFrom(zoo, index, na.locf, na.spline, na.approx, as.zoo)
 importFrom(intervals, interval_overlap, Intervals)
+importFrom(rgl, plot3d, lines3d, surface3d)
+importFrom(OpenStreetMap, openmap, openproj)
 
 exportClasses(
 	xts, zoo,
@@ -44,6 +46,7 @@ exportMethods(
 	over,
 	plot,
 	stbox,
+	stcube,
 	stplot,
 	timeMatch
 )
