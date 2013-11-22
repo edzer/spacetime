@@ -4,4 +4,5 @@ CW			demo doing some examples from the Cressie & Wikle book (ch 3)
 CressieWikle	demo that reads the data from the Cressie & Wikle book.
 gvis		some googleVis graphs using spacetime data
 Tracks		demo to load geolife data
+stcube		stcube demo
 trip		trip demo, taken from spacetime vignette
