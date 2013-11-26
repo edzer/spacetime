@@ -236,6 +236,24 @@ map3d = function(map, z, ...) {
 	surface3d(x = xc, y = yc, z = m, col = col, ...)
 }
 
+normalize = function(time, by = "week", origin) {
+	tlt = as.POSIXlt(time)
+	if(missing(origin))
+		olt = tlt[1]
+	else
+		olt = as.POSIXlt(origin)
+	if(by == "day") {
+		tlt$mday = olt[1]$mday
+		tlt$mon = olt[1]$mon
+		tlt$year = olt[1]$year
+	} else {
+		tlt$mday = (tlt$mday - olt[1]$mday) %% 7 + olt[1]$mday
+		tlt$mon = olt[1]$mon
+		tlt$year = olt[1]$year
+	}
+	time = as.POSIXct(tlt)
+}
+
 if(!isGeneric("stcube"))
 	setGeneric("stcube", function(x, ...)
 		standardGeneric("stcube"))
@@ -249,6 +267,8 @@ setMethod("stcube", signature(x = "Track"),
 		require(OpenStreetMap)
 		coords = coordinates(x@sp)
 		time = index(x@time)
+		if(!exists("aspect"))
+			aspect = c(1, mapasp(x@sp), 1)
 		xlim = range(coords[, 1])
 		ylim = range(coords[, 2])
 		zlim = range(time)
@@ -262,8 +282,8 @@ setMethod("stcube", signature(x = "Track"),
 			map = openproj(x = map, projection = proj4string(x))
 		}
 		plot3d(x = coords[, 1], y = coords[, 2], z = time, xlab = xlab,
-			ylab = ylab, zlab = zlab, type = type, xlim = xlim, ylim = ylim,
-			zlim = zlim, ...)
+			ylab = ylab, zlab = zlab, type = type, aspect = aspect, xlim = xlim,
+			ylim = ylim, zlim = zlim, ...)
 		if(showMap)
 			map3d(map = map, z = time[1])
 	}
@@ -271,16 +291,19 @@ setMethod("stcube", signature(x = "Track"),
 
 setMethod("stcube", signature(x = "Tracks"),
 	function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", showMap = FALSE,
-		mapType = "osm", ..., y, z, col, xlim, ylim, zlim) {
+		mapType = "osm", normalizeBy = "week", ..., y, z, col, xlim, ylim, zlim) {
 		# "y", "z", "col", "xlim", "ylim" and "zlim" are ignored, but included
 		# in the method signature to avoid passing them twice to plot3d().
 		require(rgl)
 		require(OpenStreetMap)
-		coords = coordinates(x@tracks[[1]]@sp)
-		time = index(x@tracks[[1]]@time)
+		dim = dim(x@tracks[[1]])["geometries"]
 		coordsAll = do.call(rbind, lapply(x@tracks, function(x) coordinates(x@sp)))
-		timeAll = do.call(c, lapply(x@tracks, function(x) index(x@time)))
+		timeAll = normalize(do.call(c, lapply(x@tracks,
+			function(x) index(x@time))), normalizeBy)
 		col = rainbow(length(x@tracks))
+		if(!exists("aspect"))
+			# mapasp() processes objects of class Spatial* only.
+			aspect = c(1, mapasp(as(x, "SpatialLines")), 1)
 		xlim = range(coordsAll[, 1])
 		ylim = range(coordsAll[, 2])
 		zlim = range(timeAll)
@@ -293,13 +316,14 @@ setMethod("stcube", signature(x = "Tracks"),
 				lowerRight = c(ylim[1], xlim[2]), type = mapType)
 			map = openproj(x = map, projection = proj4string(x))
 		}
-		plot3d(x = coords[, 1], y = coords[, 2], z = time[1], xlab = xlab,
-			ylab = ylab, zlab = zlab, type = type, col = col[1], xlim = xlim,
+		plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
+			z = timeAll[1:dim], xlab = xlab, ylab = ylab, zlab = zlab,
+			type = type, col = col[1], aspect = aspect, xlim = xlim,
 			ylim = ylim, zlim = zlim, ...)
 		tracks = x@tracks[-1]
 		for(t in seq_along(tracks)) {
 			coords = coordinates(tracks[[t]]@sp)
-			time = index(tracks[[t]]@time)
+			time = normalize(index(tracks[[t]]@time), normalizeBy, timeAll[1])
 			lines3d(x = coords[, 1], y = coords[, 2], z = time, col = col[t+1])
 		}
 		if(showMap)
@@ -309,18 +333,21 @@ setMethod("stcube", signature(x = "Tracks"),
 
 setMethod("stcube", signature(x = "TracksCollection"),
 	function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", showMap = FALSE,
-		mapType = "osm", ..., y, z, col, xlim, ylim, zlim) {
+		mapType = "osm", normalizeBy = "week", ..., y, z, col, xlim, ylim, zlim) {
 		# "y", "z", "col", "xlim", "ylim" and "zlim" are ignored, but included
 		# in the method signature to avoid passing them twice to plot3d().
 		require(rgl)
 		require(OpenStreetMap)
-		coords = coordinates(x@tracksCollection[[1]]@tracks[[1]]@sp)
-		time = index(x@tracksCollection[[1]]@tracks[[1]]@time)
+		dim = dim(x@tracksCollection[[1]]@tracks[[1]])["geometries"]
 		coordsAll = do.call(rbind, lapply(x@tracksCollection,
 			function(x) do.call(rbind, lapply(x@tracks, function(y) coordinates(y@sp)))))
-		timeAll = do.call(c, lapply(x@tracksCollection,
-			function(x) do.call(c, lapply(x@tracks, function(y) index(y@time)))))
+		timeAll = normalize(do.call(c, lapply(x@tracksCollection,
+			function(x) do.call(c, lapply(x@tracks,
+				function(y) index(y@time))))), normalizeBy)
 		col = rainbow(length(x@tracksCollection))
+		if(!exists("aspect"))
+			# mapasp() processes objects of class Spatial* only.
+			aspect = c(1, mapasp(as(x, "SpatialLines")), 1)
 		xlim = range(coordsAll[, 1])
 		ylim = range(coordsAll[, 2])
 		zlim = range(timeAll)
@@ -333,8 +360,9 @@ setMethod("stcube", signature(x = "TracksCollection"),
 				lowerRight = c(ylim[1], xlim[2]), type = mapType)
 			map = openproj(x = map, projection = proj4string(x))
 		}
-		plot3d(x = coords[, 1], y = coords[, 2], z = time[1], xlab = xlab,
-			ylab = ylab, zlab = zlab, type = type, col = col[1], xlim = xlim,
+		plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
+			z = timeAll[1:dim], xlab = xlab, ylab = ylab, zlab = zlab,
+			type = type, col = col[1], aspect = aspect, xlim = xlim,
 			ylim = ylim, zlim = zlim, ...)
 		for(tz in seq_along(x@tracksCollection)) {
 			if(tz == 1)
@@ -343,7 +371,7 @@ setMethod("stcube", signature(x = "TracksCollection"),
 				tracks = x@tracksCollection[[tz]]@tracks
 			for(t in seq_along(tracks)) {
 				coords = coordinates(tracks[[t]]@sp)
-				time = index(tracks[[t]]@time)
+				time = normalize(index(tracks[[t]]@time), normalizeBy, timeAll[1])
 				lines3d(x = coords[, 1], y = coords[, 2], z = time, col = col[tz])
 			}
 		}
