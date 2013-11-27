@@ -254,19 +254,22 @@ if(!isGeneric("stcube"))
 		standardGeneric("stcube"))
 
 setMethod("stcube", signature(x = "Track"),
-	function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", showMap = FALSE,
-		mapType = "osm", ..., y, z, xlim, ylim, zlim) {
-		# "y", "z", "xlim", "ylim" and "zlim" are ignored, but included in the
-		# method signature to avoid passing them twice to plot3d().
+	function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", aspect, xlim,
+		ylim, zlim, showMap = FALSE, mapType = "osm", ..., y, z) {
+		# "y" and "z" are ignored, but included in the method signature to avoid
+		# passing them twice to plot3d().
 		require(rgl)
 		require(OpenStreetMap)
 		coords = coordinates(x@sp)
 		time = index(x@time)
-		if(!exists("aspect"))
-			aspect = c(1, mapasp(x@sp), 1)
-		xlim = range(coords[, 1])
-		ylim = range(coords[, 2])
-		zlim = range(time)
+		if(missing(aspect))
+			aspect = if((asp = mapasp(x@sp)) == "iso") "iso" else c(1, asp, 1)
+		if(missing(xlim))
+			xlim = range(coords[, 1])
+		if(missing(ylim))
+			ylim = range(coords[, 2])
+		if(missing(zlim))
+			zlim = range(time)
 		# If the basemap is to be shown, fetch map tile first to allow for
 		# rendering everything in one go.
 		if(showMap) {
@@ -285,10 +288,10 @@ setMethod("stcube", signature(x = "Track"),
 )
 
 setMethod("stcube", signature(x = "Tracks"),
-	function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", showMap = FALSE,
-		mapType = "osm", normalizeBy = "week", ..., y, z, col, xlim, ylim, zlim) {
-		# "y", "z", "col", "xlim", "ylim" and "zlim" are ignored, but included
-		# in the method signature to avoid passing them twice to plot3d().
+	function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", aspect, xlim,
+		ylim, zlim, showMap = FALSE, mapType = "osm", normalizeBy = "week", ..., y, z, col) {
+		# "y", "z" and "col" are ignored, but included in the method signature
+		# to avoid passing them twice to plot3d().
 		require(rgl)
 		require(OpenStreetMap)
 		dim = dim(x@tracks[[1]])["geometries"]
@@ -296,12 +299,15 @@ setMethod("stcube", signature(x = "Tracks"),
 		timeAll = normalize(do.call(c, lapply(x@tracks,
 			function(x) index(x@time))), normalizeBy)
 		col = rainbow(length(x@tracks))
-		if(!exists("aspect"))
+		if(missing(aspect))
 			# mapasp() processes objects of class Spatial* only.
-			aspect = c(1, mapasp(as(x, "SpatialLines")), 1)
-		xlim = range(coordsAll[, 1])
-		ylim = range(coordsAll[, 2])
-		zlim = range(timeAll)
+			aspect = if((asp = mapasp(as(x, "SpatialLines"))) == "iso") "iso" else c(1, asp, 1)
+		if(missing(xlim))
+			xlim = range(coordsAll[, 1])
+		if(missing(ylim))
+			ylim = range(coordsAll[, 2])
+		if(missing(zlim))
+			zlim = range(timeAll)
 		# If the basemap is to be shown, fetch map tile first to allow for
 		# rendering everything in one go.
 		if(showMap) {
@@ -327,10 +333,10 @@ setMethod("stcube", signature(x = "Tracks"),
 )
 
 setMethod("stcube", signature(x = "TracksCollection"),
-	function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", showMap = FALSE,
-		mapType = "osm", normalizeBy = "week", ..., y, z, col, xlim, ylim, zlim) {
-		# "y", "z", "col", "xlim", "ylim" and "zlim" are ignored, but included
-		# in the method signature to avoid passing them twice to plot3d().
+	function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", aspect, xlim,
+		ylim, zlim, showMap = FALSE, mapType = "osm", normalizeBy = "week", ..., y, z, col) {
+		# "y", "z" and "col" are ignored, but included in the method signature
+		# to avoid passing them twice to plot3d().
 		require(rgl)
 		require(OpenStreetMap)
 		dim = dim(x@tracksCollection[[1]]@tracks[[1]])["geometries"]
@@ -340,12 +346,15 @@ setMethod("stcube", signature(x = "TracksCollection"),
 			function(x) do.call(c, lapply(x@tracks,
 				function(y) index(y@time))))), normalizeBy)
 		col = rainbow(length(x@tracksCollection))
-		if(!exists("aspect"))
+		if(missing(aspect))
 			# mapasp() processes objects of class Spatial* only.
-			aspect = c(1, mapasp(as(x, "SpatialLines")), 1)
-		xlim = range(coordsAll[, 1])
-		ylim = range(coordsAll[, 2])
-		zlim = range(timeAll)
+			aspect = if((asp = mapasp(as(x, "SpatialLines"))) == "iso") "iso" else c(1, asp, 1)
+		if(missing(xlim))
+			xlim = range(coordsAll[, 1])
+		if(missing(ylim))
+			ylim = range(coordsAll[, 2])
+		if(missing(zlim))
+			zlim = range(timeAll)
 		# If the basemap is to be shown, fetch map tile first to allow for
 		# rendering everything in one go.
 		if(showMap) {
