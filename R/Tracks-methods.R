@@ -237,21 +237,16 @@ map3d = function(map, z, ...) {
 }
 
 normalize = function(time, by = "week", origin) {
-	tlt = as.POSIXlt(time)
-	if(missing(origin))
-		olt = tlt[1]
-	else
-		olt = as.POSIXlt(origin)
-	if(by == "day") {
-		tlt$mday = olt[1]$mday
-		tlt$mon = olt[1]$mon
-		tlt$year = olt[1]$year
-	} else {
-		tlt$mday = (tlt$mday - olt[1]$mday) %% 7 + olt[1]$mday
-		tlt$mon = olt[1]$mon
-		tlt$year = olt[1]$year
-	}
-	time = as.POSIXct(tlt)
+	tn = as.numeric(time)
+	if (by == "day")
+		tn = (tn %% (3600 * 24)) / 3600 # decimal hours
+	else if (by == "week")
+		tn = (tn %% (3600 * 24 * 7)) / (3600 * 24) # decimal days
+	else 
+		stop(paste("unknown value for by: ",by))
+	if (missing(origin))
+		origin = as.POSIXct("1970-01-01")
+	as.POSIXct(tn, origin = origin)
 }
 
 if(!isGeneric("stcube"))
