@@ -13,16 +13,21 @@ importEnviroCar = function(trackID, url = "https://envirocar.org/api/stable/trac
 	# Convert phenomena from JSON to data frame.
 	phenomena = lapply(as.character(spdf$phenomenons), fromJSON)
 	values = lapply(phenomena, function(x) as.data.frame(lapply(x, function(y) y$value)))
-	# Keep phenomena that were taken at each measurement point only.
-	keeps = c()
-	for(n in names(values[[1]])) {
-		if(all(sapply(values, function(x) n %in% names(x))))
-			keeps = c(keeps, n)
-	}
-	values = lapply(values, function(x) x[keeps])
+	# Get a list of all phenomena for which values exist.
+	names = vector()
+	for(i in values)
+		names = union(names, names(i))
+	# Make sure that each data frame has the same number of columns.
+	values = lapply(values, function(x) {
+		xNames = names(x)
+		# Get the symmetric difference.
+		diff = setdiff(union(names, xNames), intersect(names, xNames))
+		if(length(diff) > 0)
+			x[diff] = NA
+		x
+	})
 	# Bind values together.
 	data = do.call(rbind, values)
-	units = as.data.frame(lapply(phenomena[[1]], function(x) x$unit))
 	sp = SpatialPoints(coords = coordinates(spdf), proj4string = CRS("+proj=longlat"))
 	stidf = STIDF(sp = sp, time = time, data = data)
 	Track(track = stidf)
