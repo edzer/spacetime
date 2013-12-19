@@ -1,0 +1,320 @@
+\RequirePackage[l2tabu,orthodox]{nag}
+
+\documentclass[fontsize=11pt,paper=a4]{scrartcl}
+
+% \VignetteIndexEntry{Analysing Trajectory Data in R}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[british]{babel}
+\usepackage[nodayofweek]{datetime}
+\usepackage[british]{translator}
+\usepackage{siunitx}
+\sisetup{locale=UK,per-mode=symbol}
+\usepackage[babel]{csquotes}
+\usepackage{textcomp}
+\usepackage[final=true]{microtype}
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{float}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily,breaklines=true,captionpos=b,showstringspaces=false,tabsize=2}
+\lstset{literate={Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1 {ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {ß}{{\ss}}1 {~}{{\textasciitilde}}1}
+\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks=true]{hyperref}
+\usepackage{Sweave}
+\SweaveOpts{keep.source=true}
+
+\title{Analysing Trajectory Data in R} 
+\author{Benedikt Klus}
+\date{\today}
+
+\begin{document}
+
+% Modify figure width.
+\setkeys{Gin}{width=0.5\textwidth}
+
+<<eval=TRUE, echo=FALSE, results=hide>>=
+# Wrap R commands. Use together with Sweave option "keep.source=false".
+# options(width = 60)
+# Load library "rgl" to allow for using "rgl" graphics with Sweave.
+library("rgl")
+@
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+% Introduction
+% ==================================================
+\section{Introduction}
+
+This vignette describes classes and methods which have recently been added to package \emph{spacetime}~\cite{pebesma12, bivand13} and aim to improve the overall handling of trajectory data in R. To date, R is missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. One of the more comprehensive works dedicated to trajectories is the one of Calenge which he released as package \emph{adehabitatLT} on CRAN during his PhD, but which is restricted to animal trajectory analysis~\cite{calenge06}. The classes and methods presented below are an attempt to address the lack of a broader range of utilities to deal with trajectory data in R and integrate tightly with the classes and methods provided by package \emph{spacetime}. The work is included in package \emph{spacetime} version~1.1-0 and upwards. To start trajectory'ing, load the package (and optionally its examples) with:
+
+<<eval=TRUE, echo=TRUE, results=hide>>=
+library("spacetime")
+example("Track")
+@
+
+% Classes
+% ==================================================
+\section{Classes}
+
+The update implements four data classes for trajectory representation: \lstinline{Track}, \lstinline{Tracks}, \lstinline{TracksCollection} and \lstinline{segments}. The first three build upon class \lstinline{STIDF}, whereas \lstinline{segments} is based on \lstinline{data.frame}. The classes and their instantiation options are subject of the following subsections.
+
+% Track
+% ==================================================
+\subsection{Track}
+
+The class \lstinline{Track} represents a single track followed by a person, animal or object. Instances of this class are meant to hold a series of consecutive location/time stamps that are not interrupted by another activity. The class contains five slots, four of which are inherited from class \lstinline{STIDF}: \lstinline{@sp} to store the geometry, \lstinline{@time} to store the time, \lstinline{@endtime} to store the end time when having generalised line geometries with one value per attribute for a set of points (otherwise, defaults to the time defined in \lstinline{@time}), \lstinline{@data} to store the attributes and \lstinline{@connections} to keep a record of attribute data between points (e.g., distance, duration and speed). A \lstinline{Track} object can be created out of an \lstinline{STIDF} object like so:
+
+<<eval=TRUE, echo=TRUE, results=hide>>=
+Track(stidf)
+@
+
+By default, distance, duration, speed and direction are computed as the connections data. Optionally, a data frame containing additional connections data and/or a custom function for calculating the data of segments between consecutive points can be passed. Please refer to the documentation for detailed information.
+
+% Tracks
+% ==================================================
+\subsection{Tracks}
+
+The class \lstinline{Tracks} embodies a collection of tracks followed by a single person, animal or object. The class contains two slots: \lstinline{@tracks} to store the tracks as objects of class \lstinline{Track} and \lstinline{@tracksData} to hold a summary record for each particular track (e.g., minimum and maximum time, total distance and average speed). A \lstinline{Tracks} object can be created by:
+
+<<eval=TRUE, echo=TRUE, results=hide>>=
+Tracks(list(A1 = A1, A2 = A2))
+@
+
+\dots{} with \lstinline{A1} and \lstinline{A2} being instances of class \lstinline{Track}. By default, the minimum and maximum coordinates and time, the total number of geometries, the total distance as well as the average speed are computed as the summary information data. Same to the \lstinline{Track()} method presented above, a data frame and/or a custom function can be passed to expand the default data.
+
+% TracksCollection
+% ==================================================
+\subsection{TracksCollection}
+
+Finally, the class \lstinline{TracksCollection} represents a collection of tracks followed by many persons, animals or objects. The class contains two slots: \lstinline{@tracksCollection} to store the tracks as objects of class \lstinline{Tracks} and \lstinline{@tracksCollectionData} to hold summary information about each particular person, animal or object (e.g., the total number of tracks). A \lstinline{TracksCollection} object can be created by:
+
+<<eval=TRUE, echo=TRUE, results=hide>>=
+TracksCollection(list(A = A, B = B))
+@
+
+\dots{} with \lstinline{A} and \lstinline{B} being objects of class \lstinline{Tracks}. By default, the total number of tracks as well as the minimum and maximum coordinates and time are computed as the summary information data. Same to the \lstinline{Track()} and \lstinline{Tracks()} methods outlined above, a data frame and/or a custom function can be passed to expand the default data.
+
+% segments
+% ==================================================
+\subsection{segments}
+
+The class \lstinline{segments} was written to provide a data structure for storing all the segments of a track with a segment representing the line between two consecutive points.
+
+% Methods
+% ==================================================
+\section{Methods}
+
+A wealth of methods has been implemented to cover the most frequently used use cases. The methods are presented along with illustrative examples in the following subsections.
+
+% Utility
+% ==================================================
+\subsection{Utility}
+
+The update implements the base methods \lstinline{dim()} and \lstinline{summary()} to retrieve the dimension and get summaries of \lstinline{Track}, \lstinline{Tracks} and \lstinline{TracksCollection} objects.
+
+<<eval=TRUE, echo=TRUE, results=verbatim>>=
+dim(Tr)
+summary(Tr)
+@
+
+Furthermore, the methods \lstinline{proj4string()}, \lstinline{coordinates()}, \lstinline{coordnames()} and \lstinline{bbox()} of package \lstinline{sp}~\cite{pebesma05, bivand13} have been implemented to get back the same results for trajectories.
+
+<<eval=TRUE, echo=TRUE, results=verbatim>>=
+proj4string(B)
+coordinates(A1)
+coordnames(Tr)
+bbox(A)
+@
+
+\lstinline{spacetime} has been added a slightly modified version of the \lstinline{bbox()} method which does not constrain to space, but also considers time. Compare \dots
+
+<<eval=TRUE, echo=TRUE, results=verbatim>>=
+bbox(Tr)
+@
+
+\dots{} to:
+
+<<eval=TRUE, echo=TRUE, results=verbatim>>=
+stbox(Tr)
+@
+
+% Selection
+% ==================================================
+\subsection{Selection}
+
+Retrieving and replacing attribute data of \lstinline{Track}, \lstinline{Tracks} and \lstinline{TracksCollection} objects can be obtained by using one of the base methods \lstinline{[}, \lstinline{[[}, \lstinline{$}, \lstinline{[[<-} and \lstinline{$<-}. Although one may access the attributes through the slots directly, it is highly recommended not to do so, but use the appropriate selection method. The following code snippet showcases the broad range of selection options:
+
+<<eval=FALSE, echo=TRUE, results=hide>>=
+# Select the first two "Tracks" objects of a tracks collection.
+# Returns an object of class "TracksCollection".
+Tr[1:2]
+# Select the second "Tracks" object of a tracks collection. Returns an
+# object of class "Tracks".
+Tr[2]
+# Select the first track of the second "Tracks" object of a tracks
+# collection. Returns an object of class "Track".
+Tr[2][1]
+# Select tracks 1 and 2 of the first "Tracks" object as well as tracks
+# 2 and 3 of the second "Tracks" object of a tracks collection.
+# Returns an object of class "TracksCollection".
+Tr[list(1:2, 2:3)]
+# Select any tracks of a tracks collection that cross object
+# "Muenster".
+Tr[Muenster]
+# Select attribute "co2" of a tracks collection. Either by ...
+Tr[["co2"]]
+# ... or alternatively by:
+Tr$co2
+# Set the attribute "distance" of a tracks collection. Either by ...
+Tr[["distance"]] = Tr[["distance"]] * 1000
+# ... or alternatively by:
+Tr$distance = Tr$distance * 1000
+@
+
+% Coercion
+% ==================================================
+\subsection{Coercion}
+
+The implementation comes with a wealth of coercion methods, wich allow for converting objects of class \lstinline{Track}, \lstinline{Tracks} and \lstinline{TracksCollection} to a variety of other classes. All available options are documented in table~\ref{tab:availablecoercionoptions}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\hline\hline
+Class & Track & Tracks & TracksCollection\\
+\hline
+segments & Yes & Yes & Yes\\
+data.frame & Yes & Yes & Yes\\
+xts & Yes & Yes & Yes\\
+Spatial & Yes & Yes & Yes\\
+Line & Yes & No & No\\
+Lines & Yes & Yes & No\\
+SpatialLines & Yes & Yes & Yes\\
+SpatialPointsDataFrame & Yes & Yes & Yes\\
+SpatialLinesDataFrame & No & Yes & Yes\\
+STIDF & Yes & Yes & Yes\\
+\hline
+\end{tabular}
+\caption{Available Coercion Options}
+\label{tab:availablecoercionoptions}
+\end{table}
+
+% Plotting
+% ==================================================
+\subsection{Plotting}
+
+Tracks can be plotted using either the \lstinline{plot()}, the \lstinline{stplot()} or the \lstinline{stcube()} method. While the first two give two-dimensional plots, which greatly fulfill their purpose, the latter one facilitates decent space-time cube representations of tracks, which leverage the third dimension. Figure~\ref{fig:spatialdistributionofatrackscollection} shows the spatial distribution of a tracks collection, whereas figure~\ref{fig:co2consumptionovertime} depicts the CO2 consumption over time for one and the same object.
+
+\begin{figure}[H]
+\centering
+<<fig=TRUE, echo=TRUE>>=
+plot(Tr, col = 2, axes = TRUE)
+@
+\caption{Spatial Distribution of a Tracks Collection}
+\label{fig:spatialdistributionofatrackscollection}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+<<fig=TRUE, echo=TRUE, height = 4>>=
+stplot(Tr, attr = "co2", arrows = TRUE, lwd = 3, by = "IDs")
+@
+\caption{CO2 Consumption Over Time}
+\label{fig:co2consumptionovertime}
+\end{figure}
+
+% Analysis
+% ==================================================
+\subsection{Analysis}
+
+The update implements the methods \lstinline{over()} and \lstinline{aggregate()} for \lstinline{Track}, \lstinline{Tracks} and \lstinline{TracksCollection} objects to provide the same functionality as is provided by packages \lstinline{sp} and \lstinline{spacetime}. In addition, a further method has been added to allow for generalising tracks by either space, time or a freely selectable number of segments. The points of a segment are wrapped up in a \lstinline{SpatialLines} object with \lstinline{time} and \lstinline{endTime} reflecting the start and end time of the segment. The attributes are aggregated per segment. The following code snippet depicts the main options:
+
+<<eval=FALSE, echo=TRUE, results=hide>>=
+# Generalise a track into 5 minute intervals. Use max() as the
+# aggregation function.
+generalize(B, max, timeInterval = "2 min")
+# Generalise a track into 200 distance units (usually metres).
+generalize(A2, distance = 200)
+# Generalise a track into n segments with each segment consisting of
+# two points.
+generalize(Tr, min, n = 2)
+# Simplify the given geometries using the Douglas–Peucker algorithm
+# with tolerance value 2.
+generalize(A, timeInterval = "3 min", tol = 2)
+# Keep the middle point of each segment rather than generalising to
+# objects of class "SpatialLines".
+generalize(A1, n = 3, toPoints = TRUE)
+@
+
+% Demo
+% ==================================================
+\section{Demo}
+
+The package ships with two demos looking at trajectories while using two different datasets. The \emph{Tracks} demo is based on the Geolife GPS trajectory dataset, which emerged from the (Microsoft Research Asia) Geolife project~\cite{zheng08, zheng09, zheng10}. The \emph{stcube} demo, instead, uses trajectories of the enviroCar project at \url{www.envirocar.org} and plots them in a space-time cube. The demos can be loaded as follows:
+
+<<eval=FALSE, echo=TRUE, results=hide>>=
+demo("Track")
+demo("stcube")
+@
+
+Below, a small snippet of the \emph{stcube} demo is shown:
+
+<<eval=TRUE, echo=FALSE, results=hide>>=
+# Import enviroCar track.
+importEnviroCar = function(trackID, url = "https://envirocar.org/api/stable/tracks/") {
+	require(RCurl)
+	require(rgdal)
+	require(rjson)
+	url = getURL(paste(url, trackID, sep = ""))
+	# Read data into spatial object.
+	spdf = readOGR(dsn = url, layer = "OGRGeoJSON", verbose = FALSE)
+	# Convert time from factor to POSIXct.
+	time = as.POSIXct(spdf$time, format = "%Y-%m-%dT%H:%M:%SZ")
+	# Convert phenomena from JSON to data frame.
+	phenomena = lapply(as.character(spdf$phenomenons), fromJSON)
+	values = lapply(phenomena, function(x) as.data.frame(lapply(x, function(y) y$value)))
+	# Get a list of all phenomena for which values exist.
+	names = vector()
+	for(i in values)
+		names = union(names, names(i))
+	# Make sure that each data frame has the same number of columns.
+	values = lapply(values, function(x) {
+		xNames = names(x)
+		# Get the symmetric difference.
+		diff = setdiff(union(names, xNames), intersect(names, xNames))
+		if(length(diff) > 0)
+			x[diff] = NA
+		x
+	})
+	# Bind values together.
+	data = do.call(rbind, values)
+	sp = SpatialPoints(coords = coordinates(spdf), proj4string = CRS("+proj=longlat"))
+	stidf = STIDF(sp = sp, time = time, data = data)
+	Track(track = stidf)
+}
+@
+
+\begin{figure}[H]
+\centering
+<<fig=TRUE, pdf=FALSE, grdevice=rgl.Sweave, height=5, width=5, resolution=100>>=
+A3 = importEnviroCar("528cf1a3e4b0a727145df093")
+stcube(A3, showMap = TRUE, col = "red")
+@
+\caption{Space-time Cube Representation of a Track}
+\label{fig:spacetimecuberepresentationofatrack}
+\end{figure}
+
+\newpage
+
+% References
+% ==================================================
+\bibliographystyle{plain}
+\bibliography{tracks}
+
+\end{document}
