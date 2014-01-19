@@ -271,7 +271,7 @@ importEnviroCar = function(trackID, url = "https://envirocar.org/api/stable/trac
 	require(RCurl)
 	require(rgdal)
 	require(rjson)
-	url = getURL(paste(url, trackID, sep = ""))
+	url = getURL(paste(url, trackID, sep = ""), .opts = list(ssl.verifypeer = FALSE))
 	# Read data into spatial object.
 	spdf = readOGR(dsn = url, layer = "OGRGeoJSON", verbose = FALSE)
 	# Convert time from factor to POSIXct.
