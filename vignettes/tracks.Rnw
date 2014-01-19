@@ -10,8 +10,8 @@
 \usepackage[british]{babel}
 \usepackage[nodayofweek]{datetime}
 \usepackage[british]{translator}
-\usepackage{siunitx}
-\sisetup{locale=UK,per-mode=symbol}
+%\usepackage{siunitx}
+%\sisetup{locale=UK,per-mode=symbol}
 \usepackage[babel]{csquotes}
 \usepackage{textcomp}
 \usepackage[final=true]{microtype}
@@ -21,7 +21,9 @@
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily,breaklines=true,captionpos=b,showstringspaces=false,tabsize=2}
 \lstset{literate={Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1 {ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {ß}{{\ss}}1 {~}{{\textasciitilde}}1}
-\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks=true]{hyperref}
+%\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks=true]{hyperref}
+%EP, added:
+\usepackage{hyperref}
 \usepackage{Sweave}
 \SweaveOpts{keep.source=true}
 
@@ -271,7 +273,8 @@ importEnviroCar = function(trackID, url = "https://envirocar.org/api/stable/trac
 	require(RCurl)
 	require(rgdal)
 	require(rjson)
-	url = getURL(paste(url, trackID, sep = ""), .opts = list(ssl.verifypeer = FALSE))
+	url = getURL(paste(url, trackID, sep = ""), 
+		.opts = list(ssl.verifypeer = FALSE)) # .opts needed for Windows
 	# Read data into spatial object.
 	spdf = readOGR(dsn = url, layer = "OGRGeoJSON", verbose = FALSE)
 	# Convert time from factor to POSIXct.
@@ -318,3 +321,4 @@ stcube(A3, showMap = TRUE, col = "red")
 \bibliography{tracks}
 
 \end{document}
+

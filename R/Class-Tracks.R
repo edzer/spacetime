@@ -44,6 +44,10 @@ TrackStats = function(track) {
 		ll = identical(is.projected(track), FALSE)
 		distance = LineLength(cc, ll, FALSE)
 		duration = diff(as.numeric(index(track@time))) # seconds
+		if (any(duration == 0)) {
+			print(track)
+			stop("zero duration interval(s) detected")
+		}
 		speed = distance / duration # per second
 		direction = directions_ll(cc, ll)
 		df = data.frame(distance = distance, duration = duration, 
