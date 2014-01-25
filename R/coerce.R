@@ -84,16 +84,18 @@ as.STIDF.STFDF = function(from) {
 setAs("STFDF", "STIDF", as.STIDF.STFDF)
 
 zerodist.sp = function(from) {
-	cc = myCoordinates(from)
-	z = zerodist(SpatialPoints(cc))
-	if(!is(from, "SpatialPoints") && nrow(z) > 0) {
-		sel = apply(z, 1, function(x) identical(from[x[1]],from[x[2]]))
+	if(!is(from, "SpatialPoints")) {
+		z = zerodist(SpatialPoints(myCoordinates(from)))
+		if (nrow(z) == 0)
+			return(1:length(from))
+		sel = apply(z, 1, function(x) identical(from[x[1]], from[x[2]]))
 		z = z[sel,]
-	}
-	# convert to unique IDs, as zerodist(, unique.ID=TRUE) would do:
-	id = 1:nrow(cc)
-	id[z[,1]] = id[z[,2]]
-	return(id)
+		# convert to unique IDs, as zerodist(, unique.ID=TRUE) would do:
+		id = 1:length(from)
+		id[z[,1]] = id[z[,2]]
+		id
+	} else
+		zerodist(from, unique.ID = TRUE)
 }
 
 as.STSDF.STIDF = function(from) {
@@ -103,7 +105,7 @@ as.STSDF.STIDF = function(from) {
 	# space:
 	z = zerodist.sp(from@sp)
 	uz = unique(z)
-	sp = from@sp[uz,] # different attributes at duplicate points get lost...
+	sp = from@sp[uz,] # here, different attributes at duplicate features get lost...
 	index[,1] = match(z, uz)
 	# time -- use the fact that xts objects are in time order:
 	ix = index(from@time)
