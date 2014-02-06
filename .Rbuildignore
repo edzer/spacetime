@@ -2,3 +2,5 @@ ChangeLogOld
 svn2cl.xsl
 README.md
 contribute.md
+^.*\.Rproj$
+^\.Rproj\.user$
