@@ -43,11 +43,20 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 	dots = list(...)
 	missing.i = missing(i)
 	missing.j = missing(j)
-	if (length(dots) > 0) {
-		missing.k = FALSE
-		k = dots[[1]]
-	} else
-		missing.k = TRUE
+
+  # check wheter variables get selected
+	missing.k = TRUE
+  if (length(dots) > 0) {
+    missing.k <- FALSE
+    k <- dots[[1]]
+  }
+  if (!missing.i & !missing.j) {
+    if (is.matrix(i)) {
+      missing.k <- FALSE
+      k <- j
+    }
+  }
+  
 	if (missing.i && missing.j && missing.k)
 		return(x)
 
@@ -58,34 +67,47 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 		return(x)
 	} 
 
+  matrix.i <- FALSE
+  
 	# space
 	if (missing.i)
 		s = 1:length(x@sp)
-	else {
-		if (is(i, "Spatial"))
-			s = which(!is.na(over(x@sp, geometry(i))))
-		else if (is.logical(i)) {
-			i = rep(i, length.out = length(x@sp))
-			s = which(i)
-		} else if (is.character(i)) { # suggested by BG:
-			s = match(i, row.names(x@sp), nomatch = FALSE)
-		} else
-			s = i
+  else {
+    if (is.matrix(i)) { # BG
+      stopifnot(ncol(i)==2)
+      s <- i[,1]
+      missing.j <- FALSE
+      matrix.i <- TRUE
+    }	else {
+      if (is(i, "Spatial"))
+  			s = which(!is.na(over(x@sp, geometry(i))))
+  		else if (is.logical(i)) {
+  			i = rep(i, length.out = length(x@sp))
+  			s = which(i)
+  		} else if (is.character(i)) { # suggested by BG:
+  			s = match(i, row.names(x@sp), nomatch = FALSE)
+  		} else 
+  			s = i
+    }
 	}
 
 	# time
 	if (missing.j)
 		t = 1:nrow(x@time)
 	else {
-		if (is.logical(j))
-			j = which(j)
-		.time = xts(matrix(1:nrow(x@time), dimnames=list(NULL, "timeIndex")),
-			index(x@time), tzone = attr(x@time, "tzone"))
-		# the following uses [.xts, deals with character/iso8601,
-		# and takes care of negative indices:
-		.time = .time[j] 
-		# retrieve the corresponding index vector t, to use for @data:
-		t = as.vector(.time[,1])
+    if (matrix.i) {
+      t <- i[,2]
+    } else {
+  		if (is.logical(j))
+  			j = which(j)
+  		.time = xts(matrix(1:nrow(x@time), dimnames=list(NULL, "timeIndex")),
+  			index(x@time), tzone = attr(x@time, "tzone"))
+  		# the following uses [.xts, deals with character/iso8601,
+  		# and takes care of negative indices:
+  		.time = .time[j] 
+  		# retrieve the corresponding index vector t, to use for @data:
+  		t = as.vector(.time[,1])
+    }
 	}
 
 	si = x@index[,1] 
@@ -94,7 +116,15 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 	  # instead of: ti = rep(1:nrow(x@time), each = length(x@sp)) # BG
 	#x@sp = x@sp[s,] -- time and space topology not touched
 	#x@time = x@time[t]
-	sel = (si %in% s) & (ti %in% t)
+  
+  if (matrix.i) { # BG
+    selRow <- sapply(1:nrow(i), function(x) which((si %in% s[x]) & (ti %in% t[x])))
+    sel <- rep(FALSE,length(si))
+    sel[selRow] <- TRUE
+  } else {
+    sel = (si %in% s) & (ti %in% t)
+  }
+  
 	if (is(x, "STSDF"))
 		x@data = x@data[sel, k, drop = FALSE]
 
