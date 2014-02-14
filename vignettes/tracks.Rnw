@@ -7,19 +7,19 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage[british]{babel}
-\usepackage[nodayofweek]{datetime}
-\usepackage[british]{translator}
+%\usepackage{lmodern}
+%\usepackage[british]{babel}
+%\usepackage[nodayofweek]{datetime}
+%\usepackage[british]{translator}
 %\usepackage{siunitx}
 %\sisetup{locale=UK,per-mode=symbol}
-\usepackage[babel]{csquotes}
+%\usepackage[babel]{csquotes}
 \usepackage{textcomp}
-\usepackage[final=true]{microtype}
+%\usepackage[final=true]{microtype}
 \usepackage{graphicx}
-\usepackage[space]{grffile}
-\usepackage{float}
-\usepackage{listings}
+%\usepackage[space]{grffile}
+%\usepackage{float}
+%\usepackage{listings}
 \lstset{basicstyle=\ttfamily,breaklines=true,captionpos=b,showstringspaces=false,tabsize=2}
 \lstset{literate={Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1 {ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {ß}{{\ss}}1 {~}{{\textasciitilde}}1}
 %\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks=true]{hyperref}
