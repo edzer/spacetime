@@ -23,12 +23,16 @@
 \lstset{literate={Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1 {ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {ß}{{\ss}}1 {~}{{\textasciitilde}}1}
 %\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks=true]{hyperref}
 %EP, added:
-\usepackage{hyperref}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
 \usepackage{Sweave}
 \SweaveOpts{keep.source=true}
 
 \title{Analysing Trajectory Data in R} 
-\author{Benedikt Klus}
+\author{
+\includegraphics[width=5cm]{ifgi-logo_int} \\ %\hspace{.5cm}
+Benedikt Klus, 
+\href{mailto:edzer.pebesma@uni-muenster.de}{Edzer Pebesma}
+}
 \date{\today}
 
 \begin{document}
@@ -152,30 +156,52 @@ stbox(Tr)
 
 Retrieving and replacing attribute data of \lstinline{Track}, \lstinline{Tracks} and \lstinline{TracksCollection} objects can be obtained by using one of the base methods \lstinline{[}, \lstinline{[[}, \lstinline{$}, \lstinline{[[<-} and \lstinline{$<-}. Although one may access the attributes through the slots directly, it is highly recommended not to do so, but use the appropriate selection method. The following code snippet showcases the broad range of selection options:
 
-<<eval=FALSE, echo=TRUE, results=hide>>=
-# Select the first two "Tracks" objects of a tracks collection.
-# Returns an object of class "TracksCollection".
-Tr[1:2]
-# Select the second "Tracks" object of a tracks collection. Returns an
-# object of class "Tracks".
-Tr[2]
-# Select the first track of the second "Tracks" object of a tracks
-# collection. Returns an object of class "Track".
-Tr[2][1]
-# Select tracks 1 and 2 of the first "Tracks" object as well as tracks
-# 2 and 3 of the second "Tracks" object of a tracks collection.
-# Returns an object of class "TracksCollection".
-Tr[list(1:2, 2:3)]
-# Select any tracks of a tracks collection that cross object
-# "Muenster".
+Select the first two \lstinline{Tracks} objects of a \lstinline{TracksCollection},
+return an object of class \lstinline{TracksCollection}:
+<<eval=TRUE, echo=TRUE, results=hide>>=
+class(Tr[1:2])
+dim(Tr[1:2])
+@
+Select the second \lstinline{Tracks} object of a tracks collection. Returns an
+object of class \lstinline{Tracks}:
+<<eval=TRUE, echo=TRUE>>=
+class(Tr[2])
+dim(Tr[2])
+@
+Select the first track of the second \lstinline{Tracks} object of a 
+\lstinline{TracksCollection}. Returns an object of class \lstinline{Track}:
+<<eval=TRUE, echo=TRUE>>=
+class(Tr[2][1])
+dim(Tr[2][1])
+@
+Select tracks 1 and 2 of the first \lstinline{Tracks} object as well as track
+2 of the second \lstinline{Tracks} object of a \lstinline{TracksCollection},
+return an object of class \lstinline{TracksCollection}.
+<<eval=TRUE, echo=TRUE>>=
+class(Tr[list(1:2, 2)])
+dim(Tr[list(1:2, 2)])
+@
+Select any tracks of a tracks collection that intersect \lstinline{Spatial} 
+object \lstinline{Muenster}.
+<<eval=FALSE, echo=TRUE>>=
 Tr[Muenster]
-# Select attribute "co2" of a tracks collection. Either by ...
-Tr[["co2"]]
-# ... or alternatively by:
-Tr$co2
-# Set the attribute "distance" of a tracks collection. Either by ...
+@
+Select attribute \lstinline{co2} of a \lstinline{TracksCollection}, either by 
+<<eval=TRUE, echo=TRUE>>=
+class(Tr[["co2"]])
+length(Tr[["co2"]])
+@
+or by
+<<eval=TRUE, echo=TRUE>>=
+class(Tr$co2)
+length(Tr$co2)
+@
+Add or replace an attribute of a tracks collection, by 
+<<eval=TRUE, echo=TRUE>>=
 Tr[["distance"]] = Tr[["distance"]] * 1000
-# ... or alternatively by:
+@
+or by
+<<eval=TRUE, echo=TRUE>>=
 Tr$distance = Tr$distance * 1000
 @
 
@@ -305,7 +331,11 @@ importEnviroCar = function(trackID, url = "https://envirocar.org/api/stable/trac
 
 \begin{figure}[H]
 \centering
-<<fig=TRUE, pdf=FALSE, grdevice=rgl.Sweave, height=5, width=5, resolution=100>>=
+<<eval=TRUE,echo=FALSE,fig=TRUE, pdf=FALSE, grdevice=rgl.Sweave, height=5, width=5, resolution=100>>=
+data(A3)
+stcube(A3, showMap = TRUE, col = "red")
+@
+<<eval=FALSE,echo=TRUE,fig=TRUE, pdf=FALSE, grdevice=rgl.Sweave, height=5, width=5, resolution=100>>=
 A3 = importEnviroCar("528cf1a3e4b0a727145df093")
 stcube(A3, showMap = TRUE, col = "red")
 @
@@ -321,4 +351,3 @@ stcube(A3, showMap = TRUE, col = "red")
 \bibliography{tracks}
 
 \end{document}
-
