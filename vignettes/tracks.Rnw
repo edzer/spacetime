@@ -1,6 +1,7 @@
-\RequirePackage[l2tabu,orthodox]{nag}
+%\RequirePackage[l2tabu,orthodox]{nag}
 
-\documentclass[fontsize=11pt,paper=a4]{scrartcl}
+%\documentclass[fontsize=11pt,paper=a4]{scrartcl}
+\documentclass{article}
 
 % \VignetteIndexEntry{Analysing Trajectory Data in R}
 
