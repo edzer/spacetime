@@ -76,7 +76,7 @@ The class \code{Tracks} embodies a collection of tracks followed by a single per
 Tracks(list(A1 = A1, A2 = A2))
 @
 
-\dots{} with \code{A1} and \code{A2} being instances of class \code{Track}. By default, the minimum and maximum coordinates and time, the total number of geometries, the total distance as well as the average speed are computed as the summary information data. Same to the \code{Track()} method presented above, a data frame and/or a custom function can be passed to expand the default data.
+\dots{} with \code{A1} and \code{A2} being instances of class \code{Track}. By default, the minimum and maximum coordinates and time, the total number of geometries, the total distance as well as the average speed are computed as the summary information data. Same to the \code{Track} method presented above, a data frame and/or a custom function can be passed to expand the default data.
 
 % TracksCollection
 % ==================================================
@@ -88,7 +88,7 @@ Finally, the class \code{TracksCollection} represents a collection of tracks fol
 TracksCollection(list(A = A, B = B))
 @
 
-\dots{} with \code{A} and \code{B} being objects of class \code{Tracks}. By default, the total number of tracks as well as the minimum and maximum coordinates and time are computed as the summary information data. Same to the \code{Track()} and \code{Tracks()} methods outlined above, a data frame and/or a custom function can be passed to expand the default data.
+\dots{} with \code{A} and \code{B} being objects of class \code{Tracks}. By default, the total number of tracks as well as the minimum and maximum coordinates and time are computed as the summary information data. Same to the \code{Track} and \code{Tracks} methods outlined above, a data frame and/or a custom function can be passed to expand the default data.
 
 % segments
 % ==================================================
@@ -106,14 +106,14 @@ A wealth of methods has been implemented to cover the most frequently used use c
 % ==================================================
 \subsection{Utility}
 
-The update implements the base methods \code{dim()} and \code{summary()} to retrieve the dimension and get summaries of \code{Track}, \code{Tracks} and \code{TracksCollection} objects.
+The update implements the base methods \code{dim} and \code{summary} to retrieve the dimension and get summaries of \code{Track}, \code{Tracks} and \code{TracksCollection} objects.
 
 <<eval=TRUE, echo=TRUE, results=verbatim>>=
 dim(Tr)
 summary(Tr)
 @
 
-Furthermore, the methods \code{proj4string()}, \code{coordinates()}, \code{coordnames()} and \code{bbox()} of package \code{sp}~\cite{pebesma05, bivand13} have been implemented to get back the same results for trajectories.
+Furthermore, the methods \code{proj4string}, \code{coordinates}, \code{coordnames} and \code{bbox} of package \code{sp}~\cite{pebesma05, bivand13} have been implemented to get back the same results for trajectories.
 
 <<eval=TRUE, echo=TRUE, results=verbatim>>=
 proj4string(B)
@@ -122,7 +122,7 @@ coordnames(Tr)
 bbox(A)
 @
 
-\code{spacetime} has been added a slightly modified version of the \code{bbox()} method which does not constrain to space, but also considers time. Compare \dots
+\code{spacetime} has been added a slightly modified version of the \code{bbox} method which does not constrain to space, but also considers time. Compare \dots
 
 <<eval=TRUE, echo=TRUE, results=verbatim>>=
 bbox(Tr)
@@ -221,7 +221,7 @@ STIDF & Yes & Yes & Yes\\
 % ==================================================
 \subsection{Plotting}
 
-Tracks can be plotted using either the \code{plot()}, the \code{stplot()} or the \code{stcube()} method. While the first two give two-dimensional plots, which greatly fulfill their purpose, the latter one facilitates decent space-time cube representations of tracks, which leverage the third dimension. Figure~\ref{fig:spatialdistributionofatrackscollection} shows the spatial distribution of a tracks collection, whereas figure~\ref{fig:co2consumptionovertime} depicts the CO2 consumption over time for one and the same object.
+Tracks can be plotted using either the \code{plot}, the \code{stplot} or the \code{stcube} method. While the first two give two-dimensional plots, which greatly fulfill their purpose, the latter one facilitates decent space-time cube representations of tracks, which leverage the third dimension. Figure~\ref{fig:spatialdistributionofatrackscollection} shows the spatial distribution of a tracks collection, whereas figure~\ref{fig:co2consumptionovertime} depicts the CO2 consumption over time for one and the same object.
 
 \begin{figure}[H]
 \centering
@@ -245,7 +245,7 @@ stplot(Tr, attr = "co2", arrows = TRUE, lwd = 3, by = "IDs")
 % ==================================================
 \subsection{Analysis}
 
-The update implements the methods \code{over()} and \code{aggregate()} for \code{Track}, \code{Tracks} and \code{TracksCollection} objects to provide the same functionality as is provided by packages \code{sp} and \code{spacetime}. In addition, a further method has been added to allow for generalising tracks by either space, time or a freely selectable number of segments. The points of a segment are wrapped up in a \code{SpatialLines} object with \code{time} and \code{endTime} reflecting the start and end time of the segment. The attributes are aggregated per segment. The following code snippet depicts the main options:
+The update implements the methods \code{over} and \code{aggregate} for \code{Track}, \code{Tracks} and \code{TracksCollection} objects to provide the same functionality as is provided by packages \code{sp} and \code{spacetime}. In addition, a further method has been added to allow for generalising tracks by either space, time or a freely selectable number of segments. The points of a segment are wrapped up in a \code{SpatialLines} object with \code{time} and \code{endTime} reflecting the start and end time of the segment. The attributes are aggregated per segment. The following code snippet depicts the main options:
 
 <<eval=FALSE, echo=TRUE, results=hide>>=
 # Generalise a track into 5 minute intervals. Use max() as the
@@ -313,21 +313,25 @@ importEnviroCar = function(trackID, url = "https://envirocar.org/api/stable/trac
 }
 @
 
-\begin{figure}[H]
-\centering
-<<eval=TRUE,echo=FALSE,fig=TRUE, pdf=FALSE, grdevice=rgl.Sweave, height=5, width=5, resolution=100>>=
-data(A3)
-stcube(A3, showMap = TRUE, col = "red")
-@
-<<eval=FALSE,echo=TRUE,fig=TRUE, pdf=FALSE, grdevice=rgl.Sweave, height=5, width=5, resolution=100>>=
+A space-time cube can be shown by either
+<<eval=FALSE>>=
 A3 = importEnviroCar("528cf1a3e4b0a727145df093")
 stcube(A3, showMap = TRUE, col = "red")
 @
-\caption{Space-time Cube Representation of a Track}
-\label{fig:spacetimecuberepresentationofatrack}
-\end{figure}
+or, avoiding loading the data from the web site
+<<eval=FALSE>>=
+data(A3)
+stcube(A3, showMap = TRUE, col = "red")
+@
 
-\newpage
+%<<eval=TRUE,echo=FALSE,fig=TRUE, pdf=FALSE, grdevice=rgl.Sweave, height=5, width=5, resolution=100>>=
+%data(A3)
+%stcube(A3, showMap = TRUE, col = "red")
+%@
+%<<eval=FALSE,echo=TRUE,fig=TRUE, pdf=FALSE, grdevice=rgl.Sweave, height=5, width=5, resolution=100>>=
+%A3 = importEnviroCar("528cf1a3e4b0a727145df093")
+%stcube(A3, showMap = TRUE, col = "red")
+%@
 
 % References
 % ==================================================
