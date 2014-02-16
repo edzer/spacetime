@@ -1,5 +1,5 @@
 
-R version 3.0.1 (2013-05-16) -- "Good Sport"
+R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
 Copyright (C) 2013 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -24,13 +24,6 @@ Type 'q()' to quit R.
 > library("adehabitatLT")
 Loading required package: sp
 Loading required package: ade4
-
-Attaching package: 'ade4'
-
-The following object is masked from 'package:base':
-
-    within
-
 Loading required package: adehabitatMA
 Loading required package: CircStats
 Loading required package: MASS
@@ -52,4 +45,4 @@ Loading required package: boot
 > 
 > proc.time()
    user  system elapsed 
-  1.836   0.088   1.929 
+  2.096   0.080   2.175 

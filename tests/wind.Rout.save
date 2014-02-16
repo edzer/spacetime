@@ -1,5 +1,5 @@
 
-R version 3.0.1 (2013-05-16) -- "Good Sport"
+R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
 Copyright (C) 2013 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -112,7 +112,7 @@ Type 'q()' to quit R.
 Loading required package: gstat
 Loading required package: maps
 Loading required package: rgdal
-rgdal: version: 0.8-11, (SVN revision 479M)
+rgdal: version: 0.8-14, (SVN revision 496)
 Geospatial Data Abstraction Library extensions to R successfully loaded
 Loaded GDAL runtime: GDAL 1.10.0, released 2013/04/24
 Path to GDAL shared files: /usr/share/gdal/1.10
@@ -122,4 +122,4 @@ Checking rgeos availability: TRUE
 > 
 > proc.time()
    user  system elapsed 
-  2.128   0.132   2.260 
+  2.300   0.160   2.459 

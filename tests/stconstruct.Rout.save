@@ -38,18 +38,7 @@ Checking rgeos availability: TRUE
 > states = map2SpatialPolygons(states.m, IDs=IDs)
 > 
 > library(plm)
-Loading required package: bdsmatrix
-
-Attaching package: 'bdsmatrix'
-
-The following object is masked from 'package:base':
-
-    backsolve
-
-Loading required package: nlme
 Loading required package: Formula
-Loading required package: MASS
-Loading required package: sandwich
 > data(Produc)
 > 
 > yrs = 1970:1986
@@ -96,4 +85,4 @@ attr(,"package")
 > 
 > proc.time()
    user  system elapsed 
-  2.068   0.132   2.199 
+  2.304   0.104   2.406 
