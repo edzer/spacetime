@@ -3,8 +3,8 @@
 % \VignetteIndexEntry{Analysing Trajectory Data in R}
 
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{textcomp}
+%\usepackage[T1]{fontenc}
+%\usepackage{textcomp}
 \usepackage{graphicx}
 \usepackage[colorlinks=true,urlcolor=blue]{hyperref}
 \usepackage{Sweave}
@@ -14,7 +14,7 @@
 \title{Analysing Trajectory Data in R} 
 \author{
 \includegraphics[width=5cm]{ifgi-logo_int} \\ %\hspace{.5cm}
-Benedikt Klus, 
+Benedikt Klus \and
 \href{mailto:edzer.pebesma@uni-muenster.de}{Edzer Pebesma}
 }
 \date{\today}
@@ -41,7 +41,7 @@ library("rgl")
 % ==================================================
 \section{Introduction}
 
-This vignette describes classes and methods which have recently been added to package \emph{spacetime}~\cite{pebesma12, bivand13} and aim to improve the overall handling of trajectory data in R. To date, R is missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. One of the more comprehensive works dedicated to trajectories is the one of Calenge which he released as package \emph{adehabitatLT} on CRAN during his PhD, but which is restricted to animal trajectory analysis~\cite{calenge06}. The classes and methods presented below are an attempt to address the lack of a broader range of utilities to deal with trajectory data in R and integrate tightly with the classes and methods provided by package \emph{spacetime}. The work is included in package \emph{spacetime} version~1.1-0 and upwards. To start trajectory'ing, load the package (and optionally its examples) with:
+This vignette describes classes and methods which have recently been added to package \emph{spacetime} \cite{pebesma12, bivand13} and aim to improve the overall handling of trajectory data in R. To date, R is missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. One of the more comprehensive works dedicated to trajectories is the one of Calenge which he released as package \emph{adehabitatLT} on CRAN during his PhD, but which is restricted to animal trajectory analysis \cite{calenge06}. The classes and methods presented below are an attempt to address the lack of a broader range of utilities to deal with trajectory data in R and integrate tightly with the classes and methods provided by package \emph{spacetime}. The work is included in package \emph{spacetime} version 1.1-0 and upwards. To start trajectory'ing, load the package (and optionally its examples) with:
 
 <<eval=TRUE, echo=TRUE, results=hide>>=
 library("spacetime")
@@ -113,7 +113,7 @@ dim(Tr)
 summary(Tr)
 @
 
-Furthermore, the methods \code{proj4string}, \code{coordinates}, \code{coordnames} and \code{bbox} of package \code{sp}~\cite{pebesma05, bivand13} have been implemented to get back the same results for trajectories.
+Furthermore, the methods \code{proj4string}, \code{coordinates}, \code{coordnames} and \code{bbox} of package \code{sp} \cite{pebesma05, bivand13} have been implemented to get back the same results for trajectories.
 
 <<eval=TRUE, echo=TRUE, results=verbatim>>=
 proj4string(B)
@@ -193,7 +193,7 @@ Tr$distance = Tr$distance * 1000
 % ==================================================
 \subsection{Coercion}
 
-The implementation comes with a wealth of coercion methods, wich allow for converting objects of class \code{Track}, \code{Tracks} and \code{TracksCollection} to a variety of other classes. All available options are documented in table~\ref{tab:availablecoercionoptions}.
+The implementation comes with a wealth of coercion methods, wich allow for converting objects of class \code{Track}, \code{Tracks} and \code{TracksCollection} to a variety of other classes. All available options are documented in table \ref{tab:availablecoercionoptions}.
 
 \begin{table}[h]
 \centering
@@ -221,7 +221,7 @@ STIDF & Yes & Yes & Yes\\
 % ==================================================
 \subsection{Plotting}
 
-Tracks can be plotted using either the \code{plot}, the \code{stplot} or the \code{stcube} method. While the first two give two-dimensional plots, which greatly fulfill their purpose, the latter one facilitates decent space-time cube representations of tracks, which leverage the third dimension. Figure~\ref{fig:spatialdistributionofatrackscollection} shows the spatial distribution of a tracks collection, whereas figure~\ref{fig:co2consumptionovertime} depicts the CO2 consumption over time for one and the same object.
+Tracks can be plotted using either the \code{plot}, the \code{stplot} or the \code{stcube} method. While the first two give two-dimensional plots, which greatly fulfill their purpose, the latter one facilitates decent space-time cube representations of tracks, which leverage the third dimension. Figure \ref{fig:spatialdistributionofatrackscollection} shows the spatial distribution of a tracks collection, whereas figure \ref{fig:co2consumptionovertime} depicts the CO2 consumption over time for one and the same object.
 
 \begin{figure}[H]
 \centering
@@ -268,7 +268,7 @@ generalize(A1, n = 3, toPoints = TRUE)
 % ==================================================
 \section{Demo}
 
-The package ships with two demos looking at trajectories while using two different datasets. The \emph{Tracks} demo is based on the Geolife GPS trajectory dataset, which emerged from the (Microsoft Research Asia) Geolife project~\cite{zheng08, zheng09, zheng10}. The \emph{stcube} demo, instead, uses trajectories of the enviroCar project at \url{www.envirocar.org} and plots them in a space-time cube. The demos can be loaded as follows:
+The package ships with two demos looking at trajectories while using two different datasets. The \emph{Tracks} demo is based on the Geolife GPS trajectory dataset, which emerged from the (Microsoft Research Asia) Geolife project \cite{zheng08, zheng09, zheng10}. The \emph{stcube} demo, instead, uses trajectories of the enviroCar project at \url{www.envirocar.org} and plots them in a space-time cube. The demos can be loaded as follows:
 
 <<eval=FALSE, echo=TRUE, results=hide>>=
 demo("Track")

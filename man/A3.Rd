@@ -9,12 +9,12 @@ data(A3)
 \examples{
 data(A3)
 dim(A3)
-
 \dontrun{
 importEnviroCar = function(trackID, url = "https://envirocar.org/api/stable/tracks/") {
 	require(RCurl)
 	require(rgdal)
 	require(rjson)
+	require(sp)
 	url = getURL(paste(url, trackID, sep = ""), 
 		.opts = list(ssl.verifypeer = FALSE)) # .opts needed for Windows
 	# Read data into spatial object.
@@ -39,7 +39,8 @@ importEnviroCar = function(trackID, url = "https://envirocar.org/api/stable/trac
 	})
 	# Bind values together.
 	data = do.call(rbind, values)
-	sp = SpatialPoints(coords = coordinates(spdf), proj4string = CRS("+proj=longlat"))
+	sp = SpatialPoints(coords = coordinates(spdf), 
+		proj4string = CRS("+proj=longlat"))
 	stidf = STIDF(sp = sp, time = time, data = data)
 	Track(track = stidf)
 }
