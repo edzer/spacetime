@@ -1,3 +1,5 @@
+# on Tue Feb 18 18:59:47 CET 2014, I found the data at:
+# http://research.microsoft.com/en-us/downloads/b16d359d-d164-469e-9fd4-daa38f2b2e13/
 # setwd("~/Downloads/Geolife Trajectories 1.3")
 library(sp)
 library(spacetime)
