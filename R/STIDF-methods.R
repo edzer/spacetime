@@ -76,13 +76,22 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 	missing.j = missing(j)
 	missing.k = k = TRUE
 	dots = list(...)
-    if (length(dots) > 0) {
-        missing.k = FALSE
-        k = dots[[1]]
-    }
+  
+  if (length(dots) > 0) {
+      missing.k = FALSE
+      k = dots[[1]]
+  }
 
 	if (missing.i && missing.j && missing.k)
 		return(x)
+  
+  if (!missing.i)
+    if (is.matrix(i)) {
+      stopifnot(ncol(i)==2)
+      j <- i[,2]
+      i <- i[,1]
+      missing.j <- FALSE
+    }
 
 	# space
 	if (missing.i)
@@ -102,15 +111,22 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 	else {
 		if (is.logical(j))
 			j = which(j)
-		t = xts(matrix(1:nrow(x@time), dimnames=list(NULL, "timeIndex")), 
-				index(x@time))[j]
-		j = as.vector(t[,1])
+		nct = ncol(x@time)
+		.time = cbind(x@time, 1:nrow(x@time))
+		# uses [.xts, deals with character/iso8601;
+		# takes care of negative indices:
+		.time = .time[j]
+		# get back the corresponding index vector t, to use for @data:
+		j = as.vector(.time[, nct+1])
 	}
 	
 	if (is.numeric(i) && is.numeric(j)) {
-		i = 1:nrow(x@time) %in% i
-		j = 1:nrow(x@time) %in% j
+    bool <- i==j
+    i <- i[bool]
+# 		i = 1:nrow(x@time) %in% i
+# 		j = 1:nrow(x@time) %in% j
 	}
+
 	if (is.logical(i) && is.logical(j))
 		i = i & j
 
@@ -127,6 +143,7 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 	}
 	x
 }
+
 setMethod("[", "STIDF", subs.STIDF)
 setMethod("[", "STI", subs.STIDF)
 
