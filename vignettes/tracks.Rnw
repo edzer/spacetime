@@ -1,37 +1,20 @@
-%\RequirePackage[l2tabu,orthodox]{nag}
-
-%\documentclass[fontsize=11pt,paper=a4]{scrartcl}
 \documentclass{article}
 
 % \VignetteIndexEntry{Analysing Trajectory Data in R}
 
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-%\usepackage{lmodern}
-%\usepackage[british]{babel}
-%\usepackage[nodayofweek]{datetime}
-%\usepackage[british]{translator}
-%\usepackage{siunitx}
-%\sisetup{locale=UK,per-mode=symbol}
-%\usepackage[babel]{csquotes}
-\usepackage{textcomp}
-%\usepackage[final=true]{microtype}
+%\usepackage[T1]{fontenc}
+%\usepackage{textcomp}
 \usepackage{graphicx}
-%\usepackage[space]{grffile}
-%\usepackage{float}
-%\usepackage{listings}
-\lstset{basicstyle=\ttfamily,breaklines=true,captionpos=b,showstringspaces=false,tabsize=2}
-\lstset{literate={Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1 {ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {ß}{{\ss}}1 {~}{{\textasciitilde}}1}
-%\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks=true]{hyperref}
-%EP, added:
 \usepackage[colorlinks=true,urlcolor=blue]{hyperref}
 \usepackage{Sweave}
 \SweaveOpts{keep.source=true}
+\newcommand{\code}[1]{{\tt #1}}
 
 \title{Analysing Trajectory Data in R} 
 \author{
 \includegraphics[width=5cm]{ifgi-logo_int} \\ %\hspace{.5cm}
-Benedikt Klus, 
+Benedikt Klus \and
 \href{mailto:edzer.pebesma@uni-muenster.de}{Edzer Pebesma}
 }
 \date{\today}
@@ -58,7 +41,7 @@ library("rgl")
 % ==================================================
 \section{Introduction}
 
-This vignette describes classes and methods which have recently been added to package \emph{spacetime}~\cite{pebesma12, bivand13} and aim to improve the overall handling of trajectory data in R. To date, R is missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. One of the more comprehensive works dedicated to trajectories is the one of Calenge which he released as package \emph{adehabitatLT} on CRAN during his PhD, but which is restricted to animal trajectory analysis~\cite{calenge06}. The classes and methods presented below are an attempt to address the lack of a broader range of utilities to deal with trajectory data in R and integrate tightly with the classes and methods provided by package \emph{spacetime}. The work is included in package \emph{spacetime} version~1.1-0 and upwards. To start trajectory'ing, load the package (and optionally its examples) with:
+This vignette describes classes and methods which have recently been added to package \emph{spacetime} \cite{pebesma12, bivand13} and aim to improve the overall handling of trajectory data in R. To date, R is missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. One of the more comprehensive works dedicated to trajectories is the one of Calenge which he released as package \emph{adehabitatLT} on CRAN during his PhD, but which is restricted to animal trajectory analysis \cite{calenge06}. The classes and methods presented below are an attempt to address the lack of a broader range of utilities to deal with trajectory data in R and integrate tightly with the classes and methods provided by package \emph{spacetime}. The work is included in package \emph{spacetime} version 1.1-0 and upwards. To start trajectory'ing, load the package (and optionally its examples) with:
 
 <<eval=TRUE, echo=TRUE, results=hide>>=
 library("spacetime")
@@ -69,13 +52,13 @@ example("Track")
 % ==================================================
 \section{Classes}
 
-The update implements four data classes for trajectory representation: \lstinline{Track}, \lstinline{Tracks}, \lstinline{TracksCollection} and \lstinline{segments}. The first three build upon class \lstinline{STIDF}, whereas \lstinline{segments} is based on \lstinline{data.frame}. The classes and their instantiation options are subject of the following subsections.
+The update implements four data classes for trajectory representation: \code{Track}, \code{Tracks}, \code{TracksCollection} and \code{segments}. The first three build upon class \code{STIDF}, whereas \code{segments} is based on \code{data.frame}. The classes and their instantiation options are subject of the following subsections.
 
 % Track
 % ==================================================
 \subsection{Track}
 
-The class \lstinline{Track} represents a single track followed by a person, animal or object. Instances of this class are meant to hold a series of consecutive location/time stamps that are not interrupted by another activity. The class contains five slots, four of which are inherited from class \lstinline{STIDF}: \lstinline{@sp} to store the geometry, \lstinline{@time} to store the time, \lstinline{@endtime} to store the end time when having generalised line geometries with one value per attribute for a set of points (otherwise, defaults to the time defined in \lstinline{@time}), \lstinline{@data} to store the attributes and \lstinline{@connections} to keep a record of attribute data between points (e.g., distance, duration and speed). A \lstinline{Track} object can be created out of an \lstinline{STIDF} object like so:
+The class \code{Track} represents a single track followed by a person, animal or object. Instances of this class are meant to hold a series of consecutive location/time stamps that are not interrupted by another activity. The class contains five slots, four of which are inherited from class \code{STIDF}: \code{@sp} to store the geometry, \code{@time} to store the time, \code{@endtime} to store the end time when having generalised line geometries with one value per attribute for a set of points (otherwise, defaults to the time defined in \code{@time}), \code{@data} to store the attributes and \code{@connections} to keep a record of attribute data between points (e.g., distance, duration and speed). A \code{Track} object can be created out of an \code{STIDF} object like so:
 
 <<eval=TRUE, echo=TRUE, results=hide>>=
 Track(stidf)
@@ -87,31 +70,31 @@ By default, distance, duration, speed and direction are computed as the connecti
 % ==================================================
 \subsection{Tracks}
 
-The class \lstinline{Tracks} embodies a collection of tracks followed by a single person, animal or object. The class contains two slots: \lstinline{@tracks} to store the tracks as objects of class \lstinline{Track} and \lstinline{@tracksData} to hold a summary record for each particular track (e.g., minimum and maximum time, total distance and average speed). A \lstinline{Tracks} object can be created by:
+The class \code{Tracks} embodies a collection of tracks followed by a single person, animal or object. The class contains two slots: \code{@tracks} to store the tracks as objects of class \code{Track} and \code{@tracksData} to hold a summary record for each particular track (e.g., minimum and maximum time, total distance and average speed). A \code{Tracks} object can be created by:
 
 <<eval=TRUE, echo=TRUE, results=hide>>=
 Tracks(list(A1 = A1, A2 = A2))
 @
 
-\dots{} with \lstinline{A1} and \lstinline{A2} being instances of class \lstinline{Track}. By default, the minimum and maximum coordinates and time, the total number of geometries, the total distance as well as the average speed are computed as the summary information data. Same to the \lstinline{Track()} method presented above, a data frame and/or a custom function can be passed to expand the default data.
+\dots{} with \code{A1} and \code{A2} being instances of class \code{Track}. By default, the minimum and maximum coordinates and time, the total number of geometries, the total distance as well as the average speed are computed as the summary information data. Same to the \code{Track} method presented above, a data frame and/or a custom function can be passed to expand the default data.
 
 % TracksCollection
 % ==================================================
 \subsection{TracksCollection}
 
-Finally, the class \lstinline{TracksCollection} represents a collection of tracks followed by many persons, animals or objects. The class contains two slots: \lstinline{@tracksCollection} to store the tracks as objects of class \lstinline{Tracks} and \lstinline{@tracksCollectionData} to hold summary information about each particular person, animal or object (e.g., the total number of tracks). A \lstinline{TracksCollection} object can be created by:
+Finally, the class \code{TracksCollection} represents a collection of tracks followed by many persons, animals or objects. The class contains two slots: \code{@tracksCollection} to store the tracks as objects of class \code{Tracks} and \code{@tracksCollectionData} to hold summary information about each particular person, animal or object (e.g., the total number of tracks). A \code{TracksCollection} object can be created by:
 
 <<eval=TRUE, echo=TRUE, results=hide>>=
 TracksCollection(list(A = A, B = B))
 @
 
-\dots{} with \lstinline{A} and \lstinline{B} being objects of class \lstinline{Tracks}. By default, the total number of tracks as well as the minimum and maximum coordinates and time are computed as the summary information data. Same to the \lstinline{Track()} and \lstinline{Tracks()} methods outlined above, a data frame and/or a custom function can be passed to expand the default data.
+\dots{} with \code{A} and \code{B} being objects of class \code{Tracks}. By default, the total number of tracks as well as the minimum and maximum coordinates and time are computed as the summary information data. Same to the \code{Track} and \code{Tracks} methods outlined above, a data frame and/or a custom function can be passed to expand the default data.
 
 % segments
 % ==================================================
 \subsection{segments}
 
-The class \lstinline{segments} was written to provide a data structure for storing all the segments of a track with a segment representing the line between two consecutive points.
+The class \code{segments} was written to provide a data structure for storing all the segments of a track with a segment representing the line between two consecutive points.
 
 % Methods
 % ==================================================
@@ -123,14 +106,14 @@ A wealth of methods has been implemented to cover the most frequently used use c
 % ==================================================
 \subsection{Utility}
 
-The update implements the base methods \lstinline{dim()} and \lstinline{summary()} to retrieve the dimension and get summaries of \lstinline{Track}, \lstinline{Tracks} and \lstinline{TracksCollection} objects.
+The update implements the base methods \code{dim} and \code{summary} to retrieve the dimension and get summaries of \code{Track}, \code{Tracks} and \code{TracksCollection} objects.
 
 <<eval=TRUE, echo=TRUE, results=verbatim>>=
 dim(Tr)
 summary(Tr)
 @
 
-Furthermore, the methods \lstinline{proj4string()}, \lstinline{coordinates()}, \lstinline{coordnames()} and \lstinline{bbox()} of package \lstinline{sp}~\cite{pebesma05, bivand13} have been implemented to get back the same results for trajectories.
+Furthermore, the methods \code{proj4string}, \code{coordinates}, \code{coordnames} and \code{bbox} of package \code{sp} \cite{pebesma05, bivand13} have been implemented to get back the same results for trajectories.
 
 <<eval=TRUE, echo=TRUE, results=verbatim>>=
 proj4string(B)
@@ -139,7 +122,7 @@ coordnames(Tr)
 bbox(A)
 @
 
-\lstinline{spacetime} has been added a slightly modified version of the \lstinline{bbox()} method which does not constrain to space, but also considers time. Compare \dots
+\code{spacetime} has been added a slightly modified version of the \code{bbox} method which does not constrain to space, but also considers time. Compare \dots
 
 <<eval=TRUE, echo=TRUE, results=verbatim>>=
 bbox(Tr)
@@ -155,39 +138,39 @@ stbox(Tr)
 % ==================================================
 \subsection{Selection}
 
-Retrieving and replacing attribute data of \lstinline{Track}, \lstinline{Tracks} and \lstinline{TracksCollection} objects can be obtained by using one of the base methods \lstinline{[}, \lstinline{[[}, \lstinline{$}, \lstinline{[[<-} and \lstinline{$<-}. Although one may access the attributes through the slots directly, it is highly recommended not to do so, but use the appropriate selection method. The following code snippet showcases the broad range of selection options:
+Retrieving and replacing attribute data of \code{Track}, \code{Tracks} and \code{TracksCollection} objects can be obtained by using one of the base methods \code{[}, \code{[[}, \verb|$|, \code{[[<-} and \verb|$<-|. Although one may access the attributes through the slots directly, it is highly recommended not to do so, but use the appropriate selection method. The following code snippet showcases the broad range of selection options:
 
-Select the first two \lstinline{Tracks} objects of a \lstinline{TracksCollection},
-return an object of class \lstinline{TracksCollection}:
+Select the first two \code{Tracks} objects of a \code{TracksCollection},
+return an object of class \code{TracksCollection}:
 <<eval=TRUE, echo=TRUE, results=hide>>=
 class(Tr[1:2])
 dim(Tr[1:2])
 @
-Select the second \lstinline{Tracks} object of a tracks collection. Returns an
-object of class \lstinline{Tracks}:
+Select the second \code{Tracks} object of a tracks collection. Returns an
+object of class \code{Tracks}:
 <<eval=TRUE, echo=TRUE>>=
 class(Tr[2])
 dim(Tr[2])
 @
-Select the first track of the second \lstinline{Tracks} object of a 
-\lstinline{TracksCollection}. Returns an object of class \lstinline{Track}:
+Select the first track of the second \code{Tracks} object of a 
+\code{TracksCollection}. Returns an object of class \code{Track}:
 <<eval=TRUE, echo=TRUE>>=
 class(Tr[2][1])
 dim(Tr[2][1])
 @
-Select tracks 1 and 2 of the first \lstinline{Tracks} object as well as track
-2 of the second \lstinline{Tracks} object of a \lstinline{TracksCollection},
-return an object of class \lstinline{TracksCollection}.
+Select tracks 1 and 2 of the first \code{Tracks} object as well as track
+2 of the second \code{Tracks} object of a \code{TracksCollection},
+return an object of class \code{TracksCollection}.
 <<eval=TRUE, echo=TRUE>>=
 class(Tr[list(1:2, 2)])
 dim(Tr[list(1:2, 2)])
 @
-Select any tracks of a tracks collection that intersect \lstinline{Spatial} 
-object \lstinline{Muenster}.
+Select any tracks of a tracks collection that intersect \code{Spatial} 
+object \code{Muenster}.
 <<eval=FALSE, echo=TRUE>>=
 Tr[Muenster]
 @
-Select attribute \lstinline{co2} of a \lstinline{TracksCollection}, either by 
+Select attribute \code{co2} of a \code{TracksCollection}, either by 
 <<eval=TRUE, echo=TRUE>>=
 class(Tr[["co2"]])
 length(Tr[["co2"]])
@@ -210,7 +193,7 @@ Tr$distance = Tr$distance * 1000
 % ==================================================
 \subsection{Coercion}
 
-The implementation comes with a wealth of coercion methods, wich allow for converting objects of class \lstinline{Track}, \lstinline{Tracks} and \lstinline{TracksCollection} to a variety of other classes. All available options are documented in table~\ref{tab:availablecoercionoptions}.
+The implementation comes with a wealth of coercion methods, wich allow for converting objects of class \code{Track}, \code{Tracks} and \code{TracksCollection} to a variety of other classes. All available options are documented in table \ref{tab:availablecoercionoptions}.
 
 \begin{table}[h]
 \centering
@@ -238,7 +221,7 @@ STIDF & Yes & Yes & Yes\\
 % ==================================================
 \subsection{Plotting}
 
-Tracks can be plotted using either the \lstinline{plot()}, the \lstinline{stplot()} or the \lstinline{stcube()} method. While the first two give two-dimensional plots, which greatly fulfill their purpose, the latter one facilitates decent space-time cube representations of tracks, which leverage the third dimension. Figure~\ref{fig:spatialdistributionofatrackscollection} shows the spatial distribution of a tracks collection, whereas figure~\ref{fig:co2consumptionovertime} depicts the CO2 consumption over time for one and the same object.
+Tracks can be plotted using either the \code{plot}, the \code{stplot} or the \code{stcube} method. While the first two give two-dimensional plots, which greatly fulfill their purpose, the latter one facilitates decent space-time cube representations of tracks, which leverage the third dimension. Figure \ref{fig:spatialdistributionofatrackscollection} shows the spatial distribution of a tracks collection, whereas figure \ref{fig:co2consumptionovertime} depicts the CO2 consumption over time for one and the same object.
 
 \begin{figure}[H]
 \centering
@@ -262,7 +245,7 @@ stplot(Tr, attr = "co2", arrows = TRUE, lwd = 3, by = "IDs")
 % ==================================================
 \subsection{Analysis}
 
-The update implements the methods \lstinline{over()} and \lstinline{aggregate()} for \lstinline{Track}, \lstinline{Tracks} and \lstinline{TracksCollection} objects to provide the same functionality as is provided by packages \lstinline{sp} and \lstinline{spacetime}. In addition, a further method has been added to allow for generalising tracks by either space, time or a freely selectable number of segments. The points of a segment are wrapped up in a \lstinline{SpatialLines} object with \lstinline{time} and \lstinline{endTime} reflecting the start and end time of the segment. The attributes are aggregated per segment. The following code snippet depicts the main options:
+The update implements the methods \code{over} and \code{aggregate} for \code{Track}, \code{Tracks} and \code{TracksCollection} objects to provide the same functionality as is provided by packages \code{sp} and \code{spacetime}. In addition, a further method has been added to allow for generalising tracks by either space, time or a freely selectable number of segments. The points of a segment are wrapped up in a \code{SpatialLines} object with \code{time} and \code{endTime} reflecting the start and end time of the segment. The attributes are aggregated per segment. The following code snippet depicts the main options:
 
 <<eval=FALSE, echo=TRUE, results=hide>>=
 # Generalise a track into 5 minute intervals. Use max() as the
@@ -285,7 +268,7 @@ generalize(A1, n = 3, toPoints = TRUE)
 % ==================================================
 \section{Demo}
 
-The package ships with two demos looking at trajectories while using two different datasets. The \emph{Tracks} demo is based on the Geolife GPS trajectory dataset, which emerged from the (Microsoft Research Asia) Geolife project~\cite{zheng08, zheng09, zheng10}. The \emph{stcube} demo, instead, uses trajectories of the enviroCar project at \url{www.envirocar.org} and plots them in a space-time cube. The demos can be loaded as follows:
+The package ships with two demos looking at trajectories while using two different datasets. The \emph{Tracks} demo is based on the Geolife GPS trajectory dataset, which emerged from the (Microsoft Research Asia) Geolife project \cite{zheng08, zheng09, zheng10}. The \emph{stcube} demo, instead, uses trajectories of the enviroCar project at \url{www.envirocar.org} and plots them in a space-time cube. The demos can be loaded as follows:
 
 <<eval=FALSE, echo=TRUE, results=hide>>=
 demo("Track")
@@ -330,21 +313,25 @@ importEnviroCar = function(trackID, url = "https://envirocar.org/api/stable/trac
 }
 @
 
-\begin{figure}[H]
-\centering
-<<eval=TRUE,echo=FALSE,fig=TRUE, pdf=FALSE, grdevice=rgl.Sweave, height=5, width=5, resolution=100>>=
-data(A3)
-stcube(A3, showMap = TRUE, col = "red")
-@
-<<eval=FALSE,echo=TRUE,fig=TRUE, pdf=FALSE, grdevice=rgl.Sweave, height=5, width=5, resolution=100>>=
+A space-time cube can be shown by either
+<<eval=FALSE>>=
 A3 = importEnviroCar("528cf1a3e4b0a727145df093")
 stcube(A3, showMap = TRUE, col = "red")
 @
-\caption{Space-time Cube Representation of a Track}
-\label{fig:spacetimecuberepresentationofatrack}
-\end{figure}
+or, avoiding loading the data from the web site
+<<eval=FALSE>>=
+data(A3)
+stcube(A3, showMap = TRUE, col = "red")
+@
 
-\newpage
+%<<eval=TRUE,echo=FALSE,fig=TRUE, pdf=FALSE, grdevice=rgl.Sweave, height=5, width=5, resolution=100>>=
+%data(A3)
+%stcube(A3, showMap = TRUE, col = "red")
+%@
+%<<eval=FALSE,echo=TRUE,fig=TRUE, pdf=FALSE, grdevice=rgl.Sweave, height=5, width=5, resolution=100>>=
+%A3 = importEnviroCar("528cf1a3e4b0a727145df093")
+%stcube(A3, showMap = TRUE, col = "red")
+%@
 
 % References
 % ==================================================

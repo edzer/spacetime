@@ -20,7 +20,7 @@ Type 'q()' to quit R.
 > library(sp)
 > library(spacetime)
 > library(rgdal)
-rgdal: version: 0.8-11, (SVN revision 479M)
+rgdal: version: 0.8-14, (SVN revision 496)
 Geospatial Data Abstraction Library extensions to R successfully loaded
 Loaded GDAL runtime: GDAL 1.10.0, released 2013/04/24
 Path to GDAL shared files: /usr/share/gdal/1.10
@@ -4978,4 +4978,4 @@ B 2    1    4    1    5 2013-09-30 02:06:55 2013-09-30 02:12:59
 > 
 > proc.time()
    user  system elapsed 
-  3.676   0.320   4.040 
+  3.680   0.420   4.104 

@@ -24,6 +24,63 @@ Type 'q()' to quit R.
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
+> nameEx("A3")
+> ### * A3
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: A3
+> ### Title: Trajectory
+> ### Aliases: A3
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(A3)
+> dim(A3)
+geometries 
+       602 
+> 
+> ## Not run: 
+> ##D importEnviroCar = function(trackID, url = "https://envirocar.org/api/stable/tracks/") {
+> ##D 	require(RCurl)
+> ##D 	require(rgdal)
+> ##D 	require(rjson)
+> ##D 	url = getURL(paste(url, trackID, sep = ""), 
+> ##D 		.opts = list(ssl.verifypeer = FALSE)) # .opts needed for Windows
+> ##D 	# Read data into spatial object.
+> ##D 	spdf = readOGR(dsn = url, layer = "OGRGeoJSON", verbose = FALSE)
+> ##D 	# Convert time from factor to POSIXct.
+> ##D 	time = as.POSIXct(spdf$time, format = "##D 
+> ##D 	# Convert phenomena from JSON to data frame.
+> ##D 	phenomena = lapply(as.character(spdf$phenomenons), fromJSON)
+> ##D 	values = lapply(phenomena, function(x) as.data.frame(lapply(x, function(y) y$value)))
+> ##D 	# Get a list of all phenomena for which values exist.
+> ##D 	names = vector()
+> ##D 	for(i in values)
+> ##D 		names = union(names, names(i))
+> ##D 	# Make sure that each data frame has the same number of columns.
+> ##D 	values = lapply(values, function(x) {
+> ##D 		xNames = names(x)
+> ##D 		# Get the symmetric difference.
+> ##D 		diff = setdiff(union(names, xNames), intersect(names, xNames))
+> ##D 		if(length(diff) > 0)
+> ##D 			x[diff] = NA
+> ##D 		x
+> ##D 	})
+> ##D 	# Bind values together.
+> ##D 	data = do.call(rbind, values)
+> ##D 	sp = SpatialPoints(coords = coordinates(spdf), proj4string = CRS("+proj=longlat"))
+> ##D 	stidf = STIDF(sp = sp, time = time, data = data)
+> ##D 	Track(track = stidf)
+> ##D }
+> ##D A3 = importEnviroCar("528cf1a3e4b0a727145df093")
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("ST-class")
 > ### * ST-class
 > 
@@ -757,7 +814,7 @@ detaching ‘package:sp’
 > t = t0 + cumsum(runif(n) * 60)
 > require(rgdal)
 Loading required package: rgdal
-rgdal: version: 0.8-11, (SVN revision 479M)
+rgdal: version: 0.8-14, (SVN revision 496)
 Geospatial Data Abstraction Library extensions to R successfully loaded
 Loaded GDAL runtime: GDAL 1.10.0, released 2013/04/24
 Path to GDAL shared files: /usr/share/gdal/1.10
@@ -1000,7 +1057,7 @@ detaching ‘package:sp’, ‘package:gstat’
 +   stplot(Fires, sp.layout=list("sp.lines", cc))
 + }
 Loading required package: rgdal
-rgdal: version: 0.8-11, (SVN revision 479M)
+rgdal: version: 0.8-14, (SVN revision 496)
 Geospatial Data Abstraction Library extensions to R successfully loaded
 Loaded GDAL runtime: GDAL 1.10.0, released 2013/04/24
 Path to GDAL shared files: /usr/share/gdal/1.10
@@ -1200,26 +1257,7 @@ Checking rgeos availability: TRUE
 > states = map2SpatialPolygons(states.m, IDs=IDs)
 > 
 > library(plm)
-Loading required package: bdsmatrix
-
-Attaching package: ‘bdsmatrix’
-
-The following object is masked from ‘package:base’:
-
-    backsolve
-
-Loading required package: nlme
 Loading required package: Formula
-Loading required package: MASS
-Loading required package: sandwich
-Loading required package: zoo
-
-Attaching package: ‘zoo’
-
-The following objects are masked from ‘package:base’:
-
-    as.Date, as.Date.numeric
-
 > data(Produc)
 > 
 > yrs = 1970:1986
@@ -1300,10 +1338,8 @@ attr(,"package")
 > 
 > cleanEx()
 
-detaching ‘package:gstat’, ‘package:plm’, ‘package:zoo’,
-  ‘package:sandwich’, ‘package:MASS’, ‘package:Formula’,
-  ‘package:nlme’, ‘package:bdsmatrix’, ‘package:maptools’,
-  ‘package:sp’, ‘package:maps’
+detaching ‘package:gstat’, ‘package:plm’, ‘package:Formula’,
+  ‘package:maptools’, ‘package:sp’, ‘package:maps’
 
 > nameEx("stinteraction")
 > ### * stinteraction
@@ -1568,7 +1604,7 @@ point3               30.40
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  10.368 0.288 10.847 0 0 
+Time elapsed:  10.56 0.3 10.89 0 0 
 > grDevices::dev.off()
 null device 
           1 
