@@ -62,9 +62,11 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 
 	if (missing.k) {
 		k = TRUE
-	} else if (missing.j && n.args == 2) {
-		x@data = x@data[ , k, drop = FALSE]
-		return(x)
+	} else {
+    if (missing.j && n.args == 2) {
+  		x@data = x@data[ , k, drop = FALSE]
+  		return(x)
+    }
 	} 
 
   matrix.i <- FALSE
@@ -81,6 +83,7 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
   else {
     if (is.matrix(i)) { # BG
       stopifnot(ncol(i)==2)
+      i <- i[order(i[,2]),]
       s <- i[,1]
       missing.j <- FALSE
       matrix.i <- TRUE
@@ -106,13 +109,13 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
     } else {
   		if (is.logical(j))
   			j = which(j)
-  		.time = xts(matrix(1:nrow(x@time), dimnames=list(NULL, "timeIndex")),
-                  index(x@time), tzone = attr(x@time, "tzone"))
-  		# the following uses [.xts, deals with character/iso8601,
-  		# and takes care of negative indices:
-  		.time = .time[j] 
-  		# retrieve the corresponding index vector t, to use for @data:
-  		t = as.vector(.time[,1])
+  		nct = ncol(x@time)
+  		.time = cbind(x@time, 1:nrow(x@time))
+  		# uses [.xts, deals with character/iso8601;
+  		# takes care of negative indices:
+  		.time = .time[j]
+  		# get back the corresponding index vector t, to use for @data:
+  		t = as.vector(.time[, nct+1])
     }
 	}
 
@@ -121,8 +124,6 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 
   if (matrix.i) { # BG
     sel <- sapply(1:nrow(i), function(x) which((si %in% s[x]) & (ti %in% t[x])))
-#     sel <- rep(FALSE,length(si))
-#     sel[selRow] <- TRUE
   } else {
     if (length(unique(s)) < length(s) | length(unique(t)) < length(t)) {
       sel <- numeric(0)
@@ -154,7 +155,7 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 	x@index[,1] <- match(x@index[,1], u1)
 	x@index[,2] <- match(x@index[,2], u2)
   reOrder <- numeric(nrow(x@index))
-  for (ts in unique(x@index[,2])) { # reordering data and index slot accoring to s, ts <- 2
+  for (ts in unique(x@index[,2])) { # reordering data and index slot accoring to s
     selRow <- which(x@index[,2] == ts)
     reOrder[selRow] <- selRow[order(x@index[selRow,1])]
   }
