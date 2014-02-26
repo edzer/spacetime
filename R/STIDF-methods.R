@@ -85,13 +85,15 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 	if (missing.i && missing.j && missing.k)
 		return(x)
   
-  if (!missing.i)
+  if (!missing.i) {
     if (is.matrix(i)) {
       stopifnot(ncol(i)==2)
+      i <- i[order(i[,2]),]
       j <- i[,2]
       i <- i[,1]
       missing.j <- FALSE
     }
+  }
 
 	# space
 	if (missing.i)
@@ -102,7 +104,15 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 		i = rep(i, length.out = length(x@sp))
 		i = which(i)
 	} else if (is.character(i)) { # suggested by BG:
-		i = match(i, row.names(x@sp), nomatch = FALSE)
+	  if (length(i) > length(unique(i))) {
+      si <- numeric(0)
+      for (elem in i) {
+        si <- c(si, which(row.names(x@sp) == elem))
+      }
+      i <- sort(si)
+	  } else {
+      i = row.names(x@sp) %in% i
+	  }
 	}
 
 	# time
@@ -120,11 +130,8 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 		j = as.vector(.time[, nct+1])
 	}
 	
-	if (is.numeric(i) && is.numeric(j)) {
-    bool <- i==j
-    i <- i[bool]
-# 		i = 1:nrow(x@time) %in% i
-# 		j = 1:nrow(x@time) %in% j
+	if (is.numeric(i) && (is.numeric(j) | is.integer(j))) {
+    i <- i[i==j]
 	}
 
 	if (is.logical(i) && is.logical(j))

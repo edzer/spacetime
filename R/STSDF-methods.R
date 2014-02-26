@@ -123,7 +123,7 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 	ti = x@index[,2] 
 
   if (matrix.i) { # BG
-    sel <- sapply(1:nrow(i), function(x) which((si %in% s[x]) & (ti %in% t[x])))
+    sel <- unlist(sapply(1:nrow(i), function(x) which((si %in% s[x]) & (ti %in% t[x]))))
   } else {
     if (length(unique(s)) < length(s) | length(unique(t)) < length(t)) {
       sel <- numeric(0)
