@@ -16,7 +16,6 @@ exportClasses(
 	STS, STSDF,
 	STI, STIDF,
 	STT, STTDF,
-	Track, Tracks, TracksCollection, segments,
 	ltraj
 )
 
@@ -32,7 +31,6 @@ export(delta,
 	write.tgrass,
 	EOF,
 	nbMult,
-	Track, Tracks, TracksCollection, segPanel, tracksPanel,
 	# zoo methods:
 	index, na.locf, na.spline, na.approx, as.zoo
 )
@@ -41,12 +39,10 @@ exportMethods(
 	aggregate,
 	bbox,
 	coordnames,
-	generalize,
 	geometry,
 	over,
 	plot,
 	stbox,
-	stcube,
 	stplot,
 	timeMatch
 )
@@ -71,9 +67,6 @@ S3method(dim, STFDF)
 S3method(dim, STSDF)
 S3method(dim, STIDF)
 S3method(dim, STTDF)
-S3method(dim, Track)
-S3method(dim, Tracks)
-S3method(dim, TracksCollection)
 S3method(index, STF)
 S3method(index, STS)
 S3method(index, STI)
@@ -96,16 +89,10 @@ S3method(rbind, STIDF)
 S3method(rbind, STSDF)
 S3method(rbind, STFDF)
 S3method(print, summary.ST)
-S3method(print, summary.Track)
-S3method(print, summary.Tracks)
-S3method(print, summary.TracksCollection)
 S3method(stack, STFDF)
 S3method(stack, STSDF)
 S3method(stack, STIDF)
 S3method(unstack, STFDF)
-S3method(stack, TracksCollection)
-S3method(unstack, TracksCollection)
-S3method(c, Tracks)
 
 S3method(start, ST)
 S3method(end, ST)

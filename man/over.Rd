@@ -21,9 +21,6 @@
 \alias{over,STF,STIDF-method}
 \alias{over,STS,STIDF-method}
 \alias{over,STI,STIDF-method}
-\alias{over,Track,Spatial-method}
-\alias{over,Tracks,Spatial-method}
-\alias{over,TracksCollection,Spatial-method}
 \alias{aggregate,ST-method}
 \title{ consistent spatio-temporal overlay for objects inheriting from ST }
 \description{ consistent spatio-temporal overlay for STF, STS and STI
@@ -34,9 +31,6 @@ points of another }
 \S4method{over}{STF,STF}(x, y, returnList = FALSE, fn = NULL, ...)
 \S4method{over}{xts,xts}(x, y, returnList = FALSE, fn = NULL, ...)
 \S4method{aggregate}{ST}(x, by, FUN = mean, \dots, simplify = TRUE)
-\S4method{over}{Tracks,Spatial}(x, y, returnList = FALSE, fn = NULL, ...)
-\S4method{over}{TracksCollection,Spatial}(x, y, returnList = FALSE, 
-  	fn = NULL, ...)
 }
 \arguments{
 \item{x}{geometry (S/T locations) of the queries}
