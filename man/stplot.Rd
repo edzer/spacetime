@@ -23,7 +23,6 @@
     \item{stplot}{\code{signature(x = "STIDF")}: plots object of class \link{STIDF}}
     \item{stplot}{\code{signature(x = "STT")}: plots object of class \link{STT}}
     \item{stplot}{\code{signature(x = "STTDF")}: plots object of class \link{STTDF}}
-    \item{stplot}{\code{signature(x = "TracksCollection")}: plots object of class \link{TracksCollection}}
   }
 }
 \usage{ 
