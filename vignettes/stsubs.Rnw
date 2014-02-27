@@ -20,7 +20,7 @@
 
 \begin{abstract}
 This vignette briefly describes how the subsetting of ST\dots classes 
-works. The underlying assumptions and pitfalls to be aware of.
+works and mentions some of the underlying assumptions and pitfalls to be aware of.
 \end{abstract}
 
 \tableofcontents
@@ -43,11 +43,9 @@ row.names(spObj) <- c("A","B","C","D","E")
 timeObj = as.POSIXct("2010-08-05")+3600*24*(0:1)
 
 # data slot
-m = 1:5*10 # means for each of the 3 point locations
-mydata = data.frame(smpl1=rnorm(length(spObj)*length(timeObj),
-                                mean=rep(m, 2)),
-                    smpl2=rnorm(length(spObj)*length(timeObj),
-                                mean=rep(m, 2)))
+m = 1:5*10 # means for each of the 5 point locations
+mydata = data.frame(smpl1=rnorm(10, mean=rep(m, 2)),
+                    smpl2=rnorm(10, mean=rep(m, 2)))
 mydata[c(2, 4, 6, 7),] <- NA
 
 STFDFobj <- STFDF(spObj, timeObj, mydata)
@@ -61,11 +59,11 @@ STIobj <- geometry(STIDFobj)
 
 \section{Selection over space}
 
-Subsetting over space can be done in different ways. This includes \code{numeric} where we refer to each actual index of the spatial location, \code{logical} that must be of the same length as the spatial component; \code{character} referring to row names of the spatial object and \code{Spatial} initiating an overlay to retrieve selection indices. 
+Subsetting over space can be done in different ways. This includes indices of class \code{numeric} where we refer to each actual index of the spatial location, \code{logical} that must be of the same length as the spatial component, \code{character} referring to row names of the spatial object and \code{Spatial} initiating an overlay to retrieve selection indices. 
 
 \subsection{Indices of class \code{numeric}}
 
-Objects of type \emph{full} represent the complete structure of 6 spatio-temporal locations:
+Spatio-temporal objects with a \emph{full} outline represent the complete structure of $3\times2=6$ spatio-temporal locations:
 <<>>=
 STFobj[1:3,]
 @
@@ -75,7 +73,7 @@ In case of the \emph{sparse} structure, only the observed locations are stored l
 STSobj[1:3,]
 @
 
-The \emph{irregular} case stores for each spatio-temporal location a separate spatial and temporal index. Hence the same selection as above returns the first three entries, i.e. th first three locations at the same moment in time.
+The \emph{irregular} case stores for each spatio-temporal location a separate spatial and temporal entity with an own spatial and temporal index. Hence the same selection as above returns the first three entries, i.e. the first three locations at the same moment in time. Note that the spatial locations \code{"B"} and \code{"D"} are not observed at the first moment in time.
 <<>>=
 STIobj[1:3,]
 @
@@ -93,7 +91,7 @@ This applies to all three structures.
 
 \subsection{Indices of class \code{logical}}
 
-Objects of type \emph{full} and \emph{sparse} require a vector of the same length as the slot \code{sp}. The vector will be recycled if necessary. The \emph{full} structure refers to 6 spatio-temporal locations
+Spatio-temporal objects with a \emph{full} and \emph{sparse} structure require a vector of the same length as the slot \code{sp}. The vector will be recycled if necessary. The \emph{full} structure refers to $3\times 2=6$ spatio-temporal locations
 <<>>=
 STFobj[c(TRUE,TRUE,FALSE,FALSE,TRUE),]
 @
@@ -103,17 +101,17 @@ where the \emph{sparse} structure only provides an index with 3 rows:
 STSobj[c(TRUE,TRUE,FALSE,FALSE,TRUE),]
 @
 
-The \emph{irregular} case will again provide the exact matches with observation, but needs a longer vector of size six.
+The \emph{irregular} case will again provide the exact matches with observation, but needs a longer vector of size 6, as each observation has its own spatial entity in the slot \code{sp}.
 <<>>=
 STSobj[c(TRUE,TRUE,FALSE,FALSE,TRUE,FALSE),]
 @
 
-A repeated selection or changing the order is obviously not possible for logical indices.
+A repeated selection or changing the order is not possible for \code{logical} indices.
 
 \subsection{Indices of class \code{character}}
 
 The character provided as first argument in the subsetting brackets is matched against the row names of the spatial object.
-Objects of type \emph{full} represent the complete structure of 4 spatio-temporal locations:
+Objects of type \emph{full} represent the complete structure of $2\times 2=4$ spatio-temporal locations:
 <<>>=
 STFobj[c("A","B"),]
 @
@@ -149,7 +147,7 @@ The temporal dimension is realised as an \code{xts} object and subsetting along 
 
 \section{Selection over space and time}
 
-Selection over space and time can be done in two general ways. Either providing two separate vectors or as a two-column matrix. Just as for simple matrices, these two possibilities imply two metaphors. The vectors will return all selected spatial entities combined with all temporal ones (where possible) while the matrix notation selects pairs of indices. The vector notation accepts all formats indicated above. While the matrix only supports \code{numeric} values. 
+Selection over space and time can be done in two general ways. Either providing two separate vectors or as a two-column matrix. Just as for simple matrices, these two possibilities imply two distinct metaphors. The vectors will return all selected spatial entities combined with all temporal ones (where possible) respecting the ordering of the spatial index. The matrix notation selects pairs of indices. The vector notation accepts all formats indicated above while the matrix only supports \code{numeric} values. 
 
 As this type of selection is typically done to select a sparse subset from the data, the object returned from a \code{STF\dots} object will be of type \code{STS\dots}. Typically, the provided matrix reflects the \code{index} slot:
 <<>>=
@@ -166,6 +164,6 @@ The \emph{irregular} structure only provides data for identical spatial and temp
 STIobj[cbind(1:5,5:1)]
 @
 
-Multiple selection and re-ordering of only the spatial domain are possible.
+Multiple selection over space and time is in general possible, but re-ordering is only possible for the spatial domain.
 
 \end{document}

@@ -85,6 +85,8 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 	if (missing.i && missing.j && missing.k)
 		return(x)
   
+  matrix.i <- FALSE
+  
   if (!missing.i) {
     if (is.matrix(i)) {
       stopifnot(ncol(i)==2)
@@ -92,6 +94,7 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
       j <- i[,2]
       i <- i[,1]
       missing.j <- FALSE
+      matrix.i <- TRUE
     }
   }
 
@@ -121,17 +124,33 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 	else {
 		if (is.logical(j))
 			j = which(j)
-		nct = ncol(x@time)
+		nct = ncol(x@time) # x <- rrSTI
 		.time = cbind(x@time, 1:nrow(x@time))
 		# uses [.xts, deals with character/iso8601;
 		# takes care of negative indices:
 		.time = .time[j]
 		# get back the corresponding index vector t, to use for @data:
+    jtime <- as.vector(.time[, nct])
 		j = as.vector(.time[, nct+1])
 	}
 	
-	if (is.numeric(i) && (is.numeric(j) | is.integer(j))) {
-    i <- i[i==j]
+	if (is.numeric(i) && is.numeric(j)) {
+    if(matrix.i)
+      i <- i[i==j]
+    else {
+      ui <- unique(i)
+      uj <- unique(j)
+      ti <- table(i)
+      tj <- table(j)
+      
+      ind <- numeric(0)
+      for (elem in ui[ui %in% uj]) {
+        freq <- min(ti[names(ti) == as.character(elem)], 
+                    tj[names(tj) == as.character(elem)])
+        ind <- c(ind, rep(elem, freq))
+      }
+      i <- ind[order(jtime[ind])]
+    }
 	}
 
 	if (is.logical(i) && is.logical(j))
