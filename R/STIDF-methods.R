@@ -76,13 +76,27 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 	missing.j = missing(j)
 	missing.k = k = TRUE
 	dots = list(...)
-    if (length(dots) > 0) {
-        missing.k = FALSE
-        k = dots[[1]]
-    }
+  
+  if (length(dots) > 0) {
+      missing.k = FALSE
+      k = dots[[1]]
+  }
 
 	if (missing.i && missing.j && missing.k)
 		return(x)
+  
+  matrix.i <- FALSE
+  
+  if (!missing.i) {
+    if (is.matrix(i)) {
+      stopifnot(ncol(i)==2)
+      i <- i[order(i[,2]),]
+      j <- i[,2]
+      i <- i[,1]
+      missing.j <- FALSE
+      matrix.i <- TRUE
+    }
+  }
 
 	# space
 	if (missing.i)
@@ -93,7 +107,15 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 		i = rep(i, length.out = length(x@sp))
 		i = which(i)
 	} else if (is.character(i)) { # suggested by BG:
-		i = match(i, row.names(x@sp), nomatch = FALSE)
+	  if (length(i) > length(unique(i))) {
+      si <- numeric(0)
+      for (elem in i) {
+        si <- c(si, which(row.names(x@sp) == elem))
+      }
+      i <- sort(si)
+	  } else {
+      i = row.names(x@sp) %in% i
+	  }
 	}
 
 	# time
@@ -102,15 +124,35 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 	else {
 		if (is.logical(j))
 			j = which(j)
-		t = xts(matrix(1:nrow(x@time), dimnames=list(NULL, "timeIndex")), 
-				index(x@time))[j]
-		j = as.vector(t[,1])
+		nct = ncol(x@time) # x <- rrSTI
+		.time = cbind(x@time, 1:nrow(x@time))
+		# uses [.xts, deals with character/iso8601;
+		# takes care of negative indices:
+		.time = .time[j]
+		# get back the corresponding index vector t, to use for @data:
+    jtime <- as.vector(.time[, nct])
+		j = as.vector(.time[, nct+1])
 	}
 	
 	if (is.numeric(i) && is.numeric(j)) {
-		i = 1:nrow(x@time) %in% i
-		j = 1:nrow(x@time) %in% j
+    if(matrix.i)
+      i <- i[i==j]
+    else {
+      ui <- unique(i)
+      uj <- unique(j)
+      ti <- table(i)
+      tj <- table(j)
+      
+      ind <- numeric(0)
+      for (elem in ui[ui %in% uj]) {
+        freq <- min(ti[names(ti) == as.character(elem)], 
+                    tj[names(tj) == as.character(elem)])
+        ind <- c(ind, rep(elem, freq))
+      }
+      i <- ind[order(jtime[ind])]
+    }
 	}
+
 	if (is.logical(i) && is.logical(j))
 		i = i & j
 
@@ -127,6 +169,7 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 	}
 	x
 }
+
 setMethod("[", "STIDF", subs.STIDF)
 setMethod("[", "STI", subs.STIDF)
 
