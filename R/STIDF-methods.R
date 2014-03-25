@@ -90,7 +90,7 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
   if (!missing.i) {
     if (is.matrix(i)) {
       stopifnot(ncol(i)==2)
-      i <- i[order(i[,2]),]
+      i <- i[order(i[,2]),,drop=FALSE]
       j <- i[,2]
       i <- i[,1]
       missing.j <- FALSE
