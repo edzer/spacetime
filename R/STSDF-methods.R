@@ -83,7 +83,7 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
   else {
     if (is.matrix(i)) { # BG
       stopifnot(ncol(i)==2)
-      i <- i[order(i[,2]),]
+      i <- i[order(i[,2]),,drop=FALSE]
       s <- i[,1]
       missing.j <- FALSE
       matrix.i <- TRUE
