@@ -107,15 +107,13 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 		i = rep(i, length.out = length(x@sp))
 		i = which(i)
 	} else if (is.character(i)) { # suggested by BG:
-	  if (length(i) > length(unique(i))) {
-      si <- numeric(0)
-      for (elem in i) {
-        si <- c(si, which(row.names(x@sp) == elem))
-      }
-      i <- sort(si)
-	  } else {
-      i = row.names(x@sp) %in% i
-	  }
+	  	if (length(i) > length(unique(i))) {
+      		si <- numeric(0)
+      		for (elem in i)
+        		si <- c(si, which(row.names(x@sp) == elem))
+      		i <- sort(si)
+	  	} else
+      		i = row.names(x@sp) %in% i
 	}
 
 	# time
@@ -130,27 +128,27 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 		# takes care of negative indices:
 		.time = .time[j]
 		# get back the corresponding index vector t, to use for @data:
-    jtime <- as.vector(.time[, nct])
+    	jtime <- as.vector(.time[, nct])
 		j = as.vector(.time[, nct+1])
 	}
 	
 	if (is.numeric(i) && is.numeric(j)) {
-    if(matrix.i)
-      i <- i[i==j]
-    else {
-      ui <- unique(i)
-      uj <- unique(j)
-      ti <- table(i)
-      tj <- table(j)
+    	if(matrix.i)
+      		i <- i[i==j]
+    	else {
+      		ui <- unique(i)
+      		uj <- unique(j)
+      		ti <- table(i)
+      		tj <- table(j)
       
-      ind <- numeric(0)
-      for (elem in ui[ui %in% uj]) {
-        freq <- min(ti[names(ti) == as.character(elem)], 
+      		ind <- numeric(0)
+      		for (elem in ui[ui %in% uj]) {
+        		freq <- min(ti[names(ti) == as.character(elem)], 
                     tj[names(tj) == as.character(elem)])
-        ind <- c(ind, rep(elem, freq))
-      }
-      i <- ind[order(jtime[ind])]
-    }
+        		ind <- c(ind, rep(elem, freq))
+      		}
+      		i <- ind[order(jtime[ind])]
+    	}
 	}
 
 	if (is.logical(i) && is.logical(j))

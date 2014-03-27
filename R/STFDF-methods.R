@@ -162,9 +162,9 @@ subs.STFDF <- function(x, i, j, ... , drop = is(x, "STFDF")) {
   if (missing.j)
 		t = 1:nrow(x@time)
 	else {
-    if (matrix.i) {
+    if (matrix.i)
 	    t <- unique(i[,2])
-	  } else {
+	  else {
   		if (is.logical(j))
   			j = which(j)
   		nct = ncol(x@time)
@@ -195,13 +195,11 @@ subs.STFDF <- function(x, i, j, ... , drop = is(x, "STFDF")) {
     if (is(x, "STFDF")) {
       sel <- (i[,2]-1)*nr+i[,1]
       x <- STSDF(x@sp[s,], x@time[t,], x@data[sel,,drop=FALSE], ind, x@endTime[t])
-    } else {
+    } else
       x <- STS(x@sp[s,], x@time[t,], ind, x@endTime[t])
-    }
-  } else {
+  } else
     if (is(x, "STFDF"))
   		x@data = data.frame(lapply(x@data, function(v) as.vector(matrix(v, nr, nc)[s,t])))
-  }
   
   # drop
 	if (drop) {

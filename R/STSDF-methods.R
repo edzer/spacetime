@@ -46,27 +46,27 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 
   # check wheter variables get selected
 	missing.k = TRUE
-  if (length(dots) > 0) {
-    missing.k <- FALSE
-    k <- dots[[1]]
-  }
-  if (!missing.i & !missing.j) {
-    if (is.matrix(i)) {
-      missing.k <- FALSE
-      k <- j
-    }
-  }
+  	if (length(dots) > 0) {
+    	missing.k <- FALSE
+    	k <- dots[[1]]
+  	}
+  	if (!missing.i & !missing.j) {
+    	if (is.matrix(i)) {
+      	missing.k <- FALSE
+      	k <- j
+    	}
+  	}
   
 	if (missing.i && missing.j && missing.k)
 		return(x)
 
-	if (missing.k) {
+	if (missing.k)
 		k = TRUE
-	} else {
-    if (missing.j && n.args == 2) {
-  		x@data = x@data[ , k, drop = FALSE]
+	else {
+    	if (missing.j && n.args == 2) {
+  			x@data = x@data[ , k, drop = FALSE]
   		return(x)
-    }
+    	}
 	} 
 
   matrix.i <- FALSE
@@ -75,94 +75,91 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
   #######
   
   # keep track of original spatial indicies - if not yet 
-  if (!is.character(row.names(x@sp)))
-    row.names(x@sp) <- as.character(row.names(x@sp))
+  	if (!is.character(row.names(x@sp)))
+    	row.names(x@sp) <- as.character(row.names(x@sp))
   
 	if (missing.i)
 		s = 1:length(x@sp)
-  else {
-    if (is.matrix(i)) { # BG
-      stopifnot(ncol(i)==2)
-      i <- i[order(i[,2]),,drop=FALSE]
-      s <- i[,1]
-      missing.j <- FALSE
-      matrix.i <- TRUE
-    }	else {
-      if (is(i, "Spatial"))
-  			s = which(!is.na(over(x@sp, geometry(i))))
-  		else if (is.logical(i)) {
-  			i = rep(i, length.out = length(x@sp))
-  			s = which(i)
-  		} else if (is.character(i)) { # suggested by BG:
-  			s = match(i, row.names(x@sp), nomatch = FALSE)
-  		} else 
-  			s = i
-    }
+  	else {
+    	if (is.matrix(i)) { # BG
+      		stopifnot(ncol(i)==2)
+      		i <- i[order(i[,2]),,drop=FALSE]
+      		s <- i[,1]
+      		missing.j <- FALSE
+      		matrix.i <- TRUE
+    	} else {
+      		if (is(i, "Spatial"))
+  				s = which(!is.na(over(x@sp, geometry(i))))
+  			else if (is.logical(i)) {
+  				i = rep(i, length.out = length(x@sp))
+  				s = which(i)
+  			} else if (is.character(i)) # suggested by BG:
+  				s = match(i, row.names(x@sp), nomatch = FALSE)
+  			else 
+  				s = i
+    	}
 	}
 
 	# time
 	if (missing.j)
 		t = 1:nrow(x@time)
 	else {
-    if (matrix.i) {
-      t <- i[,2]
-    } else {
-  		if (is.logical(j))
-  			j = which(j)
-  		nct = ncol(x@time)
-  		.time = cbind(x@time, 1:nrow(x@time))
-  		# uses [.xts, deals with character/iso8601;
-  		# takes care of negative indices:
-  		.time = .time[j]
-  		# get back the corresponding index vector t, to use for @data:
-  		t = as.vector(.time[, nct+1])
-    }
+    	if (matrix.i)
+      		t <- i[,2]
+    	else {
+  			if (is.logical(j))
+  				j = which(j)
+  			nct = ncol(x@time)
+  			.time = cbind(x@time, 1:nrow(x@time))
+  			# uses [.xts, deals with character/iso8601;
+  			# takes care of negative indices:
+  			.time = .time[j]
+  			# get back the corresponding index vector t, to use for @data:
+  			t = as.vector(.time[, nct+1])
+    	}
 	}
 
 	si = x@index[,1] 
 	ti = x@index[,2] 
 
-  if (matrix.i) { # BG
-    sel <- unlist(sapply(1:nrow(i), function(x) which((si %in% s[x]) & (ti %in% t[x]))))
-  } else {
-    if (length(unique(s)) < length(s) | length(unique(t)) < length(t)) {
-      sel <- numeric(0)
-      for (ts in t) {
-        for (ss in s) {
-          sel <- c(sel, which((si %in% ss) & (ti %in% ts)))
-        }
-      }
-    } else {
-      sel = (si %in% s) & (ti %in% t)
-    }
-  }
+  	if (matrix.i) # BG
+    	sel <- unlist(sapply(1:nrow(i), function(x) which((si %in% s[x]) & (ti %in% t[x]))))
+  	else {
+    	if (length(unique(s)) < length(s) | length(unique(t)) < length(t)) {
+      		sel <- numeric(0)
+      		for (ts in t)
+        		for (ss in s)
+          			sel <- c(sel, which((si %in% ss) & (ti %in% ts)))
+    	} else
+      		sel = (si %in% s) & (ti %in% t)
+  	}
   
 	if (is(x, "STSDF"))
 		x@data = x@data[sel, k, drop = FALSE]
 
-  # TG: Tom Gottfried reported at
-  # https://stat.ethz.ch/pipermail/r-sig-geo/2011-March/011231.html
+  	# TG: Tom Gottfried reported at
+  	# https://stat.ethz.ch/pipermail/r-sig-geo/2011-March/011231.html
 
 	x@index = x@index[sel,, drop=FALSE]
-  # inserted drop=FALSE to handle (length(i)==1 && length(j)==1) # TG
-
-  # now simplify everything, and drop any S/T not refered to, but keep the ordering of "s":
+  	# inserted drop=FALSE to handle (length(i)==1 && length(j)==1) # TG
+	
+  	# now simplify everything, and drop any S/T not refered to, but keep the ordering of "s":
 	u1 = unique(s[s %in% x@index[,1]]) # was: unique(x@index[,1]))
-  u2 = unique(x@index[,2])
+  	u2 = unique(x@index[,2])
 	x@sp = x@sp[u1,]
 	x@time = x@time[u2,]
 	x@endTime = x@endTime[u2]
 	x@index[,1] <- match(x@index[,1], u1)
 	x@index[,2] <- match(x@index[,2], u2)
-  reOrder <- numeric(nrow(x@index))
-  for (ts in unique(x@index[,2])) { # reordering data and index slot accoring to s
-    selRow <- which(x@index[,2] == ts)
-    reOrder[selRow] <- selRow[order(x@index[selRow,1])]
-  }
+  	reOrder <- numeric(nrow(x@index))
+  	for (ts in unique(x@index[,2])) { # reordering data and index slot accoring to s
+    	selRow <- which(x@index[,2] == ts)
+    	reOrder[selRow] <- selRow[order(x@index[selRow,1])]
+  	}
 
-  x@index[,1] <- x@index[reOrder,1]
-  if (is(x, "STSDF"))
-    x@data = x@data[reOrder, ,drop=FALSE]
+  	x@index[,1] <- x@index[reOrder,1]
+  	if (is(x, "STSDF"))
+    	x@data = x@data[reOrder, ,drop=FALSE]
   
 	if (drop) {
 		if (length(s) == 1) { # space index has only 1 item:
@@ -178,16 +175,15 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 				# (nrow(x)==length(order.by)) in index() # TG
 			}
 		} else {
-      if (length(t) == 1) { # only one time item
-  			if (is(x, "STSDF"))
-  				x = addAttrToGeom(x@sp[x@index[,1],], x@data, match.ID = FALSE)
+      		if (length(t) == 1) { # only one time item
+  				if (is(x, "STSDF"))
+  					x = addAttrToGeom(x@sp[x@index[,1],], x@data, match.ID = FALSE)
               	# added index to achieve matching SpatialPoints and data.frame # TG
-  			else
-  				x = x@sp[x@index[,1],]
-  		}
+  				else
+  					x = x@sp[x@index[,1],]
+  			}
 		}
 	}
-
 	x
 }
 
