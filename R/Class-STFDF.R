@@ -7,8 +7,7 @@ setClass("STF", # space-time full
 
 setClass("STFDF", # space-time full data frame
   contains = "STF", 
-  #slots = c(data = "data.frame"),
-  representation(data = "data.frame"),
+  slots = c(data = "data.frame"),
   validity = function(object) {
     stopifnot(nrow(object@data) == length(object@sp) * nrow(object@time))
     .checkAttrIsUnique(object@sp, object@time, object@data)

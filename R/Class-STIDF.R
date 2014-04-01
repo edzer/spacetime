@@ -8,8 +8,7 @@ setClass("STI", # space-time irregular
 
 setClass("STIDF", # space-time irregular data frame
   contains = "STI", 
-  #slots = c(data = "data.frame"),
-  representation(data = "data.frame"),
+  slots = c(data = "data.frame"),
   validity = function(object) {
     n = nrow(object@data)
     stopifnot(n == length(object@sp))
