@@ -1,3 +1,9 @@
+Fri Apr  4 14:04:13 CEST 2014
+traj <--> Tracks
+move, moveStack <--> Tracks
+(via STIDF?)
+
+
 subsetting STF, STS, STI with [
 
 kriging without STFDF's, kriging with STIDF's
