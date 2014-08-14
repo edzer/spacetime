@@ -48,6 +48,7 @@ This vignette was run using the following libraries:
 library(RPostgreSQL)
 @
 <<>>=
+library(sp)
 library(spacetime)
 @
 
