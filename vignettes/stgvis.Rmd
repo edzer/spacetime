@@ -40,12 +40,12 @@ tables <- readHTMLTable(url, stringsAsFactors = FALSE)[[1]]
 
 library(spacetime)
 data(air) # loads rural and DE_NUTS1
-Tbl <- gvisTable(tables, options=list(width=250))
+Tbl <- gvisTable(tables, options=list(width=400))
 plot(Tbl)
 ```
 Luckily, the regions in `DE_NUTS` are in the same (alphabetical) order
 as in the table downloaded from wikipedia, so we can simply copy them 
-without need for matching. We will correct the two with double language:
+without need for matching. We will correct the two bilangual entries:
 ```{r}
 DE_NUTS1$name = tables[,2]
 DE_NUTS1$name[2] = "Bayern"        # Not: "Bayern (Bavaria)"
@@ -73,15 +73,15 @@ of the states:
 ```{r results='asis'}
 DE_NUTS1.years = STF(DE_NUTS1, as.Date(c("2008-01-01", "2009-01-01")))
 agg = aggregate(rural[,"2008::2009"], DE_NUTS1.years, mean, na.rm=TRUE)
-d = agg[,1]@data
-d$code = tables[,1]
+d = agg[,1]@data # select time step one, take attr table of resulting SpatialPolygonsDataFrame object
+d$code = tables[,1] # add region codes
 M = gvisGeoMap(na.omit(d), locationvar = "code", numvar = "PM10",
-	options=list(region="DE",height=350))
-Tbl <- gvisTable(d, options=list(height=350, width=200))
+	options=list(region="DE",height=350)) # drop NA values for Geo chart
+Tbl <- gvisTable(d, options=list(height=380, width=200))
 plot(gvisMerge(M, Tbl, horizontal=TRUE))
 ```
-reveals that the white states have no value to fill: these correspond
-to `NA` values in the R object `d`.
+The white states received no value and correspond to `NA` values
+in the R object `d`; they were omitted by the `na.omit` call.
 
 ## Motion Chart -- TODO: a sp or spacetime example
 ```{r MotionChartExample, results='asis', tidy=FALSE}
