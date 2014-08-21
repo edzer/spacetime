@@ -1,0 +1,101 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Spatial and spatio-temporal objects in google charts}
+-->
+# Spatial and spatio-temporal objects in google charts
+======================================================
+[Google
+charts](https://developers.google.com/chart/interactive/docs/index)
+are interactive graphs in web pages
+that use google proprietary code. R pachage
+[googleVis](http://cran.r-project.org/package=googleVis) converts
+R data.frame objects into google charts. This vignette uses
+[knitr](http://cran.r-project.org/package=knitr) and markdown to
+create a web page from the R-markdown [source file](...). It
+was inspired by, and partly copies, the corresponding
+[googleVis](http://cran.r-project.org/package=googleVis)
+[vignette](http://cran.r-project.org/web/packages/googleVis/vignettes/Using_googleVis_with_knitr.html)
+
+Set the googleVis options first to change the behaviour of `plot.gvis`,
+so that only the chart component of the HTML file is written into
+the output file.
+```{r setOptions, message=FALSE}
+library(googleVis)
+op <- options(gvis.plot.tag='chart')
+```
+Following plot statements for `gvis` objects will automatically return
+the HTML required for the 'knitted' output.
+
+## Geo Charts
+Geo charts work with country or region (state,
+administrative regions, e.g. NUTS1, formally [ISO
+3166-2](http://en.wikipedia.org/wiki/ISO_3166-2)) data. We will
+try to make the DE_NUTS1 data in spacetime ready for this.
+We read the table with names and codes, using help from
+[stackoverflow](http://stackoverflow.com/questions/1395528/):
+```{r results='asis'}
+library(XML)
+url = "http://en.wikipedia.org/wiki/ISO_3166-2:DE"
+tables <- readHTMLTable(url, stringsAsFactors = FALSE)[[1]]
+
+library(spacetime)
+data(air) # loads rural and DE_NUTS1
+Tbl <- gvisTable(tables, options=list(width=250))
+plot(Tbl)
+```
+Luckily, the regions in `DE_NUTS` are in the same (alphabetical) order
+as in the table downloaded from wikipedia, so we can simply copy them 
+without need for matching. We will correct the two with double language:
+```{r}
+DE_NUTS1$name = tables[,2]
+DE_NUTS1$name[2] = "Bayern"        # Not: "Bayern (Bavaria)"
+DE_NUTS1$name[9] = "Niedersachsen" # Not: "Niedersachsen (Lower Saxony)"
+```
+Plotting `Shape_Area`, a variable present for all regions in `DE_NUTS1`:
+```{r GeoMapExample, results='asis', tidy=FALSE}
+library(googleVis)
+M = gvisGeoMap(DE_NUTS1@data, locationvar = "name", numvar = "Shape_Area",
+	options=list(region="DE"))
+plot(M)
+```
+reveals that Brandenburg is not recognized!  We will now try with
+the ISO 3166-2 codes:
+```{r results='asis'}
+DE_NUTS1$code = tables[,1]
+M = gvisGeoMap(DE_NUTS1@data, locationvar = "code", numvar = "Shape_Area",
+	options=list(region="DE"))
+plot(M)
+```
+which reveals that we now have all regions displayed
+## An air quality example Geo chart
+and compute yearly average PM10 concentration over each
+of the states:
+```{r results='asis'}
+DE_NUTS1.years = STF(DE_NUTS1, as.Date(c("2008-01-01", "2009-01-01")))
+agg = aggregate(rural[,"2008::2009"], DE_NUTS1.years, mean, na.rm=TRUE)
+d = agg[,1]@data
+d$code = tables[,1]
+M = gvisGeoMap(na.omit(d), locationvar = "code", numvar = "PM10",
+	options=list(region="DE",height=350))
+Tbl <- gvisTable(d, options=list(height=350, width=200))
+plot(gvisMerge(M, Tbl, horizontal=TRUE))
+```
+reveals that the white states have no value to fill: these correspond
+to `NA` values in the R object `d`.
+
+## Motion Chart -- TODO: a sp or spacetime example
+```{r MotionChartExample, results='asis', tidy=FALSE}
+M <- gvisMotionChart(Fruits, 'Fruit', 'Year',
+         options=list(width=400, height=350))
+plot(M)
+```
+Please note that the Motion Chart is only displayed when hosted on a
+web server, or if placed in a directory which has been added to the 
+trusted sources in the [security settings of Macromedia]
+(http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html). 
+See the googleVis package vignette for more details. 
+
+```{r resetOptions}
+## Set options back to original options
+options(op)
+```

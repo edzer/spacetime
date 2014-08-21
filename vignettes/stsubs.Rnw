@@ -15,7 +15,7 @@
 \date{\small \today }
 
 \begin{document}
-%\VignetteIndexEntry{ubsetting of spacetime objects}
+%\VignetteIndexEntry{Subsetting of spacetime objects}
 \maketitle
 
 \begin{abstract}
