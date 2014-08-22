@@ -4,6 +4,11 @@
 -->
 # Spatial and spatio-temporal objects in google charts
 ======================================================
+This vignette shows how google charts can be used to
+display some spatio-temporal data sets used in the
+[JSS paper](http://www.jstatsoft.org/v51/i07/) on
+[spacetime](http://cran.r-project.org/package=spacetime).
+
 [Google
 charts](https://developers.google.com/chart/interactive/docs/index)
 are interactive graphs in web pages
@@ -12,7 +17,7 @@ that use google proprietary code. R pachage
 R data.frame objects into google charts. This vignette uses
 [knitr](http://cran.r-project.org/package=knitr) and markdown to
 create a web page from the R-markdown [source file](https://github.com/edzer/spacetime/blob/master/vignettes/stgvis.Rmd). It
-was inspired by, and partly copies, the corresponding
+was inspired by, and copies small sections of, the corresponding
 [googleVis](http://cran.r-project.org/package=googleVis)
 [vignette](http://cran.r-project.org/web/packages/googleVis/vignettes/Using_googleVis_with_knitr.html)
 
@@ -92,7 +97,67 @@ plot(gvisMerge(M, Tbl, horizontal=TRUE))
 The white states received no value and correspond to `NA` values
 in the R object `d`; they were omitted by the `na.omit` call.
 
-## Motion Chart
+## Irish wind station mean and standard deviations
+The Irish wind data has 12 stations, shown here on a map, colour
+denoting mean wind speed, symbols size its standard deviation:
+```{r results='asis'}
+library(sp)
+library(gstat)
+data("wind")
+wind.loc$y = as.numeric(char2dms(as.character(wind.loc[["Latitude"]])))
+wind.loc$x = as.numeric(char2dms(as.character(wind.loc[["Longitude"]])))
+wind.loc$yx = paste(wind.loc$y, wind.loc$x, sep=":")
+m = round(apply(wind,2,mean), 3)
+sd = round(apply(wind,2,sd), 3)
+wind.loc$mean = m[match(wind.loc$Code, names(m))]
+wind.loc$sd = sd[match(wind.loc$Code, names(sd))]
+M <- gvisGeoChart(wind.loc, "yx", "mean", "sd", "Station",
+	options = list(region = "IE"))
+plot(M)
+```
+
+# Time lines
+Two time lines are shown that have interesting interaction
+possibilities. For each of them, a subset of the full data sets
+(Irish wind and German air quality) are given, as the full data sets
+takes rather long to process (Rmd to html) and makes the browser
+slow loading the graph and when interacting with the data (2014).
+
+## Iris Wind in timeAnnotation
+We select the last three years of the wind data set, 
+to not overload the browser:
+```{r results='asis'}
+# select:
+wind = wind[wind$year > 76,] # select three years, 1976-1978
+time = ISOdate(wind$year+1900, wind$month, wind$day)
+wind.stack = stack(wind[,4:15])
+names(wind.stack) = c("wind_speed", "station")
+wind.stack$time = rep(time, 12)
+M = gvisAnnotatedTimeLine(wind.stack, "time", "wind_speed", "station",
+	options = list(width = "1000px", height = "500px",
+		zoomStartTime=time[length(time)-365], zoomEndTime=max(time)))
+plot(M)
+```
+## Rural PM10 data from spacetime: Annotation Chart
+The PM10 data in the [spacetime
+vignette](http://cran.r-project.org/web/packages/spacetime/vignettes/sto.pdf)
+contain missing values. These are connected by straight lines in
+the Annotated Time Line, rendering this visualisation useless.
+
+In contrast, Annotation Charts deal with gaps (missing values) 
+in time series, and show them as discontinuities in the lines:
+```{r results='asis'}
+library(spacetime)
+data(air)
+d = as(rural[1:10,"2001"], "data.frame") # daily, 2001
+M = gvisAnnotationChart(d, "time", "PM10", "sp.ID",
+	options = list(width = "1000px", height = "500px"))
+		# zoomStartTime=d$time[1], zoomEndTime=d$time[1]+365))
+plot(M)
+```
+The result is still a bit flaky; just try it for the full time series.
+
+# Motion Chart
 The following example shows a motion chart of the `Produc` data used
 in the spacetime manual, but does not convert the data. Time is simply
 year (integer).
@@ -106,37 +171,6 @@ web server, or if placed in a directory which has been added to the
 trusted sources in the [security settings of Macromedia]
 (http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html). 
 See the googleVis package vignette for more details. )
-
-# Iris Wind in timeAnnotation
-```{r results='asis'}
-library(sp)
-library(gstat)
-data("wind")
-wind.loc$y = as.numeric(char2dms(as.character(wind.loc[["Latitude"]])))
-wind.loc$x = as.numeric(char2dms(as.character(wind.loc[["Longitude"]])))
-#coordinates(wind.loc) = ~x+y
-#proj4string(wind.loc) = "+proj=longlat +datum=WGS84"
-time = ISOdate(wind$year+1900, wind$month, wind$day)
-wind.stack = stack(wind[,4:15])
-names(wind.stack) = c("wind_speed", "station")
-wind.stack$time = rep(time, 12)
-M = gvisAnnotatedTimeLine(wind.stack, "time", "wind_speed", "station",
-	options = list(width = "1000px", height = "500px",
-		zoomStartTime=time[length(time)-365], zoomEndTime=max(time)))
-plot(M)
-```
-# Rural PM10 data from spacetime: Annotation Chart
-Annotation Charts can deal with gaps (missing values) in time series:
-```{r results='asis'}
-library(spacetime)
-data(air)
-d = as(rural[1:10,"2001"], "data.frame")
-M = gvisAnnotationChart(d, "time", "PM10", "sp.ID",
-	options = list(width = "1000px", height = "500px"))
-		# zoomStartTime=d$time[1], zoomEndTime=d$time[1]+365))
-plot(M)
-```
-The result is still a bit flaky; just try it for the full time series.
 
 ```{r resetOptions}
 ## Set options back to original options
