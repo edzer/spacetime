@@ -11,7 +11,7 @@ that use google proprietary code. R pachage
 [googleVis](http://cran.r-project.org/package=googleVis) converts
 R data.frame objects into google charts. This vignette uses
 [knitr](http://cran.r-project.org/package=knitr) and markdown to
-create a web page from the R-markdown [source file](...). It
+create a web page from the R-markdown [source file](https://github.com/edzer/spacetime/blob/master/vignettes/stgvis.Rmd). It
 was inspired by, and partly copies, the corresponding
 [googleVis](http://cran.r-project.org/package=googleVis)
 [vignette](http://cran.r-project.org/web/packages/googleVis/vignettes/Using_googleVis_with_knitr.html)
@@ -66,9 +66,18 @@ M = gvisGeoMap(DE_NUTS1@data, locationvar = "code", numvar = "Shape_Area",
 	options=list(region="DE"))
 plot(M)
 ```
-which reveals that we now have all regions displayed
+which reveals that we now have all regions displayed. If however, we would
+omit Berlin, as in
+```{r results='asis'}
+noBerlin = DE_NUTS1[tables[,1] != "DE-BE",]
+M = gvisGeoMap(noBerlin@data, locationvar = "code", numvar = "Shape_Area",
+	options=list(region="DE"))
+plot(M)
+```
+we see that Brandenburg now includes Berlin. Google, did you miss a hole
+here?
 ## An air quality example Geo chart
-and compute yearly average PM10 concentration over each
+We can compute yearly average PM10 concentration over each
 of the states:
 ```{r results='asis'}
 DE_NUTS1.years = STF(DE_NUTS1, as.Date(c("2008-01-01", "2009-01-01")))
@@ -83,17 +92,51 @@ plot(gvisMerge(M, Tbl, horizontal=TRUE))
 The white states received no value and correspond to `NA` values
 in the R object `d`; they were omitted by the `na.omit` call.
 
-## Motion Chart -- TODO: a sp or spacetime example
+## Motion Chart
+The following example shows a motion chart of the `Produc` data used
+in the spacetime manual, but does not convert the data. Time is simply
+year (integer).
 ```{r MotionChartExample, results='asis', tidy=FALSE}
-M <- gvisMotionChart(Fruits, 'Fruit', 'Year',
-         options=list(width=400, height=350))
+data("Produc", package = "plm")
+M <- gvisMotionChart(Produc, "state", "year")
 plot(M)
 ```
-Please note that the Motion Chart is only displayed when hosted on a
+(Please note that the Motion Chart is only displayed when hosted on a
 web server, or if placed in a directory which has been added to the 
 trusted sources in the [security settings of Macromedia]
 (http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html). 
-See the googleVis package vignette for more details. 
+See the googleVis package vignette for more details. )
+
+# Iris Wind in timeAnnotation
+```{r results='asis'}
+library(sp)
+library(gstat)
+data("wind")
+wind.loc$y = as.numeric(char2dms(as.character(wind.loc[["Latitude"]])))
+wind.loc$x = as.numeric(char2dms(as.character(wind.loc[["Longitude"]])))
+#coordinates(wind.loc) = ~x+y
+#proj4string(wind.loc) = "+proj=longlat +datum=WGS84"
+time = ISOdate(wind$year+1900, wind$month, wind$day)
+wind.stack = stack(wind[,4:15])
+names(wind.stack) = c("wind_speed", "station")
+wind.stack$time = rep(time, 12)
+M = gvisAnnotatedTimeLine(wind.stack, "time", "wind_speed", "station",
+	options = list(width = "1000px", height = "500px",
+		zoomStartTime=time[length(time)-365], zoomEndTime=max(time)))
+plot(M)
+```
+# Rural PM10 data from spacetime: Annotation Chart
+Annotation Charts can deal with gaps (missing values) in time series:
+```{r results='asis'}
+library(spacetime)
+data(air)
+d = as(rural[1:10,"2001"], "data.frame")
+M = gvisAnnotationChart(d, "time", "PM10", "sp.ID",
+	options = list(width = "1000px", height = "500px"))
+		# zoomStartTime=d$time[1], zoomEndTime=d$time[1]+365))
+plot(M)
+```
+The result is still a bit flaky; just try it for the full time series.
 
 ```{r resetOptions}
 ## Set options back to original options
