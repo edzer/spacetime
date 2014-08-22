@@ -1,3 +1,51 @@
+commit 7887e760c10ba9a6501ecba1c43410558d12963c
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Aug 22 09:36:48 2014 +0200
+
+    add Irish station means geo chart
+
+commit 11e5da9c96fe9f9dae8d3d93e1b54059af7adbe9
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Aug 22 08:20:57 2014 +0200
+
+    add time line graphs
+
+commit ccee6c0164714a022edf6441f41bdc863798c836
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Aug 21 13:48:55 2014 +0200
+
+    update
+
+commit 55709a1d166aaa23834fab036d3af2e08d066fdb
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Aug 21 11:17:20 2014 +0200
+
+    add googleVis example vignette, typo in stsubs
+
+commit f5838cbc73c77ed072a251a4c3b6c1ec56bd5fc0
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Aug 14 13:45:17 2014 +0200
+
+    add library(sp)
+
+commit 542026cafb10400a6bab77d35e2c583783abb2b8
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sun Jul 13 17:51:32 2014 +0200
+
+    write.tgrass now writes init.txt
+
+commit 59fc45e87113dd5c609b4654f26402bba18b1e8d
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Apr 9 15:42:22 2014 +0200
+
+    update date
+
+commit 7c0ebc61027fea62bcd59898594ea90fdece14f1
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Apr 1 16:08:37 2014 +0200
+
+    include git commit logs in ChangeLog
+
 commit b7f0e46a24e2a0ee81b022709aca83806674a1b0
 Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Tue Apr 1 16:04:13 2014 +0200
@@ -249,7 +297,7 @@ Date:   Tue Jan 7 23:34:15 2014 -0800
 
 commit 9ed6d1c12a462d1021eb9fc9751f731e04f53369
 Merge: f2306e2 84da479
-Author: Edzer Pebesma  <edzer.pebesma@uni-muenster.de>
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Thu Dec 19 06:01:28 2013 -0800
 
     Merge pull request #14 from k2sk8s/master
@@ -283,7 +331,7 @@ Date:   Wed Nov 27 14:41:30 2013 +0100
 
 commit 6bd22a6d57f6703b6b0bf2aa0ddb7b6cb8b12226
 Merge: e534d16 dc56ad4
-Author: Edzer Pebesma  <edzer.pebesma@uni-muenster.de>
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Tue Nov 26 13:15:36 2013 -0800
 
     Merge pull request #13 from k2sk8s/master
@@ -305,7 +353,7 @@ Date:   Tue Nov 26 22:10:24 2013 +0100
 
 commit e534d16280e2314ff15cedf98a86096b6e1a446d
 Merge: e05dfa5 29ed800
-Author: Edzer Pebesma  <edzer.pebesma@uni-muenster.de>
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Tue Nov 26 08:20:30 2013 -0800
 
     Merge pull request #12 from k2sk8s/master
