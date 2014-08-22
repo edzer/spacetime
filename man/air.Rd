@@ -2,6 +2,7 @@
 \alias{air}
 \alias{DE_NUTS1}
 \alias{rural}
+\alias{ISO_3166_2_DE}
 \title{Air quality data, rural background PM10 in Germany, daily averages 1998-2009}
 \description{
 Air quality data obtained from the airBase European air quality
@@ -16,7 +17,8 @@ data(air)
 level data obtained from http://www.gadm.org/ . }
 \references{ http://acm.eionet.europa.eu/databases/airbase }
 \note{ see vignette on overlay and spatio-temporal aggregation in this
-package }
+package; the vignette on using google charts shows where the
+ISO_3166_2_DE table comes from. }
 \keyword{datasets}
 \examples{
 data(air)
