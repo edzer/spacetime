@@ -1,3 +1,5 @@
+Sys.setenv(TZ="Europe/Berlin")
+
 library(sp)
 library(spacetime)
 data(air)
