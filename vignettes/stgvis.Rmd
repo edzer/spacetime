@@ -84,18 +84,7 @@ plot(
                options=geoChartDE)
   )
 ```
-which reveals that we now have all regions displayed. If however, we would
-omit Berlin, as in
-```{r results='asis'}
-noBerlin = DE_NUTS1[ISO_3166_2_DE[,1] != "DE-BE",]
-plot(
-  gvisGeoChart(noBerlin@data, locationvar = "code", 
-               colorvar = "Shape_Area",
-               options=geoChartDE)
-  )
-```
-we see a hole in Brandenburg where Berlin is. 
-
+which reveals that we now have all regions displayed. 
 
 ## An air quality example Geo chart
 
@@ -107,6 +96,7 @@ DE_NUTS1.years = STF(DE_NUTS1, as.Date(c("2008-01-01", "2009-01-01")))
 agg = aggregate(rural[,"2008::2009"], DE_NUTS1.years, mean, na.rm=TRUE)
 d = agg[,1]@data # select time step one, take attr table of resulting SpatialPolygonsDataFrame object
 d$code = ISO_3166_2_DE$Code # add region codes
+d$PM10 = round(d$PM10, 2) # avoid 12-digit numbers printed when hovering over
 
 M <- gvisGeoChart(na.omit(d), locationvar = "code", 
                  colorvar = "PM10",

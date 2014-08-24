@@ -2,7 +2,6 @@
 \alias{air}
 \alias{DE_NUTS1}
 \alias{rural}
-\alias{ISO_3166_2_DE}
 \title{Air quality data, rural background PM10 in Germany, daily averages 1998-2009}
 \description{
 Air quality data obtained from the airBase European air quality
