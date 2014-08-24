@@ -42,6 +42,8 @@ try to make the DE_NUTS1 data in spacetime ready for this.
 ### ISOCodes data set from CRAN
 ISOcodes are available from CRAN, including a mapping to German states:
 ```{r results='asis', eval=TRUE}
+library(spacetime)
+data(air) # loads rural and DE_NUTS1
 library(ISOcodes)
 data("ISO_3166_2")
 ## State names are already in German
@@ -55,8 +57,6 @@ plot(
 We load the two data sets `rural` and `DE_NUTS1` from the spacetime package and
 add the German state names.
 ```{r results='asis'}
-library(spacetime)
-data(air) # loads rural and DE_NUTS1
 ISO_3166_2_DE <- ISO_3166_2_DE[order(ISO_3166_2_DE$Name),]
 DE_NUTS1$name <- ISO_3166_2_DE$Name
 ```
