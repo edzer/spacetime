@@ -48,6 +48,7 @@ This vignette was run using the following libraries:
 library(RPostgreSQL)
 @
 <<>>=
+library(sp)
 library(spacetime)
 @
 
@@ -99,6 +100,13 @@ OGRstring = paste("PG:dbname=", dbname, " user=", user,
 print(OGRstring)
 writeOGR(sp, OGRstring, "rural_space", driver = "PostgreSQL")
 @
+
+In case you have problems replicating this, verify that your \code{rgdal}
+installation privides the \code{PostgreSQL} driver, e.g. by checking that 
+<<eval=FALSE>>=
+subset(ogrDrivers(), name == "PostgreSQL")$write
+@
+prints a \code{TRUE}, and not a \code{logical(0)}.
 
 Second, we will write the table with times to the database,
 and create an index to time:

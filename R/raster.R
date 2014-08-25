@@ -1,9 +1,11 @@
 # provided by (c) Robert J. Hijmans:
 setAs('RasterStackBrick', 'STFDF',
     function(from) {
-		require(raster)
+		# require(raster)
+		if (!requireNamespace("raster", quietly = TRUE))
+			stop("package raster required to coerce to/from raster")
 		# TIME:
-        tvals <- getZ(from)
+        tvals <- raster::getZ(from)
         if (is.null(tvals) || !timeBased(tvals))
             stop('Raster object must have Z values representing time')
 		end.time = attr(from, "end.time")
@@ -16,7 +18,7 @@ setAs('RasterStackBrick', 'STFDF',
         # but should be efficient
         sx <- as(as(from, 'SpatialGrid'), 'SpatialPixels')
 		# ATTRIBUTES:
-        d <- as.data.frame(as.vector(getValues(from)))
+        d <- as.data.frame(as.vector(raster::getValues(from)))
         names(d) = paste(names(from), collapse=".") # could do better?
         STFDF(sx, time = tvals, endTime = endTime, data = d)
     }

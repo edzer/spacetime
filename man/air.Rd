@@ -16,7 +16,8 @@ data(air)
 level data obtained from http://www.gadm.org/ . }
 \references{ http://acm.eionet.europa.eu/databases/airbase }
 \note{ see vignette on overlay and spatio-temporal aggregation in this
-package }
+package; the vignette on using google charts shows where the
+ISO_3166_2_DE table comes from. }
 \keyword{datasets}
 \examples{
 data(air)

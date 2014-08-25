@@ -206,7 +206,9 @@ setAs("STTDF", "ltraj",
 		x = as(from, "STIDF")
 		xy = coordinates(x@sp)
 		da = index(x@time)
-		as.ltraj(xy, da, id = x[["id"]], burst = x[["burst"]])
+		if (!requireNamespace("adehabitatLT", quietly = TRUE))
+			stop("package adehabitatLT required to coerce to/from ltraj")
+		ret = adehabitatLT::as.ltraj(xy, da, id = x[["id"]], burst = x[["burst"]])
 	}
 )
 

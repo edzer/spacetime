@@ -1,7 +1,16 @@
+Wed Aug 20 21:28:05 CEST 2014
+ST* objects -> googleVis -> google charts: which ones?
+  geochart https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart : work out example of air quality aggreg per region; point to ISO 1366-1 or -2
+
+Sort out time shift when TZ is set, or not unset, or not "" etc
+
+Fri Apr  4 14:04:13 CEST 2014
+traj <--> Tracks
+move, moveStack <--> Tracks
+(via STIDF?)
+
 subsetting STF, STS, STI with [
 
-kriging without STFDF's, kriging with STIDF's
+kriging without STFDF's, kriging with STIDF's (I think this is supported now)
 
 single location prediction.
-
-

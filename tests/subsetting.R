@@ -1,3 +1,5 @@
+Sys.setenv(TZ="Europe/Berlin")
+
 library(sp)
 library(spacetime)
 data(air)
@@ -95,6 +97,7 @@ rrSTI[cbind(5:1,1:5),]
 rrSTIDF[rep(3,3),rep(3,3)]
 rrSTIDF[cbind(5:1,1:5),]
 rrSTIDF[cbind(1:5,1:5),]
+<<<<<<< HEAD
 
 # character selection
 #####################
@@ -109,3 +112,5 @@ rrSTFDF[,c("2005-06-01", "2005-06-02", "2005-06-03")]
 
 rrSTI[, c("2005-06-01", "2005-06-02", "2005-06-03")]
 rrSTIDF[, c("2005-06-01", "2005-06-02", "2005-06-03")]
+=======
+>>>>>>> ac8c4d8bfe3e11ca8f14ade6107b917d7c49bdaa

@@ -1,0 +1,729 @@
+2013-09-20 15:47  ben_graeler
+
+	* spacetime/R/STSDF-methods.R: - fixed minor issue for single
+	  points in space and time in coordinates method
+
+2013-09-20 12:34  edzer
+
+	* spacetime/R/STFDF-methods.R, spacetime/R/STIDF-methods.R,
+	  spacetime/R/STSDF-methods.R: added [ methods for STF, STS, STI;
+	  needs some testing
+
+2013-09-19 09:33  jinlong
+
+	* trajectories/R/aggregate.R, trajectories/R/crop.R,
+	  trajectories/data/geolife_sample.RData,
+	  trajectories/inst/geolife_reader.R,
+	  trajectories/man/geolife_sample.Rd,
+	  trajectories/vignettes/demo.Rmd: - Revised crop();
+	  - Revised aggregate();
+	  - Updated geolife_sample.RData
+	  - Added demo.Rmd
+
+2013-09-18 06:53  jinlong
+
+	* trajectories/R/summary.R, trajectories/data/geolife_sample.RData,
+	  trajectories/inst/geolife_reader.R,
+	  trajectories/man/geolife_sample.Rd,
+	  trajectories/tests/crop_and_plot_demo.R,
+	  trajectories/tests/crop_demo.Rout.save: - summary() function
+	  updated
+	  - geolife_reader.R updated with the computation of trajectory
+	  stats
+	  - geolife_sample dataset updated
+
+2013-09-16 07:50  edzer
+
+	* trajectories/R/crop.R,
+	  trajectories/tests/aggregate_demo.Rout.save: take right
+	  coordinates
+
+2013-09-16 07:46  edzer
+
+	* trajectories/R/crop.R: right coordinates
+
+2013-09-16 07:40  edzer
+
+	* trajectories/tests/STItoSTTDFdemo2.Rout.save: test output
+
+2013-09-16 06:59  jinlong
+
+	* trajectories/tests/crop_and_plot_demo.R: - updated the data for
+	  demo
+
+2013-09-16 05:41  jinlong
+
+	* trajectories/data/geolife_sample.RData,
+	  trajectories/inst/geolife_reader.R,
+	  trajectories/man/geolife_sample.Rd,
+	  trajectories/tests/crop_and_plot_demo.R,
+	  trajectories/tests/crop_and_plot_demo.Rout.save,
+	  trajectories/tests/geolife_reader.R, trajectories/vignettes,
+	  trajectories/vignettes/sttdf.png,
+	  trajectories/vignettes/sttdf_cropped_w_pol.png,
+	  trajectories/vignettes/sttdf_w_pol.png: - geolife sample dataset
+	  added.
+
+2013-09-16 05:07  jinlong
+
+	* trajectories/NAMESPACE, trajectories/R/STItoSTTDF.R,
+	  trajectories/R/crop.R, trajectories/notes,
+	  trajectories/tests/STItoSTTDFdemo.R,
+	  trajectories/tests/STItoSTTDFdemo2.R,
+	  trajectories/tests/STItoSTTDFdemo2.Rout.save,
+	  trajectories/tests/STTDF_selection.R,
+	  trajectories/tests/aggregate_demo.R,
+	  trajectories/tests/aggregate_demo.Rout.save,
+	  trajectories/tests/crop_and_plot_demo.R,
+	  trajectories/tests/crop_and_plot_demo.Rout.save,
+	  trajectories/tests/crop_demo.R,
+	  trajectories/tests/crop_demo.Rout.save,
+	  trajectories/tests/cut.STTDF.SpatialPolygons.R,
+	  trajectories/tests/geolife_reader.R,
+	  trajectories/tests/over.STTDF.SpatialPolygons.R,
+	  trajectories/tests/read.R,
+	  trajectories/tests/summary_and_plot_demo.R,
+	  trajectories/tests/traj_sample.R,
+	  trajectories/tests/traj_stats.R: - output files added
+	  - tests files corrected
+	  - bug fixed in crop
+	  - geolife_reader.R revised
+	  - directory cleaned
+
+2013-09-11 10:58  edzer
+
+	* spacetime/DESCRIPTION: version bump
+
+2013-09-10 13:55  edzer
+
+	* spacetime/NAMESPACE, spacetime/R/ST-methods.R,
+	  spacetime/R/coerce.R: setMethod geometry
+	  export geometry and aggregate
+	  corrected coerce STIDF->STTDF
+
+2013-09-09 08:37  edzer
+
+	* spacetime/vignettes/stpg.Rnw: back to 2.14.x compatibility
+
+2013-09-06 07:41  edzer
+
+	* trajectories/NAMESPACE: exportMethod plot
+
+2013-09-06 07:27  edzer
+
+	* trajectories/tests/STItoSTTDFdemo.Rout.save: redid test output
+
+2013-09-06 07:24  edzer
+
+	* trajectories/tests/STItoSTTDFdemo.R: fixed random number
+	  generator seed
+
+2013-09-06 07:22  edzer
+
+	* spacetime/DESCRIPTION,
+	  trajectories/tests/STItoSTTDFdemo.Rout.save: added test output
+
+2013-09-06 07:17  edzer
+
+	* trajectories/tests/STItoSTTDFdemo.R,
+	  trajectories/tests/crop_demo.R: added libraries
+
+2013-09-06 07:12  edzer
+
+	* trajectories/test, trajectories/tests: directory name change
+
+2013-09-06 06:59  edzer
+
+	* trajectories/man/summary.Rd: addressed the NOTE by R CMD check
+
+2013-09-06 06:49  jinlong
+
+	* trajectories/R/aggregate.R,
+	  trajectories/test/merge_not_working.R,
+	  trajectories/test/sample_not_working.R: - Fix bug in aggregate.R
+
+2013-09-05 09:28  edzer
+
+	* spacetime/DESCRIPTION, spacetime/R/Class-ST.R,
+	  spacetime/R/Class-STFDF.R, spacetime/R/Class-STIDF.R,
+	  spacetime/R/Class-STSDF.R, spacetime/R/Class-STTDF.R: removed
+	  slots = c(...) notation, to keep R 2.14 compatibility.
+
+2013-09-03 09:50  edzer
+
+	* spacetime/DESCRIPTION: version downgrade
+
+2013-09-03 09:44  edzer
+
+	* spacetime/DESCRIPTION, spacetime/man/eof.Rd,
+	  spacetime/man/stinteraction.Rd,
+	  spacetime/tests/Examples/spacetime-Ex.Rout.save: issues caused by
+	  gstat 1.0-17
+
+2013-09-03 07:19  jinlong
+
+	* trajectories/NAMESPACE, trajectories/R/aggregate.R,
+	  trajectories/R/crop.R,
+	  trajectories/R/cut.STTDF.SpatialPolygons.R,
+	  trajectories/man/aggregate.Rd,
+	  trajectories/man/cut.STTDF.SpatialPolygons.Rd,
+	  trajectories/test/aggregate_demo.R,
+	  trajectories/test/crop_demo.R,
+	  trajectories/test/summary_and_plot_demo.R: - Add aggregate()
+	  function;
+	  - Rewrite crop() function;
+	  - Delete cut.STTDF.SpatialPolygons() function;
+	  - Modify the demo for aggregate(), summary(), plot(), and crop()
+
+2013-09-02 13:06  edzer
+
+	* spacetime/.Rbuildignore, spacetime/DESCRIPTION,
+	  spacetime/NAMESPACE, spacetime/R/aggregate.R,
+	  spacetime/man/ST-class.Rd, spacetime/man/STFDF-class.Rd,
+	  spacetime/man/STSDF-class.Rd, spacetime/man/STTDF-class.Rd,
+	  spacetime/man/fires.Rd, spacetime/man/na.Rd,
+	  spacetime/man/over.Rd, spacetime/man/unstack.Rd,
+	  spacetime/tests/Examples/spacetime-Ex.Rout.save,
+	  spacetime/tests/basic.R, spacetime/tests/basic.Rout.save,
+	  spacetime/tests/over.R, spacetime/tests/over.Rout.save,
+	  spacetime/tests/rw.R, spacetime/tests/stconstruct.R,
+	  spacetime/tests/stconstruct.Rout.save,
+	  spacetime/tests/traj.Rout.save, spacetime/tests/wind.R,
+	  spacetime/tests/wind.Rout.save, spacetime/vignettes/jss816.Rnw,
+	  spacetime/vignettes/sto.Rnw: sp is now imported, not loaded;
+	  adjusted all examples and demos.
+
+2013-08-30 19:46  edzer
+
+	* spacetime/DESCRIPTION: addressed CRAN NOTE: removed duplicates
+	  between Suggests: and Imports:
+
+2013-08-13 06:07  jinlong
+
+	* trajectories/NAMESPACE, trajectories/R/crop.R,
+	  trajectories/R/over.STTDF.STTDF.R,
+	  trajectories/R/over.STTDF.SpatialPolygons.R,
+	  trajectories/R/plot.R, trajectories/R/summary.R,
+	  trajectories/man/crop.Rd, trajectories/man/over.STTDF.STTDF.Rd,
+	  trajectories/man/over.STTDF.SpatialPolygons.Rd,
+	  trajectories/notes, trajectories/test/crop_demo.R,
+	  trajectories/test/read.R,
+	  trajectories/test/summary_and_plot_demo.R: - crop() added
+	  - summary() fixed with invalid data attributes
+
+2013-08-05 07:40  jinlong
+
+	* trajectories/demo/00Index, trajectories/demo/STItoSTTDFdemo.R,
+	  trajectories/demo/STItoSTTDFdemo2.R,
+	  trajectories/demo/STTDF_selection.R,
+	  trajectories/demo/cut.STTDF.SpatialPolygons.R,
+	  trajectories/demo/geolife_reader.R,
+	  trajectories/demo/over.STTDF.SpatialPolygons.R,
+	  trajectories/demo/read.R, trajectories/demo/traj_sample.R,
+	  trajectories/demo/traj_stats.R, trajectories/notes,
+	  trajectories/test, trajectories/test/STItoSTTDFdemo.R,
+	  trajectories/test/STItoSTTDFdemo2.R,
+	  trajectories/test/STTDF_selection.R,
+	  trajectories/test/cut.STTDF.SpatialPolygons.R,
+	  trajectories/test/geolife_reader.R,
+	  trajectories/test/over.STTDF.SpatialPolygons.R,
+	  trajectories/test/read.R, trajectories/test/traj_sample.R,
+	  trajectories/test/traj_stats.R: - Move all files in demo folder
+	  into test folder;
+	  - Update the note;
+
+2013-08-05 07:11  jinlong
+
+	* trajectories/R/STItoSpatialLines.R, trajectories/R/plot.R,
+	  trajectories/R/summary.R, trajectories/man/STItoSpatialLines.Rd,
+	  trajectories/man/plot.Rd, trajectories/man/summary.Rd: - Missing
+	  files added
+
+2013-08-05 07:11  jinlong
+
+	* trajectories/NAMESPACE,
+	  trajectories/R/cut.STTDF.SpatialPolygons.R, trajectories/notes: -
+	  Added plot.R, summary.R, STItoSpatialLines.R
+	  - Modified cut.STTDF.SpatialPolygons.R and STI to SpatialLines.R
+
+2013-07-23 13:10  edzer
+
+	* trajectories/man/traj_sample.Rd: alias
+
+2013-07-23 12:55  jinlong
+
+	* trajectories/DESCRIPTION, trajectories/NAMESPACE,
+	  trajectories/R/STItoSTTDF.R,
+	  trajectories/R/STTDFtoSpatialLines.R,
+	  trajectories/R/cut.STTDF.SpatialPolygons.R,
+	  trajectories/R/over.STTDF.SpatialPolygons.R,
+	  trajectories/demo/00Index, trajectories/demo/STItoSTTDFdemo2.R,
+	  trajectories/demo/cut.STTDF.SpatialPolygons.R,
+	  trajectories/demo/traj_sample.R,
+	  trajectories/man/STTDFtoSpatialLines.Rd,
+	  trajectories/man/cut.STTDF.SpatialPolygons.Rd,
+	  trajectories/man/over.STTDF.SpatialPolygons.Rd: -
+	  cut.STTDF.SpatialPolygons.R added
+	  - STTDFtoSpatialLines.R added
+
+2013-07-21 16:22  jinlong
+
+	* trajectories/NAMESPACE,
+	  trajectories/R/over.STTDF.SpatialPolygons.R, trajectories/data,
+	  trajectories/data/traj_sample.RData, trajectories/demo/00Index,
+	  trajectories/demo/over.STTDF.SpatialPolygons.R,
+	  trajectories/demo/traj_sample.R,
+	  trajectories/man/over.STTDF.STTDF.Rd,
+	  trajectories/man/over.STTDF.SpatialPolygons.Rd,
+	  trajectories/man/traj_sample.Rd, trajectories/notes: - New
+	  dataset
+	  - over.STTDF.SpatialPolygons
+
+2013-07-16 06:54  jinlong
+
+	* trajectories/DESCRIPTION, trajectories/NAMESPACE,
+	  trajectories/R/STItoSTTDF.R, trajectories/R/over.STTDF.STTDF.R,
+	  trajectories/demo/STItoSTTDFdemo.R,
+	  trajectories/demo/geolife_reader.R, trajectories/inst,
+	  trajectories/man/over.STTDF.STTDF.Rd, trajectories/notes: -
+	  over.STTDF.STTDF.R added
+
+2013-07-14 07:26  jinlong
+
+	* trajectories/NAMESPACE, trajectories/demo/STTDF_selection.R: -
+	  Clean package check with one warning message
+
+2013-07-13 11:54  edzer
+
+	* spacetime/vignettes/stpg.Rnw: set eval=FALSE again; updated the
+	  off-cran eval=TRUE document
+
+2013-07-13 09:18  edzer
+
+	* spacetime/vignettes/stpg.Rnw: updated vignette
+
+2013-07-13 07:58  jinlong
+
+	* trajectories/demo/00Index, trajectories/demo/STItoSTTDFdemo.R,
+	  trajectories/demo/sttdf_computation.R,
+	  trajectories/man/STItoSTTDF.Rd: - Updated the description in
+	  demo/00Index
+	  - Added comments in STItoSTTDFdemo.R
+
+2013-07-12 09:19  edzer
+
+	* trajectories/DESCRIPTION, trajectories/NAMESPACE,
+	  trajectories/demo/00Index, trajectories/man/STItoSTTDF.Rd: tidy
+	  to make check clean; import rgdal to support project().
+
+2013-07-12 07:56  jinlong
+
+	* trajectories/DESCRIPTION, trajectories/NAMESPACE,
+	  trajectories/R/STItoSTTDF.R, trajectories/man/STItoSTTDF.Rd: -
+	  Updated STItoSTTDF.Rd
+
+2013-07-12 07:23  jinlong
+
+	* trajectories/DESCRIPTION, trajectories/NAMESPACE,
+	  trajectories/R/STItoSTTDF.R, trajectories/man/STItoSTTDF.Rd: -
+	  Fixed multiple bugs that preventing building the package
+
+2013-07-11 06:23  jinlong
+
+	* trajectories/NAMESPACE, trajectories/demo/STTDF_selection.R: -
+	  NAMESPACE updated
+	  - STTDF_selection.R temporarily disabled
+
+2013-07-11 06:00  jinlong
+
+	* trajectories/NAMESPACE, trajectories/R/STItoSTTDF.R,
+	  trajectories/demo/STItoSTTDF.R,
+	  trajectories/demo/STItoSTTDFdemo.R,
+	  trajectories/demo/geolife_reader.R,
+	  trajectories/man/STItoSTTDF.Rd, trajectories/notes: - notes
+	  updates
+	  - STItoSTTDF.R moved to R/
+	  - geolife.R updated
+	  - NAMESPACE updated
+
+2013-07-09 15:27  edzer
+
+	* spacetime/DESCRIPTION, spacetime/R/Class-ST.R,
+	  spacetime/R/Class-STFDF.R, spacetime/R/Class-STIDF.R,
+	  spacetime/R/Class-STSDF.R, spacetime/R/Class-STTDF.R,
+	  spacetime/R/Class-xts.R, spacetime/R/coerce.R: changed
+	  "representation" into "contains" and "slots", as for R 3.0.0
+	  recommendations;
+	  changed import order of xts and zoo.;
+	  changed setClass to setOldClass for S3 class registration.
+
+2013-07-09 08:01  jinlong
+
+	* trajectories/demo/STItoSTTDF.R,
+	  trajectories/demo/geolife_reader.R,
+	  trajectories/man/STItoSTTDF.Rd, trajectories/notes: - notes
+	  updated
+	  - multiple updated for the R scripts in demo directory
+
+2013-07-09 06:44  jinlong
+
+	* trajectories/demo/STItoSTTDF.R, trajectories/man/STItoSTTDF.Rd,
+	  trajectories/notes: - Updated on notes
+	  - Added STItoSTTDF.Rd
+
+2013-07-08 07:41  jinlong
+
+	* trajectories/demo/STItoSTTDF.R,
+	  trajectories/demo/geolife_reader.R,
+	  trajectories/demo/sttdf_computation.R, trajectories/notes: -
+	  STItoSTTDF.R added
+	  - geolife_reader.R added
+	  - STTDF_computation.R modified
+	  - notes updated
+
+2013-07-04 07:52  jinlong
+
+	* trajectories/notes: - Updated tasks for Week 3
+
+2013-07-04 07:00  jinlong
+
+	* trajectories/demo/sttdf_computation.R: - Turning angle updated
+	  for STTDF_computation.R
+
+2013-07-03 18:55  jinlong
+
+	* trajectories/demo/sttdf_computation.R: - Test on turning angle
+	  computation
+
+2013-07-03 05:16  jinlong
+
+	* trajectories/demo/sttdf_computation.R: - Update on
+	  STTDF_computation.R
+
+2013-07-02 00:24  jinlong
+
+	* trajectories/notes: - update on STTDF_selection.R
+	  - update on note
+
+2013-07-01 07:28  edzer
+
+	* spacetime/inst/CITATION: name fix
+
+2013-07-01 07:18  edzer
+
+	* spacetime/inst/CITATION: added ASDAR 2nd ed to CITATION
+
+2013-07-01 06:49  jinlong
+
+	* trajectories/notes: - note updated
+
+2013-07-01 06:44  jinlong
+
+	* trajectories/demo/STTDF_selection.R,
+	  trajectories/demo/sttdf_computation.R, trajectories/notes: - Note
+	  updated
+	  - STTDF_selection.R and STTDF_Computation.R added
+
+2013-07-01 01:02  jinlong
+
+	* trajectories/demo/sttdf_computation.R, trajectories/notes: -
+	  updated notes
+	  - added sttdf_computation.R
+
+2013-06-30 15:46  edzer
+
+	* spacetime/DESCRIPTION, spacetime/inst/doc, spacetime/vignettes,
+	  spacetime/vignettes/cls.fig, spacetime/vignettes/cls.pdf,
+	  spacetime/vignettes/hov.pdf,
+	  spacetime/vignettes/ifgi-logo_int.pdf,
+	  spacetime/vignettes/jss816.Rnw, spacetime/vignettes/jss816.bib,
+	  spacetime/vignettes/jsslogo.jpg, spacetime/vignettes/logo52n.pdf,
+	  spacetime/vignettes/move.fig, spacetime/vignettes/move.pdf,
+	  spacetime/vignettes/produc.jpg, spacetime/vignettes/sto.Rnw,
+	  spacetime/vignettes/stpg.Rnw, spacetime/vignettes/ti.fig,
+	  spacetime/vignettes/ti.pdf, spacetime/vignettes/tp.pdf,
+	  spacetime/vignettes/ts.pdf, spacetime/vignettes/wind.pdf,
+	  spacetime/vignettes/windts.pdf: moved vignettes to vignettes
+	  directory.
+
+2013-06-27 02:59  jinlong
+
+	* trajectories/demo/read.R, trajectories/notes: - Notes updated
+	  - First take on read.R
+
+2013-06-25 15:08  edzer
+
+	* trajectories/demo/read.R: read.R reads GeoLife trajectories into
+	  STI object
+
+2013-06-24 07:13  jinlong
+
+	* trajectories/notes: Fixed typos in Weekly Report 1
+
+2013-06-24 06:50  jinlong
+
+	* trajectories/notes: Update on Weekly Report 1
+
+2013-06-24 06:09  jinlong
+
+	* trajectories/notes: Jinlong's commit test
+
+2013-06-17 15:21  edzer
+
+	* trajectories/notes: next meeting
+
+2013-06-17 15:13  edzer
+
+	* trajectories/notes: final notes
+
+2013-06-17 15:04  edzer
+
+	* trajectories/notes: notes of the Jun 17 telco of Edzer and
+	  Jinlong
+
+2013-06-17 08:43  edzer
+
+	* spacetime/R/STIDF-methods.R, spacetime/R/stplot.R,
+	  spacetime/man/stconstruct.Rd, spacetime/man/stplot.Rd,
+	  spacetime/tests/stconstruct.R,
+	  spacetime/tests/stconstruct.Rout.save: modified subs.STIDF to
+	  take care of duplicate selection;
+	  modified STIDF stplot method to use spplot;
+	  modified stconstruct examples which then no longer ran well;
+
+2013-06-08 21:11  edzer
+
+	* spacetime/DESCRIPTION, spacetime/NAMESPACE,
+	  spacetime/R/Class-xts.R, spacetime/R/STFDF-methods.R,
+	  spacetime/R/aggregate.R, spacetime/R/stplot.R,
+	  spacetime/man/ST-class.Rd, spacetime/man/STFDF-class.Rd,
+	  spacetime/man/stplot.Rd: added as.array() method
+	  improved stplot for STIDF
+	  improved as.zoo.STFDF
+	  added options "time" and "space" for by argument in
+	  aggregate.STFDF
+	  added S4 class zoo
+
+2013-05-31 21:46  edzer
+
+	* spacetime/R/coerce.R, spacetime/R/plot.R,
+	  spacetime/man/STFDF-class.Rd, spacetime/man/STSDF-class.Rd,
+	  spacetime/man/stinteraction.Rd: added plot method for ST[FS]DF,
+	  indicating missing value pattern;
+	  added STI <--> stpp coercion (using as.POSIXct, with origing
+	  1970-01-01 GMT)
+
+2013-05-17 15:09  edzer
+
+	* trajectories/DESCRIPTION, trajectories/NAMESPACE,
+	  trajectories/man/traj_stats.Rd: initial check.
+
+2013-05-17 14:56  edzer
+
+	* trajectories, trajectories/DESCRIPTION, trajectories/NAMESPACE,
+	  trajectories/R, trajectories/R/traj_stats.R, trajectories/demo,
+	  trajectories/demo/traj_stats.R, trajectories/man,
+	  trajectories/man/traj_stats.Rd: initial upload of Jinlong's
+	  Geolife trajectory reader
+
+2013-05-17 10:53  edzer
+
+	* ChangeLogOld, DESCRIPTION, NAMESPACE, R, data, demo, inst, man,
+	  spacetime, spacetime/ChangeLogOld, spacetime/DESCRIPTION,
+	  spacetime/NAMESPACE, spacetime/R, spacetime/data, spacetime/demo,
+	  spacetime/inst, spacetime/man, spacetime/svn2cl.xsl,
+	  spacetime/tests, svn2cl.xsl, tests: made room for additional
+	  packages, next to spacetime
+
+2013-05-16 20:09  edzer
+
+	* man/stconstruct.Rd: line break
+
+2013-05-14 16:55  edzer
+
+	* DESCRIPTION, NAMESPACE, R/stinteraction.R, man/stinteraction.Rd:
+	  added stInteraction(), an idea from agile workshop
+
+2013-05-08 08:00  edzer
+
+	* inst/doc/jss816.Rnw: updated cshapes example to deal with missing
+	  date (-1) in cshapes 0.4-2
+
+2013-04-29 18:24  edzer
+
+	* DESCRIPTION, R/ST-methods.R,
+	  tests/Examples/spacetime-Ex.Rout.save, tests/basic.Rout.save,
+	  tests/raster.Rout.save, tests/stconstruct.Rout.save,
+	  tests/traj.Rout.save, tests/wind.Rout.save: updated spTransform;
+	  clean R CMD check for R 3.0.0.
+
+2013-04-19 13:32  edzer
+
+	* R/ST-methods.R: added require(rgdal) before the spTransform()
+	  call on Spatial objects.
+
+2013-04-15 07:30  edzer
+
+	* DESCRIPTION: updated DESCRIPTION
+
+2013-04-10 22:47  edzer
+
+	* R/Class-STSDF.R, R/ST-methods.R, R/timematch.R: added some more
+	  useful error messages, after r-sig-geo email from Saman
+
+2013-03-02 11:25  edzer
+
+	* NAMESPACE, R/ST-methods.R, R/STFDF-methods.R, R/STTDF-methods.R,
+	  R/coerce.R, R/stplot.R, R/timematch.R, demo/CressieWikle.R,
+	  inst/doc/jss816.Rnw, inst/doc/sto.Rnw, man/STTDF-class.Rd,
+	  tests/Examples/spacetime-Ex.Rout.save, tests/rw.R: added manual
+	  entries;
+	  updated (completed) [ for STT and STTDF
+	  added length methods for STT
+	  removed warnings from sto.Rnw
+	  added/improved coerces from/to STT
+	  added require(zoo) to CressieWikle demo
+	  added documentation and vignette text on [.STT; examples
+
+2013-03-01 00:22  edzer
+
+	* DESCRIPTION, NAMESPACE, R/Class-ST.R, R/aggregate.R, R/coerce.R,
+	  R/over.R, R/stconstruct.R, R/timematch.R, demo/CressieWikle.R:
+	  added zoo back to Suggests: and loaded it in demo/CressieWikle.R
+	  cleaned up timeIsInterval stuff
+
+2013-02-19 20:48  edzer
+
+	* DESCRIPTION: starting 1.0-5
+
+2013-02-19 20:48  edzer
+
+	* DESCRIPTION, R/ST-methods.R, inst/doc/stpg.Rnw,
+	  tests/Examples/spacetime-Ex.Rout.save, tests/raster.Rout.save,
+	  tests/wind.Rout.save: 1.0-4 release to CRAN.
+
+2013-02-15 21:58  edzer
+
+	* R/raster.R: use timeBased()
+
+2013-02-15 21:50  edzer
+
+	* NAMESPACE, R/ST-methods.R, R/STFDF-methods.R, R/STIDF-methods.R,
+	  R/STSDF-methods.R: use xts::timeBased() when time is not xts upon
+	  construction;
+	  drop tzone in xts() call when index is Date (to suppress warning)
+
+2013-02-14 13:04  edzer
+
+	* DESCRIPTION: dependency on gstat 1.0-16.
+
+2013-02-13 21:29  ben_graeler
+
+	* inst/doc/jss816.Rnw: - adapted to changes in gstat (i.e. using
+	  vgmST)
+
+2013-02-09 19:10  edzer
+
+	* DESCRIPTION: tidy
+
+2013-02-09 19:04  edzer
+
+	* DESCRIPTION: date update
+
+2013-02-09 19:02  edzer
+
+	* R/stplot.R: update, to accomodate plotting legend handling for
+	  points
+
+2013-02-04 14:53  edzer
+
+	* DESCRIPTION: date update
+
+2013-01-29 20:56  edzer
+
+	* DESCRIPTION: triggering rebuild on r-forge.
+
+2013-01-25 12:45  edzer
+
+	* DESCRIPTION, NAMESPACE, R/STTDF-methods.R, inst/doc/jss816.Rnw,
+	  man/STTDF-class.Rd: added [ method to STTDF; minor update on
+	  vignette
+
+2013-01-25 10:08  ben_graeler
+
+	* ., inst/doc/jss816.Rnw: - updated the jss816.Rnw to the new
+	  spatio-temporal variogram definition from gstat
+
+2013-01-08 12:47  edzer
+
+	* inst/doc/jss816.Rnw: tidy vignette
+
+2012-12-27 19:08  edzer
+
+	* inst/doc/sto.Rnw: added trick to avoid build break on r-forge.
+
+2012-12-25 15:01  edzer
+
+	* DESCRIPTION: version update after CRAN release of 1.0-3
+
+2012-12-25 14:01  edzer
+
+	* DESCRIPTION, R/STFDF-methods.R, data/air.rda: updated air.rda to
+	  pass new rgdal check
+
+2012-12-17 12:11  edzer
+
+	* NAMESPACE, R/STFDF-methods.R, R/tgrass.R, man/nbmult.Rd: added
+	  nbMult, for space-time neighbours in STF* objects;
+	  reverted changes to tgrass back (using setwd() etc)
+
+2012-12-17 09:08  edzer
+
+	* DESCRIPTION: put zoo and xts versions one down, to match (?)
+	  those on r-forge
+
+2012-12-15 17:19  edzer
+
+	* R/tgrass.R: removed setwd() in tgrass.R to check if this blocked
+	  building on r-forge...
+
+2012-12-14 14:00  edzer
+
+	* ChangeLog, ChangeLogOld, DESCRIPTION: moved 52N svn repo
+	  ChangeLog to ChangeLogOld; added makefile
+
+2012-12-14 13:56  edzer
+
+	* ChangeLog, DESCRIPTION, NAMESPACE, R, R/Class-ST.R,
+	  R/Class-STFDF.R, R/Class-STIDF.R, R/Class-STSDF.R,
+	  R/Class-STTDF.R, R/Class-xts.R, R/ST-methods.R,
+	  R/STFDF-methods.R, R/STIDF-methods.R, R/STSDF-methods.R,
+	  R/STTDF-methods.R, R/aggregate.R, R/apply.R, R/bind.R,
+	  R/coerce.R, R/endtime.R, R/eof.R, R/interval.R, R/na.R, R/over.R,
+	  R/plot.R, R/raster.R, R/stconstruct.R, R/stplot.R, R/tgrass.R,
+	  R/timematch.R, data, data/air.rda, data/fires.rda, demo,
+	  demo/00Index, demo/CW.R, demo/CressieWikle.R, demo/edc.R,
+	  demo/gvis.R, demo/sos4R.R, demo/trip.R, inst, inst/CITATION,
+	  inst/doc, inst/doc/cls.fig, inst/doc/cls.pdf, inst/doc/hov.pdf,
+	  inst/doc/ifgi-logo_int.pdf, inst/doc/jss816.Rnw,
+	  inst/doc/jss816.bib, inst/doc/jsslogo.jpg, inst/doc/logo52n.pdf,
+	  inst/doc/move.fig, inst/doc/move.pdf, inst/doc/produc.jpg,
+	  inst/doc/sto.Rnw, inst/doc/stpg.Rnw, inst/doc/ti.fig,
+	  inst/doc/ti.pdf, inst/doc/tp.pdf, inst/doc/ts.pdf,
+	  inst/doc/wind.pdf, inst/doc/windts.pdf, man, man/ST-class.Rd,
+	  man/STFDF-class.Rd, man/STIDF-class.Rd, man/STSDF-class.Rd,
+	  man/STTDF-class.Rd, man/air.Rd, man/delta.Rd, man/eof.Rd,
+	  man/fires.Rd, man/interval.Rd, man/na.Rd, man/over.Rd,
+	  man/stconstruct.Rd, man/stplot.Rd, man/tgrass.Rd,
+	  man/timematch.Rd, man/unstack.Rd, svn2cl.xsl, tests,
+	  tests/Examples, tests/Examples/spacetime-Ex.Rout.save,
+	  tests/basic.R, tests/basic.Rout.save, tests/over.R,
+	  tests/over.Rout.save, tests/raster.R, tests/raster.Rout.save,
+	  tests/stconstruct.R, tests/stconstruct.Rout.save, tests/traj.R,
+	  tests/traj.Rout.save, tests/wind.R, tests/wind.Rout.save: initial
+	  commit to r-forge
+
+2011-09-15 15:26  stefan7th
+
+	* .: small themeroot fix
+

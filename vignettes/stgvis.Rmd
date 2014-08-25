@@ -1,0 +1,224 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Spatial and spatio-temporal objects in Google charts}
+-->
+
+# Spatial and spatio-temporal objects in google charts
+
+This vignette shows how Google charts can be used to
+display some spatio-temporal data sets used in the
+[JSS paper](http://www.jstatsoft.org/v51/i07/) on
+[spacetime](http://cran.r-project.org/package=spacetime).
+
+[Google
+charts](https://developers.google.com/chart/interactive/docs/index)
+are interactive graphs in web pages
+that use Google proprietary code. R package
+[googleVis](http://cran.r-project.org/package=googleVis) converts
+R data.frame objects into Google charts. This vignette uses
+[knitr](http://cran.r-project.org/package=knitr) and markdown to
+create a web page from the R-markdown [source file](https://github.com/edzer/spacetime/blob/master/vignettes/stgvis.Rmd). It
+was inspired by, and copies small sections of, the corresponding
+[googleVis](http://cran.r-project.org/package=googleVis)
+[vignette](http://cran.r-project.org/web/packages/googleVis/vignettes/Using_googleVis_with_knitr.html)
+
+Set the googleVis options first to change the behaviour of `plot.gvis`,
+so that only the chart component of the HTML file is written into
+the output file.
+```{r setOptions, message=FALSE}
+library(googleVis)
+op <- options(gvis.plot.tag='chart')
+```
+Following plot statements for `gvis` objects will automatically return
+the HTML required for the 'knitted' output.
+
+## Geo Charts
+
+Geo charts work with country or region (state,
+administrative regions, e.g. NUTS1, formally [ISO
+3166-2](http://en.wikipedia.org/wiki/ISO_3166-2)) data. We will
+try to make the DE_NUTS1 data in spacetime ready for this.
+
+### ISOCodes data set from CRAN
+ISOcodes are available from CRAN, including a mapping to German states:
+```{r results='asis', eval=TRUE}
+library(spacetime)
+data(air) # loads rural and DE_NUTS1
+library(ISOcodes)
+data("ISO_3166_2")
+## State names are already in German
+ISO_3166_2_DE <- subset(ISO_3166_2, Country %in% "DE")
+plot(
+  gvisTable(ISO_3166_2_DE)
+  )
+```
+
+
+We load the two data sets `rural` and `DE_NUTS1` from the spacetime package and
+add the German state names.
+```{r results='asis'}
+ISO_3166_2_DE <- ISO_3166_2_DE[order(ISO_3166_2_DE$Name),]
+DE_NUTS1$name <- ISO_3166_2_DE$Name
+```
+
+Plotting `Shape_Area`, a variable present for all regions in `DE_NUTS1`:
+```{r GeoMapExample, results='asis', tidy=FALSE}
+library(googleVis)
+## Create list with options for Geo Chart to be used
+geoChartDE <- list(region="DE", 
+                   resolution="provinces",
+                   legend="{numberFormat:'#,###.00'}") 
+plot(
+  gvisGeoChart(DE_NUTS1@data, locationvar = "name", 
+               colorvar = "Shape_Area",
+               options=geoChartDE)
+  )
+```
+reveals that Brandenburg is [not recognized](https://code.google.com/p/google-visualization-api-issues/issues/detail?id=707)!  We will now try with
+the ISO 3166-2 codes:
+```{r results='asis'}
+DE_NUTS1$code = ISO_3166_2_DE$Code
+plot(
+  gvisGeoChart(DE_NUTS1@data, locationvar = "code", 
+               colorvar = "Shape_Area",
+               options=geoChartDE)
+  )
+```
+which reveals that we now have all regions displayed. 
+
+## An air quality example Geo chart
+
+We can compute yearly average PM10 concentration over each
+of the states and present a map with a table next to it:
+
+```{r results='asis'}
+DE_NUTS1.years = STF(DE_NUTS1, as.Date(c("2008-01-01", "2009-01-01")))
+agg = aggregate(rural[,"2008::2009"], DE_NUTS1.years, mean, na.rm=TRUE)
+d = agg[,1]@data # select time step one, take attr table of resulting SpatialPolygonsDataFrame object
+d$code = ISO_3166_2_DE$Code # add region codes
+d$PM10 = round(d$PM10, 2) # avoid 12-digit numbers printed when hovering over
+
+M <- gvisGeoChart(na.omit(d), locationvar = "code", 
+                 colorvar = "PM10",
+                 options=c(geoChartDE, height=400)) # drop NA values for Geo chart
+
+## Add German state names for table
+d$code <- ISO_3166_2_DE$Name
+Tbl <- gvisTable(d, options=list(height=400), 
+                 formats=list(PM10="#,###.0"))
+plot(gvisMerge(M, Tbl, horizontal=TRUE))
+```
+The white states received no value and correspond to `NA` values
+in the R object `d`; they were omitted by the `na.omit` call.
+
+## Irish wind station mean and standard deviations
+
+The Irish wind data has 12 stations, shown here on a map, colour
+denoting mean wind speed, symbols size its standard deviation:
+```{r results='asis'}
+library(sp)
+data("wind", package = "gstat")
+wind.loc$y = as.numeric(char2dms(as.character(wind.loc[["Latitude"]])))
+wind.loc$x = as.numeric(char2dms(as.character(wind.loc[["Longitude"]])))
+wind.loc$yx = paste(wind.loc$y, wind.loc$x, sep=":")
+m = round(apply(wind,2,mean), 3)
+sd = round(apply(wind,2,sd), 3)
+wind.loc$mean = m[match(wind.loc$Code, names(m))]
+wind.loc$sd = sd[match(wind.loc$Code, names(sd))]
+plot( gvisGeoChart(wind.loc, "yx", "mean", "sd", "Station",
+                   options = list(region = "IE", 
+                                  legend="{numberFormat:'#.00'}"))
+      )
+```
+
+# Time lines
+Two time lines are shown that have interesting interaction
+possibilities. For each of them, a subset of the full data sets
+(Irish wind and German air quality) are given, as the full data sets
+takes rather long to process (Rmd to html) and makes the browser
+slow loading the graph and when interacting with the data (2014).
+
+## Iris Wind in Time Annotation
+We select the last three years of the wind data set, 
+to not overload the browser:
+```{r results='asis'}
+# select:
+wind = wind[wind$year > 76,] # select three years, 1976-1978
+time = ISOdate(wind$year+1900, wind$month, wind$day)
+wind.stack = stack(wind[,4:15])
+names(wind.stack) = c("wind_speed", "station")
+wind.stack$time = rep(time, 12)
+plot(
+  gvisAnnotatedTimeLine(wind.stack, "time", "wind_speed", "station",
+                        options = list(width = "1000px", 
+                                       height = "500px",
+                                       zoomStartTime=time[length(time)-365], 
+                                       zoomEndTime=max(time)))
+)
+```
+
+## Irish wind in a Line Chart
+
+The Line Chart also supports time, and allows for identifying 
+separate lines, when clicking the line or the station. It does
+not allow zooming, and does not work well for many observations
+or many lines.
+
+```{r results='asis'}
+wind$time = time
+plot(
+  gvisLineChart(wind[1:200,], "time", names(wind)[4:9])
+  )
+```
+Line charts deal well with gaps in time series:
+```{r results='asis'}
+wind$time = time
+wind[4:5, 7:9] = NA
+plot(
+  gvisLineChart(wind[1:10,], "time", names(wind)[4:9])
+  )
+```
+
+## Rural PM10 data from spacetime: Annotation Chart
+The PM10 data in the [spacetime
+vignette](http://cran.r-project.org/web/packages/spacetime/vignettes/sto.pdf)
+contain missing values. These are connected by straight lines in
+the Annotated Time Line, rendering this visualisation useless.
+
+In contrast, Annotation Charts deal with gaps (missing values) 
+in time series, and show them as discontinuities in the lines:
+```{r results='asis'}
+library(spacetime)
+data(air)
+d = as(rural[1:10,"2001"], "data.frame") # daily, 2001
+plot(
+  gvisAnnotationChart(d, "time", "PM10", "sp.ID",
+                      options = list(width = "1000px", 
+                                     height = "500px"))
+  # zoomStartTime=d$time[1], zoomEndTime=d$time[1]+365))
+  )
+```
+The result is still a bit flaky; just try it for the full time series.
+
+# Motion Chart
+
+The following example shows a motion chart of the `Produc` data used
+in the spacetime manual, but does not convert the data. Time is simply
+year (integer).
+
+```{r MotionChartExample, results='asis', tidy=FALSE}
+data("Produc", package = "plm")
+plot(
+  gvisMotionChart(Produc, idvar="state", timevar="year")
+)
+```
+(Please note that the Motion Chart is only displayed when hosted on a
+web server, or if placed in a directory which has been added to the 
+trusted sources in the [security settings of Macromedia]
+(http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html). 
+See the googleVis package vignette for more details. )
+
+```{r resetOptions}
+## Set options back to original options
+options(op)
+```

@@ -1,6 +1,5 @@
 setClass("ST",
-  #slots = c(sp = "Spatial", time = "xts", endTime = "POSIXct"),
-  representation(sp = "Spatial", time = "xts", endTime = "POSIXct"),
+  slots = c(sp = "Spatial", time = "xts", endTime = "POSIXct"),
   validity = function(object) {
     stopifnot(length(object@sp) >= 1)
 	stopifnot(nrow(object@time) >= 1)
