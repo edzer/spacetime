@@ -186,10 +186,15 @@ rbind.STIDF <- function(...) {
     dots = list(...)
     names(dots) <- NULL
 	stopifnot(identicalCRS(dots))
+	# c() drops tzone attribute:
+	time =    do.call(c, lapply(dots, function(x) index(x)))
+	attr(time, "tzone") = attr(index(dots[[1]]@time), "tzone")
+	endTime = do.call(c, lapply(dots, function(x) x@endTime))
+	attr(endTime, "tzone") = attr(index(dots[[1]]@endTime), "tzone")
 	STIDF(
 		sp =      do.call(rbind, lapply(dots, function(x) x@sp)),
-		time =    do.call(c, lapply(dots, function(x) index(x))),
+		time =    time,
 		data =    do.call(rbind, lapply(dots, function(x) x@data)),
-		endTime = do.call(c, lapply(dots, function(x) x@endTime))
+		endTime = endTime
 	) # will re-order according to time
 }
