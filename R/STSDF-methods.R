@@ -69,12 +69,12 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
     	}
 	} 
 
-  matrix.i <- FALSE
+	matrix.i <- FALSE
   
 	# space
-  #######
+	#######
   
-  # keep track of original spatial indicies - if not yet 
+	# keep track of original spatial indicies - if not yet 
   	if (!is.character(row.names(x@sp)))
     	row.names(x@sp) <- as.character(row.names(x@sp))
   
