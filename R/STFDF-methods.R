@@ -123,6 +123,12 @@ subs.STF_and_STFDF <- function(x, i, j, ... , drop = is(x, "STFDF")) {
 			return(x)
 	} 
 
+	if (!missing.i && is(i, "STF")) { # highjack i and j:
+		j = which(!is.na(timeMatch(x,i)))
+		i = which(!is.na(over(x@sp, geometry(i@sp))))
+		missing.j = FALSE
+	}
+
 	matrix.i <- FALSE
 	
 	# space
