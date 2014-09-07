@@ -111,6 +111,9 @@ stsdf$ID
 stsdf$ID = paste("OldIDs", 1:12, sep="")
 stsdf$NewID = paste("NewIDs", 12:1, sep="")
 stsdf
+x = stsdf[stsdf,]
+x = stsdf[stsdf[1:2,],]
+all.equal(x, stsdf[1:2,])
 }
 
 \keyword{classes}
