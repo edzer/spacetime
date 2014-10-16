@@ -99,10 +99,10 @@ aggregate.STFDF = function(x, by, FUN, ..., simplify = TRUE) {
 	FUN = match.fun(FUN)
 	if (identical(by, "time"))
 		addAttrToGeom(x@sp,
-			as.data.frame(apply(as.array(x), c(1,3), FUN)),
+			as.data.frame(apply(as.array(x), c(1,3), FUN, ...)),
 			FALSE)
 	else if (identical(by, "space"))
-		xts(apply(as.array(x), c(2,3), FUN), index(x@time))
+		xts(apply(as.array(x), c(2,3), FUN, ...), index(x@time))
 	else
 		aggregate.ST(x, by, FUN, ..., simplify = simplify)
 }
