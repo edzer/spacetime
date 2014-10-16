@@ -41,7 +41,9 @@ or an index vector }
 \item{by}{ geometry over which attributes in \code{x} are aggregated
 (this can be a \code{Spatial*} geometry, or a \code{ST*} geometry), or
 temporal aggregation, such as "month", "10 minutes", or a function such
-as \link[zoo]{as.yearmon}; see \link[zoo]{aggregate.zoo}}
+as \link[zoo]{as.yearmon}; see \link[zoo]{aggregate.zoo}. In case \code{x}
+is of class \link{STFDF}, argument \code{by} may be "time" or "space", in
+which cases aggregation over all time or all space is carried out.}
 \item{FUN}{aggregation function }
 \item{simplify}{boolean; if TRUE, and space or time dimensions can be
 dropped, the simpler (\code{Spatial} or \code{xts}) object will be returned }
