@@ -106,7 +106,7 @@ plot(eof.t[,2], main = "5.17d", ylab = "EOF 2")
 # ... and so on.
 
 # 5.19: EOF summary stats
-eof.summ = eof(sst.st[sea,], returnPredictions = FALSE)
+eof.summ = eof(sst.st[sea,], returnEOFs = FALSE)
 v = eof.summ$sdev^2
 plot(100*cumsum(v[1:100])/sum(v),
 	ylim=c(0,100), ylab = "Percent", xlab = "EOF", main = "Figure 5.19")
