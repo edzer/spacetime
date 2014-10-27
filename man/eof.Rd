@@ -3,15 +3,20 @@
 \title{ Compute spatial or temporal empirical orthogonal function (EOF) }
 \description{ Compute spatial or temporal empirical orthogonal function (EOF) }
 \usage{ 
+eof(x, how = c("spatial", "temporal"), returnEOFs = TRUE, ...)
 EOF(x, how = c("spatial", "temporal"), returnPredictions = TRUE, ...)
 }
 \arguments{
 \item{x}{ object of class \code{STFDF}}
 \item{how}{ character; choose \code{"spatial"} or \code{"temporal"} mode }
+\item{returnEOFs}{ logical; if TRUE, the eigenvectors (EOFs) are returned 
+in the form of a \link{Spatial} or \link{xts} object;
+if FALSE, the object returned by \link{prcomp} is returned, 
+which can be printed, or from which a summary can be computed; see examples. }
 \item{returnPredictions}{ logical; if TRUE, the functions are returned (i.e.,
 predicted principle components, or PC scores); if FALSE, the object returned
 by \link{prcomp} is returned, which can be printed, or from which a
-summary can be computed; see examples. }
+summary can be computed; see examples (deprecated, see below). }
 \item{...}{ arguments passed on to function \link{prcomp}; note that
 \code{scale.=TRUE} needs to be specified to obtain EOFs based 
 on correlation (default: covariance) }
@@ -19,6 +24,11 @@ on correlation (default: covariance) }
 \value{
 In spatial mode, the appropriate \code{Spatial*} object. In temporal
 mode, an object of class \code{xts}.
+}
+\note{
+\code{EOF} is deprecated: it mixes up spatial and temporal EOFs,
+and returns projections (PC scores) instead of EOFs (eigenvectors); 
+to compute EOFs, use \code{eof}.
 }
 \examples{
 

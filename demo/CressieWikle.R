@@ -95,8 +95,8 @@ stplot(sst.st[sea,"1998-02::1999-01"],
 )
 
 # Figure 5.17: EOF's
-eof = EOF(sst.st[sea,])
-eof.t = EOF(sst.st[sea,], "temporal")
+eof = eof(sst.st[sea,])
+eof.t = eof(sst.st[sea,], "temporal")
 spplot(eof[1], col.regions = bpy.colors(), scales = list(draw=TRUE),
 	main = "First EOF (Figure 5.17a)")
 plot(eof.t[,1], main = "5.17b (note that sign has flipped)", ylab = "EOF 1")
@@ -106,7 +106,7 @@ plot(eof.t[,2], main = "5.17d", ylab = "EOF 2")
 # ... and so on.
 
 # 5.19: EOF summary stats
-eof.summ = EOF(sst.st[sea,], returnPredictions = FALSE)
+eof.summ = eof(sst.st[sea,], returnPredictions = FALSE)
 v = eof.summ$sdev^2
 plot(100*cumsum(v[1:100])/sum(v),
 	ylim=c(0,100), ylab = "Percent", xlab = "EOF", main = "Figure 5.19")
