@@ -1,5 +1,6 @@
 \name{EOF}
 \alias{EOF}
+\alias{eof}
 \title{ Compute spatial or temporal empirical orthogonal function (EOF) }
 \description{ Compute spatial or temporal empirical orthogonal function (EOF) }
 \usage{ 
@@ -49,13 +50,13 @@ space = list(values = names(wind)[stations])
 wind.st = stConstruct(wind[stations], space, wind$time, SpatialObj = wind.loc)
 # select firt 500 time steps, to limit run time:
 wind.st = wind.st[,1:500]
-wind.eof.1 = EOF(wind.st)
-wind.eof.2 = EOF(wind.st, "temporal")
-wind.eof.1.PCs = EOF(wind.st, returnPredictions=FALSE)
-EOF(wind.st, "temporal", returnPredictions=FALSE)
-summary(EOF(wind.st, returnPredictions=FALSE))
-summary(EOF(wind.st, "temporal", returnPredictions=FALSE))
-plot(EOF(wind.st, "temporal", returnPredictions=FALSE))
+wind.eof.1 = eof(wind.st)
+wind.eof.2 = eof(wind.st, "temporal")
+wind.eof.1.PCs = eof(wind.st, returnPredictions=FALSE)
+eof(wind.st, "temporal", returnPredictions=FALSE)
+summary(eof(wind.st, returnPredictions=FALSE))
+summary(eof(wind.st, "temporal", returnPredictions=FALSE))
+plot(eof(wind.st, "temporal", returnPredictions=FALSE))
 }
 }
 \keyword{manip}

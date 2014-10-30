@@ -317,7 +317,7 @@ axis(1, at = sort(unique(t)), labels = rep("", length(t)))
 axis(2, at = sort(unique(s)), labels = rep("", length(s)))
 #text(g, labels = 1:5, pos=4)
 title("STT: trajectory")
-opar$cin = opar$cra = opar$csi = opar$cxy = opar$din = NULL
+opar$cin = opar$cra = opar$csi = opar$cxy = opar$din = opar$page = NULL
 par(opar)
 @
 \end{center}
@@ -1108,7 +1108,8 @@ For plotting purposes, we can obtain country boundaries from package \pkg{maps}:
 <<>>=
 library(maptools)
 m = map2SpatialLines(
-	map("worldHires", xlim = c(-11,-5.4), ylim = c(51,55.5), plot=F))
+	#map("worldHires", xlim = c(-11,-5.4), ylim = c(51,55.5), plot=F))
+	map("worldHires", xlim = c(-11.5,-6.0), ylim = c(51.3,55.0), plot=F))
 proj4string(m) = "+proj=longlat +datum=WGS84"
 m = spTransform(m, utm29)
 @
@@ -1149,7 +1150,7 @@ stplot(wind.ST, col.regions=brewer.pal(11, "RdBu")[-c(10,11)],
 	par.strip.text = list(cex=.7), sp.layout = layout)
 @
 
-<<eval=FALSE,echo=FALSE>>=
+<<eval=TRUE,echo=FALSE>>=
 pdf("wind.pdf", height=4.5)
 layout = list(list("sp.lines", m, col='grey'),
 	list("sp.points", pts, first=F, cex=.5))
@@ -1159,7 +1160,7 @@ print(stplot(wind.ST, col.regions=brewer.pal(11, "RdBu")[-c(10,11)],
 dev.off()
 @
 
-<<eval=FALSE,echo=FALSE>>=
+<<eval=TRUE,echo=FALSE>>=
 pdf("windts.pdf", height = 4)
 library(lattice)
 library(RColorBrewer)
@@ -1185,16 +1186,16 @@ dev.off()
 Empirical orthogonal functions from \code{STFDF} objects can be
 computed in spatial form (default), e.g., from data values
 <<eval=FALSE>>=
-eof.data = EOF(wind.data)
+eof.data = eof(wind.data)
 @
 or alternatively from modelled, or interpolated values:
-<<eval=FALSE>>=
-eof.int = EOF(wind.ST)
+<<eval=TRUE>>=
+eof.int = eof(wind.ST)
 @
 By default, spatial EOFs are competed; alternatively they can be
 obtained in temporal form:
 <<eval=FALSE>>=
-eof.xts = EOF(wind.ST, "temporal")
+eof.xts = eof(wind.ST, "temporal")
 @
 the resulting object is of the appropriate subclass of \code{Spatial}
 in the spatial form, or of class \code{xts} in the temporal
@@ -1204,8 +1205,8 @@ the interpolated wind data of Figure~\ref{fig:wind}.
 \begin{figure}[htb]
 \begin{center}
 <<echo=FALSE,fig=TRUE,height=3.5,width=5>>=
-print(spplot(EOF(wind.ST), col.regions=bpy.colors(),
-	par.strip.text = list(cex=.5), as.table = TRUE))
+print(spplot(eof.int[1:4], col.regions=bpy.colors(),
+	par.strip.text = list(cex=.5), as.table = TRUE, sp.layout = layout))
 @
 \end{center}
 \caption{EOFs of space-time interpolations of wind over Ireland
