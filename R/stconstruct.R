@@ -18,7 +18,6 @@ stConstruct = function(x, space, time, SpatialObj = NULL,
 		else
 			si = space
 		sp = SpatialPoints(x[si], crs)
-		stopifnot(length(time) == 1)
 		if (is.character(time))
 			ti = which(n %in% time)
 		else
@@ -29,8 +28,7 @@ stConstruct = function(x, space, time, SpatialObj = NULL,
 		else
 			endTime = as.POSIXct(index(time))
 		attr(endTime, "tzone") = attr(time, "tzone")
-		x = x[-c(si, ti)]
-		return(STIDF(sp, time, x, endTime))
+		return(STIDF(sp[time,], time, x[time, -c(si, ti), drop=FALSE], endTime))
 	} else if (length(space) == 1 && length(time) == 1) {
 		# long format, space indicates index of SpatialObj:
 		stopifnot(!is.null(SpatialObj))

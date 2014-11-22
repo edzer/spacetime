@@ -1,6 +1,7 @@
 \name{over-methods}
 \docType{methods}
 \alias{over}
+\alias{aggregate}
 \alias{over,xts,xts-method}
 \alias{over,ST,STS-method}
 \alias{over,STF,STF-method}
