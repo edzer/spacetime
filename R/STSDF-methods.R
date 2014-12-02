@@ -69,12 +69,18 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
     	}
 	} 
 
-  matrix.i <- FALSE
+	if (!missing.i && is(i, "STS")) { # highjack i and j:
+		j = which(!is.na(timeMatch(x,i)))
+		i = which(!is.na(over(x@sp, geometry(i@sp))))
+		missing.j = FALSE
+	}
+
+	matrix.i <- FALSE
   
 	# space
-  #######
+	#######
   
-  # keep track of original spatial indicies - if not yet 
+	# keep track of original spatial indicies - if not yet 
   	if (!is.character(row.names(x@sp)))
     	row.names(x@sp) <- as.character(row.names(x@sp))
   

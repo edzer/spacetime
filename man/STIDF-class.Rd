@@ -58,10 +58,9 @@ objects \code{time} is taken, indicating that time intervals have zero width
 (time instances) }
 \item{data}{data frame with appropriate number of rows}
 \item{x}{an object of class STFDF}
-\item{i}{selection of record index (spatial/temporal entities),
-or character string with temporal selection }
-\item{j}{selection of attributes }
-\item{...}{ignored}
+\item{i}{selection of record index (spatial/temporal/spatio-temporal entities)}
+\item{j}{ or character string with temporal selection }
+\item{...}{first element is taken as column (variable) selector}
 \item{drop}{if TRUE and a single spatial entity is selected, an object
 of class \link{xts} is returned (NOT yet implemented);
 if TRUE and a single temporal entity is
@@ -80,5 +79,18 @@ and \code{data[i,]} refer to the same observation }
 
 \author{ Edzer Pebesma, \email{edzer.pebesma@uni-muenster.de} }
 \references{ http://www.jstatsoft.org/v51/i07/ }
-
+\examples{
+sp = cbind(x = c(0,0,1), y = c(0,1,1))
+row.names(sp) = paste("point", 1:nrow(sp), sep="")
+library(sp)
+sp = SpatialPoints(sp)
+time = as.POSIXct("2010-08-05")+3600*(10:13)
+m = c(10,20,30) # means for each of the 3 point locations
+mydata = rnorm(length(sp)*length(time),mean=rep(m, 4))
+IDs = paste("ID",1:length(mydata))
+mydata = data.frame(values = signif(mydata,3), ID=IDs)
+stidf = as(STFDF(sp, time, mydata), "STIDF")
+stidf[1:2,]
+all.equal(stidf, stidf[stidf,])
+}
 \keyword{classes}

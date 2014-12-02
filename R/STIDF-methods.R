@@ -77,26 +77,32 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 	missing.k = k = TRUE
 	dots = list(...)
   
-  if (length(dots) > 0) {
-      missing.k = FALSE
-      k = dots[[1]]
-  }
+	if (length(dots) > 0) {
+		missing.k = FALSE
+		k = dots[[1]]
+	}
 
 	if (missing.i && missing.j && missing.k)
 		return(x)
   
-  matrix.i <- FALSE
+	if (!missing.i && is(i, "STI")) { # highjack i and j:
+		j = which(!is.na(timeMatch(x,i)))
+		i = which(!is.na(over(x@sp, geometry(i@sp))))
+		missing.j = FALSE
+	}
+
+	matrix.i <- FALSE
   
-  if (!missing.i) {
-    if (is.matrix(i)) {
-      stopifnot(ncol(i)==2)
-      i <- i[order(i[,2]),,drop=FALSE]
-      j <- i[,2]
-      i <- i[,1]
-      missing.j <- FALSE
-      matrix.i <- TRUE
-    }
-  }
+	if (!missing.i) {
+		if (is.matrix(i)) {
+			stopifnot(ncol(i)==2)
+			i <- i[order(i[,2]),,drop=FALSE]
+			j <- i[,2]
+			i <- i[,1]
+			missing.j <- FALSE
+			matrix.i <- TRUE
+		}
+	}
 
 	# space
 	if (missing.i)
@@ -186,10 +192,15 @@ rbind.STIDF <- function(...) {
     dots = list(...)
     names(dots) <- NULL
 	stopifnot(identicalCRS(dots))
+	# c() drops tzone attribute:
+	time =    do.call(c, lapply(dots, function(x) index(x)))
+	attr(time, "tzone") = attr(index(dots[[1]]@time), "tzone")
+	endTime = do.call(c, lapply(dots, function(x) x@endTime))
+	attr(endTime, "tzone") = attr(index(dots[[1]]@endTime), "tzone")
 	STIDF(
 		sp =      do.call(rbind, lapply(dots, function(x) x@sp)),
-		time =    do.call(c, lapply(dots, function(x) index(x))),
+		time =    time,
 		data =    do.call(rbind, lapply(dots, function(x) x@data)),
-		endTime = do.call(c, lapply(dots, function(x) x@endTime))
+		endTime = endTime
 	) # will re-order according to time
 }

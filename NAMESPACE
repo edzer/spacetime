@@ -1,7 +1,6 @@
 import(methods)
 import(sp)
 import(lattice)
-import(rgeos)
 importFrom(stats, aggregate, na.omit, time, start, end)
 importFrom(utils, stack, unstack)
 importFrom(xts, xts, as.xts, timeBased)
@@ -29,7 +28,7 @@ export(delta,
 	stInteraction,
 	read.tgrass,
 	write.tgrass,
-	EOF,
+	eof, EOF,
 	nbMult,
 	# zoo methods:
 	index, na.locf, na.spline, na.approx, as.zoo

@@ -19,7 +19,8 @@ setAs('RasterStackBrick', 'STFDF',
         sx <- as(as(from, 'SpatialGrid'), 'SpatialPixels')
 		# ATTRIBUTES:
         d <- as.data.frame(as.vector(raster::getValues(from)))
-        names(d) = paste(names(from), collapse=".") # could do better?
+        #names(d) = paste(names(from), collapse=".") # could do better?
+		names(d) = names(from)[1]
         STFDF(sx, time = tvals, endTime = endTime, data = d)
     }
 )

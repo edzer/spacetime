@@ -1,5 +1,6 @@
 EOF = function(x, how = c("spatial", "temporal"), returnPredictions = TRUE, 
 		...) { 
+	.Deprecated("eof")
 	sp = x@sp
 	index = index(x@time)
 	x = as(x, "xts") # matrix
@@ -13,6 +14,26 @@ EOF = function(x, how = c("spatial", "temporal"), returnPredictions = TRUE,
 		if (! returnPredictions)
 			return(pr)
 		x = xts(data.frame(predict(pr)), index)
+	} else
+		stop("unknown mode: use spatial or temporal")
+	names(x) = paste("EOF", 1:ncol(x), sep="")
+	x
+}
+
+eof = function(x, how = c("spatial", "temporal"), returnEOFs = TRUE, ...) { 
+	sp = x@sp
+	index = index(x@time)
+	x = as(x, "xts") # matrix
+	if (how[1] == "spatial") {
+		pr = prcomp(~., data.frame(x), ...)
+		if (! returnEOFs)
+			return(pr)
+		x = addAttrToGeom(sp, data.frame(pr$rotation), TRUE)
+	} else if (how[1] == "temporal") {
+		pr = prcomp(~., data.frame(t(x)), ...)
+		if (! returnEOFs)
+			return(pr)
+		x = xts(data.frame(pr$rotation), index)
 	} else
 		stop("unknown mode: use spatial or temporal")
 	names(x) = paste("EOF", 1:ncol(x), sep="")

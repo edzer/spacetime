@@ -207,6 +207,7 @@ stplot.STTDF = function(obj, names.attr = NULL, ...,
 }
 
 setMethod("stplot", signature("STTDF"), stplot.STTDF)
+setMethod("stplot", signature("STT"), stplot.STTDF)
 setMethod("stplot", signature("STFDF"),  stplot.STFDF)
 setMethod("stplot", signature("STSDF"),
           function(obj, ...) stplot.STIDF(as(obj, "STIDF"), ...))

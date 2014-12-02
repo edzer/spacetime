@@ -71,7 +71,5 @@ timeMatchPOSIXct = function(x, y, returnList = FALSE,
 	ret
 }
 
-setMethod(timeMatch, signature(x = "POSIXct", y = "POSIXct"),
-	timeMatchPOSIXct
-)
-
+setMethod(timeMatch, signature(x = "POSIXct", y = "POSIXct"), timeMatchPOSIXct)
+setMethod(timeMatch, signature(x = "Date", y = "Date"), timeMatchPOSIXct)

@@ -99,10 +99,10 @@ as.array.STFDF = function(x, ...) {
 	a
 }
 
-subs.STFDF <- function(x, i, j, ... , drop = is(x, "STFDF")) {
+subs.STF_and_STFDF <- function(x, i, j, ... , drop = is(x, "STFDF")) {
 	nr = dim(x)[1]
 	nc = dim(x)[2]
-  n.args = nargs()
+	n.args = nargs()
 	dots = list(...)
 	missing.i = missing(i)
 	missing.j = missing(j)
@@ -114,7 +114,7 @@ subs.STFDF <- function(x, i, j, ... , drop = is(x, "STFDF")) {
 	} else
 		missing.k = TRUE
 	
-  if (missing.i && missing.j && missing.k)
+	if (missing.i && missing.j && missing.k)
 		return(x)
 
 	if (!missing.k && is(x, "STFDF")) {
@@ -123,85 +123,89 @@ subs.STFDF <- function(x, i, j, ... , drop = is(x, "STFDF")) {
 			return(x)
 	} 
 
+	if (!missing.i && is(i, "STF")) { # highjack i and j:
+		j = which(!is.na(timeMatch(x,i)))
+		i = which(!is.na(over(x@sp, geometry(i@sp))))
+		missing.j = FALSE
+	}
+
 	matrix.i <- FALSE
 	
-  # space
-  ########
+	# space
+	########
   
 	# keep track of original spatial indicies - if not yet 
 	if (!is.character(row.names(x@sp)))
 	  row.names(x@sp) <- as.character(row.names(x@sp))
   
-	if (missing.i) {
+	if (missing.i)
 		s = 1:length(x@sp)
-	} else {
-    if (is.matrix(i)) {
-      stopifnot(ncol(i)==2)
-      s <- unique(i[,1])
-      missing.j <- FALSE
-      matrix.i <- TRUE
-    } else {
-  		if (is(i, "Spatial")) {
-  			s = which(!is.na(over(x@sp, geometry(i))))
-  		} else if (is.logical(i)) {
-  			i = rep(i, length.out = length(x@sp))
-  			s = which(i)
-  		} else if (is.character(i)) { # suggested by BG:
-  			s = match(i, row.names(x@sp), nomatch = FALSE)
-  		} else
-  			s = i
-  		
-      # select geometry
-  		x@sp = x@sp[s,]
-    }
+	else {
+		if (is.matrix(i)) {
+		stopifnot(ncol(i)==2)
+		s <- unique(i[,1])
+		missing.j <- FALSE
+		matrix.i <- TRUE
+		} else {
+	 		if (is(i, "Spatial")) {
+	 			s = which(!is.na(over(x@sp, geometry(i))))
+	 		} else if (is.logical(i)) {
+	 			i = rep(i, length.out = length(x@sp))
+	  			s = which(i)
+	 		} else if (is.character(i)) { # suggested by BG:
+	 			s = match(i, row.names(x@sp), nomatch = FALSE)
+	 		} else
+	 			s = i
+			# select geometry
+			x@sp = x@sp[s,]
+		}
 	}
   
-  # time
-  #######
+	# time
+	#######
   
-  if (missing.j)
+	if (missing.j)
 		t = 1:nrow(x@time)
 	else {
-    if (matrix.i)
-	    t <- unique(i[,2])
-	  else {
-  		if (is.logical(j))
-  			j = which(j)
-  		nct = ncol(x@time)
-  		x@time = cbind(x@time, 1:nrow(x@time))
-  		# uses [.xts, deals with character/iso8601;
-  		# takes care of negative indices:
-  		x@time = x@time[j]
-  		# get back the corresponding index vector t, to use for @data:
-  		t = as.vector(x@time[, nct+1])
-  		x@time = x@time[,-(nct+1)]
-  		x@endTime = x@endTime[t]
-	  }
+		if (matrix.i)
+			t <- unique(i[,2])
+		else {
+			if (is.logical(j))
+				j = which(j)
+			nct = ncol(x@time)
+	 		x@time = cbind(x@time, 1:nrow(x@time))
+	 		# uses [.xts, deals with character/iso8601;
+	 		# takes care of negative indices:
+	 		x@time = x@time[j]
+	 		# get back the corresponding index vector t, to use for @data:
+	 		t = as.vector(x@time[, nct+1])
+	 		x@time = x@time[,-(nct+1)]
+	 		x@endTime = x@endTime[t]
+		}
 	}
 
-  if (matrix.i) {
-    ind <- i[order(i[,2]),]
+	if (matrix.i) {
+		ind <- i[order(i[,2]),]
     
-    ind[,1] <- match(ind[,1], s)
-    ind[,2] <- match(ind[,2], t)
-    reOrder <- numeric(nrow(ind))
-    for (ts in unique(ind[,2])) { # reordering data and index slot accoring to s
-      selRow <- which(ind[,2] == ts)
-      reOrder[selRow] <- selRow[order(ind[selRow,1])]
-    }
+		ind[,1] <- match(ind[,1], s)
+		ind[,2] <- match(ind[,2], t)
+		reOrder <- numeric(nrow(ind))
+		for (ts in unique(ind[,2])) { # reordering data and index slot accoring to s
+			selRow <- which(ind[,2] == ts)
+			reOrder[selRow] <- selRow[order(ind[selRow,1])]
+		}
     
-    ind[,1] <- ind[reOrder,1]
+		ind[,1] <- ind[reOrder,1]
     
-    if (is(x, "STFDF")) {
-      sel <- (i[,2]-1)*nr+i[,1]
-      x <- STSDF(x@sp[s,], x@time[t,], x@data[sel,,drop=FALSE], ind, x@endTime[t])
-    } else
-      x <- STS(x@sp[s,], x@time[t,], ind, x@endTime[t])
-  } else
-    if (is(x, "STFDF"))
-  		x@data = data.frame(lapply(x@data, function(v) as.vector(matrix(v, nr, nc)[s,t])))
+		if (is(x, "STFDF")) {
+			sel <- (i[,2]-1)*nr+i[,1]
+			x <- STSDF(x@sp[s,], x@time[t,], x@data[sel,,drop=FALSE], ind, x@endTime[t])
+		} else
+			x <- STS(x@sp[s,], x@time[t,], ind, x@endTime[t])
+	} else if (is(x, "STFDF"))
+		x@data = data.frame(lapply(x@data, function(v) as.vector(matrix(v, nr, nc)[s,t])))
   
-  # drop
+	# drop
 	if (drop) {
 		if (length(s) == 1 && all(s > 0)) { # space index has only 1 item:
 			if (length(t) == 1) # drop time as well:
@@ -214,20 +218,19 @@ subs.STFDF <- function(x, i, j, ... , drop = is(x, "STFDF")) {
 					x = xts(x@data, ix, tzone = attr(x@time, "tzone"))
 			}
 		} else {
-      if (length(t) == 1) {
-  			if(is(x, "STFDF")) # only one time step:
-  				x = addAttrToGeom(x@sp, x@data, match.ID = FALSE)
-  			else
-  				x = x@sp
-      }
+			if (length(t) == 1) {
+				if(is(x, "STFDF")) # only one time step:
+					x = addAttrToGeom(x@sp, x@data, match.ID = FALSE)
+				else
+					x = x@sp
+			}
 		} 
 	}
-  
 	x
 }
 
-setMethod("[", "STFDF", subs.STFDF)
-setMethod("[", "STF", subs.STFDF)
+setMethod("[", "STFDF", subs.STF_and_STFDF)
+setMethod("[", "STF", subs.STF_and_STFDF)
 
 # provide a na.omit-method for STFDF objects
 # removes rows and columns from the space-time grid

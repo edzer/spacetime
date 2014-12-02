@@ -112,6 +112,9 @@ stfdf$ID
 stfdf$ID = paste("OldIDs", 1:12, sep="")
 stfdf$NewID = paste("NewIDs", 12:1, sep="")
 stfdf
+x = stfdf[stfdf[1:2,],] 
+all.equal(x, stfdf[1:2,]) 
+all.equal(stfdf, stfdf[stfdf,]) # converts character to factor...
 }
 
 \keyword{classes}

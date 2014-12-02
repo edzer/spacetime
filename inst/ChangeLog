@@ -1,3 +1,69 @@
+commit 5a476b1fe7580118aeee8af2cbbb5129716c7dac
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Aug 28 12:36:55 2014 +0200
+
+    tzone attribute is now passed on by rbind.STIDF
+
+commit ac8c4d8bfe3e11ca8f14ade6107b917d7c49bdaa
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sun Aug 24 14:09:14 2014 +0200
+
+    removed ISO codes from air; version bump; tidy stgvis
+
+commit 901738891468730db87e48490c2fa48fad3cd1ef
+Merge: 3b0096f 010b921
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sun Aug 24 14:05:07 2014 +0200
+
+    Merge pull request #20 from mages/patch-2
+    
+    Update stgvis.Rmd
+
+commit 010b921d910fbee90bcc144a0349d7cc20bf88d0
+Author: Markus Gesmann <markus.gesmann@gmail.com>
+Date:   Sun Aug 24 11:00:48 2014 +0100
+
+    Update stgvis.Rmd
+    
+    Changed the order in which the data is loaded, as otherwise the mapping of German state names apears to be overwritten by data in air.
+
+commit 3b0096f5fb43ef2af9a1ad61344c8f7032056cee
+Merge: 709d30a c44ea66
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sun Aug 24 10:35:38 2014 +0200
+
+    Merge pull request #19 from mages/patch-1
+    
+    Update stgvis.Rmd
+
+commit c44ea6605becfc38a4c54511a53daf4906b81aa7
+Author: Markus Gesmann <markus.gesmann@gmail.com>
+Date:   Sat Aug 23 21:05:23 2014 +0100
+
+    Update stgvis.Rmd
+    
+    I changed the gvisGeoMap statement to gvisGeoChart, as they don't require Flash. Further the Google geo charts understand that Berlin is not part of Brandenburg. Unfortunately, geo charts don't recognise Brandenburg as a province either, hence the codes become handy again.
+    The German state name mapping are available via a CRAN package, thus you don't have to download them from Wikipedia. Finally, I added some number formatting to the option setting.
+
+commit 709d30a7751823aafc6fc77dd9196220edf9ecea
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Aug 22 18:57:22 2014 +0200
+
+    hopefully pass check with r-devel; set TZ in subsetting.R
+
+commit 6226cea3e7f0a758763bb7208f211a032da0221f
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Aug 22 15:44:37 2014 +0200
+
+    add pointer to ISO_3166_2_DE in air.rda
+
+commit 2bd0272437f47090ac5fa5ae4616e226bea5158e
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Aug 22 15:41:17 2014 +0200
+
+    remove call to wikipedia, add ISO table to air
+    add help to stpg to find out whether rgdal misses PostgreSQL driver
+
 commit 7887e760c10ba9a6501ecba1c43410558d12963c
 Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Fri Aug 22 09:36:48 2014 +0200

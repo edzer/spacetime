@@ -74,7 +74,6 @@ over.STS.STF = function(x, y, returnList = FALSE, fn = NULL, ...) {
 setMethod("over", signature(x = "STS", y = "STF"), over.STS.STF)
 
 over.STI.STF = function(x, y, returnList = FALSE, fn = NULL, ...) {
-	#if (returnList) warning("returnList not supported yet")
     space.index = over(x@sp, y@sp)
 	time.index = timeMatch(x, y, returnList)
 	# compute the index of x in y as y is STF:
@@ -88,8 +87,13 @@ over.STF.STI = function(x, y, returnList = FALSE, fn = NULL, ...)
 	over(as(x, "STS"), y, returnList = returnList, fn=fn, ...)
 setMethod("over", signature(x = "STF", y = "STI"), over.STF.STI)
 
-over.STS.STI = function(x, y, returnList = FALSE, fn = NULL, ...)
-	over(as(x, "STI"), y, returnList = returnList, fn=fn, ...)
+over.STS.STI = function(x, y, returnList = FALSE, fn = NULL, ...) {
+	if (returnList && is.null(fn)) { # aggregate call:
+		r = over(y, x, returnList = TRUE)
+		sp:::.invert(r, length(r), length(x))
+	} else
+		over(as(x, "STI"), y, returnList = returnList, fn=fn, ...) #EJP: improve
+}
 setMethod("over", signature(x = "STS", y = "STI"), over.STS.STI)
 
 over.STI.STI = function(x, y, returnList = FALSE, fn = NULL, ...) {
@@ -110,19 +114,22 @@ over.STI.STI = function(x, y, returnList = FALSE, fn = NULL, ...) {
 			integer(0)
 	})
 	if (! returnList)
-		ret = unlist(lapply(ret, function(x) { x[1] }))
-	ret
+		unlist(lapply(ret, function(x) { x[1] }))
+	else
+		ret
 }
 setMethod("over", signature(x = "STI", y = "STI"), over.STI.STI)
 
-# y = STS:
+# any ST x, but y = STS:
 over.ST.STS = function(x, y, returnList = FALSE, fn = NULL, ...) {
-	if (returnList) warning("returnList not fully supported yet")
-	ret = over(x, STF(y@sp, y@time), returnList = returnList, fn = fn)
+	ret = over(x, as(y, "STF"), returnList = returnList, fn = fn)
 	ix.sts = (y@index[,2] - 1) * length(y@sp) + y@index[,1]
 	ix.stf = rep(as.integer(NA), nrow(y@time) * length(y@sp))
-	ix.stf[ix.sts] = 1:nrow(y@index)
-	ix.stf[ret]
+	ix.stf[ix.sts] = 1:nrow(y@index) # e.g. NA NA 1 NA 2 NA 3 4 5 NA 6 etc, sort of inverse of index
+	if (returnList)
+		lapply(ret, function(x) { sel = ix.stf[x]; sel[!is.na(sel)] })
+	else
+		ix.stf[ret]
 }
 setMethod("over", signature(x = "ST", y = "STS"), over.ST.STS)
 
