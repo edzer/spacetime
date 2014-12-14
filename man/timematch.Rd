@@ -3,6 +3,7 @@
 \alias{timeMatch,ST,ST-method}
 \alias{timeMatch,xts,xts-method}
 \alias{timeMatch,POSIXct,POSIXct-method}
+\alias{timeMatch,Date,Date-method}
 \alias{index}
 \alias{MATCH}
 \title{ match two (time) sequences }

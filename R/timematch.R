@@ -29,17 +29,14 @@ if (!isGeneric("timeMatch"))
 
 setMethod(timeMatch, signature(x = "ST", y = "ST"),
 	function(x, y, returnList = FALSE) {
-		xt = as.POSIXct(index(x@time))
-		yt = as.POSIXct(index(y@time))
-		if (any(xt != x@endTime))
-			end.x = x@endTime
-		else
-			end.x = NULL
-		if (any(yt != y@endTime))
-			end.y = y@endTime
-		else
-			end.y = NULL
-		timeMatch(xt, yt, returnList, end.x, end.y)
+		args = list(x = as.POSIXct(index(x@time)),
+			y = as.POSIXct(index(y@time)))
+		if (any(args$x != x@endTime))
+			args$end.x = x@endTime
+		if (any(args$y != y@endTime))
+			args$end.y = y@endTime
+		args$returnList = returnList
+		do.call(timeMatch, args)
 	}
 )
 
@@ -53,7 +50,7 @@ timeMatchPOSIXct = function(x, y, returnList = FALSE,
 			end.x = NULL, end.y = NULL) {
 	ti.x = !is.null(end.x) # x is interval
 	ti.y = !is.null(end.y) # y is interval
-	if (ti.x || ti.y || returnList) { # one of them non-NULL:
+	if (ti.x || ti.y || returnList) {
 		#timeMatchIntervals(x, y, returnList, end.x, end.y)
 		if (ti.x)
 			x = Intervals(cbind(x, end.x), closed = c(TRUE, FALSE))

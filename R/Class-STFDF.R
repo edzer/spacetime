@@ -1,6 +1,12 @@
 setClass("STF", # space-time full
   contains = "ST",
   validity = function(object) {
+	time = as.POSIXct(index(object@time))
+	endTime = object@endTime
+	n = length(endTime)
+  	stopifnot(all(time <= endTime))
+	if (n > 1)
+  		stopifnot(all(endTime[1:(n-1)] <= time[-1]))
     return(TRUE)
   }
 )
