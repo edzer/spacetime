@@ -126,7 +126,7 @@ spTransform.STT = function(x, CRSobj, ...) {
 	if (!requireNamespace("rgdal", quietly = TRUE))
 		stop("package rgdal required for spTransform.STT")
 	x@traj = lapply(x@traj, spTransform, CRSobj)
-	x@sp = rgdal::spTransform(x@sp, CRSobj)
+	x@sp = spTransform(x@sp, CRSobj)
 	x
 }
 setMethod("spTransform", signature("STT", "CRS"), spTransform.STT)
