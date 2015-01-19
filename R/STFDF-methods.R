@@ -41,10 +41,9 @@ as.data.frame.STF = function(x, row.names = NULL, ...) {
 	if ("data" %in% slotNames(x@sp)) {
 		x = apply(x@sp@data, 2, rep, nrow(x@time))
 		row.names(x) = NULL
-		ret = data.frame(ret, x)
-	}
-	#ret = data.frame(ret, timedata)
-	ret
+		data.frame(ret, x)
+	} else
+		ret
 }
 
 setAs("STF", "data.frame", function(from) as.data.frame.STF(from))
