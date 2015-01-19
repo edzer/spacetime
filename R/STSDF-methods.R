@@ -182,10 +182,13 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 			}
 		} else {
       		if (length(t) == 1) { # only one time item
-  				if (is(x, "STSDF"))
-  					x = addAttrToGeom(x@sp[x@index[,1],], x@data, match.ID = FALSE)
+  				if (is(x, "STSDF")) {
+  					sp = x@sp[x@index[,1],]
+					if ("data" %in% slotNames(sp))
+						x@data = cbind(x@data, sp@data) # otherwise they'd get lost
+  					x = addAttrToGeom(sp, x@data, match.ID = FALSE)
               	# added index to achieve matching SpatialPoints and data.frame # TG
-  				else
+  				} else
   					x = x@sp[x@index[,1],]
   			}
 		}

@@ -1,6 +1,6 @@
 
-R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
-Copyright (C) 2013 The R Foundation for Statistical Computing
+R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
+Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -112,14 +112,14 @@ Type 'q()' to quit R.
 Loading required package: gstat
 Loading required package: maps
 Loading required package: rgdal
-rgdal: version: 0.8-14, (SVN revision 496)
+rgdal: version: 0.9-1, (SVN revision 518)
 Geospatial Data Abstraction Library extensions to R successfully loaded
-Loaded GDAL runtime: GDAL 1.10.0, released 2013/04/24
-Path to GDAL shared files: /usr/share/gdal/1.10
-Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
+Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
+Path to GDAL shared files: /usr/local/share/gdal
+Loaded PROJ.4 runtime: Rel. 4.9.0, 27 October 2013, [PJ_VERSION: 490]
 Path to PROJ.4 shared files: (autodetected)
 Checking rgeos availability: TRUE
 > 
 > proc.time()
    user  system elapsed 
-  2.300   0.160   2.459 
+  1.874   0.098   1.959 

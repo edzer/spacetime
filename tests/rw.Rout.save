@@ -1,6 +1,6 @@
 
-R version 3.0.1 (2013-05-16) -- "Good Sport"
-Copyright (C) 2013 The R Foundation for Statistical Computing
+R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
+Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -41,6 +41,11 @@ Type 'q()' to quit R.
 > 
 > p = Polygon(cbind(x=c(-20,-15,-15,-20,-20),y=c(10,10,15,15,10)))
 > pol=SpatialPolygons(list(Polygons(list(p), "ID")))
+> library(rgeos)
+rgeos version: 0.3-6, (SVN revision 450)
+ GEOS runtime version: 3.4.2-CAPI-1.8.2 r3921 
+ Polygon checking: TRUE 
+
 > stplot(sttdf[pol])
 > names(sttdf[pol]@traj)
 [1] "3"
@@ -53,4 +58,4 @@ Type 'q()' to quit R.
 > 
 > proc.time()
    user  system elapsed 
-  1.616   0.048   1.667 
+  1.919   0.058   1.965 

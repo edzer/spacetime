@@ -123,7 +123,8 @@ setMethod("stbox", "ST",
 setMethod("bbox", "ST", function(obj) t(stbox(obj)[1:2]))
 
 spTransform.STT = function(x, CRSobj, ...) {
-	stopifnot(require(rgdal))
+	if (!requireNamespace("rgdal", quietly = TRUE))
+		stop("package rgdal required for spTransform.STT")
 	x@traj = lapply(x@traj, spTransform, CRSobj)
 	x@sp = spTransform(x@sp, CRSobj)
 	x
@@ -131,7 +132,8 @@ spTransform.STT = function(x, CRSobj, ...) {
 setMethod("spTransform", signature("STT", "CRS"), spTransform.STT)
 
 spTransform.ST = function(x, CRSobj, ...) {
-	stopifnot(require(rgdal))
+	if (!requireNamespace("rgdal", quietly = TRUE))
+		stop("package rgdal required for spTransform.ST")
 	x@sp = spTransform(x@sp, CRSobj)
 	x
 }
