@@ -19,15 +19,16 @@ index.STSDF = index.STS
 as.data.frame.STS = function(x, row.names = NULL, ...) {
 	if (is.null(row.names(x@sp)))
 		row.names(x@sp) = 1:nrow(x@sp)
-	timedata = x@time[x@index[,2],]
+	timedata = as.data.frame(x@time)[x@index[,2], , drop = FALSE]
   	ret = data.frame(as.data.frame(coordinates(x)), 
                      sp.ID = row.names(x@sp)[x@index[,1]],
                      time = index(x),
                      endTime = x@endTime[x@index[,2]],
                      timedata, row.names = row.names, ...)
 	if ("data" %in% slotNames(x@sp))
-		ret = data.frame(ret, x@sp@data[x@index[,1],,drop=FALSE])
-	ret
+		data.frame(ret, x@sp@data[x@index[,1], , drop = FALSE])
+	else
+		ret
 }
 setAs("STS", "data.frame", function(from) as.data.frame.STS(from))
 
