@@ -242,26 +242,15 @@ print(stplot(x, mode = "tp", par.strip.text = list(cex=.5)))
 \end{figure}
 
 An aggregation for all stations selected within a single
-area is obtained by merging all states:
-<<>>=
-library(rgeos)
-DE = gUnionCascaded(DE_NUTS1)
-@
-
-<<echo=FALSE>>=
-# trick to cirumvent build break on r-forge
-proj4string(DE)=as.character(NA)
-proj4string(rural)=as.character(NA)
-@
-
-and then aggregating the observations within Germany for
+area is obtained by using the country boundary \code{DE},
+and aggregating the observations within Germany for
 each moment in time:
 <<>>=
 x = aggregate(rural[,"2008"], DE, mean, na.rm=TRUE)
 class(x)
 plot(x[,"PM10"])
 @
-shown in figure \ref{fig:x}.
+the plot of which is shown in figure \ref{fig:x}.
 
 \begin{figure}
 <<fig=TRUE,echo=FALSE>>=

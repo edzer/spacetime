@@ -1,6 +1,7 @@
 \name{air}
 \alias{air}
 \alias{DE_NUTS1}
+\alias{DE}
 \alias{rural}
 \title{Air quality data, rural background PM10 in Germany, daily averages 1998-2009}
 \description{
@@ -21,4 +22,7 @@ ISO_3166_2_DE table comes from. }
 \keyword{datasets}
 \examples{
 data(air)
+# how DE was created from DE_NUTS1:
+if (require(rgeos))
+	DE = gUnionCascaded(DE_NUTS1)
 }
