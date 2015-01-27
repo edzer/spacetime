@@ -174,7 +174,7 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 				x = x@data[1,1,drop=TRUE]
 			else {
 				ix = index(x@time[x@index[,2]])
-				xs = cbind(x@data, as.data.frame(x@time))
+				xs = cbind(x@data, as.data.frame(x@time)) # JS
 				if (is(ix, "Date"))
 					x = xts(xs, ix)
 				else
