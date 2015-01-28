@@ -21,7 +21,7 @@ setClass("STSDF", # space-time partial data frame
 	#stopifnot(min(ix) >= 1 && max(ix) <= length(object@sp))
 	#ix = unique(object@index[,2]) # time
 	#stopifnot(min(ix) >= 1 && max(ix) <= nrow(object@time))
-    #.checkAttrIsUnique(object@sp, object@time, object@data)
+    .checkAttrIsUnique(object@sp, object@time, object@data)
 	return(TRUE)
   }
 )
