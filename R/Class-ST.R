@@ -20,7 +20,7 @@ setClass("ST",
 
 .checkAttrIsUnique = function(sp, time, data) {
 	if (any(names(sp) %in% names(data)))
-		stop("name conflict: attribute name(s) already present in sp slot of ST object")
+		stop("name conflict: attribute name(s) in data already present in sp slot of ST object")
 	if (any(names(time) %in% names(data)))
-		stop("name conflict: attribute name(s) already present in time slot of ST object")
+		stop("name conflict: attribute name(s) in data already present in time slot of ST object")
 }
