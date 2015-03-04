@@ -1102,12 +1102,12 @@ The following objects are masked from 'package:base':
 > spx = SpatialPointsDataFrame(sp, data.frame(values = c("a", "b", "c")))
 > try(stfdf <- STFDF(spx, time, mydata))
 Error in .checkAttrIsUnique(object@sp, object@time, object@data) : 
-  name conflict: attribute name(s) already present in sp slot of ST object
+  name conflict: attribute name(s) in data already present in sp slot of ST object
 > timex = time
 > names(timex) = "values"
 > try(stfdf <- STFDF(sp, timex, mydata))
 Error in .checkAttrIsUnique(object@sp, object@time, object@data) : 
-  name conflict: attribute name(s) already present in time slot of ST object
+  name conflict: attribute name(s) in data already present in time slot of ST object
 > mydatax = mydata
 > names(mydatax) = "x"
 > try(stfdf <- STFDF(spx, timex, mydatax))
@@ -1116,12 +1116,12 @@ Error in validityMethod(object) :
 > stfdf = STFDF(sp, timex, mydatax)
 > try(stfdf[["values"]] <- 1:12)
 Error in .checkAttrIsUnique(x@sp, x@time, x@data) : 
-  name conflict: attribute name(s) already present in time slot of ST object
+  name conflict: attribute name(s) in data already present in time slot of ST object
 > stfdf = STFDF(spx, time, mydatax)
 > try(stfdf[["values"]] <- 1:12)
 Error in .checkAttrIsUnique(x@sp, x@time, x@data) : 
-  name conflict: attribute name(s) already present in sp slot of ST object
+  name conflict: attribute name(s) in data already present in sp slot of ST object
 > 
 > proc.time()
    user  system elapsed 
-  1.174   0.085   1.244 
+  1.166   0.082   1.235 

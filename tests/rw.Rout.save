@@ -51,7 +51,7 @@ Type 'q()' to quit R.
 +   is.null(sttdf[pol,t0])
 + }
 Loading required package: rgeos
-rgeos version: 0.3-6, (SVN revision 450)
+rgeos version: 0.3-8, (SVN revision 460)
  GEOS runtime version: 3.4.2-CAPI-1.8.2 r3921 
  Polygon checking: TRUE 
 
@@ -59,4 +59,4 @@ rgeos version: 0.3-6, (SVN revision 450)
 > 
 > proc.time()
    user  system elapsed 
-  1.417   0.044   1.450 
+  1.399   0.031   1.414 

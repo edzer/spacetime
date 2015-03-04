@@ -8,7 +8,7 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 		auto.key = list(space = key.space), main,
 		key.space = "right", type = 'l', do.repeat = TRUE) {
 
-	#ind = sp.ID = NULL # keep R CMD check happy in R 2.13 
+	ind = sp.ID = NULL # keep R CMD check happy
     z = names(obj@data)[1]
 	if (missing(at) && !is.factor(obj[[z]]))
 		at = seq(min(obj[[z]], na.rm = TRUE), max(obj[[z]], na.rm = TRUE), 
@@ -75,20 +75,9 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 	} else { # multiple spplots: panel for each time step.
 		if (mode != "xy")
 			stop("unknown value for argument mode")
-    	form = as.formula(paste(z, "~ time"))
-    	sp = geometry(obj@sp)
-		unstackSAFE = function(obj, form) { # takes care of factors
-			if (is.factor(obj[[z]])) {
-				lab = levels(obj[[z]])
-				obj$X = as.numeric(obj[[z]])
-				lev = min(obj$X):max(obj$X)
-    			ret = unstack(as.data.frame(obj), X~time)
-				lapply(ret, function(x) factor(x, labels = lab, levels = lev))
-			} else
-    			unstack(as.data.frame(obj), form)
-		}
-    	df = data.frame(unstackSAFE(obj, form))
-		x = addAttrToGeom(sp, df, match.ID = FALSE)
+		df = data.frame(reshape(as.data.frame(obj)[c(z, "time", "sp.ID")], 
+			timevar = "time", idvar = "sp.ID", direction = "wide"))[,-1]
+		x = addAttrToGeom(geometry(obj@sp), df, match.ID = FALSE)
 		## OR:
 		## x = as(obj, "Spatial")
 		## x@data = data.frame(x@data) # cripples column names
@@ -116,7 +105,7 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 				args$cuts = cuts
 				args$at = at
 			}
-			if (is(sp, "SpatialPoints"))
+			if (is(obj@sp, "SpatialPoints"))
 				args$key.space = key.space
 			do.call(spplot, args)
 		}
