@@ -3,14 +3,14 @@ if (!isGeneric("stplot"))
 		standardGeneric("stplot"))
 
 stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
-		as.table = TRUE, at, cuts = 15, scales = list(draw = FALSE),
+		as.table = TRUE, at = NULL, cuts = 15, scales = list(draw = FALSE),
 		animate = 0, mode = "xy", scaleX = 0, 
 		auto.key = list(space = key.space), main,
 		key.space = "right", type = 'l', do.repeat = TRUE) {
 
-	ind = sp.ID = NULL # keep R CMD check happy in R 2.13 
+	#ind = sp.ID = NULL # keep R CMD check happy in R 2.13 
     z = names(obj@data)[1]
-	if (missing(at))
+	if (missing(at) && !is.factor(obj[[z]]))
 		at = seq(min(obj[[z]], na.rm = TRUE), max(obj[[z]], na.rm = TRUE), 
 			length.out = ifelse(length(cuts) == 1, cuts + 1, length(cuts)))
 	if (missing(main)) {
@@ -74,7 +74,17 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 			stop("unknown value for argument mode")
     	form = as.formula(paste(z, "~ time"))
     	sp = geometry(obj@sp)
-    	df = data.frame(unstack(as.data.frame(obj), form))
+		unstackSAFE = function(obj, form) {
+			if (is.factor(obj[[z]])) {
+				lab = levels(obj[[z]])
+				obj$X = as.numeric(obj[[z]])
+				lev = min(obj$X):max(obj$X)
+    			ret = unstack(as.data.frame(obj), X~time)
+				lapply(ret, function(x) factor(x, labels = lab, levels = lev))
+			} else
+    			unstack(as.data.frame(obj), form)
+		}
+    	df = data.frame(unstackSAFE(obj, form))
 		x = addAttrToGeom(sp, df, match.ID = FALSE)
 		## OR:
 		## x = as(obj, "Spatial")
@@ -93,10 +103,12 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 				i = i + 1
 			}
 		} else {
-			args = list(x, names.attr = names.attr,
-				as.table = as.table, at = at, cuts =
-				cuts, auto.key = auto.key, scales =
-				scales, main = main, ...)
+			args = list(x, names.attr = names.attr, as.table = as.table, 
+				auto.key = auto.key, scales = scales, main = main, ...)
+			if (!is.factor(obj[[z]])) {
+				args$cuts = cuts
+				args$at = at
+			}
 			if (is(sp, "SpatialPoints"))
 				args$key.space = key.space
 			do.call(spplot, args)
@@ -229,9 +241,9 @@ trimDates = function(x) {
 	if (is(x, "ST"))
 		x = index(x@time)
 	it = as.character(x)
-	if (identical(grep("-01$", it), 1:length(it))) # all
+	if (identical(grep("-01$", it), 1:length(it))) # all: day
 		it = sub("-01$", "", it)
-	if (identical(grep("-01$", it), 1:length(it))) # all
+	if (identical(grep("-01$", it), 1:length(it))) # all: month
 		it = sub("-01$", "", it)
 	it
 }
