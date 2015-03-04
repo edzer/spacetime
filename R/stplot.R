@@ -49,7 +49,7 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 		}
 	} else if (mode == "xt") { # space-time cross section == Hovmoeller
 		if (missing(scales))
-			scales = list(draw=TRUE)
+			scales = list(draw = TRUE)
 		else
 			scales$draw = TRUE
 		s = longlat.scales(obj@sp, scales = scales, 
@@ -66,15 +66,18 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 		dots = list(...)
 		dots$scales = scales
 		dots$main = main
-		dots = append(list(f, as.data.frame(obj), at = at,
-			cuts = cuts, as.table = as.table), dots)
+		dots = append(list(f, as.data.frame(obj), as.table = as.table), dots)
+		if (!is.factor(obj[[z]])) {
+			dots$cuts = cuts
+			dots$at = at
+		}
 		do.call(levelplot, dots)
 	} else { # multiple spplots: panel for each time step.
 		if (mode != "xy")
 			stop("unknown value for argument mode")
     	form = as.formula(paste(z, "~ time"))
     	sp = geometry(obj@sp)
-		unstackSAFE = function(obj, form) {
+		unstackSAFE = function(obj, form) { # takes care of factors
 			if (is.factor(obj[[z]])) {
 				lab = levels(obj[[z]])
 				obj$X = as.numeric(obj[[z]])
@@ -96,9 +99,13 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 			i = 0
 			while (do.repeat || i < ncol(df)) {
 				timeStep = (i %% ncol(df)) + 1
-				print(spplot(x[,timeStep], main = names.attr[timeStep], at = at, 
-					cuts = cuts, as.table = as.table, auto.key = auto.key, 
-					scales = scales, ...))
+				args = list(x[,timeStep], main = names.attr[timeStep], 
+					as.table = as.table, auto.key = auto.key, scales = scales, ...)
+				if (!is.factor(obj[[z]])) {
+					args$cuts = cuts
+					args$at = at
+				}
+				print(do.call(spplot, args))
 				Sys.sleep(animate)
 				i = i + 1
 			}
