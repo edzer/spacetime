@@ -1,7 +1,7 @@
 library(gstat)
 
 # move to an appropriate CRS:
-RD = CRS(paste("+init=epsg:28992",
+RD = CRS(paste("+init=epsg:28992 +ellps=bessel",
  "+towgs84=565.237,50.0087,465.658,-0.406857,0.350733,-1.87035,4.0812"))
 
 # in the current sos4R version, no2.spdf has reversed x and y. swap them:
