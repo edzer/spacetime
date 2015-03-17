@@ -6,13 +6,20 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 		as.table = TRUE, at = NULL, cuts = 15, scales = list(draw = FALSE),
 		animate = 0, mode = "xy", scaleX = 0, 
 		auto.key = list(space = key.space), main,
-		key.space = "right", type = 'l', do.repeat = TRUE) {
+		key.space = "right", type = 'l', do.repeat = TRUE,
+		range.expand = 0.001) {
 
 	ind = sp.ID = NULL # keep R CMD check happy
     z = names(obj@data)[1]
+	seq.expand = function(min, max, length.out, expand) {
+		r = max - min
+		max = max + r * expand
+		min = min - r * expand
+		seq(min, max, length.out = length.out)
+	}
 	if (missing(at) && !is.factor(obj[[z]]))
-		at = seq(min(obj[[z]], na.rm = TRUE), max(obj[[z]], na.rm = TRUE), 
-			length.out = ifelse(length(cuts) == 1, cuts + 1, length(cuts)))
+		at = seq.expand(min(obj[[z]], na.rm = TRUE), max(obj[[z]], na.rm = TRUE), 
+			length.out = ifelse(length(cuts) == 1, cuts + 1, length(cuts)), range.expand)
 	if (missing(main)) {
 		if (ncol(obj@data) == 1)
 			main = names(obj@data)
