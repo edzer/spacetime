@@ -76,7 +76,7 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 		if (mode != "xy")
 			stop("unknown value for argument mode")
 		df = data.frame(reshape(as.data.frame(obj)[c(z, "time", "sp.ID")], 
-			timevar = "time", idvar = "sp.ID", direction = "wide"))[,-1]
+			timevar = "time", idvar = "sp.ID", direction = "wide"))[, -1, drop=FALSE]
 		x = addAttrToGeom(geometry(obj@sp), df, match.ID = FALSE)
 		## OR:
 		## x = as(obj, "Spatial")
