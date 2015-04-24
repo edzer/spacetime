@@ -123,7 +123,7 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 #	stplot(as(obj, "STFDF"), names.attr = names.attr, ...)
 
 panel.stpointsplot = function(x, y, col, sp.layout, ...) {
-    sp.panel.layout(sp.layout, panel.number())
+    sppanel(sp.layout, panel.number())
 	panel.xyplot(x, y, col = col, ...)
 }
 
@@ -179,7 +179,7 @@ stplot.STI = function(obj, names.attr = NULL, ...,
 }
 
 panel.sttrajplot = function(x, y, col, sp.layout, ..., GRP, lwd, lty = 1) {
-    sp.panel.layout(sp.layout, panel.number())
+    sppanel(sp.layout, panel.number())
 	if (length(GRP) == 1 && length(lwd) == 1 && length(col) == 1)
 		llines(x, y, lwd = lwd, col = col)
 	else {
