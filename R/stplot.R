@@ -73,6 +73,7 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 		dots = list(...)
 		dots$scales = scales
 		dots$main = main
+		dots$at = at
 		dots = append(list(f, as.data.frame(obj), as.table = as.table), dots)
 		if (!is.factor(obj[[z]])) {
 			dots$cuts = cuts

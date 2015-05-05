@@ -1,3 +1,9 @@
+commit 3083307fc8ebf938673028cf7ffc3ccff6a4cac6
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Apr 24 13:56:40 2015 +0200
+
+    upgrade to match sp 1.1-0
+
 commit 5e7950336984a567c0f07abb019930dbaf068abb
 Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Tue Mar 17 14:21:20 2015 +0100
