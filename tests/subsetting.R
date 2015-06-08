@@ -1,8 +1,11 @@
-Sys.setenv(TZ="Europe/Berlin")
+#Sys.setenv(TZ="Europe/Berlin")
+Sys.setenv(TZ="UTC")
 
 library(sp)
 library(spacetime)
 data(air)
+attr(attr(rural@time, "index"), "tzone") = "UTC"
+#attr(attr(rural@time, "index"), "tzone") = ""
 rr <- rural[,"2005-06"]
 
 # conversion

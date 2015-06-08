@@ -135,8 +135,8 @@ plot( gvisGeoChart(wind.loc, "yx", "mean", "sd", "Station",
 Two time lines are shown that have interesting interaction
 possibilities. For each of them, a subset of the full data sets
 (Irish wind and German air quality) are given, as the full data sets
-takes rather long to process (Rmd to html) and makes the browser
-slow loading the graph and when interacting with the data (2014).
+take rather long to process (Rmd to html) and makes the browser
+slow when loading the graph and interacting with it.
 
 ## Iris Wind in Time Annotation
 We select the last three years of the wind data set, 
