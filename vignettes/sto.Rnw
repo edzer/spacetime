@@ -198,6 +198,7 @@ needs to specify an aggregation medium: time, space, or space-time.
 Air quality example data are loaded by
 <<>>=
 data(air)
+rural = STFDF(stations, dates, data.frame(PM10 = as.vector(air)))
 class(rural)
 class(DE_NUTS1)
 @

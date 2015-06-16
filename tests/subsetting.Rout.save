@@ -1,6 +1,6 @@
 
-R version 3.1.1 (2014-07-10) -- "Sock it to Me"
-Copyright (C) 2014 The R Foundation for Statistical Computing
+R version 3.2.0 (2015-04-16) -- "Full of Ingredients"
+Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -15,11 +15,14 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> Sys.setenv(TZ="Europe/Berlin")
+> # Sys.setenv(TZ="Europe/Berlin")
+> Sys.setenv(TZ="UTC")
 > 
 > library(sp)
 > library(spacetime)
 > data(air)
+> rural = STFDF(stations, dates, data.frame(PM10 = as.vector(air)))
+> 
 > rr <- rural[,"2005-06"]
 > 
 > # conversion
@@ -52,12 +55,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-06-02 2711
-2005-06-03 2712
+           timeIndex
+2005-06-03      2711
+2005-06-04      2712
 
 Slot "endTime":
-[1] "2005-06-03 02:00:00 CEST" "2005-06-04 02:00:00 CEST"
+[1] "2005-06-04 UTC" "2005-06-05 UTC"
 
 > rrSTFDF[1:2,4:3] # returns 4 values
 An object of class "STFDF"
@@ -77,12 +80,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-06-02 2711
-2005-06-03 2712
+           timeIndex
+2005-06-03      2711
+2005-06-04      2712
 
 Slot "endTime":
-[1] "2005-06-03 02:00:00 CEST" "2005-06-04 02:00:00 CEST"
+[1] "2005-06-04 UTC" "2005-06-05 UTC"
 
 > rrSTFDF[cbind(2:1, 3:4)] # coerces matrix to vector, returns all time instances
 An object of class "STSDF"
@@ -105,12 +108,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-06-02 2711
-2005-06-03 2712
+           timeIndex
+2005-06-03      2711
+2005-06-04      2712
 
 Slot "endTime":
-[1] "2005-06-03 02:00:00 CEST" "2005-06-04 02:00:00 CEST"
+[1] "2005-06-04 UTC" "2005-06-05 UTC"
 
 > 
 > rrSTF[2:1,] # returns 2 spatial and 2 temporal instances -> 4 instances
@@ -124,54 +127,47 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-06-01 2710
-2005-06-02 2711
-2005-06-03 2712
-2005-06-04 2713
-2005-06-05 2714
-2005-06-06 2715
-2005-06-07 2716
-2005-06-08 2717
-2005-06-09 2718
-2005-06-10 2719
-2005-06-11 2720
-2005-06-12 2721
-2005-06-13 2722
-2005-06-14 2723
-2005-06-15 2724
-2005-06-16 2725
-2005-06-17 2726
-2005-06-18 2727
-2005-06-19 2728
-2005-06-20 2729
-2005-06-21 2730
-2005-06-22 2731
-2005-06-23 2732
-2005-06-24 2733
-2005-06-25 2734
-2005-06-26 2735
-2005-06-27 2736
-2005-06-28 2737
-2005-06-29 2738
+           timeIndex
+2005-06-01      2709
+2005-06-02      2710
+2005-06-03      2711
+2005-06-04      2712
+2005-06-05      2713
+2005-06-06      2714
+2005-06-07      2715
+2005-06-08      2716
+2005-06-09      2717
+2005-06-10      2718
+2005-06-11      2719
+2005-06-12      2720
+2005-06-13      2721
+2005-06-14      2722
+2005-06-15      2723
+2005-06-16      2724
+2005-06-17      2725
+2005-06-18      2726
+2005-06-19      2727
+2005-06-20      2728
+2005-06-21      2729
+2005-06-22      2730
+2005-06-23      2731
+2005-06-24      2732
+2005-06-25      2733
+2005-06-26      2734
+2005-06-27      2735
+2005-06-28      2736
+2005-06-29      2737
+2005-06-30      2738
 
 Slot "endTime":
- [1] "2005-06-01 02:00:00 CEST" "2005-06-02 02:00:00 CEST"
- [3] "2005-06-03 02:00:00 CEST" "2005-06-04 02:00:00 CEST"
- [5] "2005-06-05 02:00:00 CEST" "2005-06-06 02:00:00 CEST"
- [7] "2005-06-07 02:00:00 CEST" "2005-06-08 02:00:00 CEST"
- [9] "2005-06-09 02:00:00 CEST" "2005-06-10 02:00:00 CEST"
-[11] "2005-06-11 02:00:00 CEST" "2005-06-12 02:00:00 CEST"
-[13] "2005-06-13 02:00:00 CEST" "2005-06-14 02:00:00 CEST"
-[15] "2005-06-15 02:00:00 CEST" "2005-06-16 02:00:00 CEST"
-[17] "2005-06-17 02:00:00 CEST" "2005-06-18 02:00:00 CEST"
-[19] "2005-06-19 02:00:00 CEST" "2005-06-20 02:00:00 CEST"
-[21] "2005-06-21 02:00:00 CEST" "2005-06-22 02:00:00 CEST"
-[23] "2005-06-23 02:00:00 CEST" "2005-06-24 02:00:00 CEST"
-[25] "2005-06-25 02:00:00 CEST" "2005-06-26 02:00:00 CEST"
-[27] "2005-06-27 02:00:00 CEST" "2005-06-28 02:00:00 CEST"
-[29] "2005-06-29 02:00:00 CEST" "2005-06-30 02:00:00 CEST"
+ [1] "2005-06-02 UTC" "2005-06-03 UTC" "2005-06-04 UTC" "2005-06-05 UTC"
+ [5] "2005-06-06 UTC" "2005-06-07 UTC" "2005-06-08 UTC" "2005-06-09 UTC"
+ [9] "2005-06-10 UTC" "2005-06-11 UTC" "2005-06-12 UTC" "2005-06-13 UTC"
+[13] "2005-06-14 UTC" "2005-06-15 UTC" "2005-06-16 UTC" "2005-06-17 UTC"
+[17] "2005-06-18 UTC" "2005-06-19 UTC" "2005-06-20 UTC" "2005-06-21 UTC"
+[21] "2005-06-22 UTC" "2005-06-23 UTC" "2005-06-24 UTC" "2005-06-25 UTC"
+[25] "2005-06-26 UTC" "2005-06-27 UTC" "2005-06-28 UTC" "2005-06-29 UTC"
+[29] "2005-06-30 UTC" "2005-07-01 UTC"
 
 > rrSTF[cbind(4:1,1:4)] # returns 4 spatial and all temporal instances
 An object of class "STS"
@@ -193,15 +189,14 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-06-01 2710
-2005-06-02 2711
-2005-06-03 2712
+           timeIndex
+2005-06-01      2709
+2005-06-02      2710
+2005-06-03      2711
+2005-06-04      2712
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-02 02:00:00 CEST"
-[3] "2005-06-03 02:00:00 CEST" "2005-06-04 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-03 UTC" "2005-06-04 UTC" "2005-06-05 UTC"
 
 > 
 > # STS..
@@ -230,12 +225,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-06-02 2711
-2005-06-03 2712
+           timeIndex
+2005-06-03      2711
+2005-06-04      2712
 
 Slot "endTime":
-[1] "2005-06-03 02:00:00 CEST" "2005-06-04 02:00:00 CEST"
+[1] "2005-06-04 UTC" "2005-06-05 UTC"
 
 > rrSTSDF[cbind(1:2,3:4)] # returns 2 values for c(1,3) and c(2,4)
 An object of class "STSDF"
@@ -258,12 +253,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-06-02 2711
-2005-06-03 2712
+           timeIndex
+2005-06-03      2711
+2005-06-04      2712
 
 Slot "endTime":
-[1] "2005-06-03 02:00:00 CEST" "2005-06-04 02:00:00 CEST"
+[1] "2005-06-04 UTC" "2005-06-05 UTC"
 
 > rrSTSDF[cbind(2:1,3:4)] # returns 2 values for c(1,3) and c(2,4)
 An object of class "STSDF"
@@ -286,12 +281,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-06-02 2711
-2005-06-03 2712
+           timeIndex
+2005-06-03      2711
+2005-06-04      2712
 
 Slot "endTime":
-[1] "2005-06-03 02:00:00 CEST" "2005-06-04 02:00:00 CEST"
+[1] "2005-06-04 UTC" "2005-06-05 UTC"
 
 > 
 > rrSTS[1:2,3:4] # returns 2 spatial and 2 temporal instances and an index with 4 instances
@@ -312,12 +307,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-06-02 2711
-2005-06-03 2712
+           timeIndex
+2005-06-03      2711
+2005-06-04      2712
 
 Slot "endTime":
-[1] "2005-06-03 02:00:00 CEST" "2005-06-04 02:00:00 CEST"
+[1] "2005-06-04 UTC" "2005-06-05 UTC"
 
 > rrSTS[cbind(1:2,3:4)] # returns 2 spatial and 2 temporal instances, but index with only 2 instances
 An object of class "STS"
@@ -335,12 +330,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-06-02 2711
-2005-06-03 2712
+           timeIndex
+2005-06-03      2711
+2005-06-04      2712
 
 Slot "endTime":
-[1] "2005-06-03 02:00:00 CEST" "2005-06-04 02:00:00 CEST"
+[1] "2005-06-04 UTC" "2005-06-05 UTC"
 
 > 
 > # STI..
@@ -360,12 +355,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-05-31 2709
+           timeIndex
+2005-06-01      2709
+2005-06-01      2709
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-01 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-02 UTC"
 
 > rrSTIDF[1:2,] # returns two first entries
 An object of class "STIDF"
@@ -383,12 +378,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-05-31 2709
+           timeIndex
+2005-06-01      2709
+2005-06-01      2709
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-01 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-02 UTC"
 
 > rrSTIDF[,1:2] # returns two first entries
 An object of class "STIDF"
@@ -406,12 +401,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-05-31 2709
+           timeIndex
+2005-06-01      2709
+2005-06-01      2709
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-01 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-02 UTC"
 
 > rrSTIDF[cbind(1:2,1:2)] # returns two first entries twice
 An object of class "STIDF"
@@ -429,12 +424,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-05-31 2709
+           timeIndex
+2005-06-01      2709
+2005-06-01      2709
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-01 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-02 UTC"
 
 > 
 > rrSTI[1:2,1:2] # returns two first instances
@@ -448,12 +443,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-05-31 2709
+           timeIndex
+2005-06-01      2709
+2005-06-01      2709
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-01 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-02 UTC"
 
 > rrSTI[1:2,] # returns two first instances
 An object of class "STI"
@@ -466,12 +461,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-05-31 2709
+           timeIndex
+2005-06-01      2709
+2005-06-01      2709
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-01 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-02 UTC"
 
 > rrSTI[,1:2] # returns two first instances
 An object of class "STI"
@@ -484,12 +479,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-05-31 2709
+           timeIndex
+2005-06-01      2709
+2005-06-01      2709
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-01 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-02 UTC"
 
 > rrSTI[cbind(1:2,1:2)] # returns two first instances twice
 An object of class "STI"
@@ -502,12 +497,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-05-31 2709
+           timeIndex
+2005-06-01      2709
+2005-06-01      2709
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-01 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-02 UTC"
 
 > 
 > # ordered selection
@@ -614,12 +609,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-06-01 2710
+           timeIndex
+2005-06-01      2709
+2005-06-02      2710
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-02 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-03 UTC"
 
 > rrSTS[2:1,1:2]
 An object of class "STS"
@@ -639,12 +634,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-06-01 2710
+           timeIndex
+2005-06-01      2709
+2005-06-02      2710
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-02 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-03 UTC"
 
 > rrSTS[2:1,2:1]
 An object of class "STS"
@@ -664,12 +659,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-06-01 2710
+           timeIndex
+2005-06-01      2709
+2005-06-02      2710
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-02 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-03 UTC"
 
 > 
 > rrSTS[1:2,1:2]@sp
@@ -702,12 +697,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-06-01 2710
+           timeIndex
+2005-06-01      2709
+2005-06-02      2710
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-02 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-03 UTC"
 
 > rrSTFDF[rep(2,3), 1:2]
 An object of class "STFDF"
@@ -730,12 +725,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-06-01 2710
+           timeIndex
+2005-06-01      2709
+2005-06-02      2710
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-02 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-03 UTC"
 
 > rrSTF[rep(2,3), rep(2,2)]
 An object of class "STF"
@@ -749,12 +744,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-06-01 2710
-2005-06-01 2710
+           timeIndex
+2005-06-02      2710
+2005-06-02      2710
 
 Slot "endTime":
-[1] "2005-06-02 02:00:00 CEST" "2005-06-02 02:00:00 CEST"
+[1] "2005-06-03 UTC" "2005-06-03 UTC"
 
 > rrSTFDF[rep(2,3), rep(2,2)]
 An object of class "STFDF"
@@ -777,12 +772,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-06-01 2710
-2005-06-01 2710
+           timeIndex
+2005-06-02      2710
+2005-06-02      2710
 
 Slot "endTime":
-[1] "2005-06-02 02:00:00 CEST" "2005-06-02 02:00:00 CEST"
+[1] "2005-06-03 UTC" "2005-06-03 UTC"
 
 > 
 > # returns multiple results for STS.. 
@@ -805,12 +800,12 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-06-01 2710
+           timeIndex
+2005-06-01      2709
+2005-06-02      2710
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-02 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-03 UTC"
 
 > rrSTSDF[rep(2,3),1:2]@data
        PM10
@@ -839,11 +834,11 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-06-01 2710
+           timeIndex
+2005-06-02      2710
 
 Slot "endTime":
-[1] "2005-06-02 02:00:00 CEST"
+[1] "2005-06-03 UTC"
 
 > rrSTSDF[rep(2,3), rep(2,2)]@data
        PM10
@@ -867,14 +862,13 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-05-31 2709
-2005-05-31 2709
+           timeIndex
+2005-06-01      2709
+2005-06-01      2709
+2005-06-01      2709
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-01 02:00:00 CEST"
-[3] "2005-06-01 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-02 UTC" "2005-06-02 UTC"
 
 > rrSTI[cbind(5:1,1:5),]
 An object of class "STI"
@@ -886,11 +880,11 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
+           timeIndex
+2005-06-01      2709
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST"
+[1] "2005-06-02 UTC"
 
 > 
 > rrSTIDF[rep(3,3),rep(3,3)]
@@ -911,14 +905,13 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-05-31 2709
-2005-05-31 2709
+           timeIndex
+2005-06-01      2709
+2005-06-01      2709
+2005-06-01      2709
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-01 02:00:00 CEST"
-[3] "2005-06-01 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-02 UTC" "2005-06-02 UTC"
 
 > rrSTIDF[cbind(5:1,1:5),]
 An object of class "STIDF"
@@ -934,11 +927,11 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
+           timeIndex
+2005-06-01      2709
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST"
+[1] "2005-06-02 UTC"
 
 > rrSTIDF[cbind(1:5,1:5),]
 An object of class "STIDF"
@@ -962,19 +955,18 @@ Coordinate Reference System (CRS) arguments: +init=epsg:4326
 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0 
 
 Slot "time":
-            ..1
-2005-05-31 2709
-2005-05-31 2709
-2005-05-31 2709
-2005-05-31 2709
-2005-05-31 2709
+           timeIndex
+2005-06-01      2709
+2005-06-01      2709
+2005-06-01      2709
+2005-06-01      2709
+2005-06-01      2709
 
 Slot "endTime":
-[1] "2005-06-01 02:00:00 CEST" "2005-06-01 02:00:00 CEST"
-[3] "2005-06-01 02:00:00 CEST" "2005-06-01 02:00:00 CEST"
-[5] "2005-06-01 02:00:00 CEST"
+[1] "2005-06-02 UTC" "2005-06-02 UTC" "2005-06-02 UTC" "2005-06-02 UTC"
+[5] "2005-06-02 UTC"
 
 > 
 > proc.time()
    user  system elapsed 
-  1.318   0.076   1.382 
+  0.995   0.337   1.020 

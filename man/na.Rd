@@ -59,6 +59,7 @@ as(na.spline(x[,,2], xout = xout), "xts")
 
 # larger/real data:
 data(air)
+rural = STFDF(stations, dates, data.frame(PM10 = as.vector(air)))
 # fill NA's with last non-NA
 r = na.locf(rural)
 # sample (NOT aggregate) to monthly:
