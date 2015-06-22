@@ -4,4 +4,4 @@ sudo: required
 warnings_are_errors: true
 
 before_script:
-	- sudo apt-get install libgdal-dev
+   - sudo apt-get install libgdal-dev
