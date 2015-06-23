@@ -5,7 +5,10 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install aptitude 
   - sudo aptitude install libgdal-dev -y
+  - which gdal-config
   - sudo aptitude install libproj-dev -y
+  - sudo aptitude install libgeos-dev -y
+  - which geos-config
 
 language: r
 sudo: required
