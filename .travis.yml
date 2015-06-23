@@ -11,9 +11,10 @@ before_install:
   - tar zxvf proj-4.9.1.tar.gz
   - cd proj-4.9.1
   - ./configure
+  - pwd
   # - make
   # - sudo make install
-  - cd build/edzer/spacetime
+  - cd /home/travis/build/edzer/spacetime
 
 language: r
 sudo: required
