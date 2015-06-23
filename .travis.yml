@@ -1,16 +1,19 @@
 before_install:
-  - sudo wget http://download.osgeo.org/gdal/1.11.2/gdal-1.11.2.tar.gz
-  - sudo tar zxf gdal-1.11.2.tar.gz
-  - cd ./gdal-1.11.2
-  - sudo ./configure
-  - sudo make
+  - cd
+  - wget http://download.osgeo.org/gdal/1.11.2/gdal-1.11.2.tar.gz
+  - tar zxf gdal-1.11.2.tar.gz
+  - cd gdal-1.11.2
+  - ./configure
+  - make
   - sudo make install
-  - cd ..
-  - git clone --depth=50 --branch=master git://github.com/OSGeo/proj.4.git
-  - cd proj.4
-  - sudo ./configure
-  - sudo make
+  - cd
+  - wget http://download.osgeo.org/proj/proj-4.9.1.tar.gz
+  - tar zxvf proj-4.9.1.tar.gz
+  - cd proj-4.9.1
+  - ./configure
+  - make
   - sudo make install
+  - cd edzer/spacetime
 
 language: r
 sudo: required
