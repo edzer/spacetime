@@ -1,5 +1,5 @@
 
-R version 3.2.0 (2015-04-16) -- "Full of Ingredients"
+R version 3.2.1 (2015-06-18) -- "World-Famous Astronaut"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -112,15 +112,15 @@ Type 'q()' to quit R.
 Loading required package: gstat
 Loading required package: maps
 Loading required package: rgdal
-rgdal: version: 1.0-2, (SVN revision 463)
+rgdal: version: 0.9-3, (SVN revision 530)
  Geospatial Data Abstraction Library extensions to R successfully loaded
  Loaded GDAL runtime: GDAL 1.11.2, released 2015/02/10
  Path to GDAL shared files: /usr/local/share/gdal
  Loaded PROJ.4 runtime: Rel. 4.9.1, 04 March 2015, [PJ_VERSION: 491]
  Path to PROJ.4 shared files: (autodetected)
- Linking to sp version: 1.1-0 
+ Linking to sp version: 1.1-1 
 Checking rgeos availability: TRUE
 > 
 > proc.time()
    user  system elapsed 
-  1.554   0.334   1.618 
+  1.476   0.351   1.510 

@@ -1,5 +1,5 @@
 
-R version 3.2.0 (2015-04-16) -- "Full of Ingredients"
+R version 3.2.1 (2015-06-18) -- "World-Famous Astronaut"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -53,11 +53,11 @@ Type 'q()' to quit R.
 Loading required package: rgeos
 rgeos version: 0.3-11, (SVN revision 479)
  GEOS runtime version: 3.4.2-CAPI-1.8.2 r3921 
- Linking to sp version: 1.1-0 
+ Linking to sp version: 1.1-1 
  Polygon checking: TRUE 
 
 [1] TRUE
 > 
 > proc.time()
    user  system elapsed 
-  1.067   0.327   1.065 
+  1.113   0.289   1.072 
