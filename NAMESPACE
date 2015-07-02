@@ -1,8 +1,10 @@
 import(methods)
 import(sp)
 import(lattice)
-importFrom(stats, aggregate, na.omit, time, start, end, reshape)
-importFrom(utils, stack, unstack)
+importFrom(stats, aggregate, na.omit, time, start, end, reshape,
+	prcomp, predict, as.formula)
+importFrom(utils, stack, unstack, untar, read.table, write.table)
+importFrom(graphics, lines)
 importFrom(xts, xts, as.xts, timeBased)
 importFrom(zoo, index, na.locf, na.spline, na.approx, as.zoo)
 importFrom(intervals, interval_overlap, Intervals)
