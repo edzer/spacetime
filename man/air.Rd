@@ -1,7 +1,10 @@
 \name{air}
 \alias{air}
 \alias{DE_NUTS1}
+\alias{DE}
 \alias{rural}
+\alias{dates}
+\alias{stations}
 \title{Air quality data, rural background PM10 in Germany, daily averages 1998-2009}
 \description{
 Air quality data obtained from the airBase European air quality
@@ -21,4 +24,8 @@ ISO_3166_2_DE table comes from. }
 \keyword{datasets}
 \examples{
 data(air)
+rural = STFDF(stations, dates, data.frame(PM10 = as.vector(air)))
+# how DE was created from DE_NUTS1:
+if (require(rgeos))
+	DE = gUnionCascaded(DE_NUTS1)
 }

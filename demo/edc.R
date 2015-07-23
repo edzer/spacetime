@@ -113,9 +113,9 @@ pts = SpatialPoints(pts)
 
 # convert to utm zone 29, to be able to do interpolation in
 # proper Euclidian (projected) space:
-proj4string(pts) = "+proj=longlat +datum=WGS84"
 library(rgdal)
-utm29 = CRS("+proj=utm +zone=29 +datum=WGS84")
+proj4string(pts) = CRS("+proj=longlat +datum=WGS84 +ellps=WGS84")
+utm29 = CRS("+proj=utm +zone=29 +datum=WGS84 +ellps=WGS84")
 t = xts(1:nrow(wind), wind$time)
 pts = spTransform(pts, utm29)
 # create the spacetime object:

@@ -16,7 +16,7 @@ ecd.ll = as.matrix(read.table(getFILE("ECDovelatlon.dat"), header=FALSE))
 # space: convert to SpatialPoints, and set CRS:
 library(sp)
 ecd.ll = SpatialPoints(ecd.ll[,c(2,1)]) # lat-lon -> lon-lat
-proj4string(ecd.ll) = "+proj=longlat +datum=WGS84"
+proj4string(ecd.ll) = "+proj=longlat +datum=WGS84 +ellps=WGS84"
 
 # time:
 ecd.years = 1986:2003

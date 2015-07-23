@@ -26,9 +26,12 @@ setAs('RasterStackBrick', 'STFDF',
 )
 
 setMethod('stplot', 'RasterStackBrick', 
-    function(obj, ..., maxpixels=50000) {
-		require(raster)
-        ob <- sampleRegular(obj, size=maxpixels, asRaster=TRUE, useGDAL=TRUE)
+    function(obj, ..., maxpixels = 50000) {
+		if (!requireNamespace("raster", quietly = TRUE))
+			stop("package raster required to coerce to/from raster")
+		# require(raster)
+        ob <- raster::sampleRegular(obj, 
+			size = maxpixels, asRaster = TRUE, useGDAL = TRUE)
         ob <- as(ob, 'STFDF')
         stplot(ob, ...)
     }

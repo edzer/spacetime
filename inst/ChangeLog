@@ -1,3 +1,261 @@
+commit 3083307fc8ebf938673028cf7ffc3ccff6a4cac6
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Apr 24 13:56:40 2015 +0200
+
+    upgrade to match sp 1.1-0
+
+commit 5e7950336984a567c0f07abb019930dbaf068abb
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Mar 17 14:21:20 2015 +0100
+
+    docs for expand.range
+
+commit 58d8db3d8863eee96aeea1cf458fbee2e42b32db
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Mar 17 14:18:44 2015 +0100
+
+    range of at was too small; report by Roland Harhoff
+
+commit af552c7e902b69979f309bcf1f795bc7cf782f11
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Mar 17 13:56:53 2015 +0100
+
+    add drop=FALSE to data.frame selector
+
+commit 8ac495755ea13ef90b9e378ec26b963ea316174b
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Mar 13 16:20:47 2015 +0100
+
+    adding +ellps= to CRS arguments, for PROJ 4.9.1
+
+commit 393bb24344b7b3648086ecadf5bf287bdea4fcde
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Mar 5 00:12:50 2015 +0100
+
+    replace unstack with reshape; clean check
+
+commit 45bf1588eef7e2ddbf07f843333d72f0a99d0e4f
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Mar 4 20:27:51 2015 +0100
+
+    stplot mode = "xt" for factor: plots as number but no longer crashes
+
+commit b7e51d1720dace123a73669ee04b77255a0b9c09
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Mar 4 19:07:27 2015 +0100
+
+    stplot factor variables when mode = "xy"
+
+commit 24671c67b17293749937d7c955a80ce8e12ac619
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Feb 11 10:51:18 2015 +0100
+
+    make stsdf[1,1] do sth more sensible
+
+commit e7d26c403722f6dfe08f27bbbe82644e2f48976e
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Jan 28 12:13:49 2015 +0100
+
+    improve error message
+
+commit f37ad515f35e21f9351c290437f2948f34b5f894
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Jan 28 10:25:09 2015 +0100
+
+    enable check on duplicate attributes for STSDF
+
+commit 995dd6d742143bf9fcc4d43c19c358f9a4bc626c
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jan 27 23:34:52 2015 +0100
+
+    adopt new behaviour for STFDF too
+
+commit 08fcfb9f1555e283c82107256c055a5bead0b265
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jan 27 23:18:42 2015 +0100
+
+    add timeIndex to xts output on single pt subset; report from Jon Skoien;
+
+commit 68d9420d6a9bad79f3b84c656cbfc9f670fe5a28
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Jan 24 10:19:17 2015 +0100
+
+    remove rgeos dependency in sto.Rnw, add DE to air.rda
+
+commit 097d3a0fbc63f2ef7773825c07d35eafa3ab3cba
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Jan 21 23:20:34 2015 +0100
+
+    make rgeos requirement conditional
+
+commit cddc6c9ac45dfc7664c7e5b3adbcc65b0f499961
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Jan 21 09:08:18 2015 +0100
+
+    bump version
+
+commit 218a99f5b7b475353f8b37246c945c47f881f6aa
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jan 19 14:55:57 2015 +0100
+
+    correct timeIndex order for as.data.frame.STS, reported by Jon Skoien
+
+commit 6502ebfd51b6704669c46d26c8dd2b7304c630ef
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Jan 17 23:05:15 2015 +0100
+
+    conditional require(rgeos) in example
+
+commit 3f4f8a5c3e6048393ad14fd4444ec03773207dc9
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Jan 15 13:05:22 2015 +0100
+
+    more spTransform
+
+commit a29c98f3c80a784967bc319b5c63a9a725b631cd
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Jan 15 13:03:49 2015 +0100
+
+    title case; address rgdal requirement for spTransform
+
+commit e6073767b1e303dcb20c99cfe635d762bdd36eda
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Jan 15 11:51:11 2015 +0100
+
+    update test output
+
+commit 5b36a6916bc8af4cd696bb7742b0e0f03abe5b25
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Jan 14 17:33:25 2015 +0100
+
+    typo...
+
+commit f74c045284b795bc0e4ad1e167608dfa74a21674
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Jan 14 16:59:45 2015 +0100
+
+    update test output
+
+commit 0604dd381b7e2e10f97bbc3d5b26c8119c744a8f
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Jan 14 16:41:54 2015 +0100
+
+    prevent @sp attributes getting dropped (lost)
+
+commit a144894fbb8590a701cec4f99ae1f6f09d896916
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sun Dec 14 13:18:17 2014 +0100
+
+    correct aggregate with args STIDF, STF; add time chk
+
+commit 4c8cd4f1d6220dc43634e4333e18393a7d8d87e9
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Nov 22 12:26:03 2014 +0100
+
+    correct bug in stConstruct() when STIDF has non-chronological records
+
+commit 1969b0c7ba6197d96d4541a15a71a84a19291803
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Nov 20 11:26:02 2014 +0100
+
+    vignette pdf
+
+commit 850c3068348815205937350d9dad048ec3e18cfd
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Nov 20 11:22:36 2014 +0100
+
+    update date
+
+commit 2076a4e3b24c5f2aa8e029eca1a28f9d05f39d52
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Nov 20 11:20:35 2014 +0100
+
+    aggregate() for STI and STF with polygons did not work
+
+commit d903c16d831c43ab777a552b7c31687e5046396f
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Oct 30 10:55:32 2014 +0100
+
+    move rgeos to Suggests; improve wind plots in vignette
+
+commit da80be7b754e3b613107845166687b02deeb96dc
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Oct 27 19:26:35 2014 +0100
+
+    update the time plots
+
+commit c1f9a7480241deeb177e345332e4045236e9c02e
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Oct 27 19:17:24 2014 +0100
+
+    change argument to returnEOFs
+
+commit 1783943b6aa395ee0296bed53e88126b51909fd3
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Oct 27 19:02:58 2014 +0100
+
+    add function eof, deprecate EOF
+
+commit 480f74eb8a74adb4a2508f17d470434c2deabf42
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Oct 16 11:00:32 2014 +0200
+
+    added ... to apply() calls
+
+commit c98b5c3ae85414e1eaf53ea0bf72373d371d0dca
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Oct 16 09:40:00 2014 +0200
+
+    doc omission, found by Roland Harhoff
+
+commit 9c82ea3f06c105323282e486ebae84fc6fcfbaca
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Oct 14 09:25:09 2014 +0200
+
+    name too long: only use first name
+
+commit 0ed91ac92db69dc64cecaa9ecf08efbb2308db45
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Sep 26 21:44:00 2014 +0200
+
+    add parens
+
+commit be2182be7cfafadd2d5ebde3256c7eea902c5e2f
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Sep 23 21:59:55 2014 +0200
+
+    add call to match.fun(), add STT method to stplot
+
+commit faab956a4f570502961e2f570b5452a346f540ba
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Sep 11 23:29:30 2014 +0200
+
+    add stplot method for STT
+
+commit d83a3607c80317ace36009534c8a2cf0c276c570
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sun Sep 7 23:34:13 2014 +0200
+
+    add subset methods with ST objects
+
+commit c974e676d494be7cbab83798763115783704dfee
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sun Sep 7 23:02:44 2014 +0200
+
+    add selection based on match with STF object
+
+commit 8ad1aa01bcbdc4f12e40f8ffe59a77de8157ff77
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sun Sep 7 23:02:29 2014 +0200
+
+    tidy tabstop
+
+commit 0db898784310fd8b209a9f586f7da47e2fd83c3b
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sun Sep 7 22:18:52 2014 +0200
+
+    tidy (revert back to tabstop = 4 spaces)
+
 commit 5a476b1fe7580118aeee8af2cbbb5129716c7dac
 Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Thu Aug 28 12:36:55 2014 +0200

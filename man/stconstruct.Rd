@@ -90,7 +90,8 @@ all.equal(x, Produc.st, check.attributes = FALSE)
 # stConstruct multivariable, time-wide
 library(maptools)
 fname = system.file("shapes/sids.shp", package="maptools")[1]
-nc = readShapePoly(fname, proj4string=CRS("+proj=longlat +datum=NAD27"))
+nc = readShapePoly(fname, 
+	proj4string = CRS("+proj=longlat +datum=NAD27 +ellps=clrk66"))
 timesList = list(
 	BIR=c("BIR74", "BIR79"),  # sets of variables that belong together
 	NWBIR=c("NWBIR74", "NWBIR79"), # only separated by space

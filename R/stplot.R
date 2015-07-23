@@ -3,16 +3,23 @@ if (!isGeneric("stplot"))
 		standardGeneric("stplot"))
 
 stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
-		as.table = TRUE, at, cuts = 15, scales = list(draw = FALSE),
+		as.table = TRUE, at = NULL, cuts = 15, scales = list(draw = FALSE),
 		animate = 0, mode = "xy", scaleX = 0, 
 		auto.key = list(space = key.space), main,
-		key.space = "right", type = 'l', do.repeat = TRUE) {
+		key.space = "right", type = 'l', do.repeat = TRUE,
+		range.expand = 0.001) {
 
-	ind = sp.ID = NULL # keep R CMD check happy in R 2.13 
+	ind = sp.ID = NULL # keep R CMD check happy
     z = names(obj@data)[1]
-	if (missing(at))
-		at = seq(min(obj[[z]], na.rm = TRUE), max(obj[[z]], na.rm = TRUE), 
-			length.out = ifelse(length(cuts) == 1, cuts + 1, length(cuts)))
+	seq.expand = function(min, max, length.out, expand) {
+		r = max - min
+		max = max + r * expand
+		min = min - r * expand
+		seq(min, max, length.out = length.out)
+	}
+	if (missing(at) && !is.factor(obj[[z]]))
+		at = seq.expand(min(obj[[z]], na.rm = TRUE), max(obj[[z]], na.rm = TRUE), 
+			length.out = ifelse(length(cuts) == 1, cuts + 1, length(cuts)), range.expand)
 	if (missing(main)) {
 		if (ncol(obj@data) == 1)
 			main = names(obj@data)
@@ -49,7 +56,7 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 		}
 	} else if (mode == "xt") { # space-time cross section == Hovmoeller
 		if (missing(scales))
-			scales = list(draw=TRUE)
+			scales = list(draw = TRUE)
 		else
 			scales$draw = TRUE
 		s = longlat.scales(obj@sp, scales = scales, 
@@ -66,16 +73,19 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 		dots = list(...)
 		dots$scales = scales
 		dots$main = main
-		dots = append(list(f, as.data.frame(obj), at = at,
-			cuts = cuts, as.table = as.table), dots)
+		dots$at = at
+		dots = append(list(f, as.data.frame(obj), as.table = as.table), dots)
+		if (!is.factor(obj[[z]])) {
+			dots$cuts = cuts
+			dots$at = at
+		}
 		do.call(levelplot, dots)
 	} else { # multiple spplots: panel for each time step.
 		if (mode != "xy")
 			stop("unknown value for argument mode")
-    	form = as.formula(paste(z, "~ time"))
-    	sp = geometry(obj@sp)
-    	df = data.frame(unstack(as.data.frame(obj), form))
-		x = addAttrToGeom(sp, df, match.ID = FALSE)
+		df = data.frame(reshape(as.data.frame(obj)[c(z, "time", "sp.ID")], 
+			timevar = "time", idvar = "sp.ID", direction = "wide"))[, -1, drop=FALSE]
+		x = addAttrToGeom(geometry(obj@sp), df, match.ID = FALSE)
 		## OR:
 		## x = as(obj, "Spatial")
 		## x@data = data.frame(x@data) # cripples column names
@@ -86,18 +96,24 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 			i = 0
 			while (do.repeat || i < ncol(df)) {
 				timeStep = (i %% ncol(df)) + 1
-				print(spplot(x[,timeStep], main = names.attr[timeStep], at = at, 
-					cuts = cuts, as.table = as.table, auto.key = auto.key, 
-					scales = scales, ...))
+				args = list(x[,timeStep], main = names.attr[timeStep], 
+					as.table = as.table, auto.key = auto.key, scales = scales, ...)
+				if (!is.factor(obj[[z]])) {
+					args$cuts = cuts
+					args$at = at
+				}
+				print(do.call(spplot, args))
 				Sys.sleep(animate)
 				i = i + 1
 			}
 		} else {
-			args = list(x, names.attr = names.attr,
-				as.table = as.table, at = at, cuts =
-				cuts, auto.key = auto.key, scales =
-				scales, main = main, ...)
-			if (is(sp, "SpatialPoints"))
+			args = list(x, names.attr = names.attr, as.table = as.table, 
+				auto.key = auto.key, scales = scales, main = main, ...)
+			if (!is.factor(obj[[z]])) {
+				args$cuts = cuts
+				args$at = at
+			}
+			if (is(obj@sp, "SpatialPoints"))
 				args$key.space = key.space
 			do.call(spplot, args)
 		}
@@ -108,7 +124,7 @@ stplot.STFDF = function(obj, names.attr = trimDates(obj), ...,
 #	stplot(as(obj, "STFDF"), names.attr = names.attr, ...)
 
 panel.stpointsplot = function(x, y, col, sp.layout, ...) {
-    sp.panel.layout(sp.layout, panel.number())
+    sppanel(sp.layout, panel.number())
 	panel.xyplot(x, y, col = col, ...)
 }
 
@@ -164,7 +180,7 @@ stplot.STI = function(obj, names.attr = NULL, ...,
 }
 
 panel.sttrajplot = function(x, y, col, sp.layout, ..., GRP, lwd, lty = 1) {
-    sp.panel.layout(sp.layout, panel.number())
+    sppanel(sp.layout, panel.number())
 	if (length(GRP) == 1 && length(lwd) == 1 && length(col) == 1)
 		llines(x, y, lwd = lwd, col = col)
 	else {
@@ -229,9 +245,9 @@ trimDates = function(x) {
 	if (is(x, "ST"))
 		x = index(x@time)
 	it = as.character(x)
-	if (identical(grep("-01$", it), 1:length(it))) # all
+	if (identical(grep("-01$", it), 1:length(it))) # all: day
 		it = sub("-01$", "", it)
-	if (identical(grep("-01$", it), 1:length(it))) # all
+	if (identical(grep("-01$", it), 1:length(it))) # all: month
 		it = sub("-01$", "", it)
 	it
 }

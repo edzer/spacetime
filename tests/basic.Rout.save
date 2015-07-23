@@ -1,6 +1,6 @@
 
-R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
-Copyright (C) 2013 The R Foundation for Statistical Computing
+R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
+Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -195,11 +195,11 @@ Slot "endTime":
 [3] "2010-08-05 13:00:00 GMT" "2010-08-05 14:00:00 GMT"
 
 > stfdf[1,,1] # xts
-                    values
-2010-08-05 10:00:00   8.77
-2010-08-05 11:00:00   8.47
-2010-08-05 12:00:00  10.80
-2010-08-05 13:00:00   9.74
+                    values timeIndex
+2010-08-05 10:00:00   8.77         1
+2010-08-05 11:00:00   8.47         2
+2010-08-05 12:00:00  10.80         3
+2010-08-05 13:00:00   9.74         4
 > stfdf[,,"ID"]
 An object of class "STFDF"
 Slot "data":
@@ -340,16 +340,16 @@ Slot "data":
 
 Slot "sp":
 SpatialPoints:
-      x y
- [1,] 1 1
- [2,] 2 1
- [3,] 3 1
- [4,] 1 2
- [5,] 2 2
- [6,] 3 2
- [7,] 1 3
- [8,] 2 3
- [9,] 3 3
+       x y
+point1 1 1
+point2 2 1
+point3 3 1
+point4 1 2
+point5 2 2
+point6 3 2
+point7 1 3
+point8 2 3
+point9 3 3
 Coordinate Reference System (CRS) arguments: NA 
 
 Slot "time":
@@ -385,9 +385,9 @@ Slot "data":
 
 Slot "sp":
 SpatialPoints:
-     x y
-[1,] 1 1
-[2,] 2 1
+       x y
+point1 1 1
+point2 2 1
 Coordinate Reference System (CRS) arguments: NA 
 
 Slot "time":
@@ -422,11 +422,11 @@ attr(,"package")
 > ### chunk number 15: 
 > ###################################################
 > stfdf[1, , "values"]
-                    values
-2010-08-05 10:00:00   8.77
-2010-08-05 11:00:00   8.47
-2010-08-05 12:00:00  10.80
-2010-08-05 13:00:00   9.74
+                    values timeIndex
+2010-08-05 10:00:00   8.77         1
+2010-08-05 11:00:00   8.47         2
+2010-08-05 12:00:00  10.80         3
+2010-08-05 13:00:00   9.74         4
 > 
 > ###################################################
 > ### chunk number 16: 
@@ -597,11 +597,11 @@ Slot "endTime":
 [3] "2010-08-05 13:00:00 GMT" "2010-08-05 14:00:00 GMT"
 
 > stsdf[1,,1] # xts
-                    values
-2010-08-05 10:00:00   8.77
-2010-08-05 11:00:00   8.47
-2010-08-05 12:00:00  10.80
-2010-08-05 13:00:00   9.74
+                    values timeIndex
+2010-08-05 10:00:00   8.77         1
+2010-08-05 11:00:00   8.47         2
+2010-08-05 12:00:00  10.80         3
+2010-08-05 13:00:00   9.74         4
 > stsdf[,,"ID"]
 An object of class "STSDF"
 Slot "data":
@@ -1102,12 +1102,12 @@ The following objects are masked from 'package:base':
 > spx = SpatialPointsDataFrame(sp, data.frame(values = c("a", "b", "c")))
 > try(stfdf <- STFDF(spx, time, mydata))
 Error in .checkAttrIsUnique(object@sp, object@time, object@data) : 
-  name conflict: attribute name(s) already present in sp slot of ST object
+  name conflict: attribute name(s) in data already present in sp slot of ST object
 > timex = time
 > names(timex) = "values"
 > try(stfdf <- STFDF(sp, timex, mydata))
 Error in .checkAttrIsUnique(object@sp, object@time, object@data) : 
-  name conflict: attribute name(s) already present in time slot of ST object
+  name conflict: attribute name(s) in data already present in time slot of ST object
 > mydatax = mydata
 > names(mydatax) = "x"
 > try(stfdf <- STFDF(spx, timex, mydatax))
@@ -1116,12 +1116,12 @@ Error in validityMethod(object) :
 > stfdf = STFDF(sp, timex, mydatax)
 > try(stfdf[["values"]] <- 1:12)
 Error in .checkAttrIsUnique(x@sp, x@time, x@data) : 
-  name conflict: attribute name(s) already present in time slot of ST object
+  name conflict: attribute name(s) in data already present in time slot of ST object
 > stfdf = STFDF(spx, time, mydatax)
 > try(stfdf[["values"]] <- 1:12)
 Error in .checkAttrIsUnique(x@sp, x@time, x@data) : 
-  name conflict: attribute name(s) already present in sp slot of ST object
+  name conflict: attribute name(s) in data already present in sp slot of ST object
 > 
 > proc.time()
    user  system elapsed 
-  1.400   0.132   1.528 
+  1.166   0.082   1.235 

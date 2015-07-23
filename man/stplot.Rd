@@ -31,7 +31,7 @@ stplot(obj, ...)
 stplot.STFDF(obj, names.attr = trimDates(obj), ...,
 	as.table = TRUE, at, cuts = 15, scales = list(draw = FALSE), 
 	animate = 0, mode = "xy", scaleX = 0, auto.key = list(space = key.space), 
-	main, key.space = "right", type = "l", do.repeat = TRUE)
+	main, key.space = "right", type = "l", do.repeat = TRUE, range.expand = 0.001)
 stplot.STIDF(obj, ..., names.attr = NULL, as.table = TRUE,
 	scales = list(draw = FALSE), xlab = NULL, ylab = NULL,
 	type = "p", number = 6, tcuts, sp.layout = NULL, xlim =
@@ -66,6 +66,8 @@ or the y coordinate (2). }
 \item{type}{ character; use 'l' for lines, 'p' for symbols,
 'b' for both lines and symbols }
 \item{do.repeat}{ logical; repeat the animation in an infinite loop? }
+\item{range.expand}{ numeric; if \code{at} is not specified, 
+expand the data range with this factor to cover all values }
 \item{number}{ number of time intervals, equally spaced }
 \item{tcuts}{time cuts in units of \code{index(obj)}; this overrides \code{number}}
 \item{sp.layout}{list or NULL; see \link[sp]{spplot}}

@@ -171,13 +171,14 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 	if (drop) {
 		if (length(s) == 1) { # space index has only 1 item:
 			if (length(t) == 1)
-				x = x@data[1,1,drop=TRUE]
+				x = x@data[1, , drop = (ncol(x@data) == 1)] # TRUE would return a list if ncol > 1
 			else {
 				ix = index(x@time[x@index[,2]])
+				xs = cbind(x@data, as.data.frame(x@time)) # JS
 				if (is(ix, "Date"))
-					x = xts(x@data, ix)
+					x = xts(xs, ix)
 				else
-					x = xts(x@data, ix, tzone = attr(x@time, "tzone"))
+					x = xts(xs, ix, tzone = attr(x@time, "tzone"))
         # added index to achieve 
 				# (nrow(x)==length(order.by)) in index() # TG
 			}

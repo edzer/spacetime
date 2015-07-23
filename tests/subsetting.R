@@ -1,8 +1,11 @@
-Sys.setenv(TZ="Europe/Berlin")
+# Sys.setenv(TZ="Europe/Berlin")
+Sys.setenv(TZ="UTC")
 
 library(sp)
 library(spacetime)
 data(air)
+rural = STFDF(stations, dates, data.frame(PM10 = as.vector(air)))
+
 rr <- rural[,"2005-06"]
 
 # conversion

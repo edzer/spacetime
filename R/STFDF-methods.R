@@ -141,10 +141,10 @@ subs.STF_and_STFDF <- function(x, i, j, ... , drop = is(x, "STFDF")) {
 		s = 1:length(x@sp)
 	else {
 		if (is.matrix(i)) {
-		stopifnot(ncol(i)==2)
-		s <- unique(i[,1])
-		missing.j <- FALSE
-		matrix.i <- TRUE
+			stopifnot(ncol(i)==2)
+			s <- unique(i[,1])
+			missing.j <- FALSE
+			matrix.i <- TRUE
 		} else {
 	 		if (is(i, "Spatial")) {
 	 			s = which(!is.na(over(x@sp, geometry(i))))
@@ -211,10 +211,11 @@ subs.STF_and_STFDF <- function(x, i, j, ... , drop = is(x, "STFDF")) {
 				x = x@data[1,]
 			else {
 				ix = index(x@time)
+				xs = cbind(x@data, as.data.frame(x@time))
 				if (is(ix, "Date"))
-					x = xts(x@data, ix)
+					x = xts(xs, ix)
 				else
-					x = xts(x@data, ix, tzone = attr(x@time, "tzone"))
+					x = xts(xs, ix, tzone = attr(x@time, "tzone"))
 			}
 		} else {
 			if (length(t) == 1) {
