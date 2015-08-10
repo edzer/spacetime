@@ -82,6 +82,20 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 		k = dots[[1]]
 	}
 
+	if(!missing.i)
+	  if(is.numeric(i))
+  	  if(any(order(i)-1:length(i) != 0)) {
+  	    warning("Spatial index has been sorted ascending.")
+  	    i <- sort(i)
+  	  }
+	
+	if(!missing.j)
+	  if(is.numeric(j))
+  	  if(any(order(j)-1:length(j) != 0)) {
+  	    warning("Temporal index has been sorted ascending.")
+  	    j <- sort(j)
+  	  }
+	
 	if (missing.i && missing.j && missing.k)
 		return(x)
   
