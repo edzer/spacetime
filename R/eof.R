@@ -28,7 +28,7 @@ eof = function(x, how = c("spatial", "temporal"), returnEOFs = TRUE, ...) {
 		pr = prcomp(~., data.frame(x), ...)
 		if (! returnEOFs)
 			return(pr)
-		x = addAttrToGeom(sp, data.frame(pr$rotation), TRUE)
+		x = addAttrToGeom(sp, data.frame(pr$rotation), FALSE)
 	} else if (how[1] == "temporal") {
 		pr = prcomp(~., data.frame(t(x)), ...)
 		if (! returnEOFs)
