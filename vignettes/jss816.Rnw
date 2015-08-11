@@ -499,7 +499,7 @@ these with actual data, in the form of a \code{data.frame}.
 \end{center}
 \caption{Classes for spatio-temporal data in package \pkg{spacetime}. Arrows
 denote inheritance, lower side of boxes list slot name and type, green lines
-indicate possible coercions (both ways). }
+indicate supported coercions (both ways). }
 \label{cls}
 \end{figure}
 % is.regular. or not.
