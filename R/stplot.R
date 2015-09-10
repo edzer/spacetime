@@ -139,15 +139,14 @@ stplot.STIDF = function(obj, ..., names.attr = NULL,
 	if (missing(tcuts))
 		tcuts = seq(min(tix), max(tix), length.out = number + 1)
 	else
-		number = length(tcuts)
-	#timeclass = findInterval(tix, tcuts, TRUE, TRUE)
-	timeclass = findInterval(tix, tcuts, FALSE, FALSE)
+		number = length(tcuts) - 1
+	timeclass = findInterval(tix, tcuts, rightmost.closed = TRUE) # EJP, Mon Aug 17 12:07:12 CEST 2015
 	data = obj@data[,1,drop=FALSE]
 	if (number > 1) for (i in 2:number) {
 		data = cbind(data, obj@data[,1])
 		data[timeclass != i, i] = NA
 		if (i == number)
-			data[timeclass != 1, 1] = NA
+			data[timeclass != 1, 1] = NA # deal with first time class
 	}
 	names(data) = make.names(names(data), TRUE)
 	d = addAttrToGeom(obj@sp, data, FALSE)
