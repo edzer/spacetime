@@ -1,5 +1,5 @@
 
-R version 3.2.0 (2015-04-16) -- "Full of Ingredients"
+R version 3.2.2 (2015-08-14) -- "Fire Safety"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -408,7 +408,7 @@ Slot "time":
 Slot "endTime":
 [1] "2005-06-02 UTC" "2005-06-02 UTC"
 
-> rrSTIDF[cbind(1:2,1:2)] # returns two first entries twice
+> rrSTIDF[cbind(1:2,1:2)] # returns two first entries
 An object of class "STIDF"
 Slot "data":
     PM10
@@ -486,7 +486,7 @@ Slot "time":
 Slot "endTime":
 [1] "2005-06-02 UTC" "2005-06-02 UTC"
 
-> rrSTI[cbind(1:2,1:2)] # returns two first instances twice
+> rrSTI[cbind(1:2,1:2)] # returns two first instances
 An object of class "STI"
 Slot "sp":
 SpatialPoints:
@@ -552,28 +552,19 @@ Slot "endTime":
     PM10
 1 16.042
 2 15.792
-> rrSTIDF[2:1,2:1]@data
-    PM10
-2 15.792
-1 16.042
+> # rrSTIDF[2:1,2:1]@data
 > 
 > # 
 > rrSTIDF[c(1,2),c(1,2)]@data
     PM10
 1 16.042
 2 15.792
-> rrSTIDF[c(2,1),c(1,2)]@data
-    PM10
-2 15.792
-1 16.042
+> # rrSTIDF[c(2,1),c(1,2)]@data
 > rrSTIDF[c(1,200),c(1,200)]@data
       PM10
 1   16.042
 305  6.458
-> rrSTIDF[c(200,1),c(1,200)]@data
-      PM10
-1   16.042
-305  6.458
+> # rrSTIDF[c(200,1),c(1,200)]@data
 > 
 > # STx
 > rrSTF[1:2,1:2]@sp
@@ -969,4 +960,4 @@ Slot "endTime":
 > 
 > proc.time()
    user  system elapsed 
-  0.995   0.337   1.020 
+  1.017   0.053   1.067 

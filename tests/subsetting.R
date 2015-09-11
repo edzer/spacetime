@@ -39,12 +39,12 @@ rrSTS[cbind(1:2,3:4)] # returns 2 spatial and 2 temporal instances, but index wi
 rrSTIDF[1:2,1:2] # returns two first entries
 rrSTIDF[1:2,] # returns two first entries
 rrSTIDF[,1:2] # returns two first entries
-rrSTIDF[cbind(1:2,1:2)] # returns two first entries twice
+rrSTIDF[cbind(1:2,1:2)] # returns two first entries
 
 rrSTI[1:2,1:2] # returns two first instances
 rrSTI[1:2,] # returns two first instances
 rrSTI[,1:2] # returns two first instances
-rrSTI[cbind(1:2,1:2)] # returns two first instances twice
+rrSTI[cbind(1:2,1:2)] # returns two first instances
 
 # ordered selection
 ###################
@@ -60,13 +60,13 @@ rrSTSDF[2:1,1:2]@data
 
 # and for STI in one time slice
 rrSTIDF[1:2,1:2]@data
-rrSTIDF[2:1,2:1]@data
+# rrSTIDF[2:1,2:1]@data
 
 # 
 rrSTIDF[c(1,2),c(1,2)]@data
-rrSTIDF[c(2,1),c(1,2)]@data
+# rrSTIDF[c(2,1),c(1,2)]@data
 rrSTIDF[c(1,200),c(1,200)]@data
-rrSTIDF[c(200,1),c(1,200)]@data
+# rrSTIDF[c(200,1),c(1,200)]@data
 
 # STx
 rrSTF[1:2,1:2]@sp

@@ -82,12 +82,15 @@ subs.STIDF <- function(x, i, j, ... , drop = FALSE) {
 		k = dots[[1]]
 	}
 
-	if(!missing.i)
+	if(!missing.i) {
+	  if(is.matrix(i))
+	    i <- i[i[,1]==i[,2],1]
 	  if(is.numeric(i))
   	  if(any(order(i)-1:length(i) != 0)) {
   	    warning("Spatial index has been sorted ascending.")
   	    i <- sort(i)
   	  }
+	}
 	
 	if(!missing.j)
 	  if(is.numeric(j))
