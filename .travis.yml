@@ -14,6 +14,7 @@ before_install:
   - pwd
   - make
   - sudo make install
+  - sudo scp http://ifgi.uni-muenster.de/~epebe_01/proj_def.dat /usr/local/share/proj/proj_def.dat
   - cd /home/travis/build/edzer/spacetime
 
 language: r
