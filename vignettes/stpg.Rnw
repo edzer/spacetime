@@ -44,7 +44,7 @@ access an external data base, a document with evaluated commands
 is found \href{http://ifgi.uni-muenster.de/~epebe_01/stpg.pdf}{here}.
 
 This vignette was run using the following libraries:
-<<eval=TRUE>>=
+<<eval=FALSE>>=
 library(RPostgreSQL)
 @
 <<>>=
@@ -67,7 +67,7 @@ password = "pw"
 @
 
 Next, we will create a driver and connect to the database: 
-<<eval=TRUE>>=
+<<eval=FALSE>>=
 drv <- dbDriver("PostgreSQL")
 con <- dbConnect(drv, dbname=dbname, user=user, password=password,
 host='localhost', port='5432')
@@ -78,7 +78,7 @@ for any database connector that uses the interface of package
 \code{DBI}.
 
 We now remove a set of tables (if present) so they can be created later on:
-<<eval=TRUE>>=
+<<eval=FALSE>>=
 dbRemoveTable(con, "rural_attr")
 dbRemoveTable(con, "rural_space")
 dbRemoveTable(con, "rural_time")
@@ -89,7 +89,7 @@ dbRemoveTable(con, "space_select")
 Now we will create the table with spatial features (observation
 locations). For this, we need the \code{rgdal} function \code{writeOGR},
 which by default creates an index on the geometry:
-<<eval=TRUE>>=
+<<eval=FALSE>>=
 data(air)
 rural = STFDF(stations, dates, data.frame(PM10 = as.vector(air)))
 rural = as(rural, "STSDF")
@@ -104,14 +104,14 @@ writeOGR(sp, OGRstring, "rural_space", driver = "PostgreSQL")
 
 In case you have problems replicating this, verify that your \code{rgdal}
 installation privides the \code{PostgreSQL} driver, e.g. by checking that 
-<<eval=TRUE>>=
+<<eval=FALSE>>=
 subset(ogrDrivers(), name == "PostgreSQL")$write
 @
 prints a \code{TRUE}, and not a \code{logical(0)}.
 
 Second, we will write the table with times to the database,
 and create an index to time:
-<<eval=TRUE>>=
+<<eval=FALSE>>=
 df = data.frame(time = index(rural@time), time_id = 1:nrow(rural@time))
 dbWriteTable(con, "rural_time", df)
 idx = "create index time_idx on rural_time (time);"
@@ -120,7 +120,7 @@ dbSendQuery(con, idx)
 
 Finally, we will write the full attribute data table to PosgreSQL,
 along with its indexes to the spatial and temporal tables:
-<<eval=TRUE>>=
+<<eval=FALSE>>=
 idx = rural@index
 names(rural@data) = "pm10" # lower case
 df = cbind(data.frame(geom_id = idx[,1], time_id = idx[,2]), rural@data)
@@ -143,7 +143,7 @@ setClass("ST_PG", contains = "ST",
 	con = "PostgreSQLConnection"))
 @
 Next, we will create an instance of the new class:
-<<eval=TRUE,keep.source=TRUE>>=
+<<eval=FALSE,keep.source=TRUE>>=
 rural_proxy = new("ST_PG", 
 	#ST(rural@sp, rural@time, rural@endTime),
 	as(rural, "ST"),
@@ -196,7 +196,7 @@ setMethod("[", "ST_PG", function(x, i, j, ... , drop = TRUE) {
 	STSDF(x@sp, x@time, df[x@attr], as.matrix(df[c("geom_id", "time_id")]))
 })
 @
-<<eval=TRUE>>=
+<<eval=FALSE>>=
 pm10_20050101 = rural_proxy[, "2005-01-01"]
 summary(pm10_20050101)
 summary(rural[,"2005-01-01"])
@@ -208,13 +208,13 @@ summary(rural[DE_NUTS1[10,],])
 Clearly, the temporal and spatial components are not subsetted, so do
 not reflect the actual selection made; the attribute data however do;
 the following selection step ``cleans'' the unused features/times:
-<<eval=TRUE>>=
+<<eval=FALSE>>=
 dim(pm10_NRW)
 pm10_NRW = pm10_NRW[T,]
 dim(pm10_NRW)
 @
 Comparing sizes, we see that the selected object is smaller:
-<<eval=TRUE>>=
+<<eval=FALSE>>=
 object.size(rural)
 object.size(pm10_20050101)
 object.size(pm10_NRW)
@@ -223,7 +223,7 @@ object.size(pm10_NRW)
 \section{Closing the database connection}
 The following commands close the database connection and release
 the driver resources:
-<<eval=TRUE>>=
+<<eval=FALSE>>=
 dbDisconnect(con)
 dbUnloadDriver(drv)
 @
