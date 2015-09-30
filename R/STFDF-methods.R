@@ -61,7 +61,7 @@ unstack.STFDF = function(x, form, which = 1,...) {
 #      paste(coordnames(x@sp),collapse="+"), sep = "~"))
     form = as.formula(paste(names(x@data)[which], "sp.ID", sep = "~"))
   ret = unstack(as(x, "data.frame"), form, ...)
-  rownames(ret) = as.character(index(x@time))
+  rownames(ret) = make.unique(as.character(index(x@time)))
   ret
 }
 
