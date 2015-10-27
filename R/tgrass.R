@@ -25,9 +25,12 @@ read.tgrass = function(fname, localName = TRUE, useTempDir = TRUE, isGeoTiff = T
 
 write.tgrass = function(obj, fname, ...) {
 	# require(raster)
+	if (!requireNamespace("raster", quietly = TRUE))
+		stop("package raster required for write.tgrass")
 	if (is(obj, "STFDF")) {
 		end.time = obj@endTime
-		obj = as(obj, "RasterStack")
+		#obj = as(obj, "RasterStack")
+		obj = as(obj, "RasterBrick")
 	} else
 		end.time = NULL
 	n = paste(names(obj), ".tif", sep = "")
@@ -35,8 +38,6 @@ write.tgrass = function(obj, fname, ...) {
 	dir = tempdir() # gets the same as read.tgrass got!
 	setwd(dir)
 	# write .tifs:
-	if (!requireNamespace("raster", quietly = TRUE))
-		stop("package raster required for write.tgrass")
 	for (i in 1:(raster::nlayers(obj)))
 		raster::writeRaster(raster::raster(obj, layer=i), n[i], ...)
 	# write proj.txt:

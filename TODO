@@ -14,3 +14,7 @@ subsetting STF, STS, STI with [
 kriging without STFDF's, kriging with STIDF's (I think this is supported now)
 
 single location prediction.
+
+Sat Oct 17 22:40:29 CEST 2015
+Meng: coerce STIDF -> STFDF: do NOT set endTime to full interval?
+  alternative: (a) zero interval width, (b) mean of endTime of each time slice?
