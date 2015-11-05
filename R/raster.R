@@ -25,6 +25,28 @@ setAs('RasterStackBrick', 'STFDF',
     }
 )
 
+setAs('STFDF', 'RasterBrick',
+    function(from) {
+		if (!requireNamespace("raster", quietly = TRUE))
+			stop("package raster required to coerce to/from raster")
+        time <- from@time
+        nc <- dim(from)[3]
+		lt <- dim(from)[2]
+        r <- raster::raster(from@sp)
+        b <- raster::brick(r, nl = lt * nc)
+        b <- raster::setZ(b, rep(time, nc)) # rep changes some time formats
+        names(b) <- paste0(rep(colnames(from@data), each=lt), as.character(time))
+		for (i in 1:nc) {
+			for (j in 1:lt) {
+				l = from[,j,i]
+				fullgrid(l) = TRUE
+				b = raster::setValues(b, as.numeric(l[[1]]), j + (i - 1) * lt)
+			}
+		}
+		b
+    }
+)
+
 setMethod('stplot', 'RasterStackBrick', 
     function(obj, ..., maxpixels = 50000) {
 		if (!requireNamespace("raster", quietly = TRUE))

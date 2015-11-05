@@ -1,6 +1,6 @@
 
-R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
-Copyright (C) 2013 The R Foundation for Statistical Computing
+R version 3.2.2 (2015-08-14) -- "Fire Safety"
+Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -30,6 +30,12 @@ The following objects are masked from 'package:base':
 > # example 0: construction with STFDF:
 > 
 > library(maps)
+
+ # ATTENTION: maps v3.0 has an updated 'world' map.        #
+ # Many country borders and names have changed since 1990. #
+ # Type '?world' or 'news(package="maps")'. See README_v3. #
+
+
 > states.m = map('state', plot=FALSE, fill=TRUE)
 > IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
 >     
@@ -85,4 +91,4 @@ attr(,"package")
 > 
 > proc.time()
    user  system elapsed 
-  2.304   0.104   2.406 
+  1.296   0.292   1.274 

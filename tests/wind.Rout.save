@@ -111,16 +111,22 @@ Type 'q()' to quit R.
 + }
 Loading required package: gstat
 Loading required package: maps
+
+ # ATTENTION: maps v3.0 has an updated 'world' map.        #
+ # Many country borders and names have changed since 1990. #
+ # Type '?world' or 'news(package="maps")'. See README_v3. #
+
+
 Loading required package: rgdal
-rgdal: version: 1.0-7, (SVN revision 559)
+rgdal: version: 1.1-1, (SVN revision 463)
  Geospatial Data Abstraction Library extensions to R successfully loaded
  Loaded GDAL runtime: GDAL 1.11.2, released 2015/02/10
  Path to GDAL shared files: /usr/local/share/gdal
- Loaded PROJ.4 runtime: Rel. 4.9.1, 04 March 2015, [PJ_VERSION: 491]
+ Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
  Path to PROJ.4 shared files: (autodetected)
- Linking to sp version: 1.2-0 
+ Linking to sp version: 1.2-1 
 Checking rgeos availability: TRUE
 > 
 > proc.time()
    user  system elapsed 
-  1.544   0.326   1.551 
+  1.416   0.304   1.407 
