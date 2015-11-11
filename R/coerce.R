@@ -70,8 +70,10 @@ setAs("STFDF", "STSDF", as.STSDF.STFDF)
 # STSDF -> STIDF
 as.STIDF.STSDF = function(from) {
 	# replicate the sp and time columns; keeps time always ordered?
-	STIDF(from@sp[from@index[,1],], 
-			from@time[from@index[,2]], 
+	sp = from@sp[from@index[,1],]
+	if (is(sp, "SpatialPoints"))
+		row.names(sp) = make.unique(row.names(sp))
+	STIDF(sp, from@time[from@index[,2]], 
 			from@data,
 			from@endTime[from@index[,2]])
 }
