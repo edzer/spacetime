@@ -1,6 +1,6 @@
 
-R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
-Copyright (C) 2014 The R Foundation for Statistical Computing
+R version 3.2.2 (2015-08-14) -- "Fire Safety"
+Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -800,19 +800,19 @@ Slot "data":
 
 Slot "sp":
 SpatialPoints:
-       x y
-point1 0 0
-point2 0 1
-point3 1 1
-point1 0 0
-point2 0 1
-point3 1 1
-point1 0 0
-point2 0 1
-point3 1 1
-point1 0 0
-point2 0 1
-point3 1 1
+         x y
+point1   0 0
+point2   0 1
+point3   1 1
+point1.1 0 0
+point2.1 0 1
+point3.1 1 1
+point1.2 0 0
+point2.2 0 1
+point3.2 1 1
+point1.3 0 0
+point2.3 0 1
+point3.3 1 1
 Coordinate Reference System (CRS) arguments: NA 
 
 Slot "time":
@@ -876,19 +876,19 @@ Slot "data":
 
 Slot "sp":
 SpatialPoints:
-       x y
-point1 0 0
-point2 0 1
-point3 1 1
-point1 0 0
-point2 0 1
-point3 1 1
-point1 0 0
-point2 0 1
-point3 1 1
-point1 0 0
-point2 0 1
-point3 1 1
+         x y
+point1   0 0
+point2   0 1
+point3   1 1
+point1.1 0 0
+point2.1 0 1
+point3.1 1 1
+point1.2 0 0
+point2.2 0 1
+point3.2 1 1
+point1.3 0 0
+point2.3 0 1
+point3.3 1 1
 Coordinate Reference System (CRS) arguments: NA 
 
 Slot "time":
@@ -952,19 +952,19 @@ Slot "data":
 
 Slot "sp":
 SpatialPoints:
-       x y
-point1 0 0
-point2 0 1
-point3 1 1
-point1 0 0
-point2 0 1
-point3 1 1
-point1 0 0
-point2 0 1
-point3 1 1
-point1 0 0
-point2 0 1
-point3 1 1
+         x y
+point1   0 0
+point2   0 1
+point3   1 1
+point1.1 0 0
+point2.1 0 1
+point3.1 1 1
+point1.2 0 0
+point2.2 0 1
+point3.2 1 1
+point1.3 0 0
+point2.3 0 1
+point3.3 1 1
 Coordinate Reference System (CRS) arguments: NA 
 
 Slot "time":
@@ -1029,59 +1029,59 @@ Slot "endTime":
 [1] "2010-08-05 11:00:00 GMT"
 
 > format(as.data.frame(stidf), tz="GMT")
-   x y  sp.ID                time             endTime timeIndex values       ID
-1  0 0 point1 2010-08-05 10:00:00 2010-08-05 11:00:00         1   8.77  OldIDs1
-2  0 1 point2 2010-08-05 10:00:00 2010-08-05 11:00:00         1  18.70  OldIDs2
-3  1 1 point3 2010-08-05 10:00:00 2010-08-05 11:00:00         1  29.70  OldIDs3
-4  0 0 point1 2010-08-05 11:00:00 2010-08-05 12:00:00         2   8.47  OldIDs4
-5  0 1 point2 2010-08-05 11:00:00 2010-08-05 12:00:00         2  21.10  OldIDs5
-6  1 1 point3 2010-08-05 11:00:00 2010-08-05 12:00:00         2  32.50  OldIDs6
-7  0 0 point1 2010-08-05 12:00:00 2010-08-05 13:00:00         3  10.80  OldIDs7
-8  0 1 point2 2010-08-05 12:00:00 2010-08-05 13:00:00         3  20.20  OldIDs8
-9  1 1 point3 2010-08-05 12:00:00 2010-08-05 13:00:00         3  29.00  OldIDs9
-10 0 0 point1 2010-08-05 13:00:00 2010-08-05 14:00:00         4   9.74 OldIDs10
-11 0 1 point2 2010-08-05 13:00:00 2010-08-05 14:00:00         4  20.70 OldIDs11
-12 1 1 point3 2010-08-05 13:00:00 2010-08-05 14:00:00         4  30.50 OldIDs12
-     newVal    NewID
-1   1.67415 NewIDs12
-2  -1.47819 NewIDs11
-3  -1.63290 NewIDs10
-4  -0.97491  NewIDs9
-5  -0.76499  NewIDs8
-6   0.10300  NewIDs7
-7  -1.06830  NewIDs6
-8   0.47947  NewIDs5
-9   1.17482  NewIDs4
-10  1.03354  NewIDs3
-11  0.82826  NewIDs2
-12 -0.75862  NewIDs1
+   x y    sp.ID                time             endTime timeIndex values
+1  0 0   point1 2010-08-05 10:00:00 2010-08-05 11:00:00         1   8.77
+2  0 1   point2 2010-08-05 10:00:00 2010-08-05 11:00:00         1  18.70
+3  1 1   point3 2010-08-05 10:00:00 2010-08-05 11:00:00         1  29.70
+4  0 0 point1.1 2010-08-05 11:00:00 2010-08-05 12:00:00         2   8.47
+5  0 1 point2.1 2010-08-05 11:00:00 2010-08-05 12:00:00         2  21.10
+6  1 1 point3.1 2010-08-05 11:00:00 2010-08-05 12:00:00         2  32.50
+7  0 0 point1.2 2010-08-05 12:00:00 2010-08-05 13:00:00         3  10.80
+8  0 1 point2.2 2010-08-05 12:00:00 2010-08-05 13:00:00         3  20.20
+9  1 1 point3.2 2010-08-05 12:00:00 2010-08-05 13:00:00         3  29.00
+10 0 0 point1.3 2010-08-05 13:00:00 2010-08-05 14:00:00         4   9.74
+11 0 1 point2.3 2010-08-05 13:00:00 2010-08-05 14:00:00         4  20.70
+12 1 1 point3.3 2010-08-05 13:00:00 2010-08-05 14:00:00         4  30.50
+         ID   newVal    NewID
+1   OldIDs1  1.67415 NewIDs12
+2   OldIDs2 -1.47819 NewIDs11
+3   OldIDs3 -1.63290 NewIDs10
+4   OldIDs4 -0.97491  NewIDs9
+5   OldIDs5 -0.76499  NewIDs8
+6   OldIDs6  0.10300  NewIDs7
+7   OldIDs7 -1.06830  NewIDs6
+8   OldIDs8  0.47947  NewIDs5
+9   OldIDs9  1.17482  NewIDs4
+10 OldIDs10  1.03354  NewIDs3
+11 OldIDs11  0.82826  NewIDs2
+12 OldIDs12 -0.75862  NewIDs1
 > format(as(stidf, "data.frame"), tz="GMT")
-   x y  sp.ID                time             endTime timeIndex values       ID
-1  0 0 point1 2010-08-05 10:00:00 2010-08-05 11:00:00         1   8.77  OldIDs1
-2  0 1 point2 2010-08-05 10:00:00 2010-08-05 11:00:00         1  18.70  OldIDs2
-3  1 1 point3 2010-08-05 10:00:00 2010-08-05 11:00:00         1  29.70  OldIDs3
-4  0 0 point1 2010-08-05 11:00:00 2010-08-05 12:00:00         2   8.47  OldIDs4
-5  0 1 point2 2010-08-05 11:00:00 2010-08-05 12:00:00         2  21.10  OldIDs5
-6  1 1 point3 2010-08-05 11:00:00 2010-08-05 12:00:00         2  32.50  OldIDs6
-7  0 0 point1 2010-08-05 12:00:00 2010-08-05 13:00:00         3  10.80  OldIDs7
-8  0 1 point2 2010-08-05 12:00:00 2010-08-05 13:00:00         3  20.20  OldIDs8
-9  1 1 point3 2010-08-05 12:00:00 2010-08-05 13:00:00         3  29.00  OldIDs9
-10 0 0 point1 2010-08-05 13:00:00 2010-08-05 14:00:00         4   9.74 OldIDs10
-11 0 1 point2 2010-08-05 13:00:00 2010-08-05 14:00:00         4  20.70 OldIDs11
-12 1 1 point3 2010-08-05 13:00:00 2010-08-05 14:00:00         4  30.50 OldIDs12
-     newVal    NewID
-1   1.67415 NewIDs12
-2  -1.47819 NewIDs11
-3  -1.63290 NewIDs10
-4  -0.97491  NewIDs9
-5  -0.76499  NewIDs8
-6   0.10300  NewIDs7
-7  -1.06830  NewIDs6
-8   0.47947  NewIDs5
-9   1.17482  NewIDs4
-10  1.03354  NewIDs3
-11  0.82826  NewIDs2
-12 -0.75862  NewIDs1
+   x y    sp.ID                time             endTime timeIndex values
+1  0 0   point1 2010-08-05 10:00:00 2010-08-05 11:00:00         1   8.77
+2  0 1   point2 2010-08-05 10:00:00 2010-08-05 11:00:00         1  18.70
+3  1 1   point3 2010-08-05 10:00:00 2010-08-05 11:00:00         1  29.70
+4  0 0 point1.1 2010-08-05 11:00:00 2010-08-05 12:00:00         2   8.47
+5  0 1 point2.1 2010-08-05 11:00:00 2010-08-05 12:00:00         2  21.10
+6  1 1 point3.1 2010-08-05 11:00:00 2010-08-05 12:00:00         2  32.50
+7  0 0 point1.2 2010-08-05 12:00:00 2010-08-05 13:00:00         3  10.80
+8  0 1 point2.2 2010-08-05 12:00:00 2010-08-05 13:00:00         3  20.20
+9  1 1 point3.2 2010-08-05 12:00:00 2010-08-05 13:00:00         3  29.00
+10 0 0 point1.3 2010-08-05 13:00:00 2010-08-05 14:00:00         4   9.74
+11 0 1 point2.3 2010-08-05 13:00:00 2010-08-05 14:00:00         4  20.70
+12 1 1 point3.3 2010-08-05 13:00:00 2010-08-05 14:00:00         4  30.50
+         ID   newVal    NewID
+1   OldIDs1  1.67415 NewIDs12
+2   OldIDs2 -1.47819 NewIDs11
+3   OldIDs3 -1.63290 NewIDs10
+4   OldIDs4 -0.97491  NewIDs9
+5   OldIDs5 -0.76499  NewIDs8
+6   OldIDs6  0.10300  NewIDs7
+7   OldIDs7 -1.06830  NewIDs6
+8   OldIDs8  0.47947  NewIDs5
+9   OldIDs9  1.17482  NewIDs4
+10 OldIDs10  1.03354  NewIDs3
+11 OldIDs11  0.82826  NewIDs2
+12 OldIDs12 -0.75862  NewIDs1
 > 
 > sp = cbind(x = c(0,0,1), y = c(0,1,1))
 > row.names(sp) = paste("point", 1:nrow(sp), sep="")
@@ -1124,4 +1124,4 @@ Error in .checkAttrIsUnique(x@sp, x@time, x@data) :
 > 
 > proc.time()
    user  system elapsed 
-  1.166   0.082   1.235 
+  0.828   0.316   0.832 
