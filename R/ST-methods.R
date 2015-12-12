@@ -190,9 +190,9 @@ print.summary.ST = function(x, ...) {
 #	stop("unknown Spatial class")
 #}
 
-if (!isGeneric("aggregate"))
-	setGeneric("aggregate", function(x, ...)
-		standardGeneric("aggregate"))
+#if (!isGeneric("aggregate"))
+#	setGeneric("aggregate", function(x, ...)
+#		standardGeneric("aggregate"))
 if (!isGeneric("aggregateBy"))
 	setGeneric("aggregateBy", function(x, by, FUN = mean, ...)
 		standardGeneric("aggregateBy"))

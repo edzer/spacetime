@@ -35,7 +35,7 @@ export(delta,
 )
 
 exportMethods(
-	aggregate,
+	# aggregate,
 	bbox,
 	coordnames,
 	geometry,
