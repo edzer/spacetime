@@ -13,7 +13,7 @@ Suggests: adehabitatLT, cshapes, diveMove, foreign, gstat (>= 1.0-16), maps, map
 LazyData: no
 Description: Classes and methods for spatio-temporal data, including space-time regular lattices, sparse lattices, irregular data, and trajectories; utility functions for plotting data as map sequences (lattice or animation) or multiple time series; methods for spatial and temporal selection and subsetting, as well as for spatial/temporal/spatio-temporal matching or aggregation, retrieving coordinates, print, summary, etc.
 License: GPL (>= 2)
-URL: http://www.jstatsoft.org/v51/i07/, http://github.com/edzer/spacetime
+URL: http://github.com/edzer/spacetime
 BugReports: https://github.com/edzer/spacetime/issues
 VignetteBuilder: knitr
 Collate: Class-xts.R Class-ST.R Class-STFDF.R Class-STSDF.R

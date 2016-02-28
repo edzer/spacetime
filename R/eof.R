@@ -1,6 +1,7 @@
 EOF = function(x, how = c("spatial", "temporal"), returnPredictions = TRUE, 
 		...) { 
 	.Deprecated("eof")
+	stopifnot(is(x, "STFDF"))
 	sp = x@sp
 	index = index(x@time)
 	x = as(x, "xts") # matrix
@@ -21,6 +22,7 @@ EOF = function(x, how = c("spatial", "temporal"), returnPredictions = TRUE,
 }
 
 eof = function(x, how = c("spatial", "temporal"), returnEOFs = TRUE, ...) { 
+	stopifnot(is(x, "STFDF"))
 	sp = x@sp
 	index = index(x@time)
 	x = as(x, "xts") # matrix
