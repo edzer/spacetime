@@ -1,5 +1,5 @@
 Package: spacetime
-Version: 1.1-5
+Version: 1.2-0
 Title: Classes and Methods for Spatio-Temporal Data
 Authors@R: c(person("Edzer", "Pebesma", role = c("cre", "aut"),
 		 email = "edzer.pebesma@uni-muenster.de"),
@@ -19,5 +19,5 @@ Collate: Class-xts.R Class-ST.R Class-STFDF.R Class-STSDF.R
 	Class-STIDF.R Class-STTDF.R interval.R endtime.R
 	ST-methods.R STFDF-methods.R STSDF-methods.R STIDF-methods.R
 	STTDF-methods.R apply.R coerce.R stconstruct.R plot.R
-	stplot.R timematch.R over.R aggregate.R eof.R bind.R na.R
+	stplot.R timematch.R over.R aggregate.R eof.R mnf.R bind.R na.R
 	raster.R tgrass.R stinteraction.R

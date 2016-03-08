@@ -28,7 +28,7 @@ export(delta,
 	stInteraction,
 	read.tgrass,
 	write.tgrass,
-	eof, EOF,
+	eof, EOF, mnf,
 	nbMult,
 	# zoo methods:
 	index, na.locf, na.spline, na.approx, as.zoo
@@ -83,7 +83,15 @@ S3method(length, STSDF)
 S3method(length, STIDF)
 S3method(length, STTDF)
 S3method(lines, STTDF)
+S3method(mnf,matrix)
+S3method(mnf,mts)
+S3method(mnf,RasterBrick)
+S3method(mnf,RasterStack)
+S3method(mnf,SpatialGridDataFrame)
+S3method(mnf,SpatialPixelsDataFrame)
+S3method(mnf,zoo)
 S3method(na.omit, STFDF)
+S3method(predict,mnf)
 S3method(rbind, STIDF)
 S3method(rbind, STSDF)
 S3method(rbind, STFDF)
