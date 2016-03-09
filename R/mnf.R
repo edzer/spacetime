@@ -49,7 +49,7 @@ mnf = function(x, ...) UseMethod("mnf")
 #' @export
 mnf.matrix = function(x, ..., use = "complete.obs") {
 	Sigma = cov(x, use = use)
-	Sigma.Noise = cov(apply(x, 2, diff), use = use)
+	Sigma.Noise = 0.5 * cov(apply(x, 2, diff), use = use)
 	MNF(Sigma.Noise, Sigma, x)
 }
 
@@ -76,35 +76,14 @@ mnf.SpatialPixelsDataFrame = function(x, ..., use = "complete.obs") {
 
 #' @name mnf
 #' @export
-mnf.SpatialGridDataFrame00 = function(x, ..., use = "complete.obs") {
-	get.dx = function(x) { 
-		mtrx = as.matrix(x)
-		as.vector(mtrx[-1,] - mtrx[-nrow(mtrx),])
-	}
-	get.dy = function(x) { 
-		mtrx = as.matrix(x)
-		as.vector(mtrx[,-1] - mtrx[,-ncol(mtrx)])
-	}
-	l = lapply(1:dim(x)[2], function(i) get.dx(x[i], ..., use = use))
-	cov.dx = cov(do.call(cbind(l)), ..., use = use)
-	l = lapply(1:dim(x)[2], function(i) get.dy(x[i], ..., use = use))
-	cov.dy = cov(do.call(cbind(l)), ..., use = use)
-	# pooled estimate:
-	Sigma.Noise = 0.5 * (cov.dx + cov.dy)
-	Sigma = cov(x@data, ..., use = use)
-	MNF(Sigma.Noise, Sigma, as.matrix(x@data))
-}
-
 mnf.SpatialGridDataFrame = function(x, ..., use = "complete.obs") {
-	get.dx = function(x) as.vector(x[-1,] - x[-nrow(x),])
-	get.dy = function(x) as.vector(x[,-1] - x[,-ncol(x)])
+	get.dx = function(x) as.vector(x[-1,] - x[-nrow(x),]) # Delta_h
+	get.dy = function(x) as.vector(x[,-1] - x[,-ncol(x)]) # Delta_v
 	a = as(x, "array")
-	cov.dx = cov(apply(a, 3, get.dx), ..., use = use)
-	cov.dy = cov(apply(a, 3, get.dy), ..., use = use)
-	# pooled estimate:
-	Sigma.Noise = 0.5 * (cov.dx + cov.dy)
-	Sigma = cov(x@data, ..., use = use)
-	ret = MNF(Sigma.Noise, Sigma, as.matrix(x@data))
+	cov.dx = 0.5 * cov(apply(a, 3, get.dx), ..., use = use)
+	cov.dy = 0.5 * cov(apply(a, 3, get.dy), ..., use = use)
+	ret = MNF((cov.dx + cov.dy)/2.0, cov(x@data, ..., use = use), as.matrix(x@data))
+	# put data into original structure:
 	x@data = as.data.frame(ret$x)
 	ret$x = x
 	ret
