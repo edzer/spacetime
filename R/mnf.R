@@ -48,6 +48,8 @@ mnf = function(x, ...) UseMethod("mnf")
 #' @name mnf
 #' @export
 mnf.matrix = function(x, ..., use = "complete.obs") {
+	if (nrow(x) <= ncol(x)) # do diff
+		warning("matrix rank deficient: covariance matrices will be singular")
 	Sigma = cov(x, use = use)
 	Sigma.Noise = 0.5 * cov(apply(x, 2, diff), use = use)
 	MNF(Sigma.Noise, Sigma, x)
@@ -99,6 +101,21 @@ mnf.RasterStack = function(x, ..., use = "complete.obs") {
 #' @export
 mnf.RasterBrick = function(x, ..., use = "complete.obs") {
 	NextMethod(as(x, "SpatialGridDataFrame"))
+}
+
+mnf.STSDF = function(x, ..., use = "complete.obs") {
+	NextMethod(as(x, "STFDF"))
+}
+
+mnf.STFDF = function(x, ..., use = "complete.obs") {
+	warning("using covariance in time series")
+	if (dim(x)[3] != 1)
+		stop("select a single attribute")
+	ret = mnf(as(x, "zoo"))
+	x@data[[1]] = as.vector(t(ret$x))
+	row.names(x@sp) = colnames(ret$x)
+	ret$x = x
+	ret
 }
 
 #' predict method for mnf objects

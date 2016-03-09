@@ -1,7 +1,7 @@
 import(methods)
 import(sp)
 import(lattice)
-importFrom(stats, aggregate, na.omit, time, start, end, reshape,
+importFrom(stats, aggregate, cov, na.omit, time, start, end, reshape,
 	prcomp, predict, as.formula)
 importFrom(utils, stack, unstack, untar, read.table, write.table)
 importFrom(graphics, lines)
@@ -89,6 +89,8 @@ S3method(mnf,RasterBrick)
 S3method(mnf,RasterStack)
 S3method(mnf,SpatialGridDataFrame)
 S3method(mnf,SpatialPixelsDataFrame)
+S3method(mnf,STSDF)
+S3method(mnf,STFDF)
 S3method(mnf,zoo)
 S3method(na.omit, STFDF)
 S3method(predict,mnf)
