@@ -107,14 +107,20 @@ mnf.STSDF = function(x, ..., use = "complete.obs") {
 	NextMethod(as(x, "STFDF"))
 }
 
-mnf.STFDF = function(x, ..., use = "complete.obs") {
-	warning("using covariance in time series")
+mnf.STFDF = function(x, ..., use = "complete.obs", mode = "temporal") {
 	if (dim(x)[3] != 1)
 		stop("select a single attribute")
-	ret = mnf(as(x, "zoo"))
-	x@data[[1]] = as.vector(t(ret$x))
-	row.names(x@sp) = colnames(ret$x)
-	ret$x = x
+	if (mode == "time") {
+		ret = mnf(as(x, "zoo"), use = use)
+		x@data[[1]] = as.vector(t(ret$x))
+		row.names(x@sp) = colnames(ret$x)
+		ret$x = x
+	} else if (mode == "spatial") {
+		sp = as(x, "Spatial")
+		stopifnot(gridded(sp))
+		ret = mnf(sp, use = use)
+	} else
+		stop("unknown mode")
 	ret
 }
 

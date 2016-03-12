@@ -1,46 +1,32 @@
 ## Sample .travis.yml file for use with metacran/r-builder
 ## See https://github.com/metacran/r-builder for details.
 
-language: c
-sudo: required
+language: r
+r:
+  - oldrel
+  - release
+  - devel
+
+cache: packages
+
+sudo: false
 
 before_install:
-  - curl -OL https://raw.githubusercontent.com/metacran/r-builder/master/pkg-build.sh
-  - chmod 755 pkg-build.sh
-  - ./pkg-build.sh bootstrap
-  - cd
-  - wget http://download.osgeo.org/gdal/2.0.1/gdal-2.0.1.tar.gz
-  - tar zxf gdal-2.0.1.tar.gz
-  - cd gdal-2.0.1
-  - ./configure --prefix=/usr
-  - make
-  - sudo make install
-  - cd
-  - wget http://download.osgeo.org/proj/proj-4.9.2.tar.gz
-  - tar zxvf proj-4.9.2.tar.gz
-  - cd proj-4.9.2
-  - ./configure --prefix=/usr
-  - make
-  - sudo make install
-  - cd /home/travis/build/edzer/spacetime
+  - tlmgr install index
 
-install:
-  - ./pkg-build.sh install_deps
+addons:
+  apt:
+    sources:
+	- ppa:ubuntugis/ubuntugis-unstable
+    packages:
+    - libgdal-dev
 
-script:
-  - ./pkg-build.sh run_tests
-
-after_failure:
-  - ./pkg-build.sh dump_logs
-
-notifications:
-  email:
-    on_success: change
-    on_failure: change
+email:
+  on_success: change
+  on_failure: change
 
 env:
   matrix:
+    - RVERSION=oldrel
     - RVERSION=release
     - RVERSION=devel
-
-#    - RVERSION=oldrel
