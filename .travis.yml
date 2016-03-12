@@ -2,6 +2,7 @@
 ## See https://github.com/metacran/r-builder for details.
 
 language: r
+
 r:
   - oldrel
   - release
@@ -17,16 +18,13 @@ before_install:
 addons:
   apt:
     sources:
+    - deadsnakes
+    - ubuntu-toolchain-r-test
+
+addons:
+  apt:
+    sources:
 	- ppa:ubuntugis/ubuntugis-unstable
     packages:
     - libgdal-dev
-
-email:
-  on_success: change
-  on_failure: change
-
-env:
-  matrix:
-    - RVERSION=oldrel
-    - RVERSION=release
-    - RVERSION=devel
+    - libgeos-dev
