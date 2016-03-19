@@ -9,5 +9,4 @@ addons:
     sources:
 	- ppa:ubuntugis/ubuntugis-unstable
     packages:
-    - libgdal-dev
-    - libgeos-dev
+    - gdal
