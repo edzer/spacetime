@@ -103,14 +103,14 @@ mnf.RasterBrick = function(x, ..., use = "complete.obs") {
 	NextMethod(as(x, "SpatialGridDataFrame"))
 }
 
-mnf.STSDF = function(x, ..., use = "complete.obs") {
+mnf.STSDF = function(x, ..., use = "complete.obs", mode = "temporal") {
 	NextMethod(as(x, "STFDF"))
 }
 
 mnf.STFDF = function(x, ..., use = "complete.obs", mode = "temporal") {
 	if (dim(x)[3] != 1)
 		stop("select a single attribute")
-	if (mode == "time") {
+	if (mode == "temporal") {
 		ret = mnf(as(x, "zoo"), use = use)
 		x@data[[1]] = as.vector(t(ret$x))
 		row.names(x@sp) = colnames(ret$x)

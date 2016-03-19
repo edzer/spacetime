@@ -20,13 +20,15 @@ mnf(x, ...)
 \method{mnf}{SpatialGridDataFrame}(x, ..., use = "complete.obs")
 \method{mnf}{RasterStack}(x, ..., use = "complete.obs")
 \method{mnf}{RasterBrick}(x, ..., use = "complete.obs")
-\method{mnf}{STSDF}(x, ..., use = "complete.obs")
-\method{mnf}{STFDF}(x, ..., use = "complete.obs")
+\method{mnf}{STSDF}(x, ..., use = "complete.obs", mode = "temporal")
+\method{mnf}{STFDF}(x, ..., use = "complete.obs", mode = "temporal")
 }
 \arguments{
 \item{x}{object for which an mnf method is available}
 \item{...}{ignored}
 \item{use}{method to deal with missing values when computing covariances; see \link{cov}}
+\item{mode}{for \code{ST} objects: if \code{"temporal"}, compute covariances in time dimension,
+if \code{"spatial"}, compute them in spatial dimension.}
 }
 \value{ object of class \code{(c("mnf", "prcomp")}; see \link{prcomp}. Additional elements
 are \code{values}, containing the eigenvalues.  }
