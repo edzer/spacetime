@@ -2,28 +2,20 @@
 ## See https://github.com/metacran/r-builder for details.
 
 language: r
+cache: packages
 
 r:
   - oldrel
   - release
   - devel
 
-cache: packages
-
 sudo: false
-
-before_install:
-  - tlmgr install index
 
 addons:
   apt:
     sources:
     - deadsnakes
     - ubuntu-toolchain-r-test
-
-addons:
-  apt:
-    sources:
 	- ppa:ubuntugis/ubuntugis-unstable
     packages:
     - libgdal-dev
