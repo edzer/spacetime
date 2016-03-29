@@ -31,7 +31,7 @@ points of another }
 \usage{
 \S4method{over}{STF,STF}(x, y, returnList = FALSE, fn = NULL, ...)
 \S4method{over}{xts,xts}(x, y, returnList = FALSE, fn = NULL, ...)
-\S4method{aggregate}{ST}(x, by, FUN = mean, \dots, simplify = TRUE)
+\S4method{aggregate}{ST}(x, by, FUN, \dots, simplify = TRUE)
 }
 \arguments{
 \item{x}{geometry (S/T locations) of the queries}
@@ -45,7 +45,7 @@ temporal aggregation, such as "month", "10 minutes", or a function such
 as \link[zoo]{as.yearmon}; see \link[zoo]{aggregate.zoo}. In case \code{x}
 is of class \link{STFDF}, argument \code{by} may be "time" or "space", in
 which cases aggregation over all time or all space is carried out.}
-\item{FUN}{aggregation function }
+\item{FUN}{aggregation function}
 \item{simplify}{boolean; if TRUE, and space or time dimensions can be
 dropped, the simpler (\code{Spatial} or \code{xts}) object will be returned }
 \item{...}{arguments passed on to function fn or FUN}
@@ -59,9 +59,9 @@ TRUE, a list of length \code{length(x)}, with list element \code{i}
 the vector of indices of the geometries in \code{y} that correspond
 to the $i$-th geometry in \code{x}.
 
-Function aggregate.ST aggregates the attribute values of \code{x}
+The \code{aggregate} method for \code{ST} objects aggregates the attribute values of \code{x}
 over the geometry (space, time, or space-time) of \code{by}, using
-aggregation function FUN.
+aggregation function \code{FUN}.
 
 For the matching of time intervals, see \link{timeMatch}.
 

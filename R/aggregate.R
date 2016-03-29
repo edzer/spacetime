@@ -1,4 +1,4 @@
-aggregate_ST_temporal = function(x, by, FUN = mean, ..., simplify = TRUE) {
+aggregate_ST_temporal = function(x, by, FUN, ..., simplify = TRUE) {
 	stopifnot("data" %in% slotNames(x))
 	FUN = match.fun(FUN)
 	x = as(x, "STFDF")
@@ -35,7 +35,7 @@ setMethod("aggregateBy", signature(x = "ST", by = "character"),
 	aggregate_ST_temporal)
 
 setMethod("aggregateBy", signature(x = "STFDF", by = "Spatial"),
-	function(x, by, FUN = mean, ..., simplify = TRUE, 
+	function(x, by, FUN, ..., simplify = TRUE, 
 			byTime = is(x, "STF") || is(x, "STS")) {
 		stopifnot("data" %in% slotNames(x))
 		FUN = match.fun(FUN)
@@ -65,7 +65,7 @@ setMethod("aggregateBy", signature(x = "STFDF", by = "Spatial"),
 	}
 )
 
-aggregateBySTST = function(x, by, FUN = mean, ..., simplify = TRUE) {
+aggregateBySTST = function(x, by, FUN, ..., simplify = TRUE) {
 	stopifnot("data" %in% slotNames(x))
 	FUN = match.fun(FUN)
    	by0 = by
