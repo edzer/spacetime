@@ -22,7 +22,7 @@ before_install:
   - ./configure --prefix=/usr
   - make
   - sudo make install
-  - sudo lconfig
+  - sudo ldconfig
   - cd /home/travis/build/edzer/spacetime
 
 install:
