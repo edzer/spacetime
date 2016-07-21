@@ -1,6 +1,6 @@
 
-R version 3.2.2 (2015-08-14) -- "Fire Safety"
-Copyright (C) 2015 The R Foundation for Statistical Computing
+R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
+Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -31,9 +31,8 @@ The following objects are masked from 'package:base':
 > 
 > library(maps)
 
- # ATTENTION: maps v3.0 has an updated 'world' map.        #
- # Many country borders and names have changed since 1990. #
- # Type '?world' or 'news(package="maps")'. See README_v3. #
+ # maps v3.1: updated 'world': all lakes moved to separate new #
+ # 'lakes' database. Type '?world' or 'news(package="maps")'.  #
 
 
 > states.m = map('state', plot=FALSE, fill=TRUE)
@@ -91,4 +90,4 @@ attr(,"package")
 > 
 > proc.time()
    user  system elapsed 
-  1.296   0.292   1.274 
+  2.332   0.328   2.344 

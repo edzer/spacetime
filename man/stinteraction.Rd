@@ -3,10 +3,11 @@
 \title{ subtract marginal (spatial and temporal) means from observations }
 \description{subtract marginal (spatial and temporal) means from observations }
 \usage{ 
-stInteraction(x)
+stInteraction(x, ...)
 }
 \arguments{
 \item{x}{ object of class \code{STFDF}}
+\item{...}{ arguments passed to \link{rowMeans}, \link{colMeans} and \link{mean}, such as \code{na.rm=TRUE}}
 }
 \value{
 object of class \link{STFDF} with each attribute replaced by its
