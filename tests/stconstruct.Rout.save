@@ -30,11 +30,6 @@ The following objects are masked from 'package:base':
 > # example 0: construction with STFDF:
 > 
 > library(maps)
-
- # maps v3.1: updated 'world': all lakes moved to separate new #
- # 'lakes' database. Type '?world' or 'news(package="maps")'.  #
-
-
 > states.m = map('state', plot=FALSE, fill=TRUE)
 > IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
 >     
@@ -90,4 +85,4 @@ attr(,"package")
 > 
 > proc.time()
    user  system elapsed 
-  2.332   0.328   2.344 
+  2.384   0.336   2.417 

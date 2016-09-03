@@ -111,11 +111,6 @@ Type 'q()' to quit R.
 + }
 Loading required package: gstat
 Loading required package: maps
-
- # maps v3.1: updated 'world': all lakes moved to separate new #
- # 'lakes' database. Type '?world' or 'news(package="maps")'.  #
-
-
 Loading required package: rgdal
 rgdal: version: 1.1-10, (SVN revision 463)
  Geospatial Data Abstraction Library extensions to R successfully loaded
@@ -128,4 +123,4 @@ Checking rgeos availability: TRUE
 > 
 > proc.time()
    user  system elapsed 
-  1.288   0.320   1.301 
+  1.348   0.304   1.385 
