@@ -55,13 +55,11 @@ mnf.SpatialGridDataFrame = function(x, ..., Sigma.Noise, use = "complete.obs") {
 	ret
 }
 
-mnf.RasterStack = function(x, ..., use = "complete.obs") {
-	NextMethod(as(x, "SpatialGridDataFrame"))
-}
+mnf.RasterStack = function(x, ..., use = "complete.obs")
+	mnf.SpatialGridDataFrame(as(x, "SpatialGridDataFrame"), ..., use = use)
 
-mnf.RasterBrick = function(x, ..., use = "complete.obs") {
-	NextMethod(as(x, "SpatialGridDataFrame"))
-}
+mnf.RasterBrick = function(x, ..., use = "complete.obs")
+	mnf.SpatialGridDataFrame(as(x, "SpatialGridDataFrame"), ..., use = use)
 
 mnf.STSDF = function(x, ..., use = "complete.obs", mode = "temporal") {
 	NextMethod(as(x, "STFDF"))
