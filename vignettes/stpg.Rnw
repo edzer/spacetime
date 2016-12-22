@@ -41,7 +41,7 @@ base can be read into R using spatial or temporal selection.
 
 In case the commands are not evaluated because CRAN packages cannot
 access an external data base, a document with evaluated commands
-is found \href{http://ifgi.uni-muenster.de/~epebe_01/stpg.pdf}{here}.
+is found \href{http://pebesma.staff.ifgi.de/stpg.pdf}{here}.
 
 This vignette was run using the following libraries:
 <<eval=FALSE>>=
@@ -244,7 +244,7 @@ An alternative to access from R large, possibly massive
 spatio-temporal data bases for the case where the data base is
 accessible through a sensor observation
 service (SOS) is provided by the R package
-\href{http://cran.r-project.org/web/packages/sos4R/index.html}{sos4R},
+\href{https://cran.r-project.org/web/packages/sos4R/index.html}{sos4R},
 which is also on CRAN.
 
 \end{document}
