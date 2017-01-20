@@ -343,7 +343,7 @@ are never matched.
 \item ESRI (2012) ESRI ArcGIS Tutorial. \url{http://webhelp.esri.com/arcgisdesktop/9.2/index.cfm?TopicName=Overlay_analysis}
 \item Pebesma, 2012. Map overlay and
 spatial aggregation in sp. Vignette in package sp,
-\url{http://cran.r-project.org/web/packages/sp/vignettes/over.pdf}
+\url{https://cran.r-project.org/web/packages/sp/vignettes/over.pdf}
 \end{itemize}
 
 \end{document}

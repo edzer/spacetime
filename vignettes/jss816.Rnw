@@ -152,7 +152,7 @@ data sets to PostgreSQL tables when data are too large for R.
 Section~\ref{discussion} finishes with a discussion.
 
 This paper is also found as a
-\href{http://cran.r-project.org/package=spacetime}{vignette} in
+\href{https://cran.r-project.org/package=spacetime}{vignette} in
 package \pkg{spacetime}, which implements the classes and methods
 for spatio-temporal data described here.  The vignette is kept
 up-to-date with the software.
@@ -522,7 +522,7 @@ deriving this from package \code{zoo} \citep{zeileis},
 An overview of the different time classes in \proglang{R} is found
 in \cite{ripleyhornik}. Further advice on which classes to use is
 found in \cite{grothendieck}, or in the
-\href{http://cran.r-project.org/web/views/TimeSeries.html}{CRAN
+\href{https://cran.r-project.org/web/views/TimeSeries.html}{CRAN
 task view on time series analysis}.
 
 For spatial interpolation, we used the classes deriving from \code{Spatial}

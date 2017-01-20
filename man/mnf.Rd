@@ -13,11 +13,11 @@
 \description{ Compute mnf from spatial, temporal, or spatio-temporal data }
 \usage{
 mnf(x, ...)
-\method{mnf}{matrix}(x, ..., use = "complete.obs")
+\method{mnf}{matrix}(x, ..., Sigma.Noise, use = "complete.obs")
 \method{mnf}{mts}(x, ..., use = "complete.obs")
 \method{mnf}{zoo}(x, ..., use = "complete.obs")
 \method{mnf}{SpatialPixelsDataFrame}(x, ..., use = "complete.obs")
-\method{mnf}{SpatialGridDataFrame}(x, ..., use = "complete.obs")
+\method{mnf}{SpatialGridDataFrame}(x, ..., Sigma.Noise, use = "complete.obs")
 \method{mnf}{RasterStack}(x, ..., use = "complete.obs")
 \method{mnf}{RasterBrick}(x, ..., use = "complete.obs")
 \method{mnf}{STSDF}(x, ..., use = "complete.obs", mode = "temporal")
@@ -26,6 +26,8 @@ mnf(x, ...)
 \arguments{
 \item{x}{object for which an mnf method is available}
 \item{...}{ignored}
+\item{Sigma.Noise}{Noise covariance matrix; when missing, estimated from the data by using the
+covariance of lag-one spatial or temporal differences (MAF)}
 \item{use}{method to deal with missing values when computing covariances; see \link{cov}}
 \item{mode}{for \code{ST} objects: if \code{"temporal"}, compute covariances in time dimension,
 if \code{"spatial"}, compute them in spatial dimension.}
