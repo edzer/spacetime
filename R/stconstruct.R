@@ -2,7 +2,10 @@ stConstruct = function(x, space, time, SpatialObj = NULL,
 		TimeObj = NULL, crs = CRS(as.character(NA)), interval, endTime) {
 	if (is(x, "xts")) {
 		stopifnot(ncol(x) == length(space))
-		return(STFDF(space, index(x), data.frame(x = as.vector(t(x)))))
+	  if (missing(endTime))
+  		return(STFDF(space, index(x), data.frame(x = as.vector(t(x)))))
+	  stopifnot(length(endTime) == length(index(x)))
+	  return(STFDF(space, index(x), data.frame(x = as.vector(t(x))), endTime))
 	}
 	if (is(x, "matrix"))
 		x = data.frame(x)
