@@ -54,7 +54,7 @@ rbind.STSDF = function(..., deparse.level = 1) {
 	                               function(i) rep(sum(c(0,n.locs)[1:i])+1:n.locs[i], n.times[i])))
 	newIndex <- cbind(newIndexSpace, newIndexTime)
 	colnames(newIndex) <- NULL
-	# assuming that all STFDF have the same interval length
+	# assuming that all STSDF have the same interval length
 	endTime = unique(do.call(c, lapply(args, function(x) x@endTime)))
 	
 	df <- do.call(rbind, lapply(args, function(x) x@data))
