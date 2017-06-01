@@ -52,11 +52,11 @@ wind.st = stConstruct(wind[stations], space, wind$time, SpatialObj = wind.loc)
 wind.st = wind.st[,1:500]
 wind.eof.1 = eof(wind.st)
 wind.eof.2 = eof(wind.st, "temporal")
-wind.eof.1.PCs = eof(wind.st, returnPredictions=FALSE)
-eof(wind.st, "temporal", returnPredictions=FALSE)
-summary(eof(wind.st, returnPredictions=FALSE))
-summary(eof(wind.st, "temporal", returnPredictions=FALSE))
-plot(eof(wind.st, "temporal", returnPredictions=FALSE))
+wind.eof.1.PCs = eof(wind.st, returnEOFs = FALSE)
+eof(wind.st, "temporal", returnEOFs = FALSE)
+summary(eof(wind.st, returnEOFs = FALSE))
+summary(eof(wind.st, "temporal", returnEOFs = FALSE))
+plot(eof(wind.st, "temporal", returnEOFs = FALSE))
 }
 }
 \keyword{manip}
