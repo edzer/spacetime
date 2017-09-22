@@ -1,6 +1,6 @@
 
-R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
-Copyright (C) 2016 The R Foundation for Statistical Computing
+R version 3.4.1 (2017-06-30) -- "Single Candle"
+Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -51,13 +51,13 @@ Type 'q()' to quit R.
 +   is.null(sttdf[pol,t0])
 + }
 Loading required package: rgeos
-rgeos version: 0.3-19, (SVN revision 524)
- GEOS runtime version: 3.5.0-CAPI-1.9.0 r4084 
- Linking to sp version: 1.2-3 
+rgeos version: 0.3-24, (SVN revision 550)
+ GEOS runtime version: 3.5.1-CAPI-1.9.1 r4246 
+ Linking to sp version: 1.2-5 
  Polygon checking: TRUE 
 
 [1] TRUE
 > 
 > proc.time()
    user  system elapsed 
-  0.928   0.284   0.898 
+  2.828   0.300   2.819 

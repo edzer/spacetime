@@ -244,7 +244,7 @@ An alternative to access from R large, possibly massive
 spatio-temporal data bases for the case where the data base is
 accessible through a sensor observation
 service (SOS) is provided by the R package
-\href{https://cran.r-project.org/web/packages/sos4R/index.html}{sos4R},
+\href{https://cran.r-project.org/web/package=sos4R}{sos4R},
 which is also on CRAN.
 
 \end{document}

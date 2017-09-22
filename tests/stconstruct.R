@@ -38,9 +38,10 @@ x = stConstruct(Produc, "State", "time", states[-8])
 class(x)
 #stplot(x[,,"unemp"], yrs)
 
+library(rgdal)
 # stConstruct multivariable, time-wide
 fname = system.file("shapes/sids.shp", package="maptools")[1]
-nc = readShapePoly(fname, proj4string=CRS("+proj=longlat +datum=NAD27"))
+nc = readOGR(fname)
 timesList = list(
 	BIR=c("BIR74", "BIR79"), 
 	NWBIR=c("NWBIR74", "NWBIR79"), 

@@ -1,6 +1,6 @@
 
-R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
-Copyright (C) 2016 The R Foundation for Statistical Computing
+R version 3.4.1 (2017-06-30) -- "Single Candle"
+Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -71,9 +71,22 @@ attr(,"package")
 [1] "spacetime"
 > #stplot(x[,,"unemp"], yrs)
 > 
+> library(rgdal)
+rgdal: version: 1.2-11, (SVN revision 676)
+ Geospatial Data Abstraction Library extensions to R successfully loaded
+ Loaded GDAL runtime: GDAL 2.2.0, released 2017/04/28
+ Path to GDAL shared files: /usr/local/share/gdal
+ Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
+ Path to PROJ.4 shared files: (autodetected)
+ Linking to sp version: 1.2-5 
 > # stConstruct multivariable, time-wide
 > fname = system.file("shapes/sids.shp", package="maptools")[1]
-> nc = readShapePoly(fname, proj4string=CRS("+proj=longlat +datum=NAD27"))
+> nc = readOGR(fname)
+OGR data source with driver: ESRI Shapefile 
+Source: "/home/edzer/R/x86_64-pc-linux-gnu-library/3.4/maptools/shapes/sids.shp", layer: "sids"
+with 100 features
+It has 14 fields
+Integer64 fields read as strings:  CNTY_ CNTY_ID FIPSNO 
 > timesList = list(
 + 	BIR=c("BIR74", "BIR79"), 
 + 	NWBIR=c("NWBIR74", "NWBIR79"), 
@@ -85,4 +98,4 @@ attr(,"package")
 > 
 > proc.time()
    user  system elapsed 
-  2.384   0.336   2.417 
+  3.280   0.364   3.335 
