@@ -1,3 +1,702 @@
+commit a5cc964100da45072289f62551bba2b139d886da
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Sep 22 14:38:32 2017 +0200
+
+    cleanup; address change of pkg ISOcodes
+
+commit 5337df0e4bb0da2572238994468648de57810db4
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Jun 1 11:15:37 2017 +0200
+
+    correct examples; address #28
+
+commit 3b4ac745b1f79d974801e92973d0763069b39a6b
+Merge: 86ce5f1 6e87bc9
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Jan 20 20:00:48 2017 +0100
+
+    Merge pull request #23 from BenGraeler/master
+    
+    adds support for rbind of single timestamps; improves on rbind of STSDFs
+
+commit 6e87bc9e8c0eb7692ff97a9b84647c203a126ff6
+Merge: 04ab6e3 86ce5f1
+Author: Benedikt Graeler <benedikt.graeler@ruhr-uni-bochum.de>
+Date:   Fri Jan 20 08:38:04 2017 +0100
+
+    Merge branch 'master' of https://github.com/edzer/spacetime
+
+commit 04ab6e3ddbc7639575714ef2a362dcca2f8cdce2
+Author: Benedikt Graeler <benedikt.graeler@ruhr-uni-bochum.de>
+Date:   Fri Jan 20 08:37:52 2017 +0100
+
+    typo in comment
+
+commit 86ce5f111474d1890a0a015ce2b5413c29f41336
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Dec 22 10:20:38 2016 +0100
+
+    http://cran -> https://cran
+
+commit b63a09fdff80cbc02db1c0b5cb52d98b2da7b0f5
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Dec 2 09:26:46 2016 +0100
+
+    fix raster methods for mnf
+
+commit 50ef40473abcdc1596042fd2e123351178f73728
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Nov 29 16:53:17 2016 +0100
+
+    allow user-specified Sigma.Noise in mnf() methods
+
+commit 0853c3eba6cdcebd27c194ba77548c31a58c0475
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Oct 7 11:04:33 2016 +0200
+
+    new travis, using trusty
+
+commit 8f111ae864b0a8101a8babc75540f8b2e092a282
+Author: Benedikt Graeler <graeler@hydrology.ruhr-uni-bochum.de>
+Date:   Fri Sep 16 14:27:55 2016 +0200
+
+    adds support for rbind of single timestamps; improves on rbind of STSDFs
+
+commit 6a4e72abe7aef6dce83bcb434e909cd5fdd82591
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Sep 3 11:50:11 2016 +0200
+
+    match new googleVis package version
+
+commit 440813b8927e52f78a715179a4cc6bff2103e051
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Jul 21 17:28:59 2016 +0200
+
+    typo
+
+commit 94f6ae3ec3eaebea5588de9c3d9a03a80b7905eb
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Jul 21 17:06:56 2016 +0200
+
+    add ... to stInteraction
+
+commit 0a42444acb27430bae8eeea077126182a8788c95
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Jun 9 08:46:17 2016 +0200
+
+    remove oldrel
+
+commit a02251da04f2e2e72aed84ceb7f44fd5d7146ef5
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon May 2 13:50:43 2016 +0200
+
+    add old-rel
+
+commit a0970ad14e385f7f5159c7d8f904db7f34ef98cc
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon May 2 13:17:10 2016 +0200
+
+    update to gdal 2.1.0
+
+commit 0144a33a530ecbfed3b6c9d0a1c54fd0d12d542d
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Mar 29 22:20:18 2016 +0200
+
+    remove default value for FUN in aggregate methods
+
+commit 9babc52071ef1bbba89722cc51e7b2eacbc40632
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Mar 19 17:39:01 2016 +0100
+
+    try old
+
+commit 64feb34bd8a3e0c255cd555c263d3cc587641dcb
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Mar 19 17:07:40 2016 +0100
+
+    try new4
+
+commit 33507fb2096a7bc2a2173de4f6955906714f4cf6
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Mar 19 17:06:14 2016 +0100
+
+    try new3
+
+commit c1bad9bf5f48fd21f5262785d218d0fb5bac406e
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Mar 19 17:04:41 2016 +0100
+
+    try new2
+
+commit ce78e00b86cc8643a0f6897d1cc476f8e3af4666
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Mar 19 16:47:09 2016 +0100
+
+    try new
+
+commit c78a4885c6972d45cf836c6c1059682dc9dd6528
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Mar 19 16:08:07 2016 +0100
+
+    set back old travis
+
+commit e99c84836f85cd265ce0c5f84798f6845f6a8a4d
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Mar 19 16:06:14 2016 +0100
+
+    test
+
+commit 62db423cb305fd2ee74d4a59ceca297d09e674f2
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Mar 19 15:55:00 2016 +0100
+
+    sync docs and code again
+
+commit f59b83a1d28af68251ac0d2a19a77799c50b2b00
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Mar 12 16:32:57 2016 +0100
+
+    try new travis config
+
+commit 828bfa949a6202a79a94b735924d96d18a3e9d31
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Mar 12 14:46:47 2016 +0100
+
+    update mnf; try new travis
+
+commit 55ed0518508239a9d017e3e187c2c1c9a0c1e2a2
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Mar 9 19:54:16 2016 +0100
+
+    mnf for STxDF; update examples, set names
+
+commit dbf3ffc231b9403110b7bd3d6b61c9afe9916c3a
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Mar 9 09:34:02 2016 +0100
+
+    change scaling of \Sigma_\Delta
+
+commit c1d46acea324d942d0909b972d4e82171b2de1e8
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Mar 8 21:55:47 2016 +0100
+
+    add mnf methods
+
+commit f8c7ff3237d568df3cb7b7750e451606a100c1dd
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sun Feb 28 11:00:29 2016 +0100
+
+    remove date field
+
+commit 3aae5b6a240e6346c2e0b17a8d56112f9ef5b058
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sun Feb 28 10:59:55 2016 +0100
+
+    add type check
+
+commit 169545a68fca76d6e8003b5bb7c581db6ff1ba16
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Feb 2 11:21:49 2016 +0100
+
+    tidy
+
+commit 3f69f8e9646c68184a2f0e1703afab7e110314e7
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Feb 2 09:40:35 2016 +0100
+
+    drop oldrel in travis
+
+commit 57166d49c7fbb916397b69a35297c5b7ea84de2d
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Feb 1 18:59:48 2016 +0100
+
+    update 3 version travis
+
+commit f1d11a2bf14f05c9e8560115aa0b7caaa1a0b0a1
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Dec 21 17:22:23 2015 +0100
+
+    cosmetic
+
+commit bb2c27519bdd0546091dc350fe15bf9cf6679b02
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Dec 12 15:14:07 2015 +0100
+
+    drop S4 aggregate definition
+
+commit 49987bfcb6f2aa6c03fa8f240f61b66714a37a2f
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sun Nov 15 21:36:41 2015 +0100
+
+    tidy eof; update test output for unique SpatialPoints row.names
+
+commit d93aef4fcb6b6a28aad8e7f30b710ff84b194d9f
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Nov 11 13:02:05 2015 +0100
+
+    STSDF->STIDF: avoid duplicate row.names if sp is SpatialPoints
+
+commit 83ec4f8eb534e7ed6886c3a0bfa49697f06a137f
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Nov 5 21:55:02 2015 +0100
+
+    put old .travis.yml back, for rgdal
+
+commit b7102e11026943a5033497405e637ec4f39dce98
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Nov 5 21:39:22 2015 +0100
+
+    update, add STFDF -> RasterBrick coerce
+
+commit ab24be70a5d3d34a3ec91c32e9a4a789a6e9ba99
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Oct 27 16:48:15 2015 +0100
+
+    bug fixes, reported by Simon Moulds
+
+commit 236a3b3cae361c4ca07d61927ce2b1d15a69959d
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Oct 27 15:30:09 2015 +0100
+
+    updated write.tgrass, after change in raster
+
+commit b6bb80cdb3dce1b1047446060bca5d7e19a2335c
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Sep 30 19:41:25 2015 +0200
+
+    bug fix reported by Simon Moulds
+
+commit 8c9ea402ebd0df2ffb46aea6d604923e860215a6
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Sep 25 20:06:21 2015 +0200
+
+    add vignette with eval=TRUE
+
+commit 13762465e74ad3be851953ae8785ea299ff57197
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Sep 25 18:33:14 2015 +0200
+
+    set eval back to FALSE
+
+commit 2e35e87b47ebb20e2873351f982ee704d2ff85bd
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Sep 25 18:01:49 2015 +0200
+
+    update vignette
+
+commit 8aeea8f59f136dbf7dc2695f52b5d4714379f565
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Sep 19 12:30:45 2015 +0200
+
+    update date
+
+commit c9744e2205ba8bb578decd8c997ba8a49146dd8d
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Sep 11 10:21:31 2015 +0200
+
+    correct proj_def.dat retrieval
+
+commit 3da7e0c61ccff9b9cb92366c998f1c0b121ea58d
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Sep 11 09:58:06 2015 +0200
+
+    manually copy the proj_def.dat into the proj.4 distribution
+
+commit a17ea98758c9a123ca7a29110f229a7d51513ccb
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Sep 11 08:08:58 2015 +0200
+
+    tidy
+
+commit ed39676be5981b51ccb987db4764c1d3e33cebc9
+Merge: 37c24c2 7dd31cf
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Sep 11 07:57:49 2015 +0200
+
+    Merge pull request #22 from BenGraeler/master
+    
+    - correct handling of first place matrix indices for STI
+
+commit 7dd31cf0da014672c611f5edd993add0e519250e
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Thu Sep 10 22:20:05 2015 +0000
+
+    - correct handling of first place matrix indices for STI
+
+commit 37c24c2e33cf5c45c8df594ab5d1f3078650fb1c
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Sep 10 08:17:35 2015 +0200
+
+    update, tidy
+
+commit d4ba363ad50047d6927431890a7c6b7311cc3160
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Aug 15 17:20:24 2015 +0200
+
+    add pictograms
+
+commit 7ece9b1fc98720642cf80c7795ebcf8b21fbbe9d
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Aug 15 15:42:24 2015 +0200
+
+    add pictograms
+
+commit de4dd5c4f87f75914252943741ad4878c45ea84b
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Aug 11 14:32:00 2015 +0200
+
+    tidy
+
+commit 6d8ccc79aa7ce4cde1ce7798f007e432e3f09994
+Merge: 7c9d5ad 4c35d54
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Aug 10 20:44:58 2015 +0200
+
+    Merge branch 'master' of github.com:edzer/spacetime
+
+commit 7c9d5ad093ff355054161551048d07576c8483ee
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Aug 10 20:44:08 2015 +0200
+
+    drop match.ID match, to allow char row.names with integers
+
+commit 4c35d540968116bdf8d79749229f2fb470dd3a4a
+Merge: 58f588d 4ae2524
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Jul 23 17:17:33 2015 +0200
+
+    Merge pull request #21 from BenGraeler/master
+    
+    enforce increasing ordering of indecies for subsetting STIs and STIDFs
+
+commit 4ae2524f3fdab11ffb33beef7b76b9b2dfbdd013
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Thu Jul 23 14:26:02 2015 +0200
+
+    - enforce increasing order of numeric indecies (space and time) for subsetting STI and STIDF
+
+commit 7ec7abfa2c1311e6d75e31c53888a64964297138
+Merge: 7927950 58f588d
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Thu Jul 23 13:13:55 2015 +0200
+
+    Merge branch 'master' of https://github.com/edzer/spacetime
+    
+    Conflicts:
+    	DESCRIPTION
+
+commit 792795090e6f9d4f4a831a05a75c7a959f5c4b59
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Thu Jul 23 13:13:01 2015 +0200
+
+    - resolve conflict
+
+commit 58f588dbe585f30ee92f18a53879e9d6d8b622bd
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jul 7 12:04:32 2015 +0200
+
+    add :: to raster function
+
+commit 90541c340bc892d82aa66ce2dda65c816a7df555
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Jul 2 12:59:45 2015 +0200
+
+    add all imports from base packages
+
+commit a4ff7c8a0372ff190b2df40942807d7e2ff08c73
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 20:10:19 2015 +0200
+
+    address warning and notes
+
+commit 8b8c47a725308b3154a07dbe2e176ccb5bf8abe4
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 18:20:53 2015 +0200
+
+    try travis-ci
+
+commit 0f20130caecb5a348a6d00a8c3005d03dc6c2b24
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 18:05:40 2015 +0200
+
+    cd issue
+
+commit 6b3b60423606cec7c1d719e3af24a8b46de10375
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 17:40:08 2015 +0200
+
+    try cd's
+
+commit 3a1b660cfe20af4fd95ec469f7e39ad3d3eb3b87
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 16:56:11 2015 +0200
+
+    clean up
+
+commit 825e50bec6d382ee1a7491867ec3659e0f122841
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 16:20:45 2015 +0200
+
+    tidy proj.4
+
+commit 90a34d90cf0f4b97e64659d26daa99f35d35a9b7
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 15:42:33 2015 +0200
+
+    add proj.4
+
+commit 8296a3010c278839d154e310562dca681139f01c
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 14:28:07 2015 +0200
+
+    cd
+
+commit 006349d473b14bf303feb66b37041e2385c0d425
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 14:00:59 2015 +0200
+
+    gdal from source
+
+commit 27e3c724f5ba1136814ceb48e856662e22e13875
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 13:09:43 2015 +0200
+
+    try
+
+commit 9ee9a7a55d447cc29e3eb5c7700678255d25e7cd
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 12:38:04 2015 +0200
+
+    try
+
+commit fa5564de1f55f23bc68901a3be659351e97a3826
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 12:15:56 2015 +0200
+
+    ...
+
+commit 4ca0d5bc55500cab4a224bf74a7e82d6c238e9c0
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 12:08:52 2015 +0200
+
+    try apt_packages
+
+commit 683a01af95b6b5f95b8becb9a02876b292a58379
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 09:57:46 2015 +0200
+
+    try without unstable
+
+commit 84401d1ffffef43d42322e4e615f7b789a6742f7
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 09:46:43 2015 +0200
+
+    try gdal
+
+commit 7dfc9008c4192b4c277dc2326367335f2ff864b7
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 09:18:15 2015 +0200
+
+    try
+
+commit d6a3fa9ef13dd046b60d72439c6d456df9ecb7a8
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 09:09:10 2015 +0200
+
+    chk
+
+commit 33df118c2426e6417dc8d7a54089405b95285c74
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 08:26:44 2015 +0200
+
+    -y
+
+commit 6af320a5fbea08b2201e0cb0a7e8557817e27f43
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 08:17:28 2015 +0200
+
+    try aptitude
+
+commit 150c1bc5a38d9e4b8a368e091cc3f53de43871cc
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 08:07:20 2015 +0200
+
+    tidy
+
+commit 46445767262122df116fce281d47b97a9c6dc7b2
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 08:00:34 2015 +0200
+
+    typo
+
+commit b4f8136b7c3c9cc809d4f0fbd36a299d6662c265
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 07:54:47 2015 +0200
+
+    gdal
+
+commit 25cd3fd2d96c1e66f6546f9f9e4e6bb9374a74d0
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 07:39:32 2015 +0200
+
+    try without unstable
+
+commit 28671516af06ede5f752f36b8e196f1aa0310d76
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 07:34:55 2015 +0200
+
+    gdal once more
+
+commit f4dc88de12afa87adfcd404fb21cbda9e79eb262
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 07:30:46 2015 +0200
+
+    gdal
+
+commit ca134cf5502426b9b995a7fc519efe8246bb3546
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 07:22:25 2015 +0200
+
+    gdal travis
+
+commit dde49d5cfa8ba4a895827d2e20a40649f758bf18
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 07:16:02 2015 +0200
+
+    hdf
+
+commit 5254088b3dcfba856fb6be1525f46b83b313c40f
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 07:07:36 2015 +0200
+
+    update hdf
+
+commit b2500c5f384e6d423498d47b051291a60716031d
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 07:02:35 2015 +0200
+
+    lib update
+
+commit 192a43f97bbd0d2fe0cfa39218abef467b453a6b
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 06:53:19 2015 +0200
+
+    resolve conflicts
+
+commit d8a4bbacfa50ee31bb8e4fcc69d55cda88e1a50d
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 00:11:12 2015 +0200
+
+    add libs
+
+commit 95bb76e52659550336ae826aeb334e025891ba32
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 23 00:05:00 2015 +0200
+
+    add lib
+
+commit 3bf8749bef9cc890c754daad5079743042a17803
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jun 22 23:58:27 2015 +0200
+
+    add lib
+
+commit 6b4324f6fb892a095aa6757f2eb6e1d347750d76
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jun 22 23:44:51 2015 +0200
+
+    add lib
+
+commit 4773abbe673c8a73d60c94f6e4df18d908a03fba
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jun 22 23:36:32 2015 +0200
+
+    add libgdal-dev
+
+commit b960e2ddaedb7d0a67c5a8cde531d2406d234fac
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jun 22 23:29:50 2015 +0200
+
+    try gdal1-dev
+
+commit d870f97f1271ebe88a0533047c28328e4b1afab0
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jun 22 18:39:42 2015 +0200
+
+    trigger travis 2
+
+commit fe5d035fabf6a55e5d78ec5f2d7e35ea65ab66f4
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jun 22 18:30:48 2015 +0200
+
+    trigger travis
+
+commit ddeb0223f69905f5d92b63e6f9e0b0c345b54255
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jun 22 18:10:25 2015 +0200
+
+    trigger build
+
+commit 8366c1bba29068d0701e5376003305679a2b2368
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jun 22 17:34:16 2015 +0200
+
+    update
+
+commit 3dabbeff34a3af1804ded11ef1054b2161525182
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jun 22 17:24:35 2015 +0200
+
+    add libgdal-dev
+
+commit 4ab929e6b09ac5586b8858e5edaf0fbeaf32301e
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jun 22 17:02:44 2015 +0200
+
+    tidy
+
+commit e91753922986c51560bcfe47b2ff0940e7778ce9
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jun 22 16:54:46 2015 +0200
+
+    add link to travis-ci
+
+commit fd0dbb458bf8794b55ee7e78870c76e711aa5a76
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jun 22 16:50:00 2015 +0200
+
+    add .travis.yml
+
+commit 9dbe177b2a22ed1d287513707791945819feb5be
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jun 16 17:42:24 2015 +0200
+
+    create `rural' in dataset air from base components
+
+commit e4f896e3842c9ff0c324056b186cd593776c4f3b
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Jun 8 19:54:27 2015 +0100
+
+    adapt to upstream xts.
+
+commit d466b3e3ecfb6a033f73b5364e29116f62f4fed5
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue May 26 19:08:21 2015 +0200
+
+    add BugReports: field
+
+commit 028a5155eb6708f6351c78db7219fa467a3a0e48
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue May 5 17:37:34 2015 +0200
+
+    bump version
+
+commit 074be2a138defe72b6bf3e8c68d513e9dffe5ddc
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue May 5 15:55:03 2015 +0200
+
+    pass at argument to levelplot
+
 commit 3083307fc8ebf938673028cf7ffc3ccff6a4cac6
 Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Fri Apr 24 13:56:40 2015 +0200
@@ -94,11 +793,25 @@ Date:   Wed Jan 21 09:08:18 2015 +0100
 
     bump version
 
+commit 2a9f2619a13772e4e39cf33bee83ddf2bd082177
+Merge: 0a788ed 218a99f
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Mon Jan 19 15:01:24 2015 +0100
+
+    Merge remote-tracking branch 'edzer/master'
+
 commit 218a99f5b7b475353f8b37246c945c47f881f6aa
 Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Mon Jan 19 14:55:57 2015 +0100
 
     correct timeIndex order for as.data.frame.STS, reported by Jon Skoien
+
+commit 0a788ed6c8c3a831997d5fcdb897a37075296610
+Merge: cf65594 6502ebf
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Mon Jan 19 14:40:38 2015 +0100
+
+    Merge branch 'master' of https://github.com/edzer/spacetime
 
 commit 6502ebfd51b6704669c46d26c8dd2b7304c630ef
 Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
@@ -147,6 +860,13 @@ Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Sun Dec 14 13:18:17 2014 +0100
 
     correct aggregate with args STIDF, STF; add time chk
+
+commit cf65594d333d27587b177c8a8afdba553028757a
+Merge: 628210d 4c8cd4f
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Tue Dec 2 15:29:38 2014 +0100
+
+    Merge branch 'master' of https://github.com/edzer/spacetime
 
 commit 4c8cd4f1d6220dc43634e4333e18393a7d8d87e9
 Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
@@ -262,6 +982,16 @@ Date:   Thu Aug 28 12:36:55 2014 +0200
 
     tzone attribute is now passed on by rbind.STIDF
 
+commit 628210d281e46dc5cff55ec7fe21f4f2c1ea582b
+Merge: 3ad31b8 ac8c4d8
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Mon Aug 25 10:04:43 2014 +0200
+
+    Merge branch 'master' of https://github.com/edzer/spacetime
+    
+    Conflicts:
+    	tests/subsetting.R
+
 commit ac8c4d8bfe3e11ca8f14ade6107b917d7c49bdaa
 Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Sun Aug 24 14:09:14 2014 +0200
@@ -357,6 +1087,12 @@ Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Sun Jul 13 17:51:32 2014 +0200
 
     write.tgrass now writes init.txt
+
+commit 3ad31b816784e04dda21378599fb887b99a7b9a1
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Wed Apr 23 15:10:35 2014 +0200
+
+    additional subsetting test cases
 
 commit 59fc45e87113dd5c609b4654f26402bba18b1e8d
 Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
