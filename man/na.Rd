@@ -64,6 +64,6 @@ rural = STFDF(stations, dates, data.frame(PM10 = as.vector(air)))
 r = na.locf(rural)
 # sample (NOT aggregate) to monthly:
 m = seq(start(rural), end(rural), "1 month")
-stplot(na.approx(rural[1:20,"2003:2005"], xout = m), mode = 'ts')
+stplot(na.approx(rural[1:20,"2003::2005"], xout = m), mode = 'ts')
 }
 \keyword{manip}
