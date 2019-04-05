@@ -17,7 +17,7 @@ delta = function(x) {
 		x[lx+1] = x[lx] + (ux[l] - ux[l-1]) # + dt
 		x
 	}
-	if (is(x, "xts"))
+	if (inherits(x, "xts"))
 		x = index(x)
 	ret = augment.with.one(as.POSIXct(x))[-1]
 	ret

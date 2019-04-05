@@ -1,7 +1,7 @@
 #.supportedTime = c("Date", "POSIXct", "timeDate", "yearmon", "yearqtr")
 
 ST = function(sp, time, endTime) {
-	if (!is(time, "xts")) {
+	if (!inherits(time, "xts")) {
 		#stopifnot(is(time, .supportedTime))
 		if (!timeBased(time))
 			stop("time is not a time based class")

@@ -1,6 +1,6 @@
 stConstruct = function(x, space, time, SpatialObj = NULL, 
 		TimeObj = NULL, crs = CRS(as.character(NA)), interval, endTime) {
-	if (is(x, "xts")) {
+	if (inherits(x, "xts")) {
 		stopifnot(ncol(x) == length(space))
 	  if (missing(endTime))
   		return(STFDF(space, index(x), data.frame(x = as.vector(t(x)))))

@@ -1,6 +1,6 @@
 STI = function(sp, time, endTime) {
 	if (missing(endTime)) {
-		if (is(time, "xts"))
+		if (inherits(time, "xts"))
 			endTime = index(time)
 		else 
 			endTime = time
@@ -11,13 +11,13 @@ STI = function(sp, time, endTime) {
 
 STIDF = function(sp, time, data, endTime) {
 	if (missing(endTime)) {
-		if (is(time, "xts"))
+		if (inherits(time, "xts"))
 			endTime = index(time)
 		else 
 			endTime = time
 	}
 	endTime = as.POSIXct(endTime)
-	if (!is(time, "xts")) {
+	if (!inherits(time, "xts")) {
 		time0 = time
         time = xts(matrix(1:length(time), dimnames=list(NULL, "timeIndex")),
 			time)
