@@ -178,7 +178,7 @@ subs.STSDF <- function(x, i, j, ... , drop = is(x, "STSDF")) {
 				if (is(ix, "Date"))
 					x = xts(xs, ix)
 				else
-					x = xts(xs, ix, tzone = attr(x@time, "tzone"))
+					x = xts(xs, ix, tzone = tzone(x@time))
         # added index to achieve 
 				# (nrow(x)==length(order.by)) in index() # TG
 			}

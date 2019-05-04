@@ -73,7 +73,7 @@ as.STFDF.xts = function(from) {
 				if (is(ix, "Date"))
 					xts(unstack(from[,,i, drop = FALSE]), ix)
 				else
-					xts(unstack(from[,,i, drop = FALSE]), ix, tzone = attr(from@time, "tzone"))
+					xts(unstack(from[,,i, drop = FALSE]), ix, tzone = tzone(from@time))
 			}
 		)
 	)
@@ -216,7 +216,7 @@ subs.STF_and_STFDF <- function(x, i, j, ... , drop = is(x, "STFDF")) {
 				if (is(ix, "Date"))
 					x = xts(xs, ix)
 				else
-					x = xts(xs, ix, tzone = attr(x@time, "tzone"))
+					x = xts(xs, ix, tzone = tzone(x@time))
 			}
 		} else {
 			if (length(t) == 1) {

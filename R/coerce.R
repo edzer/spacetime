@@ -140,7 +140,7 @@ setAs("STTDF", "STIDF",
 	function(from) {
 		sp = do.call(rbind, lapply(from@traj, function(x) x@sp))
 		time = do.call(c, lapply(from@traj, index))
-		attr(time, "tzone") = attr(index(from@traj[[1]]), "tzone")
+		attr(time, "tzone") = tzone(from@traj[[1]])
 		endTime = do.call(c, lapply(from@traj, function(x) x@endTime))
 		STIDF(sp, time, from@data, endTime) # reorders there
 	}

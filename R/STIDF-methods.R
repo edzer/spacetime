@@ -26,7 +26,7 @@ STIDF = function(sp, time, data, endTime) {
 		sp = sp[o,]
 		endTime = endTime[o]
 		data = data[o,,drop=FALSE]
-		attr(endTime, "tzone") = attr(time, "tzone")
+		attr(endTime, "tzone") = tzone(time)
 	}
 	new("STIDF", STI(sp, time, endTime), data = data)
 }
@@ -67,7 +67,7 @@ as.xts.STIDF = function(x, ...) {
 	if (is(ix, "Date"))
 		xts(x@data, index(x@time))
 	else
-		xts(x@data, index(x@time), tzone = attr(x@time, "tzone"))
+		xts(x@data, index(x@time), tzone = tzone(x@time))
 }
 setAs("STIDF", "xts", function(from) as.xts.STIDF(from))
 
@@ -211,9 +211,9 @@ rbind.STIDF <- function(...) {
 	stopifnot(identicalCRS(dots))
 	# c() drops tzone attribute:
 	time =    do.call(c, lapply(dots, function(x) index(x)))
-	attr(time, "tzone") = attr(index(dots[[1]]@time), "tzone")
+	attr(time, "tzone") = tzone(dots[[1]]@time)
 	endTime = do.call(c, lapply(dots, function(x) x@endTime))
-	attr(endTime, "tzone") = attr(index(dots[[1]]@endTime), "tzone")
+	attr(endTime, "tzone") = tzone(dots[[1]]@endTime)
 	STIDF(
 		sp =      do.call(rbind, lapply(dots, function(x) x@sp)),
 		time =    time,

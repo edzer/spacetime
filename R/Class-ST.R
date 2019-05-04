@@ -5,8 +5,8 @@ setClass("ST",
 	stopifnot(nrow(object@time) >= 1)
 	stopifnot(nrow(object@time) == length(object@endTime))
 	# do the time zones, if set, match?
-	tz1 = attr(object@time, "tzone")
-	tz2 = attr(object@endTime, "tzone")
+	tz1 = tzone(object@time)
+	tz2 = tzone(object@endTime)
 	tz1.set = (!is.null(tz1) && !nchar(tz1)==0)
 	tz2.set = (!is.null(tz2) && !nchar(tz2)==0)
 	stopifnot(tz1.set == tz2.set)
