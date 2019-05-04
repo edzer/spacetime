@@ -14,7 +14,7 @@ ST = function(sp, time, endTime) {
 	if (any(is.na(index(time))))
 		stop("NA time values not allowed")
 	stopifnot(is(endTime, "POSIXct"))
-	attr(endTime, "tzone") = attr(time, "tzone")
+	attr(endTime, "tzone") = tzone(time)
 	if (any(is.na(endTime)))
 		stop("NA endTime values not allowed")
 	if (is(sp, "SpatialGrid")) {

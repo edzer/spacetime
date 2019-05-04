@@ -11,7 +11,7 @@ aggregate_ST_temporal = function(x, by, FUN, ..., simplify = TRUE) {
 		if (is(ix, "Date"))
 			cc = as.Date(cc)
 		if (is(ix, "POSIXt"))
-			cc = as.POSIXct(cc, tz = attr(ix, "tzone"))
+			cc = as.POSIXct(cc, tz = tzone(ix))
 	}
 	d = vector("list", length = ncol(x@data))
 	for (i in 1:length(d)) {

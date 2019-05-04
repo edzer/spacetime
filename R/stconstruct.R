@@ -30,7 +30,7 @@ stConstruct = function(x, space, time, SpatialObj = NULL,
 			endTime = delta(time)
 		else
 			endTime = as.POSIXct(index(time))
-		attr(endTime, "tzone") = attr(time, "tzone")
+		attr(endTime, "tzone") = tzone(time)
 		return(STIDF(sp[time,], time, x[time, -c(si, ti), drop=FALSE], endTime))
 	} else if (length(space) == 1 && length(time) == 1) {
 		# long format, space indicates index of SpatialObj:
@@ -46,7 +46,7 @@ stConstruct = function(x, space, time, SpatialObj = NULL,
 				if (!missing(interval) && interval)
 					endTime = delta(time)
 			}
-			attr(endTime, "tzone") = attr(time, "tzone")
+			attr(endTime, "tzone") = tzone(time)
 			return(STIDF(SpatialObj, time, x, endTime))
 		} else {
 			sut = sort(unique(x[,time]))
@@ -57,7 +57,7 @@ stConstruct = function(x, space, time, SpatialObj = NULL,
 				if (!missing(interval) && !interval)
 					endTime = as.POSIXct(index(tm))
 			}
-			attr(endTime, "tzone") = attr(tm, "tzone")
+			attr(endTime, "tzone") = tzone(tm)
 			sp = as.character(sort(unique(x[,space])))
 			return(STFDF(SpatialObj[sp], tm, 
 				x[order(x[,time],as.character(x[,space])),], endTime))
@@ -75,7 +75,7 @@ stConstruct = function(x, space, time, SpatialObj = NULL,
 				endTime = index(TimeObj)
 			else
 				endTime = delta(TimeObj)
-			attr(endTime, "tzone") = attr(TimeObj, "tzone")
+			attr(endTime, "tzone") = tzone(TimeObj)
 		}
 		return(STFDF(SpatialObj, TimeObj, xx, endTime))
 	} else if (is.list(space)) { 
