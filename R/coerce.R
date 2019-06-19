@@ -72,7 +72,7 @@ as.STIDF.STSDF = function(from) {
 	# replicate the sp and time columns; keeps time always ordered?
 	sp = from@sp[from@index[,1],]
 	if (is(sp, "SpatialPoints"))
-		row.names(sp) = make.unique(row.names(sp))
+		row.names(sp) = make.unique(as.character(row.names(sp)))
 	STIDF(sp, from@time[from@index[,2]], 
 			from@data,
 			from@endTime[from@index[,2]])
