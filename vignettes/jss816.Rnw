@@ -930,10 +930,8 @@ The data are sparse in time (aggregated to 2 periods
 of unequal length, according to the documentation in package \code{spdep}),
 but have polygons in space. First, we will prepare the spatial data:
 <<>>=
-library(maptools)
 fname = system.file("shapes/sids.shp", package="maptools")[1]
-nc = readShapePoly(fname, 
-	proj4string = CRS("+proj=longlat +datum=NAD27 +ellps=clrk66"))
+nc = rgdal::readOGR(fname)
 @
 then, we construct the time sequence:
 <<>>=

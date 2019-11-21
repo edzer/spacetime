@@ -1,9 +1,6 @@
 library(sp)
 library(spacetime)
-
-library(maptools)
-nc <- readShapePoly(system.file("shapes/sids.shp", package="maptools")[1],
-	proj4string=CRS("+proj=longlat +datum=NAD27 +ellps=clrk66"))
+nc <- rgdal::readOGR(system.file("shapes/sids.shp", package="maptools")[1])
 
 n = 1000
 pts = spsample(nc, n, "random")
