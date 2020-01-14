@@ -1,6 +1,6 @@
 
-R version 3.5.0 (2018-04-23) -- "Joy in Playing"
-Copyright (C) 2018 The R Foundation for Statistical Computing
+R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
+Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -15,30 +15,20 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> library(sp)
-> library(spacetime)
-> library(xts)
-Loading required package: zoo
-
-Attaching package: 'zoo'
-
-The following objects are masked from 'package:base':
-
-    as.Date, as.Date.numeric
-
+> suppressPackageStartupMessages(library(sp))
+> suppressPackageStartupMessages(library(spacetime))
+> suppressPackageStartupMessages(library(xts))
 > 
 > # example 0: construction with STFDF:
 > 
-> library(maps)
+> suppressPackageStartupMessages(library(maps))
 > states.m = map('state', plot=FALSE, fill=TRUE)
 > IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
 >     
-> library(maptools)
-Checking rgeos availability: TRUE
+> suppressPackageStartupMessages(library(maptools))
 > states = map2SpatialPolygons(states.m, IDs=IDs)
 > 
-> library(plm)
-Loading required package: Formula
+> suppressPackageStartupMessages(library(plm))
 > data(Produc)
 > 
 > yrs = 1970:1986
@@ -71,20 +61,12 @@ attr(,"package")
 [1] "spacetime"
 > #stplot(x[,,"unemp"], yrs)
 > 
-> library(rgdal)
-rgdal: version: 1.3-3, (SVN revision 759)
- Geospatial Data Abstraction Library extensions to R successfully loaded
- Loaded GDAL runtime: GDAL 2.2.3, released 2017/11/20
- Path to GDAL shared files: /usr/share/gdal/2.2
- GDAL binary built with GEOS: TRUE 
- Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
- Path to PROJ.4 shared files: (autodetected)
- Linking to sp version: 1.3-1 
+> suppressPackageStartupMessages(library(rgdal))
 > # stConstruct multivariable, time-wide
 > fname = system.file("shapes/sids.shp", package="maptools")[1]
 > nc = readOGR(fname)
 OGR data source with driver: ESRI Shapefile 
-Source: "/home/edzer/R/x86_64-pc-linux-gnu-library/3.5/maptools/shapes/sids.shp", layer: "sids"
+Source: "/home/edzer/R/x86_64-pc-linux-gnu-library/3.6/maptools/shapes/sids.shp", layer: "sids"
 with 100 features
 It has 14 fields
 Integer64 fields read as strings:  CNTY_ CNTY_ID FIPSNO 
@@ -99,4 +81,4 @@ Integer64 fields read as strings:  CNTY_ CNTY_ID FIPSNO
 > 
 > proc.time()
    user  system elapsed 
-  1.183   0.247   1.112 
+  1.330   0.074   1.396 

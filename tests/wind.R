@@ -1,8 +1,8 @@
 ###################################################
 ### chunk number 19: 
 ###################################################
-library(sp)
-library(spacetime)
+suppressPackageStartupMessages(library(sp))
+suppressPackageStartupMessages(library(spacetime))
 if (require(gstat)) {
 data(wind)
 wind.loc$y = as.numeric(char2dms(as.character(wind.loc[["Latitude"]])))
@@ -14,7 +14,7 @@ proj4string(wind.loc) = "+proj=longlat +datum=WGS84"
 ###################################################
 ### chunk number 20: 
 ###################################################
-library(mapdata)
+suppressPackageStartupMessages(library(mapdata))
 plot(wind.loc, xlim = c(-11,-5.4), ylim = c(51,55.5), axes=T, col="red")
 map("worldHires", add=T, col = grey(.5))
 text(coordinates(wind.loc), pos=1, label=wind.loc$Station, cex=.7)
@@ -43,13 +43,13 @@ wind$jday = as.numeric(format(wind$time, '%j'))
 pts = coordinates(wind.loc[match(names(wind[4:15]), wind.loc$Code),])
 pts = SpatialPoints(pts)
 proj4string(pts) = "+proj=longlat +datum=WGS84"
-if (require(rgdal)) {
+suppressPackageStartupMessages(library(rgdal))
 pts = spTransform(pts, CRS("+proj=utm +zone=29 +datum=WGS84"))
 stations = 4:15
 # note the t() in:
 w = STFDF(pts, wind$time, data.frame(values = as.vector(t(wind[stations]))))
 
-library(maptools)
+suppressPackageStartupMessages(library(maptools))
 m = map2SpatialLines(
 	map("worldHires", xlim = c(-11,-5.4), ylim = c(51,55.5), plot=F))
 proj4string(m) = "+proj=longlat +datum=WGS84"
@@ -89,6 +89,5 @@ spl = list(list("sp.points", pts, first=F, cex=.5),
 stplot(wind.pr, col.regions=bpy.colors(),
 	par.strip.text = list(cex=.5), sp.layout = spl)
 summary(wind.pr)
-}
 }
 }
