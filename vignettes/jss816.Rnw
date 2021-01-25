@@ -82,7 +82,7 @@ starting time only. This vignette is the main reference for the
 
 \begin{document}
 % \VignetteIndexEntry{ spacetime: Spatio-Temporal Data in R }
-% jss options, see http://www.jstatsoft.org/style
+% jss options, see https://www.jstatsoft.org/style
 <<eval=TRUE,echo=FALSE>>=
 options(prompt = "R> ", continue = "+  ", width = 70, useFancyQuotes = FALSE)
 set.seed(1331)
@@ -979,7 +979,7 @@ order states alphabetically. We need to de-select District
 of Columbia, which is not present in \code{Produc} table (record 8):
 <<>>=
 # deselect District of Columbia, polygon 8, which is not present in Produc:
-Produc.st = STFDF(states[-8], time, Produc[order(Produc[2], Produc[1]),])
+Produc.st = STFDF(states[-8], time, Produc[order(Produc[,2], Produc[,1]),])
 @
 <<>>=
 library(RColorBrewer)

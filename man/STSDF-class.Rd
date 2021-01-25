@@ -80,7 +80,7 @@ if FALSE, no coercion to reduced classes takes place}
 %many observations are available
 
 \author{ Edzer Pebesma, \email{edzer.pebesma@uni-muenster.de} }
-\references{ http://www.jstatsoft.org/v51/i07/ }
+\references{ https://www.jstatsoft.org/v51/i07/ }
 \seealso{ \link{delta} }
 
 \examples{

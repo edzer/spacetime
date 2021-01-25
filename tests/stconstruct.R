@@ -17,7 +17,7 @@ data(Produc)
 yrs = 1970:1986
 time = xts(1:17, as.POSIXct(paste(yrs, "-01-01", sep=""), tz = "GMT"))
 # deselect District of Columbia, polygon 8, which is not present in Produc:
-Produc.st = STFDF(states[-8], time, Produc[(order(Produc[2], Produc[1])),])
+Produc.st = STFDF(states[-8], time, Produc[(order(Produc[,2], Produc[,1])),])
 #stplot(Produc.st[,,"unemp"], yrs)
 
 # example 1: st from long table, with states as Spatial object:

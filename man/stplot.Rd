@@ -97,6 +97,6 @@ in an endless loop, with \code{animate} seconds between each. No
 proper value is returned: the loop needs to be interrupted by
 the user.
 }
-\references{ http://www.jstatsoft.org/v51/i07/ }
+\references{ https://www.jstatsoft.org/v51/i07/ }
 \note{vignette("spacetime") contains several examples}
 \keyword{dplot}

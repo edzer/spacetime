@@ -46,7 +46,7 @@ using, \link[intervals]{interval_overlap}.
 }
 \seealso{\link{over}, \link{timeIsInterval}, \link[intervals]{interval_overlap}}
 \author{Edzer Pebesma}
-\references{ http://www.jstatsoft.org/v51/i07/ }
+\references{ https://www.jstatsoft.org/v51/i07/ }
 \examples{
 t0 = as.POSIXct("1999-10-10")
 x = t0 +c(0.5+c(2,2.1,4),5)*3600

@@ -8,13 +8,13 @@ citEntry(entry = "Article",
   volume       = "51",
   number       = "7",
   pages        = "1--30",
-  url          = "http://www.jstatsoft.org/v51/i07/",
+  url          = "https://www.jstatsoft.org/v51/i07/",
 
   textVersion  =
   paste("Edzer Pebesma (2012).",
         "spacetime: Spatio-Temporal Data in R.",
         "Journal of Statistical Software, 51(7), 1-30.",
-        "URL http://www.jstatsoft.org/v51/i07/.")
+        "URL https://www.jstatsoft.org/v51/i07/.")
 )
 
 citEntry(entry="book",
@@ -22,9 +22,9 @@ citEntry(entry="book",
   title        = "Applied spatial data analysis with {R}, Second edition",
   year         = "2013",
   publisher    = "Springer, NY",
-  url          = "http://www.asdar-book.org/",
+  url          = "https://asdar-book.org/",
   textVersion =
   paste("Roger S. Bivand, Edzer Pebesma, Virgilio Gomez-Rubio, 2013.",
     "Applied spatial data analysis with R, Second edition. Springer, NY.",
-    "http://www.asdar-book.org/")
+    "https://asdar-book.org/")
 )

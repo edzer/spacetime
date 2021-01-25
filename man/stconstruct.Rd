@@ -50,7 +50,7 @@ table represent particular locations or location IDs.
 Depending on the arguments, an object of class \code{STIDF}
 or \code{STFDF}.
 }
-\references{ http://www.jstatsoft.org/v51/i07/ }
+\references{ https://www.jstatsoft.org/v51/i07/ }
 \examples{
 # example 0: construction of STFDF from long table:
 library(maps)

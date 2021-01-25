@@ -57,7 +57,7 @@ observations. In addition, a column \code{id} is used to identify
 individual items. }
 
 \author{ Edzer Pebesma, \email{edzer.pebesma@uni-muenster.de} }
-\references{ http://www.jstatsoft.org/v51/i07/ }
+\references{ https://www.jstatsoft.org/v51/i07/ }
 \examples{
 library(sp)
 m = 3# nr of trajectories

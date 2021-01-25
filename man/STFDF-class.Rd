@@ -82,7 +82,7 @@ with purely spatial attributes and purely time attributes replicated
 appropriately. }
 
 \author{ Edzer Pebesma, \email{edzer.pebesma@uni-muenster.de} }
-\references{ http://www.jstatsoft.org/v51/i07/ }
+\references{ https://www.jstatsoft.org/v51/i07/ }
 
 \examples{
 sp = cbind(x = c(0,0,1), y = c(0,1,1))

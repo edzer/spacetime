@@ -19,7 +19,7 @@ to find the interval size for the last observation (which has no next
 observation), \code{x} needs to be at least of length 2.
 }
 \author{Edzer Pebesma}
-\references{ http://www.jstatsoft.org/v51/i07/ }
+\references{ https://www.jstatsoft.org/v51/i07/ }
 \examples{
 x = as.POSIXct("2000-01-01") + (0:9) * 3600
 delta(x)

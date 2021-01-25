@@ -7,7 +7,7 @@
 
 This vignette shows how Google charts can be used to
 display some spatio-temporal data sets used in the
-[JSS paper](http://www.jstatsoft.org/v51/i07/) on
+[JSS paper](https://www.jstatsoft.org/v51/i07/) on
 [spacetime](https://cran.r-project.org/package=spacetime).
 
 [Google
@@ -36,7 +36,7 @@ the HTML required for the 'knitted' output.
 
 Geo charts work with country or region (state,
 administrative regions, e.g. NUTS1, formally [ISO
-3166-2](http://en.wikipedia.org/wiki/ISO_3166-2)) data. We will
+3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)) data. We will
 try to make the DE_NUTS1 data in spacetime ready for this.
 
 ### ISOCodes data set from CRAN
@@ -75,7 +75,7 @@ plot(
                options=geoChartDE)
   )
 ```
-reveals that Brandenburg is [not recognized](https://code.google.com/p/google-visualization-api-issues/issues/detail?id=707)!  We will now try with
+reveals that Brandenburg is [not recognized](https://github.com/google/google-visualization-issues/issues/707)!  We will now try with
 the ISO 3166-2 codes:
 ```{r results='asis'}
 DE_NUTS1$code = ISO_3166_2_DE$Code

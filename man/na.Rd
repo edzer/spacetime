@@ -31,7 +31,7 @@ details are found in
 \link[zoo]{na.spline}.
 }
 \author{Edzer Pebesma}
-\references{ http://www.jstatsoft.org/v51/i07/ }
+\references{ https://www.jstatsoft.org/v51/i07/ }
 \examples{
 # toy example:
 library(sp)
