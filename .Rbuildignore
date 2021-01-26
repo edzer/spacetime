@@ -7,3 +7,6 @@ contribute.md
 ^\.Rproj\.user$
 \.travis\.yml
 ^docs$
+^\.ccache$
+^\.github$
+^tic\.R$
