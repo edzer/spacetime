@@ -1,6 +1,6 @@
 ## spacetime 
 
-[![R-CMD-check](https://github.com/r-spatial/gstat/workflows/tic/badge.svg)](https://github.com/r-spatial/gstat/actions)
+[![R-CMD-check](https://github.com/edzer/spacetime/workflows/tic/badge.svg)](https://github.com/edzer/spacetime/actions)
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 [![CRAN](http://www.r-pkg.org/badges/version/spacetime)](http://cran.rstudio.com/package=spacetime) 
 [![Downloads](http://cranlogs.r-pkg.org/badges/spacetime?color=brightgreen)](http://www.r-pkg.org/pkg/spacetime)
