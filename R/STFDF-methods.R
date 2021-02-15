@@ -202,8 +202,12 @@ subs.STF_and_STFDF <- function(x, i, j, ... , drop = is(x, "STFDF")) {
 			x <- STSDF(x@sp[s,], x@time[t,], x@data[sel,,drop=FALSE], ind, x@endTime[t])
 		} else
 			x <- STS(x@sp[s,], x@time[t,], ind, x@endTime[t])
-	} else if (is(x, "STFDF"))
+	} else if (is(x, "STFDF")) {
+		is_factor = sapply(x@data, is.factor)
 		x@data = data.frame(lapply(x@data, function(v) as.vector(matrix(v, nr, nc)[s,t])))
+		for (i in which(is_factor))
+			x@data[,i] = as.factor(x@data[,i])
+	}
   
 	# drop
 	if (drop) {
