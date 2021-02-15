@@ -1,6 +1,6 @@
 
-R version 3.2.2 (2015-08-14) -- "Fire Safety"
-Copyright (C) 2015 The R Foundation for Statistical Computing
+R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
+Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -108,8 +108,8 @@ point3               30.50
  [1]  8.77 18.70 29.70  8.47 21.10 32.50 10.80 20.20 29.00  9.74 20.70 30.50
 > stfdf[["newVal"]] <- rnorm(12)
 > stfdf$ID
- [1] ID_1  ID_2  ID_3  ID_4  ID_5  ID_6  ID_7  ID_8  ID_9  ID_10 ID_11 ID_12
-Levels: ID_1 ID_10 ID_11 ID_12 ID_2 ID_3 ID_4 ID_5 ID_6 ID_7 ID_8 ID_9
+ [1] "ID_1"  "ID_2"  "ID_3"  "ID_4"  "ID_5"  "ID_6"  "ID_7"  "ID_8"  "ID_9" 
+[10] "ID_10" "ID_11" "ID_12"
 > stfdf$ID = paste("OldIDs", 1:12, sep="")
 > stfdf$NewID = paste("NewIDs", 12:1, sep="")
 > stfdf
@@ -1124,4 +1124,4 @@ Error in .checkAttrIsUnique(x@sp, x@time, x@data) :
 > 
 > proc.time()
    user  system elapsed 
-  0.828   0.316   0.832 
+  0.741   0.048   0.790 
