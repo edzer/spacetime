@@ -1262,7 +1262,7 @@ a \code{SpatialPolygonsDataFrame}, with the following data variables:
 library(cshapes)
 cs = cshp()
 names(cs)
-row.names(cs) = paste(as.character(cs$CNTRY_NAME), 1:244)
+row.names(cs) = paste(as.character(cs$CNTRY_NAME), seq_along(cs$CNTRY_NAME))
 @
 where two data bases are used, ``COW'' (correlates of war
 project\footnote{Correlates of War Project. 2008. State System
