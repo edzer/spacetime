@@ -1260,9 +1260,9 @@ and the computation of distance matrices. The data set consist of
 a \code{SpatialPolygonsDataFrame}, with the following data variables:
 <<>>=
 library(cshapes)
+library(sf)
 cs = cshp()
 names(cs)
-row.names(cs) = paste(as.character(cs$CNTRY_NAME), seq_along(cs$CNTRY_NAME))
 @
 where two data bases are used, ``COW'' (correlates of war
 project\footnote{Correlates of War Project. 2008. State System
@@ -1271,27 +1271,16 @@ and ``GW'' \cite{gleditsch}. The variables COWSMONTH and COWEMONTH
 denote the start month and end month, respectively, according to
 the COW data base.
 
-In the following fragment, we dselect missing dates and create the time index:
+In the following fragment, we create the spatio-temporal object:
 <<>>=
-cs = cs[cs$COWSYEAR > -1,]
-begin = as.POSIXct(paste(cs$COWSYEAR, cs$COWSMONTH, cs$COWSDAY, sep="-"), 
-    tz = "GMT")
-end = as.POSIXct(paste(cs$COWEYEAR, cs$COWEMONTH,cs$COWEDAY, sep="-"), 
-    tz = "GMT")
-@
-and the spatio-temporal object:
-<<>>=
-st = STIDF(geometry(cs), begin, as.data.frame(cs), end)
+st = STIDF(geometry(as(cs, "Spatial")), cs$start, as.data.frame(cs), cs$end)
 @
 A possible query would be which countries are found at 7\textdegree East
 and 52\textdegree North,
 <<>>=
-pt = SpatialPoints(cbind(7, 52), CRS(proj4string(cs)))
+pt = SpatialPoints(cbind(7, 52), CRS(proj4string(st)))
 as.data.frame(st[pt,,1:5])
 @
-which turns out to be the {\em Germany Federal Republic} and {\em
-Germany}, that is, before and after the merge. No data before
-1955-5-5 is available.
 
 \section{Further material}
 \label{further}
