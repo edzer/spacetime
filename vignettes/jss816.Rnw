@@ -1271,9 +1271,11 @@ and ``GW'' \cite{gleditsch}. The variables COWSMONTH and COWEMONTH
 denote the start month and end month, respectively, according to
 the COW data base.
 
-In the following fragment, we create the spatio-temporal object:
+In the following fragment, we create the spatio-temporal object using
+begin- and end-times:
 <<>>=
-st = STIDF(geometry(as(cs, "Spatial")), cs$start, as.data.frame(cs), cs$end)
+st = STIDF(geometry(as(cs, "Spatial")), 
+	as.POSIXct(cs$start), as.data.frame(cs), as.POSIXct(cs$end))
 @
 A possible query would be which countries are found at 7\textdegree East
 and 52\textdegree North,
