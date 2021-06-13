@@ -1,7 +1,7 @@
 Package: spacetime
 Version: 1.2-5
 Title: Classes and Methods for Spatio-Temporal Data
-Authors@R: c(person("Edzer", "Pebesma", role = c("aut", "cre"), email = "edzer.pebesma@uni-muenster.de", comment = c(ORCID = "0000-0001-8049-7069")),
+Authors@R: c(person("Edzer",  "Pebesma", role = c("aut", "cre"), email = "edzer.pebesma@uni-muenster.de", comment = c(ORCID = "0000-0001-8049-7069")),
 	person("Benedikt", "Graeler", role = "ctb"),
 	person("Tom", "Gottfried", role = "ctb"),
 	person("Robert J.", "Hijmans", role = "ctb"))
