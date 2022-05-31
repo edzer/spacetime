@@ -22,7 +22,7 @@
 
 \author{ Roger Peng, taken from (non-CRAN) package ptproc, 
 
-\url{http://www.biostat.jhsph.edu/~rpeng/software/index.html};
+\url{https://www.biostat.jhsph.edu/~rpeng/software/index.html};
 
 example code by Roger Bivand.
 }

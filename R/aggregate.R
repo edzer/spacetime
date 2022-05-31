@@ -6,7 +6,7 @@ aggregate_ST_temporal = function(x, by, FUN, ..., simplify = TRUE) {
 		cc = by(index(x@time)) # time format index
 	else if (is(by, "character")) { 
 		ix = index(x@time)
-		stopifnot(is(ix, c("Date", "POSIXt")))
+		stopifnot(inherits(ix, c("Date", "POSIXt")))
 		cc = cut(ix, by)
 		if (is(ix, "Date"))
 			cc = as.Date(cc)

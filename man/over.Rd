@@ -88,7 +88,7 @@ anything else, or SpatialPolygons with SpatialPolygons, need rgeos
 to be loaded first.
 }
 \author{Edzer Pebesma, \email{edzer.pebesma@uni-muenster.de}}
-\references{ http://www.jstatsoft.org/v51/i07/ }
+\references{ https://www.jstatsoft.org/article/view/v051i07 }
 
 \seealso{\link[sp]{over}; \code{vignette('sto')}, \code{vignette('over')}, 
 \link{timeMatch}, \link{timeIsInterval}}

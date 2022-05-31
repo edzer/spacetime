@@ -250,3 +250,19 @@ setAs("STTDF", "SpatialLines",
 		SpatialLines(l2)
 	}
 )
+
+# sftime:
+setOldClass("sftime")
+
+setAs("sftime", "STI",
+	function(from) {
+		STI(as(st_geometry(from), "Spatial"), st_time(from))
+	}
+)
+
+setAs("sftime", "STIDF",
+	function(from) {
+		STIDF(as(st_geometry(from), "Spatial"), st_time(from), 
+			st_drop_geometry(st_drop_time(from)))
+	}
+)

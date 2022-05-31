@@ -38,7 +38,7 @@ are \code{values}, containing the eigenvalues.  }
 noise covariance.  This implementation estimates the noise covariance
 by \eqn{0.5 \mbox{Cov}(Z(s)-Z(s+\Delta))}, so that eigenvalues can be
 directly interpreted as approximate estimates of the noice covariance. }
-\seealso{http://r-spatial.org/r/2016/03/09/MNF-PCA-EOF.html }
+\seealso{https://r-spatial.org/r/2016/03/09/MNF-PCA-EOF.html }
 \examples{
 # temporal data:
 set.seed(13531) # make reproducible

@@ -24,7 +24,7 @@ has geotiff files (with suffix .tif), and three files (list.txt, proj.txt
 and init.txt) describing the file names and time slices,
 coordinate reference system, and dimensions }
 \author{Edzer Pebesma; time-enabled grass by Soeren Gebbert }
-\references{ http://dx.doi.org/10.1016/j.envsoft.2013.11.001 }
+\references{ https://dx.doi.org/10.1016/j.envsoft.2013.11.001 }
 \examples{
 \dontrun{
 library(spacetime)

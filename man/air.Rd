@@ -16,8 +16,8 @@ illustrate spatial aggregation over irregular regions.
 data(air)
 }
 \author{ air quality data compiled for R by Benedict Graeler; NUTS1
-level data obtained from http://www.gadm.org/ . }
-\references{ http://acm.eionet.europa.eu/databases/airbase }
+level data obtained from https://www.gadm.org/ . }
+\references{ https://www.eionet.europa.eu/etcs/etc-acm/databases/airbase }
 \note{ see vignette on overlay and spatio-temporal aggregation in this
 package; the vignette on using google charts shows where the
 ISO_3166_2_DE table comes from. }
