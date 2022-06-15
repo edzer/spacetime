@@ -53,14 +53,14 @@ or \code{STFDF}.
 \references{ https://www.jstatsoft.org/v51/i07/ }
 \examples{
 # example 0: construction of STFDF from long table:
-library(maps)
+if (require(maps)) {
 states.m = map('state', plot=FALSE, fill=TRUE)
 IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
  
 library(maptools)
 states = map2SpatialPolygons(states.m, IDs=IDs)
 
-library(plm)
+if (require(plm)) {
 data(Produc)
 
 yrs = 1970:1986
@@ -86,9 +86,10 @@ Produc$State = gsub("_", " ", tolower(Produc$state))
 x = stConstruct(Produc, "State", "time", states[-8])
 class(x)
 all.equal(x, Produc.st, check.attributes = FALSE)
+}}
 
 # stConstruct multivariable, time-wide
-library(maptools)
+if (require(maptools)) {
 fname = system.file("shapes/sids.shp", package="maptools")[1]
 nc = rgdal::readOGR(fname) 
 timesList = list(
@@ -100,6 +101,7 @@ t = as.Date(c("1974-01-01","1979-01-01"))
 nc.st = stConstruct(as(nc, "data.frame"), geometry(nc), timesList,
 	TimeObj = t, interval = TRUE)
 
+}
 # stConstruct multivariable, space-wide
 if (require(gstat)) {
 data(wind)

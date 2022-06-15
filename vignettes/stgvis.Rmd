@@ -204,7 +204,7 @@ The following example shows a motion chart of the `Produc` data used
 in the spacetime manual, but does not convert the data. Time is simply
 year (integer).
 
-```{r MotionChartExample, results='asis', tidy=FALSE}
+```{r MotionChartExample, results='asis', tidy=FALSE, eval=require(plm)}
 data("Produc", package = "plm")
 plot(
   gvisMotionChart(Produc, idvar="state", timevar="year")

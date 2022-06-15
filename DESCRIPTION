@@ -1,5 +1,5 @@
 Package: spacetime
-Version: 1.2-7
+Version: 1.2-8
 Title: Classes and Methods for Spatio-Temporal Data
 Authors@R: c(person("Edzer",  "Pebesma", role = c("aut", "cre"), email = "edzer.pebesma@uni-muenster.de", comment = c(ORCID = "0000-0001-8049-7069")),
 	person("Benedikt", "Graeler", role = "ctb"),
@@ -13,6 +13,7 @@ Description: Classes and methods for spatio-temporal data, including space-time 
 License: GPL (>= 2)
 URL: https://github.com/edzer/spacetime
 BugReports: https://github.com/edzer/spacetime/issues
+Encoding: UTF-8
 VignetteBuilder: knitr
 Collate: Class-xts.R Class-ST.R Class-STFDF.R Class-STSDF.R
 	Class-STIDF.R Class-STTDF.R interval.R endtime.R

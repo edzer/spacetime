@@ -1,6 +1,6 @@
 
-R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
-Copyright (C) 2019 The R Foundation for Statistical Computing
+R version 4.2.0 (2022-04-22) -- "Vigorous Calisthenics"
+Copyright (C) 2022 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -51,7 +51,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -75,7 +76,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -102,7 +104,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DENI063  9.685030  53.52418
 DESH001  9.585911  53.67057
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -120,7 +123,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DENI063  9.685030  53.52418
 DESH001  9.585911  53.67057
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -181,7 +185,8 @@ DEBE056 13.647013  52.44775
 DEUB038  9.791584  54.07312
 DENI063  9.685030  53.52418
 DESH001  9.585911  53.67057
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -216,7 +221,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -243,7 +249,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -270,7 +277,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DENI063  9.685030  53.52418
 DESH001  9.585911  53.67057
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -295,7 +303,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -317,7 +326,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -341,7 +351,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -363,7 +374,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -385,7 +397,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -407,7 +420,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -425,7 +439,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -442,7 +457,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -459,7 +475,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -476,7 +493,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -554,13 +572,15 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 > rrSTF[2:1,1:2]@sp
 SpatialPoints:
         coords.x1 coords.x2
 DENI063  9.685030  53.52418
 DESH001  9.585911  53.67057
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 > 
 > rrSTS[1:2,1:2]
 An object of class "STS"
@@ -576,7 +596,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -600,7 +621,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DENI063  9.685030  53.52418
 DESH001  9.585911  53.67057
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -624,7 +646,8 @@ SpatialPoints:
         coords.x1 coords.x2
 DENI063  9.685030  53.52418
 DESH001  9.585911  53.67057
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -640,13 +663,15 @@ SpatialPoints:
         coords.x1 coords.x2
 DESH001  9.585911  53.67057
 DENI063  9.685030  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 > rrSTS[2:1,2:1]@sp
 SpatialPoints:
         coords.x1 coords.x2
 DENI063  9.685030  53.52418
 DESH001  9.585911  53.67057
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 > 
 > # multiple selection
 > ####################
@@ -659,7 +684,8 @@ SpatialPoints:
 DENI063   9.68503  53.52418
 DENI063   9.68503  53.52418
 DENI063   9.68503  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -686,7 +712,8 @@ SpatialPoints:
 DENI063   9.68503  53.52418
 DENI063   9.68503  53.52418
 DENI063   9.68503  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -704,7 +731,8 @@ SpatialPoints:
 DENI063   9.68503  53.52418
 DENI063   9.68503  53.52418
 DENI063   9.68503  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -731,7 +759,8 @@ SpatialPoints:
 DENI063   9.68503  53.52418
 DENI063   9.68503  53.52418
 DENI063   9.68503  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -758,7 +787,8 @@ Slot "sp":
 SpatialPoints:
         coords.x1 coords.x2
 DENI063   9.68503  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -791,7 +821,8 @@ Slot "sp":
 SpatialPoints:
         coords.x1 coords.x2
 DENI063   9.68503  53.52418
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -818,7 +849,8 @@ SpatialPoints:
 DEUB038  9.791584  54.07312
 DEUB038  9.791584  54.07312
 DEUB038  9.791584  54.07312
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -835,7 +867,8 @@ Slot "sp":
 SpatialPoints:
         coords.x1 coords.x2
 DEUB038  9.791584  54.07312
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -859,7 +892,8 @@ SpatialPoints:
 DEUB038  9.791584  54.07312
 DEUB038  9.791584  54.07312
 DEUB038  9.791584  54.07312
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -880,7 +914,8 @@ Slot "sp":
 SpatialPoints:
         coords.x1 coords.x2
 DEUB038  9.791584  54.07312
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -907,7 +942,8 @@ DENI063  9.685030  53.52418
 DEUB038  9.791584  54.07312
 DEBE056 13.647013  52.44775
 DEBE032 13.225856  52.47309
-Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84 
+Coordinate Reference System (CRS) arguments: +proj=longlat +datum=WGS84
++no_defs 
 
 Slot "time":
            timeIndex
@@ -924,4 +960,4 @@ Slot "endTime":
 > 
 > proc.time()
    user  system elapsed 
-  0.657   0.020   0.668 
+  1.052   0.050   1.092 

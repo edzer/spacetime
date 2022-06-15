@@ -21,7 +21,7 @@ spatial neighbours are added for each time replicate.
 details are found in 
 
 Giovana M. de Espindola, Edzer Pebesma, Gilberto
-C\^{a}mara, 2011.  Spatio-temporal regression
+Câmara, 2011.  Spatio-temporal regression
 models for deforestation in the Brazilian Amazon.
 STDM 2011, The International Symposium on Spatial-Temporal Analysis
 and Data Mining, University College London - 18th-20th July 2011.

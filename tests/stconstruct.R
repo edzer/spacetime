@@ -4,14 +4,14 @@ suppressPackageStartupMessages(library(xts))
 
 # example 0: construction with STFDF:
 
-suppressPackageStartupMessages(library(maps))
+if (require(maps, quietly = TRUE)) {
 states.m = map('state', plot=FALSE, fill=TRUE)
 IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
     
-suppressPackageStartupMessages(library(maptools))
+if (require(maptools, quietly = TRUE)) {
 states = map2SpatialPolygons(states.m, IDs=IDs)
 
-suppressPackageStartupMessages(library(plm))
+if (require(plm, quietly = TRUE)) {
 data(Produc)
 
 yrs = 1970:1986
@@ -38,7 +38,7 @@ x = stConstruct(Produc, "State", "time", states[-8])
 class(x)
 #stplot(x[,,"unemp"], yrs)
 
-suppressPackageStartupMessages(library(rgdal))
+if (require(rgdal, quietly = TRUE)) {
 # stConstruct multivariable, time-wide
 fname = system.file("shapes/sids.shp", package="maptools")[1]
 nc = readOGR(fname)
@@ -50,3 +50,5 @@ timesList = list(
 t = xts(1:2, as.Date(c("1974-01-01","1979-01-01")))
 nc.st = stConstruct(as(nc, "data.frame"), geometry(nc), timesList,
 	TimeObj = t)
+}
+}}}

@@ -1,6 +1,6 @@
 
-R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
-Copyright (C) 2020 The R Foundation for Statistical Computing
+R version 4.2.0 (2022-04-22) -- "Vigorous Calisthenics"
+Copyright (C) 2022 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -21,64 +21,79 @@ Type 'q()' to quit R.
 > 
 > # example 0: construction with STFDF:
 > 
-> suppressPackageStartupMessages(library(maps))
-> states.m = map('state', plot=FALSE, fill=TRUE)
-> IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
->     
-> suppressPackageStartupMessages(library(maptools))
-> states = map2SpatialPolygons(states.m, IDs=IDs)
-> 
-> suppressPackageStartupMessages(library(plm))
-> data(Produc)
-> 
-> yrs = 1970:1986
-> time = xts(1:17, as.POSIXct(paste(yrs, "-01-01", sep=""), tz = "GMT"))
-> # deselect District of Columbia, polygon 8, which is not present in Produc:
-> Produc.st = STFDF(states[-8], time, Produc[(order(Produc[,2], Produc[,1])),])
-> #stplot(Produc.st[,,"unemp"], yrs)
-> 
-> # example 1: st from long table, with states as Spatial object:
-> # use Date format for time:
-> Produc$time = as.Date(paste(yrs, "01", "01", sep = "-"))
-> xy = coordinates(states[-8])
-> Produc$x = xy[,1]
-> Produc$y = xy[,2]
-> #using stConstruct, use polygon centroids for location:
-> x = stConstruct(Produc, c("x", "y"), "time")
-> class(x)
-[1] "STIDF"
-attr(,"package")
-[1] "spacetime"
-> stplot(x[,,"unemp"])
-> 
-> # alternatively, pass states:
-> Produc$state = gsub("TENNESSE", "TENNESSEE", Produc$state)
-> Produc$State = gsub("_", " ", tolower(Produc$state))
-> x = stConstruct(Produc, "State", "time", states[-8])
-> class(x)
-[1] "STFDF"
-attr(,"package")
-[1] "spacetime"
-> #stplot(x[,,"unemp"], yrs)
-> 
-> suppressPackageStartupMessages(library(rgdal))
-> # stConstruct multivariable, time-wide
-> fname = system.file("shapes/sids.shp", package="maptools")[1]
-> nc = readOGR(fname)
+> if (require(maps, quietly = TRUE)) {
++ states.m = map('state', plot=FALSE, fill=TRUE)
++ IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
++     
++ if (require(maptools, quietly = TRUE)) {
++ states = map2SpatialPolygons(states.m, IDs=IDs)
++ 
++ if (require(plm, quietly = TRUE)) {
++ data(Produc)
++ 
++ yrs = 1970:1986
++ time = xts(1:17, as.POSIXct(paste(yrs, "-01-01", sep=""), tz = "GMT"))
++ # deselect District of Columbia, polygon 8, which is not present in Produc:
++ Produc.st = STFDF(states[-8], time, Produc[(order(Produc[,2], Produc[,1])),])
++ #stplot(Produc.st[,,"unemp"], yrs)
++ 
++ # example 1: st from long table, with states as Spatial object:
++ # use Date format for time:
++ Produc$time = as.Date(paste(yrs, "01", "01", sep = "-"))
++ xy = coordinates(states[-8])
++ Produc$x = xy[,1]
++ Produc$y = xy[,2]
++ #using stConstruct, use polygon centroids for location:
++ x = stConstruct(Produc, c("x", "y"), "time")
++ class(x)
++ stplot(x[,,"unemp"])
++ 
++ # alternatively, pass states:
++ Produc$state = gsub("TENNESSE", "TENNESSEE", Produc$state)
++ Produc$State = gsub("_", " ", tolower(Produc$state))
++ x = stConstruct(Produc, "State", "time", states[-8])
++ class(x)
++ #stplot(x[,,"unemp"], yrs)
++ 
++ if (require(rgdal, quietly = TRUE)) {
++ # stConstruct multivariable, time-wide
++ fname = system.file("shapes/sids.shp", package="maptools")[1]
++ nc = readOGR(fname)
++ timesList = list(
++ 	BIR=c("BIR74", "BIR79"), 
++ 	NWBIR=c("NWBIR74", "NWBIR79"), 
++ 	SID=c("SID74", "SID79")
++ )
++ t = xts(1:2, as.Date(c("1974-01-01","1979-01-01")))
++ nc.st = stConstruct(as(nc, "data.frame"), geometry(nc), timesList,
++ 	TimeObj = t)
++ }
++ }}}
+Checking rgeos availability: TRUE
+Please note that 'maptools' will be retired by the end of 2023,
+plan transition at your earliest convenience;
+some functionality will be moved to 'sp'.
+Please note that rgdal will be retired by the end of 2023,
+plan transition to sf/stars/terra functions using GDAL and PROJ
+at your earliest convenience.
+
+rgdal: version: 1.5-31, (SVN revision 1171)
+Geospatial Data Abstraction Library extensions to R successfully loaded
+Loaded GDAL runtime: GDAL 3.4.3, released 2022/04/22
+Path to GDAL shared files: /usr/share/gdal
+GDAL binary built with GEOS: TRUE 
+Loaded PROJ runtime: Rel. 8.2.0, November 1st, 2021, [PJ_VERSION: 820]
+Path to PROJ shared files: /home/edzer/.local/share/proj:/usr/share/proj
+PROJ CDN enabled: FALSE
+Linking to sp version:1.4-7
+To mute warnings of possible GDAL/OSR exportToProj4() degradation,
+use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgdal.
 OGR data source with driver: ESRI Shapefile 
 Source: "/home/edzer/R/x86_64-pc-linux-gnu-library/4.0/maptools/shapes/sids.shp", layer: "sids"
 with 100 features
 It has 14 fields
 Integer64 fields read as strings:  CNTY_ CNTY_ID FIPSNO 
-> timesList = list(
-+ 	BIR=c("BIR74", "BIR79"), 
-+ 	NWBIR=c("NWBIR74", "NWBIR79"), 
-+ 	SID=c("SID74", "SID79")
-+ )
-> t = xts(1:2, as.Date(c("1974-01-01","1979-01-01")))
-> nc.st = stConstruct(as(nc, "data.frame"), geometry(nc), timesList,
-+ 	TimeObj = t)
 > 
 > proc.time()
    user  system elapsed 
-  1.418   0.040   1.450 
+  1.900   0.068   1.982 

@@ -3,7 +3,7 @@
 ###################################################
 suppressPackageStartupMessages(library(sp))
 suppressPackageStartupMessages(library(spacetime))
-if (require(gstat)) {
+if (require(gstat, quietly = TRUE)) {
 data(wind)
 wind.loc$y = as.numeric(char2dms(as.character(wind.loc[["Latitude"]])))
 wind.loc$x = as.numeric(char2dms(as.character(wind.loc[["Longitude"]])))
