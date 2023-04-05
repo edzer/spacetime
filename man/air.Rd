@@ -26,6 +26,6 @@ ISO_3166_2_DE table comes from. }
 data(air)
 rural = STFDF(stations, dates, data.frame(PM10 = as.vector(air)))
 # how DE was created from DE_NUTS1:
-if (require(rgeos))
-	DE = gUnionCascaded(DE_NUTS1)
-}
+#if (require(rgeos))
+#	DE = gUnionCascaded(DE_NUTS1)
+#}

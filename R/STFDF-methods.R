@@ -38,7 +38,7 @@ as.data.frame.STF = function(x, row.names = NULL, ...) {
 		endTime = rep(x@endTime, each= length(x@sp)),
 		timedata,
 		row.names = row.names, ...)
-	if ("data" %in% slotNames(x@sp)) {
+	if ("data" %in% slotNames(x@sp) && ncol(x@sp@data) > 0) {
 		x = apply(x@sp@data, 2, rep, nrow(x@time))
 		row.names(x) = NULL
 		data.frame(ret, x)

@@ -1,8 +1,8 @@
 citHeader("To cite spacetime in publications use:")
 
-citEntry(entry = "Article",
+bibentry(bibtype = "Article",
   title        = "{spacetime}: Spatio-Temporal Data in {R}",
-  author       = personList(as.person("Edzer Pebesma")),
+  author       = "Edzer Pebesma",
   journal      = "Journal of Statistical Software",
   year         = "2012",
   volume       = "51",
@@ -17,7 +17,7 @@ citEntry(entry = "Article",
         "URL https://www.jstatsoft.org/v51/i07/.")
 )
 
-citEntry(entry="book",
+bibentry(bibtype="book",
   author       = "Roger S. Bivand, Edzer Pebesma and Virgilio Gomez-Rubio",
   title        = "Applied spatial data analysis with {R}, Second edition",
   year         = "2013",

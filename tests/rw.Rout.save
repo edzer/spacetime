@@ -1,6 +1,6 @@
 
-R version 4.2.0 (2022-04-22) -- "Vigorous Calisthenics"
-Copyright (C) 2022 The R Foundation for Statistical Computing
+R version 4.2.3 (2023-03-15) -- "Shortstop Beagle"
+Copyright (C) 2023 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -41,29 +41,16 @@ Type 'q()' to quit R.
 > 
 > p = Polygon(cbind(x=c(-20,-15,-15,-20,-20),y=c(10,10,15,15,10)))
 > pol=SpatialPolygons(list(Polygons(list(p), "ID")))
-> if (require(rgeos, quietly = TRUE)) {
-+   stplot(sttdf[pol])
-+   names(sttdf[pol]@traj)
-+   stplot(sttdf[1:2],col=1:2)
-+   stplot(sttdf[,t0])
-+   stplot(sttdf[,"2013"])
-+   stplot(sttdf[pol,"2013"])
-+   is.null(sttdf[pol,t0])
-+ }
-rgeos version: 0.5-9, (SVN revision 684)
- GEOS runtime version: 3.10.2-CAPI-1.16.0 
- Please note that rgeos will be retired by the end of 2023,
-plan transition to sf functions using GEOS at your earliest convenience.
- GEOS using OverlayNG
- Linking to sp version: 1.4-7 
- Polygon checking: TRUE 
-
-[1] TRUE
-Warning message:
-In fun(libname, pkgname) :
-  rgeos: versions of GEOS runtime 3.10.2-CAPI-1.16.0
-and GEOS at installation 3.10.1-CAPI-1.16.0differ
+> #if (require(rgeos, quietly = TRUE)) {
+> #  stplot(sttdf[pol])
+> #  names(sttdf[pol]@traj)
+> #  stplot(sttdf[1:2],col=1:2)
+> #  stplot(sttdf[,t0])
+> #  stplot(sttdf[,"2013"])
+> #  stplot(sttdf[pol,"2013"])
+> #  is.null(sttdf[pol,t0])
+> #}
 > 
 > proc.time()
    user  system elapsed 
-  1.529   0.076   1.595 
+  1.135   0.681   1.051 

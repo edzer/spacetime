@@ -1,6 +1,6 @@
 
-R version 4.2.0 (2022-04-22) -- "Vigorous Calisthenics"
-Copyright (C) 2022 The R Foundation for Statistical Computing
+R version 4.2.3 (2023-03-15) -- "Shortstop Beagle"
+Copyright (C) 2023 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -25,8 +25,10 @@ Type 'q()' to quit R.
 + states.m = map('state', plot=FALSE, fill=TRUE)
 + IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
 +     
-+ if (require(maptools, quietly = TRUE)) {
-+ states = map2SpatialPolygons(states.m, IDs=IDs)
++ if (require(sf, quietly = TRUE)) {
++ sta = st_as_sf(states.m)
++ row.names(sta) = unique(IDs)
++ states = geometry(as(sta, "Spatial"))
 + 
 + if (require(plm, quietly = TRUE)) {
 + data(Produc)
@@ -55,10 +57,10 @@ Type 'q()' to quit R.
 + class(x)
 + #stplot(x[,,"unemp"], yrs)
 + 
-+ if (require(rgdal, quietly = TRUE)) {
++ if (require(sf, quietly = TRUE)) {
 + # stConstruct multivariable, time-wide
-+ fname = system.file("shapes/sids.shp", package="maptools")[1]
-+ nc = readOGR(fname)
++ fname = system.file("shape/nc.shp", package="sf")[1]
++ nc = as(st_read(fname), "Spatial")
 + timesList = list(
 + 	BIR=c("BIR74", "BIR79"), 
 + 	NWBIR=c("NWBIR74", "NWBIR79"), 
@@ -69,31 +71,16 @@ Type 'q()' to quit R.
 + 	TimeObj = t)
 + }
 + }}}
-Checking rgeos availability: TRUE
-Please note that 'maptools' will be retired by the end of 2023,
-plan transition at your earliest convenience;
-some functionality will be moved to 'sp'.
-Please note that rgdal will be retired by the end of 2023,
-plan transition to sf/stars/terra functions using GDAL and PROJ
-at your earliest convenience.
-
-rgdal: version: 1.5-31, (SVN revision 1171)
-Geospatial Data Abstraction Library extensions to R successfully loaded
-Loaded GDAL runtime: GDAL 3.4.3, released 2022/04/22
-Path to GDAL shared files: /usr/share/gdal
-GDAL binary built with GEOS: TRUE 
-Loaded PROJ runtime: Rel. 8.2.0, November 1st, 2021, [PJ_VERSION: 820]
-Path to PROJ shared files: /home/edzer/.local/share/proj:/usr/share/proj
-PROJ CDN enabled: FALSE
-Linking to sp version:1.4-7
-To mute warnings of possible GDAL/OSR exportToProj4() degradation,
-use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgdal.
-OGR data source with driver: ESRI Shapefile 
-Source: "/home/edzer/R/x86_64-pc-linux-gnu-library/4.0/maptools/shapes/sids.shp", layer: "sids"
-with 100 features
-It has 14 fields
-Integer64 fields read as strings:  CNTY_ CNTY_ID FIPSNO 
+Linking to GEOS 3.11.1, GDAL 3.6.2, PROJ 9.1.1; sf_use_s2() is TRUE
+Reading layer `nc' from data source 
+  `/home/edzer/R/x86_64-pc-linux-gnu-library/4.0/sf/shape/nc.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 100 features and 14 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+Geodetic CRS:  NAD27
 > 
 > proc.time()
    user  system elapsed 
-  1.900   0.068   1.982 
+  2.003   0.672   1.885 

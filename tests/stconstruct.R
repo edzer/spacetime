@@ -8,8 +8,10 @@ if (require(maps, quietly = TRUE)) {
 states.m = map('state', plot=FALSE, fill=TRUE)
 IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
     
-if (require(maptools, quietly = TRUE)) {
-states = map2SpatialPolygons(states.m, IDs=IDs)
+if (require(sf, quietly = TRUE)) {
+sta = st_as_sf(states.m)
+row.names(sta) = unique(IDs)
+states = geometry(as(sta, "Spatial"))
 
 if (require(plm, quietly = TRUE)) {
 data(Produc)
@@ -38,10 +40,10 @@ x = stConstruct(Produc, "State", "time", states[-8])
 class(x)
 #stplot(x[,,"unemp"], yrs)
 
-if (require(rgdal, quietly = TRUE)) {
+if (require(sf, quietly = TRUE)) {
 # stConstruct multivariable, time-wide
-fname = system.file("shapes/sids.shp", package="maptools")[1]
-nc = readOGR(fname)
+fname = system.file("shape/nc.shp", package="sf")[1]
+nc = as(st_read(fname), "Spatial")
 timesList = list(
 	BIR=c("BIR74", "BIR79"), 
 	NWBIR=c("NWBIR74", "NWBIR79"), 

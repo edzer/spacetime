@@ -179,12 +179,12 @@ the different single-table formats with simple examples.
 Spatio-temporal data for which each location has data for each time
 can be provided in two so-called {\bf wide formats}. An example
 where a single column refers to a single moment or period in time is found
-in the North Carolina Sudden Infant Death Syndrome (sids) data set \citep{sids}
-available from package \pkg{maptools} \cite{maptools},
+in the North Carolina Sudden Infant Death Syndrome (sids) data set \citep{nc}
+available from package \pkg{sf},
 which is in the {\bf time-wide format}:
 <<>>=
-if (require(foreign, quietly = TRUE) && require(maptools, quietly = TRUE))
-  read.dbf(system.file("shapes/sids.dbf", package="maptools"))[1:5,c(5,9:14)]
+if (require(foreign, quietly = TRUE) && require(sf, quietly = TRUE))
+  read.dbf(system.file("shape/nc.dbf", package="sf"))[1:5,c(5,9:14)]
 @
 where {\bf columns} refer to a particular {\bf time}: \code{SID74}
 contains to the infant death syndrome cases for each county at a
@@ -534,8 +534,7 @@ in package \pkg{sp} \citep{pebesma,bivand} because
 \begin{itemize}
 \item They are the dominant set of classes in \proglang{R} for dealing
 with spatial data,
-\item They are interfaced to key external libraries through packages
-\pkg{rgdal} and \pkg{rgeos}, and,
+\item They are interfaced to key external libraries, and,
 \item They provide a single interface to dealing with points, lines,
 polygons and grids.
 \end{itemize}
@@ -929,15 +928,15 @@ visualised.
 \label{sec:nc}
 As an example, the North Carolina Sudden Infant Death Syndrome (sids)
 data will be used. These data were first analysed by \cite{sids}, and 
-first published and analysed in a spatial setting by \cite{cressiechan}. They are
-available from package \pkg{maptools} \citep{maptools}. 
+first published and analysed in a spatial setting by \cite{cressiechan}. 
+
 The data are sparse in time (aggregated to 2 periods
 of unequal length, according to the documentation in package \code{spdep}),
 but have polygons in space. First, we will prepare the spatial data:
 <<>>=
-if (require(maptools, quietly = TRUE) && require(rgdal, quietly = TRUE)) {
-  fname = system.file("shapes/sids.shp", package="maptools")[1]
-  nc = rgdal::readOGR(fname)
+if (require(sf, quietly = TRUE)) {
+  fname = system.file("gpkg/nc.gpkg", package = "sf")[1]
+  nc = as(sf::st_read(fname), "Spatial")
 }
 @
 then, we construct the time sequence:
@@ -947,18 +946,14 @@ endTime = as.POSIXct(c("1978-06-30", "1984-06-30"), tz = "GMT")
 @
 and we construct the data values table, in long form, by
 <<>>=
-if (require(maptools, quietly = TRUE) && require(rgdal, quietly = TRUE)) {
 data = data.frame(
 	BIR = c(nc$BIR74, nc$BIR79),
 	NWBIR = c(nc$NWBIR74, nc$NWBIR79),
 	SID = c(nc$SID74, nc$SID79))
-}
 @
 These three components are put together by function \code{STFDF}:
 <<>>=
-if (require(maptools, quietly = TRUE) && require(rgdal, quietly = TRUE)) {
- nct = STFDF(sp = as(nc, "SpatialPolygons"), time, data, endTime)
-}
+nct = STFDF(sp = as(nc, "SpatialPolygons"), time, data, endTime)
 @
 
 \subsection{Panel data}
@@ -972,8 +967,8 @@ if (require(maps, quietly = TRUE)) {
  states.m <- map('state', plot=FALSE, fill=TRUE)
  IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
 }
-if (require(maptools, quietly = TRUE))
-  states <- map2SpatialPolygons(states.m, IDs=IDs)
+if (require(sf, quietly = TRUE))
+  states <- as(st_geometry(st_as_sf(states.m, IDs=IDs)), "Spatial")
 @
 we obtain the time points by:
 <<>>=
@@ -1115,13 +1110,12 @@ pts = SpatialPoints(pts, CRS("+proj=longlat +datum=WGS84 +ellps=WGS84"))
 @
 Then, we project
 the longitude/latitude coordinates and country boundary to 
-UTM zone 29, using \code{spTransform} in package
-\pkg{rgdal} \citep{rgdal} for coordinate transformation:
+UTM zone 29, using \code{st_transform} in package
+\pkg{sf} for coordinate transformation:
 <<>>=
-if (require(rgdal, quietly = TRUE)) {
-utm29 = CRS("+proj=utm +zone=29 +datum=WGS84 +ellps=WGS84")
-pts = spTransform(pts, utm29)
-}
+utm29 = "+proj=utm +zone=29 +datum=WGS84 +ellps=WGS84"
+pts.sfc = st_transform(st_as_sfc(pts), utm29)
+pts = as(pts.sfc, "Spatial") # back to sp
 @
 And now we can construct the spatio-temporal object from the space-wide table
 with velocities:
@@ -1134,12 +1128,10 @@ class(wind.data)
 @
 For plotting purposes, we can obtain country boundaries from package \pkg{maps}:
 <<>>=
-if (require(maptools, quietly = TRUE) && require(mapdata, quietly = TRUE)) {
-  m = map2SpatialLines(
-	#map("worldHires", xlim = c(-11,-5.4), ylim = c(51,55.5), plot=F))
-	map("worldHires", xlim = c(-11.5,-6.0), ylim = c(51.3,55.0), plot=F))
-  proj4string(m) = "+proj=longlat +datum=WGS84"
-  m = spTransform(m, utm29)
+if (require(sf, quietly = TRUE) && require(mapdata, quietly = TRUE)) {
+  m.sf = st_as_sf(map("worldHires", xlim = c(-11.5,-6.0), ylim = c(51.3,55.0), plot=FALSE), fill = FALSE)
+  m.sf = st_transform(m.sf, utm29)
+  m = as(m.sf, "Spatial")
 }
 @
 For interpolation, we can define a grid over the area:
