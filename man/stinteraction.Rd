@@ -11,9 +11,9 @@ stInteraction(x, ...)
 }
 \value{
 object of class \link{STFDF} with each attribute replaced by its
-residual, computed by $y_{ij}=x_{ij}-m_{.j}m{i.}/m$ with $m$ the
-grand mean, $m_{.j}$ the temporal mean, $m_{i.}$ the spatial mean
-and $m$ the grand mean.
+residual, computed by \eqn{y_{ij}=x_{ij}-m_{.j}m{i.}/m} with \eqn{m} the
+grand mean, \eqn{m_{.j}} the temporal mean, \eqn{m_{i.}} the spatial mean
+and \eqn{m} the grand mean.
 }
 \examples{
 
