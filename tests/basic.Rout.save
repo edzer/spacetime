@@ -1,7 +1,7 @@
 
-R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
-Copyright (C) 2020 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -93,11 +93,11 @@ point3               30.50
 2010-08-05 12:00:00  10.80   20.2   29.0
 2010-08-05 13:00:00   9.74   20.7   30.5
 > as(stfdf[,,2], "xts")
-                    point1  point2  point3 
-2010-08-05 10:00:00 "ID_1"  "ID_2"  "ID_3" 
-2010-08-05 11:00:00 "ID_4"  "ID_5"  "ID_6" 
-2010-08-05 12:00:00 "ID_7"  "ID_8"  "ID_9" 
-2010-08-05 13:00:00 "ID_10" "ID_11" "ID_12"
+                    point1 point2 point3
+2010-08-05 10:00:00   ID_1   ID_2   ID_3
+2010-08-05 11:00:00   ID_4   ID_5   ID_6
+2010-08-05 12:00:00   ID_7   ID_8   ID_9
+2010-08-05 13:00:00  ID_10  ID_11  ID_12
 > 
 > ###################################################
 > ### chunk number 8: 
@@ -1124,4 +1124,4 @@ Error in .checkAttrIsUnique(x@sp, x@time, x@data) :
 > 
 > proc.time()
    user  system elapsed 
-  0.741   0.048   0.790 
+  0.761   1.360   0.709 

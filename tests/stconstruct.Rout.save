@@ -1,7 +1,7 @@
 
-R version 4.2.3 (2023-03-15) -- "Shortstop Beagle"
-Copyright (C) 2023 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -25,6 +25,7 @@ Type 'q()' to quit R.
 + states.m = map('state', plot=FALSE, fill=TRUE)
 + IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
 +     
++ ## IGNORE_RDIFF_BEGIN
 + if (require(sf, quietly = TRUE)) {
 + sta = st_as_sf(states.m)
 + row.names(sta) = unique(IDs)
@@ -60,7 +61,7 @@ Type 'q()' to quit R.
 + if (require(sf, quietly = TRUE)) {
 + # stConstruct multivariable, time-wide
 + fname = system.file("shape/nc.shp", package="sf")[1]
-+ nc = as(st_read(fname), "Spatial")
++ nc = as(read_sf(fname), "Spatial")
 + timesList = list(
 + 	BIR=c("BIR74", "BIR79"), 
 + 	NWBIR=c("NWBIR74", "NWBIR79"), 
@@ -71,16 +72,9 @@ Type 'q()' to quit R.
 + 	TimeObj = t)
 + }
 + }}}
-Linking to GEOS 3.11.1, GDAL 3.6.2, PROJ 9.1.1; sf_use_s2() is TRUE
-Reading layer `nc' from data source 
-  `/home/edzer/R/x86_64-pc-linux-gnu-library/4.0/sf/shape/nc.shp' 
-  using driver `ESRI Shapefile'
-Simple feature collection with 100 features and 14 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
-Geodetic CRS:  NAD27
+Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE
+> ## IGNORE_RDIFF_END
 > 
 > proc.time()
    user  system elapsed 
-  2.003   0.672   1.885 
+  1.213   1.455   1.160 

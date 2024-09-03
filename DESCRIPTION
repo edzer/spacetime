@@ -1,5 +1,5 @@
 Package: spacetime
-Version: 1.3-1
+Version: 1.3-2
 Title: Classes and Methods for Spatio-Temporal Data
 Authors@R: c(person("Edzer",  "Pebesma", role = c("aut", "cre"), email = "edzer.pebesma@uni-muenster.de", comment = c(ORCID = "0000-0001-8049-7069")),
 	person("Benedikt", "Graeler", role = "ctb"),
@@ -7,7 +7,7 @@ Authors@R: c(person("Edzer",  "Pebesma", role = c("aut", "cre"), email = "edzer.
 	person("Robert J.", "Hijmans", role = "ctb"))
 Depends: R (>= 3.0.0)
 Imports: graphics, utils, stats, methods, lattice, sp (>= 1.1-0), zoo (>= 1.7-9), xts (>= 0.8-8), intervals
-Suggests: adehabitatLT, cshapes (>= 2.0), foreign, gstat (>= 1.0-16), maps, mapdata, plm, raster, RColorBrewer, rmarkdown, RPostgreSQL, knitr, googleVis, ISOcodes, markdown, sf, sftime
+Suggests: adehabitatLT, cshapes (>= 2.0), foreign, gstat (>= 1.0-16), maps, mapdata, plm, raster, RColorBrewer, rmarkdown, RPostgreSQL, knitr, ISOcodes, markdown, sf, sftime
 LazyData: no
 Description: Classes and methods for spatio-temporal data, including space-time regular lattices, sparse lattices, irregular data, and trajectories; utility functions for plotting data as map sequences (lattice or animation) or multiple time series; methods for spatial and temporal selection and subsetting, as well as for spatial/temporal/spatio-temporal matching or aggregation, retrieving coordinates, print, summary, etc.
 License: GPL (>= 2)

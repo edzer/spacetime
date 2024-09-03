@@ -8,6 +8,7 @@ if (require(maps, quietly = TRUE)) {
 states.m = map('state', plot=FALSE, fill=TRUE)
 IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
     
+## IGNORE_RDIFF_BEGIN
 if (require(sf, quietly = TRUE)) {
 sta = st_as_sf(states.m)
 row.names(sta) = unique(IDs)
@@ -43,7 +44,7 @@ class(x)
 if (require(sf, quietly = TRUE)) {
 # stConstruct multivariable, time-wide
 fname = system.file("shape/nc.shp", package="sf")[1]
-nc = as(st_read(fname), "Spatial")
+nc = as(read_sf(fname), "Spatial")
 timesList = list(
 	BIR=c("BIR74", "BIR79"), 
 	NWBIR=c("NWBIR74", "NWBIR79"), 
@@ -54,3 +55,4 @@ nc.st = stConstruct(as(nc, "data.frame"), geometry(nc), timesList,
 	TimeObj = t)
 }
 }}}
+## IGNORE_RDIFF_END
