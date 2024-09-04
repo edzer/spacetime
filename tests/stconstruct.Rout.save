@@ -21,11 +21,11 @@ Type 'q()' to quit R.
 > 
 > # example 0: construction with STFDF:
 > 
+> ## IGNORE_RDIFF_BEGIN
 > if (require(maps, quietly = TRUE)) {
 + states.m = map('state', plot=FALSE, fill=TRUE)
 + IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
 +     
-+ ## IGNORE_RDIFF_BEGIN
 + if (require(sf, quietly = TRUE)) {
 + sta = st_as_sf(states.m)
 + row.names(sta) = unique(IDs)
@@ -77,4 +77,4 @@ Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE
 > 
 > proc.time()
    user  system elapsed 
-  1.213   1.455   1.160 
+  1.293   1.418   1.218 

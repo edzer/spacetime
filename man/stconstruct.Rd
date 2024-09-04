@@ -17,13 +17,13 @@ a list with each (named) list element a set of columns that together
 form a variable }
 \item{time}{ in case \code{x} is a long table, character or integer 
 indicating the column in \code{x} with times; }
-\item{SpatialObj}{ object of class \link{Spatial-class}, containing the
+\item{SpatialObj}{ object of class \link[sp]{Spatial-class}, containing the
 locations of a time-wide table, or the locations of a long table  }
 \item{TimeObj}{ in case of space-wide table, 
-object of class \link{xts}, containing the times for each 
+object of class \link[xts]{xts}, containing the times for each 
 of the columns in a list element of \code{space}
 }
-\item{crs}{ object of class \link{CRS-class}; only used when coordinates
+\item{crs}{ object of class \link[sp]{CRS-class}; only used when coordinates
 are in \code{x} and no CRS can be taken from \code{SpatialObj}}
 \item{interval}{ logical; specifies whether time should reflect time
 instance (FALSE) or time intervals (TRUE). If omitted, defaults values

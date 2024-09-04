@@ -4,11 +4,11 @@ suppressPackageStartupMessages(library(xts))
 
 # example 0: construction with STFDF:
 
+## IGNORE_RDIFF_BEGIN
 if (require(maps, quietly = TRUE)) {
 states.m = map('state', plot=FALSE, fill=TRUE)
 IDs <- sapply(strsplit(states.m$names, ":"), function(x) x[1])
     
-## IGNORE_RDIFF_BEGIN
 if (require(sf, quietly = TRUE)) {
 sta = st_as_sf(states.m)
 row.names(sta) = unique(IDs)

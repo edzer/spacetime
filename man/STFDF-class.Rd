@@ -56,7 +56,7 @@ Objects of this class represent full space/time data with a full grid
 }
 
 \arguments{
-\item{sp}{object of class \link{Spatial}, having \code{n} elements}
+\item{sp}{object of class \link[sp]{Spatial}, having \code{n} elements}
 \item{time}{object holding time information, of length \code{m};
 see \link{ST} for details}
 \item{endTime}{ vector of class \code{POSIXct}, holding end points
@@ -69,7 +69,7 @@ observations (spatial index moving fastest)}
 \item{j}{selection of temporal entities (see syntax in package xts) }
 \item{...}{selection of attribute(s)}
 \item{drop}{if TRUE and a single spatial entity is selected, an object
-of class \link{xts} is returned; if TRUE and a single temporal entity is
+of class \link[xts]{xts} is returned; if TRUE and a single temporal entity is
 selected, and object of the appropriate \code{Spatial} class is returned;
 if FALSE, no coercion to reduced classes takes place}
 \item{from}{object of class STFDF}

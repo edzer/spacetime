@@ -54,7 +54,7 @@ Objects of this class carry sparse space/time grid data }
 }
 
 \arguments{
-\item{sp}{object of class \link{Spatial}}
+\item{sp}{object of class \link[sp]{Spatial}}
 \item{time}{object holding time information; see \link{ST-class}}
 \item{data}{data frame with rows corresponding to the observations
 (spatial index moving faster than temporal)} 
@@ -68,7 +68,7 @@ intervals for the observations }
 \item{j}{selection of temporal entities (see syntax in package xts) }
 \item{...}{selection of attribute(s)}
 \item{drop}{if TRUE and a single spatial entity is selected, an object
-of class \link{xts} is returned; if TRUE and a single temporal entity is
+of class \link[xts]{xts} is returned; if TRUE and a single temporal entity is
 selected, and object of the appropriate \code{Spatial} class is returned;
 if FALSE, no coercion to reduced classes takes place}
 \item{from}{object of class STFDF}

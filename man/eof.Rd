@@ -11,7 +11,7 @@ EOF(x, how = c("spatial", "temporal"), returnPredictions = TRUE, ...)
 \item{x}{ object of class \code{STFDF}}
 \item{how}{ character; choose \code{"spatial"} or \code{"temporal"} mode }
 \item{returnEOFs}{ logical; if TRUE, the eigenvectors (EOFs) are returned 
-in the form of a \link{Spatial} or \link{xts} object;
+in the form of a \link[sp]{Spatial} or \link[xts]{xts} object;
 if FALSE, the object returned by \link{prcomp} is returned, 
 which can be printed, or from which a summary can be computed; see examples. }
 \item{returnPredictions}{ logical; if TRUE, the functions are returned (i.e.,

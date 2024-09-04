@@ -46,7 +46,7 @@ Objects of this class carry full space/time grid data }
 }
 
 \arguments{
-\item{sp}{object of class \link{Spatial}}
+\item{sp}{object of class \link[sp]{Spatial}}
 \item{time}{object holding time information; when STIDF is called,
 a non-ordered vector with times, e.g. \link{POSIXct} will also work,
 and rearrange the \code{sp} and \code{data} slots
@@ -62,7 +62,7 @@ objects \code{time} is taken, indicating that time intervals have zero width
 \item{j}{ or character string with temporal selection }
 \item{...}{first element is taken as column (variable) selector}
 \item{drop}{if TRUE and a single spatial entity is selected, an object
-of class \link{xts} is returned (NOT yet implemented);
+of class \link[xts]{xts} is returned (NOT yet implemented);
 if TRUE and a single temporal entity is
 selected, and object of the appropriate \code{Spatial} class is returned;
 if FALSE, no coercion to reduced classes takes place}
