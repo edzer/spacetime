@@ -44,7 +44,7 @@ class(x)
 if (require(sf, quietly = TRUE)) {
 # stConstruct multivariable, time-wide
 fname = system.file("shape/nc.shp", package="sf")[1]
-nc = as(read_sf(fname), "Spatial")
+nc = as(st_read(fname), "Spatial")
 timesList = list(
 	BIR=c("BIR74", "BIR79"), 
 	NWBIR=c("NWBIR74", "NWBIR79"), 
