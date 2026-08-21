@@ -179,7 +179,8 @@ the different single-table formats with simple examples.
 Spatio-temporal data for which each location has data for each time
 can be provided in two so-called {\bf wide formats}. An example
 where a single column refers to a single moment or period in time is found
-in the North Carolina Sudden Infant Death Syndrome (sids) data set \citep{nc}
+in the North Carolina Sudden Infant Death Syndrome (sids) data set (see the
+vignette of package \code{spdep} on this dataset)
 available from package \pkg{sf},
 which is in the {\bf time-wide format}:
 <<>>=

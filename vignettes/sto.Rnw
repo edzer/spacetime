@@ -306,7 +306,7 @@ x = aggregate(rural[sel,"2005::2011"], as.yearqtr, median, na.rm=TRUE)
 stplot(x, mode = "tp")
 @
 shown in figure \ref{fig:tp3}. Aggregating to monthly values is obtained
-by function {\code as.yearmon}, aggregating to years by creating the
+by function \code{as.yearmon}, aggregating to years by creating the
 function
 <<>>=
 as.year <- function(x) as.numeric(floor(as.yearmon(x)))

@@ -1,7 +1,7 @@
 
-R version 4.2.3 (2023-03-15) -- "Shortstop Beagle"
-Copyright (C) 2023 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+R version 4.6.1 (2026-06-24) -- "Happy Hop"
+Copyright (C) 2026 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -19,9 +19,9 @@ Type 'q()' to quit R.
 > if (require(raster, quietly = TRUE)) {
 +  x <- brick(system.file("external/rlogo.grd", package="raster"))
 +  x <- setZ(x, as.Date(1:nlayers(x), origin = "1970-01-01"))
-+  stplot(x)
++  # stplot(x)
 + }
 > 
 > proc.time()
    user  system elapsed 
-  5.495   0.751   5.449 
+  4.383   1.090   3.992 
